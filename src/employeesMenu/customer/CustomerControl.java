@@ -40,4 +40,15 @@ public class CustomerControl {
     public Customer searchCustomer(String phoneNumber) {
         
     }
+    
+    /**
+     * 顧客情報更新
+     * @param name          名前
+     * @param phoneNumber   住所
+     * @param addres        電話番号
+     * @param deliveryNote  配達備考
+     */
+    public void updateCustomer(String name, String phoneNumber, String addres, String deliveryNote) {
+        
+    }
 }
