@@ -5,10 +5,19 @@
  */
 package employeesMenu.customer;
 
+import employeesMenu.order.OrderBoundary;
+
 /**
- *
+ * 顧客コントロールクラス
  * @author 19jz0115
  */
 public class CustomerControl {
+    OrderBoundary orderBoundary;
+    
+    public void start() {
+        //orderBoundary.setControl()
+        //etc
+    }
+    
     
 }
