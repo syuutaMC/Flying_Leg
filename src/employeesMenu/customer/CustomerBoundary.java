@@ -10,12 +10,16 @@ package employeesMenu.customer;
  * @author 19jz0115
  */
 public class CustomerBoundary extends javax.swing.JFrame {
-
+    private CustomerControl control;
     /**
      * Creates new form OrderBoundary
      */
     public CustomerBoundary() {
         initComponents();
+    }
+    
+    public void setControl(CustomerControl control){
+        this.control = control;
     }
 
     /**
@@ -70,6 +74,11 @@ public class CustomerBoundary extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonCustomerSerarch.setText("顧客を検索する");
+        jButtonCustomerSerarch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomerSerarchActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("顧客名");
 
@@ -92,6 +101,11 @@ public class CustomerBoundary extends javax.swing.JFrame {
         });
 
         jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ.setText("顧客情報を更新する");
+        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed(evt);
+            }
+        });
 
         jTextFieldPhoneNumber2.setText("電話番号");
         jTextFieldPhoneNumber2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -113,6 +127,11 @@ public class CustomerBoundary extends javax.swing.JFrame {
         });
 
         jButtonＣｌｏｓｅ.setText("閉じる");
+        jButtonＣｌｏｓｅ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonＣｌｏｓｅActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -212,6 +231,18 @@ public class CustomerBoundary extends javax.swing.JFrame {
     private void jTextFieldDelivaryNoteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDelivaryNoteFocusGained
         jTextFieldDelivaryNote.selectAll();
     }//GEN-LAST:event_jTextFieldDelivaryNoteFocusGained
+
+    private void jButtonCustomerSerarchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerSerarchActionPerformed
+        control.searchCustomer(jTextFieldPhoneNumber.getText());
+    }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
+
+    private void jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed
+        control.updateCustomer(jTextFieldName.getText(), jTextFieldPhoneNumber2.getText(), jTextFieldAddress.getText(), jTextFieldDelivaryNote.getText());
+    }//GEN-LAST:event_jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed
+
+    private void jButtonＣｌｏｓｅActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonＣｌｏｓｅActionPerformed
+        
+    }//GEN-LAST:event_jButtonＣｌｏｓｅActionPerformed
 
     /**
      * @param args the command line arguments
