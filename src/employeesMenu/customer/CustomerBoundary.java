@@ -6,16 +6,20 @@
 package employeesMenu.customer;
 
 /**
- *
+ * 顧客確認バウンダリー
  * @author 19jz0115
  */
 public class CustomerBoundary extends javax.swing.JFrame {
-
+    private CustomerControl control;
     /**
-     * Creates new form CustomerBoundary
+     * Creates new form OrderBoundary
      */
     public CustomerBoundary() {
         initComponents();
+    }
+    
+    public void setControl(CustomerControl control){
+        this.control = control;
     }
 
     /**
@@ -27,21 +31,218 @@ public class CustomerBoundary extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonCustomerSerarch = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldName = new javax.swing.JTextField();
+        jTextFieldPhoneNumber = new javax.swing.JTextField();
+        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ = new javax.swing.JButton();
+        jTextFieldPhoneNumber2 = new javax.swing.JTextField();
+        jTextFieldAddress = new javax.swing.JTextField();
+        jTextFieldDelivaryNote = new javax.swing.JTextField();
+        jButtonＣｌｏｓｅ = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+
+        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jLabel1.setText("顧客管理");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButtonCustomerSerarch.setText("顧客を検索する");
+        jButtonCustomerSerarch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomerSerarchActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("顧客名");
+
+        jLabel3.setText("電話番号");
+
+        jLabel4.setText("住所");
+
+        jLabel5.setText("配達備考");
+
+        jTextFieldName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldNameFocusGained(evt);
+            }
+        });
+
+        jTextFieldPhoneNumber.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldPhoneNumberFocusGained(evt);
+            }
+        });
+
+        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ.setText("顧客情報を更新する");
+        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed(evt);
+            }
+        });
+
+        jTextFieldPhoneNumber2.setText("電話番号");
+        jTextFieldPhoneNumber2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldPhoneNumber2FocusGained(evt);
+            }
+        });
+
+        jTextFieldAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldAddressFocusGained(evt);
+            }
+        });
+
+        jTextFieldDelivaryNote.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldDelivaryNoteFocusGained(evt);
+            }
+        });
+
+        jButtonＣｌｏｓｅ.setText("閉じる");
+        jButtonＣｌｏｓｅ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonＣｌｏｓｅActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonCustomerSerarch))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextFieldAddress)
+                            .addComponent(jTextFieldDelivaryNote))
+                        .addContainerGap(41, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonＣｌｏｓｅ)
+                        .addGap(23, 23, 23))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCustomerSerarch)
+                    .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ)
+                    .addComponent(jButtonＣｌｏｓｅ))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel4, jLabel5});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldPhoneNumber2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPhoneNumber2FocusGained
+        jTextFieldPhoneNumber.selectAll();
+    }//GEN-LAST:event_jTextFieldPhoneNumber2FocusGained
+
+    private void jTextFieldNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNameFocusGained
+        jTextFieldName.selectAll();
+    }//GEN-LAST:event_jTextFieldNameFocusGained
+
+    private void jTextFieldPhoneNumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPhoneNumberFocusGained
+       jTextFieldPhoneNumber2.selectAll();
+    }//GEN-LAST:event_jTextFieldPhoneNumberFocusGained
+
+    private void jTextFieldAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAddressFocusGained
+        jTextFieldAddress.selectAll();
+    }//GEN-LAST:event_jTextFieldAddressFocusGained
+
+    private void jTextFieldDelivaryNoteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldDelivaryNoteFocusGained
+        jTextFieldDelivaryNote.selectAll();
+    }//GEN-LAST:event_jTextFieldDelivaryNoteFocusGained
+
+    private void jButtonCustomerSerarchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerSerarchActionPerformed
+        control.searchCustomer(jTextFieldPhoneNumber.getText());
+    }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
+
+    private void jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed
+        control.updateCustomer(jTextFieldName.getText(), jTextFieldPhoneNumber2.getText(), jTextFieldAddress.getText(), jTextFieldDelivaryNote.getText());
+    }//GEN-LAST:event_jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed
+
+    private void jButtonＣｌｏｓｅActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonＣｌｏｓｅActionPerformed
+        
+    }//GEN-LAST:event_jButtonＣｌｏｓｅActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,6 +274,9 @@ public class CustomerBoundary extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CustomerBoundary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -83,5 +287,20 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCustomerSerarch;
+    private javax.swing.JButton jButtonＣｌｏｓｅ;
+    private javax.swing.JButton jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextFieldAddress;
+    private javax.swing.JTextField jTextFieldDelivaryNote;
+    private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldPhoneNumber;
+    private javax.swing.JTextField jTextFieldPhoneNumber2;
     // End of variables declaration//GEN-END:variables
 }

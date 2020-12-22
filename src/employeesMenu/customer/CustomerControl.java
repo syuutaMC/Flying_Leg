@@ -25,10 +25,10 @@ public class CustomerControl {
     /**
      * 顧客を追加する
      * @param name          顧客名
-     * @param addres        住所
+     * @param address        住所
      * @param phoneNumber   電話番号
      */
-    public void addCustomer(String name, String addres, String phoneNumber) {
+    public void addCustomer(String name, String address, String phoneNumber) {
         
     }
     
@@ -45,10 +45,10 @@ public class CustomerControl {
      * 顧客情報更新
      * @param name          名前
      * @param phoneNumber   住所
-     * @param addres        電話番号
+     * @param address        電話番号
      * @param deliveryNote  配達備考
      */
-    public void updateCustomer(String name, String phoneNumber, String addres, String deliveryNote) {
+    public void updateCustomer(String name, String phoneNumber, String address, String deliveryNote) {
         
     }
 }
