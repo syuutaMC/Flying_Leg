@@ -12,12 +12,32 @@ import employeesMenu.order.OrderBoundary;
  * @author 19jz0115
  */
 public class CustomerControl {
-    OrderBoundary orderBoundary;
+    private OrderBoundary   orderBoundary;
+
+    public CustomerControl() {
+    }
     
     public void start() {
         //orderBoundary.setControl()
         //etc
     }
     
+    /**
+     * 顧客を追加する
+     * @param name          顧客名
+     * @param addres        住所
+     * @param phoneNumber   電話番号
+     */
+    public void addCustomer(String name, String addres, String phoneNumber) {
+        
+    }
     
+    /**
+     * 顧客を検索する
+     * @param phoneNumber 電話番号
+     * @return            顧客情報
+     */
+    public Customer searchCustomer(String phoneNumber) {
+        
+    }
 }
