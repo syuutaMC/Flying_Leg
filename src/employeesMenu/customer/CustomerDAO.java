@@ -111,4 +111,27 @@ public class CustomerDAO {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * 顧客情報更新
+     * @param customer 顧客情報 
+     */
+    public void dbUpdateCustomer(Customer customer) {
+        String sql = "UPDATE CUSTOMERS " +   
+                     " SET   NAME = ?," + 
+                     "       PHONE_NUMBER = ?," +
+                     "       ADDRESS = ?," + 
+                     "       DELIVERY_NOTE = ?" + 
+                     " WHERE CUSTOMER_NUMBER = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhoneNumber());
+            ps.setString(3, customer.getAddress());
+            ps.setString(4, customer.getDeliveryNote());
+            ps.setInt(5, customer.getCustomerNumber());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
