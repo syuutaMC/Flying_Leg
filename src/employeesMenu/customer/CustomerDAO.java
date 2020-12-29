@@ -28,7 +28,13 @@ public class CustomerDAO {
         con = dbManager.getConnection();
     }
     
+    /**
+     * Customer テーブル検索処理実行
+     * @return 顧客情報
+     * @throws SQLException 
+     */
     public Customer selectCustomerExcute() throws SQLException {
+        Customer customer = new Customer();
         try {
             ResultSet rs = ps.executeQuery();
             setCustomer(customer, rs);
@@ -36,6 +42,8 @@ public class CustomerDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        return customer;
     }
     
     /**
