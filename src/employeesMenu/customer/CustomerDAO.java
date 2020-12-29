@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 顧客DAO
@@ -65,8 +66,6 @@ public class CustomerDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
     }
             
     /**
@@ -87,5 +86,29 @@ public class CustomerDAO {
         }
         
         return customer;
+    }
+    
+    /**
+     * 顧客追加
+     * @param customer 顧客情報 
+     */
+    public void dbAddCustomer(Customer customer) {
+        String sql = "INSERT INTO " + 
+                     " CUSTOMERS " + 
+                     " VALUES( ?, ?, ?, ?, ?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 1/* sequenceか　メソッドで新規番号追加 */);
+            ps.setString(2, customer.getName());            //顧客名
+            ps.setString(3, customer.getPhoneNumber());     //電話番号
+            ps.setString(4, customer.getAddress());         //住所
+            ps.setString(5, customer.getDeliveryNote());    //配達備考
+        }
+        catch(SQLIntegrityConstraintViolationException e) {
+            //挿入できなかったときの処理
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
