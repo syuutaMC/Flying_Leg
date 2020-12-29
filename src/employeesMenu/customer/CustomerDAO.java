@@ -69,16 +69,23 @@ public class CustomerDAO {
         
     }
             
-    
+    /**
+     * 電話番号検索 
+     * @param phoneNumber 電話番号
+     * @return 顧客情報
+     */
     public Customer dbSearchCustomerPhoneNumber(String phoneNumber) {
+        Customer customer = new Customer();
         String sql = "SELECT * FROM CUSTOMERS " + 
                      " WHERE PHONE_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, phoneNumber);
-            return 
+            customer = selectCustomerExcute();
         }
         catch (SQLException e) {
         }
+        
+        return customer;
     }
 }

@@ -16,6 +16,10 @@ public class Customer {
     private int     customorNumber; //顧客番号
     private String  deliveryNote;   //配達備考
 
+    public Customer() {
+        
+    }
+    
     public Customer(String name, String phoneNumber, String address, int customorNumber, String deliveryNote) {
         setName(name);
         setPhoneNumber(phoneNumber);
