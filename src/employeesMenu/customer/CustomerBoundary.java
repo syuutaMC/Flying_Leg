@@ -41,11 +41,11 @@ public class CustomerBoundary extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
         jTextFieldPhoneNumber = new javax.swing.JTextField();
-        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ = new javax.swing.JButton();
+        jButtonCustomerUpdate = new javax.swing.JButton();
         jTextFieldPhoneNumber2 = new javax.swing.JTextField();
         jTextFieldAddress = new javax.swing.JTextField();
         jTextFieldDelivaryNote = new javax.swing.JTextField();
-        jButtonＣｌｏｓｅ = new javax.swing.JButton();
+        jButtonClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,10 +100,10 @@ public class CustomerBoundary extends javax.swing.JFrame {
             }
         });
 
-        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ.setText("顧客情報を更新する");
-        jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCustomerUpdate.setText("顧客情報を更新する");
+        jButtonCustomerUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed(evt);
+                jButtonCustomerUpdateActionPerformed(evt);
             }
         });
 
@@ -126,10 +126,10 @@ public class CustomerBoundary extends javax.swing.JFrame {
             }
         });
 
-        jButtonＣｌｏｓｅ.setText("閉じる");
-        jButtonＣｌｏｓｅ.addActionListener(new java.awt.event.ActionListener() {
+        jButtonClose.setText("閉じる");
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonＣｌｏｓｅActionPerformed(evt);
+                jButtonCloseActionPerformed(evt);
             }
         });
 
@@ -150,16 +150,15 @@ public class CustomerBoundary extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextFieldPhoneNumber)
+                            .addComponent(jTextFieldName)
                             .addComponent(jTextFieldAddress)
                             .addComponent(jTextFieldDelivaryNote))
                         .addContainerGap(41, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ)
+                        .addComponent(jButtonCustomerUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonＣｌｏｓｅ)
+                        .addComponent(jButtonClose)
                         .addGap(23, 23, 23))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,8 +186,8 @@ public class CustomerBoundary extends javax.swing.JFrame {
                 .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ)
-                    .addComponent(jButtonＣｌｏｓｅ))
+                    .addComponent(jButtonCustomerUpdate)
+                    .addComponent(jButtonClose))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -236,13 +235,13 @@ public class CustomerBoundary extends javax.swing.JFrame {
         control.searchCustomer(jTextFieldPhoneNumber.getText());
     }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
 
-    private void jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed
+    private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
         control.updateCustomer(jTextFieldName.getText(), jTextFieldPhoneNumber2.getText(), jTextFieldAddress.getText(), jTextFieldDelivaryNote.getText());
-    }//GEN-LAST:event_jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅActionPerformed
+    }//GEN-LAST:event_jButtonCustomerUpdateActionPerformed
 
-    private void jButtonＣｌｏｓｅActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonＣｌｏｓｅActionPerformed
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         
-    }//GEN-LAST:event_jButtonＣｌｏｓｅActionPerformed
+    }//GEN-LAST:event_jButtonCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,9 +286,9 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonCustomerSerarch;
-    private javax.swing.JButton jButtonＣｌｏｓｅ;
-    private javax.swing.JButton jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ;
+    private javax.swing.JButton jButtonCustomerUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

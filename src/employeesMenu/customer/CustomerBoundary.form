@@ -100,19 +100,17 @@
                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jTextFieldPhoneNumber" alignment="0" pref="160" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldName" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jTextFieldPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldName" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldAddress" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldDelivaryNote" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="41" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCustomerUpdate" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButtonＣｌｏｓｅ" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonClose" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -145,8 +143,8 @@
                   <Component id="jTextFieldDelivaryNote" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButtonＣｕｓｔｏｍｅｒＵｐｄａｔｅ" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonＣｌｏｓｅ" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCustomerUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonClose" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -192,12 +190,12 @@
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldPhoneNumberFocusGained"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton&#xff23;&#xff55;&#xff53;&#xff54;&#xff4f;&#xff4d;&#xff45;&#xff52;&#xff35;&#xff50;&#xff44;&#xff41;&#xff54;&#xff45;">
+        <Component class="javax.swing.JButton" name="jButtonCustomerUpdate">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x9867;&#x5ba2;&#x60c5;&#x5831;&#x3092;&#x66f4;&#x65b0;&#x3059;&#x308b;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton&#xff23;&#xff55;&#xff53;&#xff54;&#xff4f;&#xff4d;&#xff45;&#xff52;&#xff35;&#xff50;&#xff44;&#xff41;&#xff54;&#xff45;ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomerUpdateActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldPhoneNumber2">
@@ -218,12 +216,12 @@
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldDelivaryNoteFocusGained"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton&#xff23;&#xff4c;&#xff4f;&#xff53;&#xff45;">
+        <Component class="javax.swing.JButton" name="jButtonClose">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x9589;&#x3058;&#x308b;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton&#xff23;&#xff4c;&#xff4f;&#xff53;&#xff45;ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCloseActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
