@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 顧客DAO
@@ -28,14 +31,29 @@ public class CustomerDAO {
         con = dbManager.getConnection();
     }
     
-    public Customer selectCustomerExcute() throws SQLException {
+    /**
+     * Customer テーブル検索処理実行
+     * @return 顧客情報
+     * @throws SQLException 
+     */
+    public List<Customer> selectCustomerExcute() throws SQLException {
+        List<Customer> customerList = new ArrayList<>();
         try {
+            customerList.clear();
             ResultSet rs = ps.executeQuery();
-            setCustomer(customer, rs);
+            //結果の格納
+            while (rs.next()) {
+                Customer customer = new Customer();
+                setCustomer(customer, rs);
+                customerList.add(customer);
+            }
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        return customerList;
     }
     
     /**
@@ -45,10 +63,12 @@ public class CustomerDAO {
      */
     public void setCustomer(Customer customer, ResultSet rs) {
         try {
-            String name = rs.getString("NAME");
-            String phoneNumber = rs.getString("PHONE_NUMBER");
-            String address = rs.getString("ADDRESS");
-            String deliveryNote = rs.getString("DELIVERY_NOTE");
+            int    customerNumber = rs.getInt("CUSTOMER_NUMBER");
+            String name           = rs.getString("NAME");
+            String phoneNumber    = rs.getString("PHONE_NUMBER");
+            String address        = rs.getString("ADDRESS");
+            String deliveryNote   = rs.getString("DELIVERY_NOTE");
+            customer.setCustomerNumber(customerNumber);
             customer.setName(name);
             customer.setPhoneNumber(phoneNumber);
             customer.setAddress(address);
@@ -57,20 +77,73 @@ public class CustomerDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
     }
             
-    
-    public Customer dbSearchCustomerPhoneNumber(String phoneNumber) {
+    /**
+     * 電話番号検索 
+     * @param phoneNumber 電話番号
+     * @return 顧客情報
+     */
+    public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) {
+        List<Customer> customerList = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMERS " + 
                      " WHERE PHONE_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, phoneNumber);
-            return 
+            customerList = selectCustomerExcute();
         }
         catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return customerList;
+    }
+    
+    /**
+     * 顧客追加
+     * @param customer 顧客情報 
+     */
+    public void dbAddCustomer(Customer customer) {
+        String sql = "INSERT INTO " + 
+                     " CUSTOMERS " + 
+                     " VALUES( ?, ?, ?, ?, ?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 1/* sequenceか　メソッドで新規番号追加 */);
+            ps.setString(2, customer.getName());            //顧客名
+            ps.setString(3, customer.getPhoneNumber());     //電話番号
+            ps.setString(4, customer.getAddress());         //住所
+            ps.setString(5, customer.getDeliveryNote());    //配達備考
+        }
+        catch(SQLIntegrityConstraintViolationException e) {
+            //挿入できなかったときの処理
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 顧客情報更新
+     * @param customer 顧客情報 
+     */
+    public void dbUpdateCustomer(Customer customer) {
+        String sql = "UPDATE CUSTOMERS " +   
+                     " SET   NAME = ?," + 
+                     "       PHONE_NUMBER = ?," +
+                     "       ADDRESS = ?," + 
+                     "       DELIVERY_NOTE = ?" + 
+                     " WHERE CUSTOMER_NUMBER = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhoneNumber());
+            ps.setString(3, customer.getAddress());
+            ps.setString(4, customer.getDeliveryNote());
+            ps.setInt(5, customer.getCustomerNumber());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
