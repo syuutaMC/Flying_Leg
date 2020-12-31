@@ -5,17 +5,37 @@
  */
 package employeesMenu.order;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author 19jz0115
  */
 public class OrderBoundary extends javax.swing.JFrame {
-
+    private static final String CARD_SHIPPING_ADRRESS = "card2";
+    private static final String CARD_ORDER_ITEM = "card3";
+    private static final String CARD_FINAL_CHECK = "card4";
+    private CardLayout cardLayout;
+   
     /**
      * Creates new form OrderBoundary
      */
     public OrderBoundary() {
         initComponents();
+        initAddAddress();
+        initButton();
+        cardLayout = (CardLayout)jPanelCardBase.getLayout();
+    }
+    
+    private void initAddAddress(){
+        jTextFieldName.setEditable(false);
+        jTextFieldAddress.setEditable(false);
+        jTextFieldPhoneNumber2.setEditable(false);
+    }
+    
+    private void initButton(){
+        jButtonSelectedItem.setEnabled(false);
+        jButtonFinalCheck.setEnabled(false);
     }
 
     /**
@@ -27,22 +47,340 @@ public class OrderBoundary extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelTime = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonFinalCheck = new javax.swing.JButton();
+        jButtonShippingAddress = new javax.swing.JButton();
+        jButtonSelectedItem = new javax.swing.JButton();
+        jPanelCardBase = new javax.swing.JPanel();
+        jPanelAddAddress = new javax.swing.JPanel();
+        jTextFieldPhoneNumber = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jButtonCustomerCheck = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldName = new javax.swing.JTextField();
+        jTextFieldAddress = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldPhoneNumber2 = new javax.swing.JTextField();
+        jButtonSelectItem = new javax.swing.JButton();
+        jPanelOrderItem = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanelFinakCheck = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+
+        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
+        jLabel1.setText("注文受付");
+
+        jLabelTime.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelTime)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+
+        jButtonFinalCheck.setText("確認画面");
+        jButtonFinalCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFinalCheckActionPerformed(evt);
+            }
+        });
+
+        jButtonShippingAddress.setText("配送先登録");
+        jButtonShippingAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShippingAddressActionPerformed(evt);
+            }
+        });
+
+        jButtonSelectedItem.setText("商品選択");
+        jButtonSelectedItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectedItemActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jButtonShippingAddress)
+                .addGap(110, 110, 110)
+                .addComponent(jButtonSelectedItem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonFinalCheck)
+                .addGap(72, 72, 72))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonFinalCheck, jButtonSelectedItem, jButtonShippingAddress});
+
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonShippingAddress)
+                    .addComponent(jButtonSelectedItem)
+                    .addComponent(jButtonFinalCheck))
+                .addContainerGap())
+        );
+
+        jPanelCardBase.setLayout(new java.awt.CardLayout());
+
+        jPanelAddAddress.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setText("電話番号");
+
+        jButtonCustomerCheck.setText("顧客確認");
+
+        jLabel3.setText("住所");
+
+        jLabel4.setText("名前");
+
+        jCheckBox1.setText("他配達先");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("電話番号");
+
+        jButtonSelectItem.setFont(new java.awt.Font("MS UI Gothic", 1, 12)); // NOI18N
+        jButtonSelectItem.setText("商品選択へ");
+        jButtonSelectItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectItemActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelAddAddressLayout = new javax.swing.GroupLayout(jPanelAddAddress);
+        jPanelAddAddress.setLayout(jPanelAddAddressLayout);
+        jPanelAddAddressLayout.setHorizontalGroup(
+            jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                        .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                        .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonCustomerCheck)
+                                .addGap(93, 93, 93)
+                                .addComponent(jCheckBox1))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel5))
+                            .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 167, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanelAddAddressLayout.setVerticalGroup(
+            jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCustomerCheck)
+                    .addComponent(jCheckBox1))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
+        jPanelCardBase.add(jPanelAddAddress, "card2");
+
+        jPanelOrderItem.setBackground(new java.awt.Color(204, 255, 255));
+
+        jButton1.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jButton1.setText("確認画面へ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
+        jPanelOrderItem.setLayout(jPanelOrderItemLayout);
+        jPanelOrderItemLayout.setHorizontalGroup(
+            jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
+                .addContainerGap(471, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+        jPanelOrderItemLayout.setVerticalGroup(
+            jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
+                .addContainerGap(257, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanelCardBase.add(jPanelOrderItem, "card3");
+
+        jPanelFinakCheck.setBackground(new java.awt.Color(255, 204, 204));
+
+        jLabel6.setText("配送先");
+
+        jLabel7.setText("名前");
+
+        jLabel8.setText("電話番号");
+
+        jButton2.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jButton2.setText("注文確定");
+
+        javax.swing.GroupLayout jPanelFinakCheckLayout = new javax.swing.GroupLayout(jPanelFinakCheck);
+        jPanelFinakCheck.setLayout(jPanelFinakCheckLayout);
+        jPanelFinakCheckLayout.setHorizontalGroup(
+            jPanelFinakCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFinakCheckLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelFinakCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFinakCheckLayout.createSequentialGroup()
+                .addContainerGap(487, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelFinakCheckLayout.setVerticalGroup(
+            jPanelFinakCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFinakCheckLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel7)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel8)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanelCardBase.add(jPanelFinakCheck, "card4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCardBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanelCardBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if(jCheckBox1.isSelected()){
+            jTextFieldName.setEditable(true);
+            jTextFieldAddress.setEditable(true);
+            jTextFieldPhoneNumber2.setEditable(true);
+        }else{
+            jTextFieldName.setEditable(false);
+            jTextFieldAddress.setEditable(false);
+            jTextFieldPhoneNumber2.setEditable(false);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jButtonSelectItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectItemActionPerformed
+        showCardOrderItem();
+        jButtonSelectedItem.setEnabled(true);
+    }//GEN-LAST:event_jButtonSelectItemActionPerformed
+
+    private void jButtonShippingAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShippingAddressActionPerformed
+        showCardAShippingAddress();
+    }//GEN-LAST:event_jButtonShippingAddressActionPerformed
+
+    private void jButtonSelectedItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectedItemActionPerformed
+        showCardOrderItem();
+    }//GEN-LAST:event_jButtonSelectedItemActionPerformed
+
+    private void jButtonFinalCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalCheckActionPerformed
+        showCardFinalCheck();
+    }//GEN-LAST:event_jButtonFinalCheckActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        showCardFinalCheck();
+        jButtonFinalCheck.setEnabled(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
+    public void showCardAShippingAddress(){
+        cardLayout.show(jPanelCardBase, CARD_SHIPPING_ADRRESS);
+    }
+    
+    public void showCardOrderItem(){
+        cardLayout.show(jPanelCardBase, CARD_ORDER_ITEM);
+    }
+    
+    public void showCardFinalCheck(){
+        cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
+    }
     /**
      * @param args the command line arguments
      */
@@ -83,5 +421,32 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCustomerCheck;
+    private javax.swing.JButton jButtonFinalCheck;
+    private javax.swing.JButton jButtonSelectItem;
+    private javax.swing.JButton jButtonSelectedItem;
+    private javax.swing.JButton jButtonShippingAddress;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelTime;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelAddAddress;
+    private javax.swing.JPanel jPanelCardBase;
+    private javax.swing.JPanel jPanelFinakCheck;
+    private javax.swing.JPanel jPanelOrderItem;
+    private javax.swing.JTextField jTextFieldAddress;
+    private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldPhoneNumber;
+    private javax.swing.JTextField jTextFieldPhoneNumber2;
     // End of variables declaration//GEN-END:variables
 }
