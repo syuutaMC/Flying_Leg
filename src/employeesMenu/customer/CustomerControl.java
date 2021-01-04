@@ -12,9 +12,12 @@ import employeesMenu.order.OrderBoundary;
  * @author 19jz0115
  */
 public class CustomerControl {
-    private OrderBoundary   orderBoundary;
+    private final OrderBoundary   orderBoundary;
+    private final CustomerDAO     customerDAO;
 
     public CustomerControl() {
+        orderBoundary = new OrderBoundary();
+        customerDAO   = new CustomerDAO();
     }
     
     public void start() {
@@ -29,7 +32,8 @@ public class CustomerControl {
      * @param phoneNumber   電話番号
      */
     public void addCustomer(String name, String address, String phoneNumber) {
-        
+        Customer customer = new Customer(name, phoneNumber, address, name);
+        customerDAO.dbAddCustomer(customer);
     }
     
     /**
@@ -38,17 +42,19 @@ public class CustomerControl {
      * @return            顧客情報
      */
     public Customer searchCustomer(String phoneNumber) {
-        
+        return customerDAO.dbSearchCustomerPhoneNumber(phoneNumber).get(0);//後々単一行処理にするか要検討
     }
     
     /**
      * 顧客情報更新
-     * @param name          名前
-     * @param phoneNumber   住所
+     * @param customerNumber 顧客番号
+     * @param name           名前
+     * @param phoneNumber    住所
      * @param address        電話番号
-     * @param deliveryNote  配達備考
+     * @param deliveryNote   配達備考
      */
-    public void updateCustomer(String name, String phoneNumber, String address, String deliveryNote) {
-        
+    public void updateCustomer(int customerNumber,String name, String phoneNumber, String address, String deliveryNote) {
+        Customer customer = new Customer(customerNumber, name, phoneNumber, address, deliveryNote);
+        customerDAO.dbUpdateCustomer(customer);
     }
 }
