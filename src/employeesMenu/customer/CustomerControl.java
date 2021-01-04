@@ -5,24 +5,24 @@
  */
 package employeesMenu.customer;
 
-import employeesMenu.order.OrderBoundary;
+import java.util.List;
 
 /**
  * 顧客コントロールクラス
  * @author 19jz0115
  */
 public class CustomerControl {
-    private final OrderBoundary   orderBoundary;
-    private final CustomerDAO     customerDAO;
+    private final CustomerBoundary   customerBoundary;
+    private final CustomerDAO        customerDAO;
 
     public CustomerControl() {
-        orderBoundary = new OrderBoundary();
+        customerBoundary = new CustomerBoundary();
         customerDAO   = new CustomerDAO();
     }
     
     public void start() {
-        //orderBoundary.setControl()
-        //etc
+        customerBoundary.setControl(this);
+        customerBoundary.setVisible(true);
     }
     
     /**
@@ -39,10 +39,16 @@ public class CustomerControl {
     /**
      * 顧客を検索する
      * @param phoneNumber 電話番号
-     * @return            顧客情報
+     * @return            顧客情報 見つからなければnull
      */
     public Customer searchCustomer(String phoneNumber) {
-        return customerDAO.dbSearchCustomerPhoneNumber(phoneNumber).get(0);//後々単一行処理にするか要検討
+        List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
+        if (customer.size() > 0) {
+            return customer.get(0);
+        }
+        else {
+            return null;
+        }
     }
     
     /**
