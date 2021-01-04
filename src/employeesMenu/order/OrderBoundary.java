@@ -5,7 +5,9 @@
  */
 package employeesMenu.order;
 
+import employeesMenu.customer.Customer;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +17,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     private static final String CARD_SHIPPING_ADRRESS = "card2";
     private static final String CARD_ORDER_ITEM = "card3";
     private static final String CARD_FINAL_CHECK = "card4";
-    private CardLayout cardLayout;
-   
+    private final CardLayout cardLayout;
+    private OrderControl orderControl;
+    private Customer customer;
+    
     /**
      * Creates new form OrderBoundary
      */
@@ -25,6 +29,10 @@ public class OrderBoundary extends javax.swing.JFrame {
         initAddAddress();
         initButton();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
+    }
+    
+    public void setControl(OrderControl control) {
+        this.orderControl = control;
     }
     
     private void initAddAddress(){
@@ -161,6 +169,11 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel2.setText("電話番号");
 
         jButtonCustomerCheck.setText("顧客確認");
+        jButtonCustomerCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomerCheckActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("住所");
 
@@ -368,6 +381,16 @@ public class OrderBoundary extends javax.swing.JFrame {
         showCardFinalCheck();
         jButtonFinalCheck.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonCustomerCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerCheckActionPerformed
+        Customer customer = orderControl.searchCustomer(jTextFieldPhoneNumber.getText());
+        
+        if (customer != null) {
+            //顧客情報取得
+        } else {
+            JOptionPane.showMessageDialog(this, "顧客が見つかりませんでした", "エラー", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
     
     
     public void showCardAShippingAddress(){
