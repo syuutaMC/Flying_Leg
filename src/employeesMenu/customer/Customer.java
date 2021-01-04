@@ -10,22 +10,34 @@ package employeesMenu.customer;
  * @author 19jz0137
  */
 public class Customer {
+    private int     customerNumber; //顧客番号
     private String  name;           //顧客名
     private String  phoneNumber;    //電話番号
     private String  address;        //住所
-    private int     customorNumber; //顧客番号
     private String  deliveryNote;   //配達備考
 
     public Customer() {
-        
     }
     
-    public Customer(String name, String phoneNumber, String address, int customorNumber, String deliveryNote) {
-        setName(name);
-        setPhoneNumber(phoneNumber);
-        setAddress(address);
-        setCustomorNumber(customorNumber);
-        setDeliveryNote(deliveryNote);
+    public Customer(int customerNumber ,String name, String phoneNumber, String address, String deliveryNote) {
+        this.customerNumber = customerNumber;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.deliveryNote = deliveryNote;
+    }
+
+    public Customer(String name, String phoneNumber, String address, String deliveryNote) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.deliveryNote = deliveryNote;
+    }
+    
+    
+
+    public int getCustomerNumber() {
+        return customerNumber;
     }
 
     public String getName() {
@@ -40,14 +52,14 @@ public class Customer {
         return address;
     }
 
-    public int getCustomorNumber() {
-        return customorNumber;
-    }
-
     public String getDeliveryNote() {
         return deliveryNote;
     }
 
+    public void setCustomerNumber(int customerNumber) {
+        this.customerNumber = customerNumber;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -60,13 +72,8 @@ public class Customer {
         this.address = address;
     }
 
-    public void setCustomorNumber(int customorNumber) {
-        this.customorNumber = customorNumber;
-    }
-
     public void setDeliveryNote(String deliveryNote) {
         this.deliveryNote = deliveryNote;
-    }
-    
+    }  
     
 }
