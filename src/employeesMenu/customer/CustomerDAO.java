@@ -107,7 +107,7 @@ public class CustomerDAO {
     public void dbAddCustomer(Customer customer) {
         String sql = "INSERT INTO " + 
                      " CUSTOMERS " + 
-                     " VALUES( ?, ?, ?, ?, ?)";//ここに順序を使うかも
+                     " VALUES( ?, ?, ?, ?, ?) ";//ここに順序を使うかも
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, 1/* sequence(順序)か　メソッドで新規番号追加 */);
@@ -134,7 +134,7 @@ public class CustomerDAO {
                      "       PHONE_NUMBER = ?," +
                      "       ADDRESS = ?," + 
                      "       DELIVERY_NOTE = ?" + 
-                     " WHERE CUSTOMER_NUMBER = ?";
+                     " WHERE CUSTOMER_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, customer.getName());
