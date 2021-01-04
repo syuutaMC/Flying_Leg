@@ -260,7 +260,8 @@ public class CustomerBoundary extends javax.swing.JFrame {
             jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
         }
         else {
-            //エラーを表示
+            //ダイアログ表示を表示
+            JOptionPane.showMessageDialog(this, "顧客が見つかりませんでした", "通知", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
 
