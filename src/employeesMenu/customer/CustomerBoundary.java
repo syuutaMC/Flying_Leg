@@ -5,21 +5,40 @@
  */
 package employeesMenu.customer;
 
+import javax.swing.JOptionPane;
+
 /**
  * 顧客確認バウンダリー
  * @author 19jz0115
  */
 public class CustomerBoundary extends javax.swing.JFrame {
     private CustomerControl control;
+    private Customer customer;
     /**
      * Creates new form OrderBoundary
      */
     public CustomerBoundary() {
         initComponents();
     }
-    
+
+    /**
+     * コントロールを設定
+     * @param control 顧客コントロールクラス
+     */
     public void setControl(CustomerControl control){
         this.control = control;
+    }
+
+    /**
+     * 顧客情報を設定
+     * @param customer 顧客情報
+     */
+    private void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     /**
@@ -220,7 +239,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNameFocusGained
 
     private void jTextFieldPhoneNumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPhoneNumberFocusGained
-       jTextFieldPhoneNumber2.selectAll();
+        jTextFieldPhoneNumber2.selectAll();
     }//GEN-LAST:event_jTextFieldPhoneNumberFocusGained
 
     private void jTextFieldAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAddressFocusGained
@@ -232,11 +251,33 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDelivaryNoteFocusGained
 
     private void jButtonCustomerSerarchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerSerarchActionPerformed
-        control.searchCustomer(jTextFieldPhoneNumber.getText());
+        Customer customer = control.searchCustomer(jTextFieldPhoneNumber2.getText());
+        if (customer != null) {
+            setCustomer(customer);
+            jTextFieldName.setText(getCustomer().getName());
+            jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
+            jTextFieldAddress.setText(getCustomer().getAddress());
+            jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
+        }
+        else {
+            //エラーを表示
+        }
     }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
 
     private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
-        control.updateCustomer(jTextFieldName.getText(), jTextFieldPhoneNumber2.getText(), jTextFieldAddress.getText(), jTextFieldDelivaryNote.getText());
+        if (customer != null) {
+            control.updateCustomer(
+                    customer.getCustomerNumber(),
+                    jTextFieldName.getText(),
+                    jTextFieldPhoneNumber2.getText(),
+                    jTextFieldAddress.getText(),
+                    jTextFieldDelivaryNote.getText());
+        }
+        else {
+            //エラーダイアログ表示
+            JOptionPane.showMessageDialog(this, "顧客情報を設定してください", "エラー", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jButtonCustomerUpdateActionPerformed
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
