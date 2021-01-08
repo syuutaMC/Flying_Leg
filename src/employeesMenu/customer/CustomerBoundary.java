@@ -33,7 +33,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
      * 顧客情報を設定
      * @param customer 顧客情報
      */
-    private void setCustomer(Customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
@@ -45,6 +45,18 @@ public class CustomerBoundary extends javax.swing.JFrame {
         return customer;
     }
 
+    /**
+     * テキストフィールドに顧客情報を表示
+     * @param customer 顧客情報
+     */
+    public void showMemberTextField(Customer customer) {
+        setCustomer(customer);
+        jTextFieldName.setText(getCustomer().getName());
+        jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
+        jTextFieldAddress.setText(getCustomer().getAddress());
+        jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
