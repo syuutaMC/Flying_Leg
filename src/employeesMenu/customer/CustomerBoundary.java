@@ -37,6 +37,10 @@ public class CustomerBoundary extends javax.swing.JFrame {
         this.customer = customer;
     }
 
+    /**
+     * 顧客情報を取得
+     * @return 顧客情報
+     */
     public Customer getCustomer() {
         return customer;
     }
