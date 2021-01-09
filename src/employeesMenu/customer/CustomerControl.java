@@ -39,15 +39,14 @@ public class CustomerControl {
     /**
      * 顧客を検索する
      * @param phoneNumber 電話番号
-     * @return            顧客情報 見つからなければnull
      */
-    public Customer searchCustomer(String phoneNumber) {
+    public void searchCustomer(String phoneNumber) {
         List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
         if (customer.size() > 0) {
-            return customer.get(0);
+            customerBoundary.showNotFoundErrorMessage(phoneNumber);
         }
         else {
-            return null;
+            customerBoundary.showMemberTextField(customer.get(0));
         }
     }
     
