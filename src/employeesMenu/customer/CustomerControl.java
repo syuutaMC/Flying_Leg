@@ -43,13 +43,18 @@ public class CustomerControl {
      * @param phoneNumber 電話番号
      */
     public void searchCustomer(String phoneNumber) {
-        List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
-        if (customer.size() > 0) {
-            customerBoundary.showNotFoundErrorMessage(phoneNumber);
+        try {
+            List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
+            if (customer.size() > 0) {
+                customerBoundary.showMemberTextField(customer.get(0));
+            }
+            else {
+                customerBoundary.showNotFoundErrorMessage(phoneNumber);
+            }
+        } catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
         }
-        else {
-            customerBoundary.showMemberTextField(customer.get(0));
-        }
+        
     }
     
     /**
