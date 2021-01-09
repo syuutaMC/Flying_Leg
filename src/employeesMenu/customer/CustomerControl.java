@@ -5,6 +5,7 @@
  */
 package employeesMenu.customer;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -65,8 +66,8 @@ public class CustomerControl {
             } else {
                 customerBoundary.showInvalidCustomerErrorMessage();
             }
-        } catch (Exception e) {
-            
+        } catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
         }
         
     }
