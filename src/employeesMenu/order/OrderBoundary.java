@@ -57,6 +57,16 @@ public class OrderBoundary extends javax.swing.JFrame {
     public void showCardFinalCheck(){
         cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
     }
+    
+    /**
+     * 顧客情報テキストフィールド編集可否設定
+     * @param b true 編集可 | false 編集不可
+     */
+    public void setEditableCustomerTextFielde(boolean b) {
+        jTextFieldName.setEditable(b);
+        jTextFieldAddress.setEditable(b);
+        jTextFieldPhoneNumber2.setEditable(b);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
