@@ -5,10 +5,26 @@
  */
 package employeesMenu.order;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import sys.DBManager;
+
 /**
- *
- * @author tomo1
+ * 注文DAO
+ * @author 19jz0137
  */
 public class OrderDAO {
+    private static Connection con;
+    private static PreparedStatement ps;
+    
+    /**
+     * コンストラクタ
+     * データベース接続情報設定
+     */
+    public OrderDAO() {
+        DBManager dBManager = DBManager.getDBManager();
+        con = dBManager.getConnection();
+    }
+    
     
 }
