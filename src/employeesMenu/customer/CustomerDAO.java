@@ -83,8 +83,9 @@ public class CustomerDAO {
      * 電話番号検索 
      * @param phoneNumber 電話番号
      * @return 顧客情報
+     * @throws java.sql.SQLException
      */
-    public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) {
+    public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) throws SQLException {
         List<Customer> customerList = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMERS " + 
                      " WHERE PHONE_NUMBER = ? ";
@@ -94,7 +95,7 @@ public class CustomerDAO {
             customerList = selectCustomerExcute();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         
         return customerList;
