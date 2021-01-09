@@ -57,6 +57,14 @@ public class OrderBoundary extends javax.swing.JFrame {
     public void showCardFinalCheck(){
         cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
     
     /**
      * 顧客情報テキストフィールド編集可否設定
@@ -68,6 +76,17 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldPhoneNumber2.setEditable(b);
     }
 
+    /**
+     * テキストフィールドに顧客情報を表示
+     * @param customer 
+     */
+    public void showCustomerTextField(Customer customer) {
+        setCustomer(customer);
+        jTextFieldName.setText(getCustomer().getName());
+        jTextFieldPhoneNumber2.setText(getCustomer().getPhoneNumber());
+        jTextFieldAddress.setText(getCustomer().getAddress());
+    }
+    
     /**
      * エラーダイアログ表示
      * @param message エラーメッセージ
@@ -443,12 +462,6 @@ public class OrderBoundary extends javax.swing.JFrame {
 
     private void jButtonCustomerCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerCheckActionPerformed
         orderControl.searchCustomer(jTextFieldPhoneNumber.getText());
-        
-        if (customer != null) {
-            //顧客情報取得
-        } else {
-            JOptionPane.showMessageDialog(this, "顧客が見つかりませんでした", "エラー", JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
     
     /**
