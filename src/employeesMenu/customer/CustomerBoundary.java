@@ -74,7 +74,12 @@ public class CustomerBoundary extends javax.swing.JFrame {
         showErrorMessage("[" + param + "]が見つかりませんでした", "入力エラー");
     }
     
-    
+    /**
+     * 顧客情報が無効のときのエラーダイアログ表示
+     */
+    public void showInvalidCustomerErrorMessage() {
+        showErrorMessage("顧客情報が無効です", "エラー");
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -291,12 +296,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
 
     private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
         if (customer != null) {
-            control.updateCustomer(
-                    customer.getCustomerNumber(),
-                    jTextFieldName.getText(),
-                    jTextFieldPhoneNumber2.getText(),
-                    jTextFieldAddress.getText(),
-                    jTextFieldDelivaryNote.getText());
+            control.updateCustomer(customer);
         }
         else {
             //エラーダイアログ表示
