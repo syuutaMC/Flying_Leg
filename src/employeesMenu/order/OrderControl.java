@@ -7,6 +7,7 @@ package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
 import employeesMenu.customer.CustomerDAO;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -32,15 +33,26 @@ public class OrderControl {
     /**
      * 顧客を検索する
      * @param phoneNumber 電話番号
-     * @return            顧客情報 見つからなければnull
      */
-    public Customer searchCustomer(String phoneNumber) {
-        List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
-        if (customer.size() > 0) {
-            return customer.get(0);
+    public void searchCustomer(String phoneNumber) {
+        try {
+            List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
+            if (customer.size() > 0) {
+                orderBoundary.showCustomerTextField(customer.get(0));
+            }
+            else {
+                orderBoundary.showNotFoundErrorMessage(phoneNumber);
+            }
+        } catch (SQLException e) {
+            orderBoundary.showDBErrorMessage();
         }
-        else {
-            return null;
-        }
+    }
+    
+    /**
+     * 他配達先指定
+     * @param b true 他配達先指定 | false 顧客情報の配達先
+     */
+    public void setOtherDeliveryDestination(boolean b) {
+        OrderBoundary.setDefaultLookAndFeelDecorated(b);
     }
 }
