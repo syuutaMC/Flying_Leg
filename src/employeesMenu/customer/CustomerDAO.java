@@ -127,8 +127,9 @@ public class CustomerDAO {
     /**
      * 顧客情報更新
      * @param customer 顧客情報 
+     * @throws java.sql.SQLException 
      */
-    public void dbUpdateCustomer(Customer customer) {
+    public void dbUpdateCustomer(Customer customer) throws SQLException {
         String sql = "UPDATE CUSTOMERS " +   
                      " SET   NAME = ?," + 
                      "       PHONE_NUMBER = ?," +
@@ -142,8 +143,8 @@ public class CustomerDAO {
             ps.setString(3, customer.getAddress());
             ps.setString(4, customer.getDeliveryNote());
             ps.setInt(5, customer.getCustomerNumber());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }
     }
 }
