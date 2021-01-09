@@ -15,9 +15,6 @@ public class Customer {
     private String  phoneNumber;    //電話番号
     private String  address;        //住所
     private String  deliveryNote;   //配達備考
-
-    public Customer() {
-    }
     
     public Customer(int customerNumber ,String name, String phoneNumber, String address, String deliveryNote) {
         this.customerNumber = customerNumber;
@@ -28,14 +25,21 @@ public class Customer {
     }
 
     public Customer(String name, String phoneNumber, String address, String deliveryNote) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.deliveryNote = deliveryNote;
+        this(0, name, phoneNumber, address, deliveryNote);
     }
     
+    public Customer() {
+        this(0, "", "", "", "");
+    }
     
-
+    /**
+     * 有効な顧客情報かチェック
+     * @return 有効 true | 無効 false
+     */
+    public boolean isValid() {
+        return !(customerNumber <= 0 || name.equals("") || phoneNumber.equals("") || address.equals("") || deliveryNote.equals(""));
+    }
+    
     public int getCustomerNumber() {
         return customerNumber;
     }
