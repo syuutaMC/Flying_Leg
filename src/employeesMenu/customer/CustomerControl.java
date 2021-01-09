@@ -6,6 +6,7 @@
 package employeesMenu.customer;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 顧客コントロールクラス
@@ -52,14 +53,21 @@ public class CustomerControl {
     
     /**
      * 顧客情報更新
-     * @param customerNumber 顧客番号
-     * @param name           名前
-     * @param phoneNumber    住所
-     * @param address        電話番号
-     * @param deliveryNote   配達備考
+     * @param customer 顧客情報
      */
-    public void updateCustomer(int customerNumber,String name, String phoneNumber, String address, String deliveryNote) {
-        Customer customer = new Customer(customerNumber, name, phoneNumber, address, deliveryNote);
-        customerDAO.dbUpdateCustomer(customer);
+    public void updateCustomer(Customer customer) {
+        try {
+            if (Objects.equals(customer, null)) {
+                customerBoundary.showCustomerNothingErrorMessage();
+            }
+            else if (customer.isValid()) {
+                customerDAO.dbUpdateCustomer(customer);
+            } else {
+                customerBoundary.showInvalidCustomerErrorMessage();
+            }
+        } catch (Exception e) {
+            
+        }
+        
     }
 }
