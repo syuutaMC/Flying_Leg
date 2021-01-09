@@ -45,6 +45,18 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
     }
+    
+    public void showCardAShippingAddress(){
+        cardLayout.show(jPanelCardBase, CARD_SHIPPING_ADRRESS);
+    }
+    
+    public void showCardOrderItem(){
+        cardLayout.show(jPanelCardBase, CARD_ORDER_ITEM);
+    }
+    
+    public void showCardFinalCheck(){
+        cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,7 +102,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
         jLabel1.setText("注文受付");
 
-        jLabelTime.setText("jLabel2");
+        jLabelTime.setText("yyyy/MM/dd hh:mm:ss");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,8 +112,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,18 +403,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
     
-    
-    public void showCardAShippingAddress(){
-        cardLayout.show(jPanelCardBase, CARD_SHIPPING_ADRRESS);
-    }
-    
-    public void showCardOrderItem(){
-        cardLayout.show(jPanelCardBase, CARD_ORDER_ITEM);
-    }
-    
-    public void showCardFinalCheck(){
-        cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
-    }
     /**
      * @param args the command line arguments
      */
