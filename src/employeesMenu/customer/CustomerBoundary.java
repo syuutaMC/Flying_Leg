@@ -286,18 +286,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDelivaryNoteFocusGained
 
     private void jButtonCustomerSerarchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerSerarchActionPerformed
-        Customer customer = control.searchCustomer(jTextFieldPhoneNumber2.getText());
-        if (customer != null) {
-            setCustomer(customer);
-            jTextFieldName.setText(getCustomer().getName());
-            jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
-            jTextFieldAddress.setText(getCustomer().getAddress());
-            jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
-        }
-        else {
-            //ダイアログ表示を表示
-            JOptionPane.showMessageDialog(this, "顧客が見つかりませんでした", "通知", JOptionPane.INFORMATION_MESSAGE);
-        }
+        control.searchCustomer(jTextFieldPhoneNumber2.getText());
     }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
 
     private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
