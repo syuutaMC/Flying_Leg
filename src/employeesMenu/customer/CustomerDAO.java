@@ -83,8 +83,9 @@ public class CustomerDAO {
      * 電話番号検索 
      * @param phoneNumber 電話番号
      * @return 顧客情報
+     * @throws java.sql.SQLException
      */
-    public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) {
+    public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) throws SQLException {
         List<Customer> customerList = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMERS " + 
                      " WHERE PHONE_NUMBER = ? ";
@@ -94,7 +95,7 @@ public class CustomerDAO {
             customerList = selectCustomerExcute();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         
         return customerList;
@@ -107,10 +108,10 @@ public class CustomerDAO {
     public void dbAddCustomer(Customer customer) {
         String sql = "INSERT INTO " + 
                      " CUSTOMERS " + 
-                     " VALUES( ?, ?, ?, ?, ?)";
+                     " VALUES( ?, ?, ?, ?, ?) ";//ここに順序を使うかも
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, 1/* sequenceか　メソッドで新規番号追加 */);
+            ps.setInt(1, 1/* sequence(順序)か　メソッドで新規番号追加 */);
             ps.setString(2, customer.getName());            //顧客名
             ps.setString(3, customer.getPhoneNumber());     //電話番号
             ps.setString(4, customer.getAddress());         //住所
@@ -127,14 +128,15 @@ public class CustomerDAO {
     /**
      * 顧客情報更新
      * @param customer 顧客情報 
+     * @throws java.sql.SQLException 
      */
-    public void dbUpdateCustomer(Customer customer) {
+    public void dbUpdateCustomer(Customer customer) throws SQLException {
         String sql = "UPDATE CUSTOMERS " +   
                      " SET   NAME = ?," + 
                      "       PHONE_NUMBER = ?," +
                      "       ADDRESS = ?," + 
                      "       DELIVERY_NOTE = ?" + 
-                     " WHERE CUSTOMER_NUMBER = ?";
+                     " WHERE CUSTOMER_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, customer.getName());
@@ -142,8 +144,8 @@ public class CustomerDAO {
             ps.setString(3, customer.getAddress());
             ps.setString(4, customer.getDeliveryNote());
             ps.setInt(5, customer.getCustomerNumber());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }
     }
 }

@@ -5,7 +5,9 @@
  */
 package employeesMenu.order;
 
+import employeesMenu.customer.Customer;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +17,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     private static final String CARD_SHIPPING_ADRRESS = "card2";
     private static final String CARD_ORDER_ITEM = "card3";
     private static final String CARD_FINAL_CHECK = "card4";
-    private CardLayout cardLayout;
-   
+    private final CardLayout cardLayout;
+    private OrderControl orderControl;
+    private Customer customer;
+    
     /**
      * Creates new form OrderBoundary
      */
@@ -25,6 +29,10 @@ public class OrderBoundary extends javax.swing.JFrame {
         initAddAddress();
         initButton();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
+    }
+    
+    public void setControl(OrderControl control) {
+        this.orderControl = control;
     }
     
     private void initAddAddress(){
@@ -37,7 +45,86 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
     }
+    
+    public void showCardAShippingAddress(){
+        cardLayout.show(jPanelCardBase, CARD_SHIPPING_ADRRESS);
+    }
+    
+    public void showCardOrderItem(){
+        cardLayout.show(jPanelCardBase, CARD_ORDER_ITEM);
+    }
+    
+    public void showCardFinalCheck(){
+        cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
+    }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+    
+    /**
+     * 顧客情報テキストフィールド編集可否設定
+     * @param b true 編集可 | false 編集不可
+     */
+    public void setEditableCustomerTextFielde(boolean b) {
+        jTextFieldName.setEditable(b);
+        jTextFieldAddress.setEditable(b);
+        jTextFieldPhoneNumber2.setEditable(b);
+    }
+
+    /**
+     * テキストフィールドに顧客情報を表示
+     * @param customer 
+     */
+    public void showCustomerTextField(Customer customer) {
+        setCustomer(customer);
+        jTextFieldName.setText(getCustomer().getName());
+        jTextFieldPhoneNumber2.setText(getCustomer().getPhoneNumber());
+        jTextFieldAddress.setText(getCustomer().getAddress());
+    }
+    
+    /**
+     * エラーダイアログ表示
+     * @param message エラーメッセージ
+     * @param title   タイトル
+     */
+    public void showErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * 顧客情報が見つからなかったときのエラーダイアログ表示
+     * @param param パラメータ
+     */
+    public void showNotFoundErrorMessage(String param) {
+        showErrorMessage("[" + param + "]が見つかりませんでした", "入力エラー");
+    }
+    
+    /**
+     * 顧客情報が無効のときのエラーダイアログ表示
+     */
+    public void showInvalidCustomerErrorMessage() {
+        showErrorMessage("顧客情報が無効です", "エラー");
+    }
+    
+    /**
+     * 顧客情報を設定していなかったときのメッセージ
+     */
+    public void showCustomerNothingErrorMessage() {
+        showErrorMessage("顧客情報を設定してください", "エラー");
+    }
+    
+    /**
+     * データベースエラー発生時のエラーダイアログ表示
+     */
+    public void showDBErrorMessage() {
+        showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,7 +172,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
         jLabel1.setText("注文受付");
 
-        jLabelTime.setText("jLabel2");
+        jLabelTime.setText("yyyy/MM/dd hh:mm:ss");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,8 +182,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +250,11 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel2.setText("電話番号");
 
         jButtonCustomerCheck.setText("顧客確認");
+        jButtonCustomerCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomerCheckActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("住所");
 
@@ -388,19 +479,11 @@ public class OrderBoundary extends javax.swing.JFrame {
         showCardFinalCheck();
         jButtonFinalCheck.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonCustomerCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerCheckActionPerformed
+        orderControl.searchCustomer(jTextFieldPhoneNumber.getText());
+    }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
     
-    
-    public void showCardAShippingAddress(){
-        cardLayout.show(jPanelCardBase, CARD_SHIPPING_ADRRESS);
-    }
-    
-    public void showCardOrderItem(){
-        cardLayout.show(jPanelCardBase, CARD_ORDER_ITEM);
-    }
-    
-    public void showCardFinalCheck(){
-        cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
-    }
     /**
      * @param args the command line arguments
      */

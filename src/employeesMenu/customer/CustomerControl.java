@@ -5,21 +5,26 @@
  */
 package employeesMenu.customer;
 
-import employeesMenu.order.OrderBoundary;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 顧客コントロールクラス
  * @author 19jz0115
  */
 public class CustomerControl {
-    private OrderBoundary   orderBoundary;
+    private final CustomerBoundary   customerBoundary;
+    private final CustomerDAO        customerDAO;
 
     public CustomerControl() {
+        customerBoundary = new CustomerBoundary();
+        customerDAO   = new CustomerDAO();
     }
     
     public void start() {
-        //orderBoundary.setControl()
-        //etc
+        customerBoundary.setControl(this);
+        customerBoundary.setVisible(true);
     }
     
     /**
@@ -29,26 +34,46 @@ public class CustomerControl {
      * @param phoneNumber   電話番号
      */
     public void addCustomer(String name, String address, String phoneNumber) {
-        
+        Customer customer = new Customer(name, phoneNumber, address, name);
+        customerDAO.dbAddCustomer(customer);
     }
     
     /**
      * 顧客を検索する
      * @param phoneNumber 電話番号
-     * @return            顧客情報
      */
-    public Customer searchCustomer(String phoneNumber) {
+    public void searchCustomer(String phoneNumber) {
+        try {
+            List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
+            if (customer.size() > 0) {
+                customerBoundary.showMemberTextField(customer.get(0));
+            }
+            else {
+                customerBoundary.showNotFoundErrorMessage(phoneNumber);
+            }
+        } catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
+        }
         
     }
     
     /**
      * 顧客情報更新
-     * @param name          名前
-     * @param phoneNumber   住所
-     * @param address        電話番号
-     * @param deliveryNote  配達備考
+     * @param customer 顧客情報
      */
-    public void updateCustomer(String name, String phoneNumber, String address, String deliveryNote) {
+    public void updateCustomer(Customer customer) {
+        try {
+            if (Objects.equals(customer, null)) {
+                customerBoundary.showCustomerNothingErrorMessage();
+            }
+            else if (customer.isValid()) {
+                customerDAO.dbUpdateCustomer(customer);
+            } else {
+                customerBoundary.showInvalidCustomerErrorMessage();
+            }
+        } catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
+        }
         
     }
 }

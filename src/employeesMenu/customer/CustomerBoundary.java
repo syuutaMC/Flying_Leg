@@ -5,23 +5,96 @@
  */
 package employeesMenu.customer;
 
+import javax.swing.JOptionPane;
+
 /**
  * 顧客確認バウンダリー
  * @author 19jz0115
  */
 public class CustomerBoundary extends javax.swing.JFrame {
     private CustomerControl control;
+    private Customer customer;
     /**
      * Creates new form OrderBoundary
      */
     public CustomerBoundary() {
         initComponents();
     }
-    
+
+    /**
+     * コントロールを設定
+     * @param control 顧客コントロールクラス
+     */
     public void setControl(CustomerControl control){
         this.control = control;
     }
 
+    /**
+     * 顧客情報を設定
+     * @param customer 顧客情報
+     */
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    /**
+     * 顧客情報を取得
+     * @return 顧客情報
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     * テキストフィールドに顧客情報を表示
+     * @param customer 顧客情報
+     */
+    public void showMemberTextField(Customer customer) {
+        setCustomer(customer);
+        jTextFieldName.setText(getCustomer().getName());
+        jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
+        jTextFieldAddress.setText(getCustomer().getAddress());
+        jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
+    }
+    
+    /**
+     * エラーダイアログ表示
+     * @param message エラーメッセージ
+     * @param title   タイトル
+     */
+    public void showErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * 顧客情報が見つからなかったときのエラーダイアログ表示
+     * @param param パラメータ
+     */
+    public void showNotFoundErrorMessage(String param) {
+        showErrorMessage("[" + param + "]が見つかりませんでした", "入力エラー");
+    }
+    
+    /**
+     * 顧客情報が無効のときのエラーダイアログ表示
+     */
+    public void showInvalidCustomerErrorMessage() {
+        showErrorMessage("顧客情報が無効です", "エラー");
+    }
+    
+    /**
+     * 顧客情報を設定していなかったときのメッセージ
+     */
+    public void showCustomerNothingErrorMessage() {
+        showErrorMessage("顧客情報を設定してください", "エラー");
+    }
+    
+    /**
+     * データベースエラー発生時のエラーダイアログ表示
+     */
+    public void showDBErrorMessage() {
+        showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -220,7 +293,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNameFocusGained
 
     private void jTextFieldPhoneNumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPhoneNumberFocusGained
-       jTextFieldPhoneNumber2.selectAll();
+        jTextFieldPhoneNumber2.selectAll();
     }//GEN-LAST:event_jTextFieldPhoneNumberFocusGained
 
     private void jTextFieldAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAddressFocusGained
@@ -232,11 +305,18 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDelivaryNoteFocusGained
 
     private void jButtonCustomerSerarchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerSerarchActionPerformed
-        control.searchCustomer(jTextFieldPhoneNumber.getText());
+        control.searchCustomer(jTextFieldPhoneNumber2.getText());
     }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
 
     private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
-        control.updateCustomer(jTextFieldName.getText(), jTextFieldPhoneNumber2.getText(), jTextFieldAddress.getText(), jTextFieldDelivaryNote.getText());
+        if (customer != null) {
+            control.updateCustomer(customer);
+        }
+        else {
+            //エラーダイアログ表示
+            JOptionPane.showMessageDialog(this, "顧客情報を設定してください", "エラー", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jButtonCustomerUpdateActionPerformed
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
