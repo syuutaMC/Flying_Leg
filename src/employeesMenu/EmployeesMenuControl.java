@@ -5,10 +5,40 @@
  */
 package employeesMenu;
 
+import employeesMenu.customer.CustomerControl;
+import employeesMenu.order.OrderControl;
+
 /**
- *
+ * 従業員メニューコントロールクラス
  * @author 19jz0115
  */
 public class EmployeesMenuControl {
+    private final EmployeesMenuBoundary employeesMenuBoundary;
+    private final CustomerControl customerControl;
+    private final OrderControl orderControl;
+
+    public EmployeesMenuControl() {
+        employeesMenuBoundary = new EmployeesMenuBoundary();
+        customerControl = new CustomerControl();
+        orderControl = new OrderControl();
+    }
     
+    public void start(){
+        employeesMenuBoundary.setControl(this);
+        employeesMenuBoundary.setVisible(true);
+    }
+    
+    public void showCustomerBoundary(){
+        employeesMenuBoundary.setVisible(false);
+        customerControl.start();
+    }
+    
+    public void showOrderBoundary(){
+        employeesMenuBoundary.setVisible(false);
+        orderControl.start();
+    }
+    
+    public static void main(String[] args) {
+        new EmployeesMenuControl().start();
+    }
 }
