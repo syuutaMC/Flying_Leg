@@ -8,6 +8,7 @@ package employeesMenu.customer;
 import employeesMenu.EmployeesMenuControl;
 import employeesMenu.order.OrderControl;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +60,17 @@ public class CustomerControl {
      */
     public void addCustomer(String name, String address, String phoneNumber) {
         Customer customer = new Customer(name, phoneNumber, address, name);
-        customerDAO.dbAddCustomer(customer);
+        
+        try {
+            customerDAO.dbAddCustomer(customer);
+        }
+        catch(SQLIntegrityConstraintViolationException e) {
+            customerBoundary.showDBErrorMessage();
+        }
+        catch(SQLException e) {
+            customerBoundary.showDBErrorMessage();
+        }
+        
     }
     
     /**
