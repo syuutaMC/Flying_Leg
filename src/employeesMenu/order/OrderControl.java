@@ -6,6 +6,7 @@
 package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
+import employeesMenu.customer.CustomerControl;
 import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesMenuControl;
 import java.sql.SQLException;
@@ -65,6 +66,10 @@ public class OrderControl {
      */
     public void setOtherDeliveryDestination(boolean b) {
         OrderBoundary.setDefaultLookAndFeelDecorated(b);
+    }
+    
+    public void showCustomerAddBoundary(){
+        control.showCustomerAddBoundary();
     }
     
     /**

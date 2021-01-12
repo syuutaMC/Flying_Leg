@@ -6,6 +6,7 @@
 package employeesMenu.customer;
 
 import employeesMenu.EmployeesMenuControl;
+import employeesMenu.order.OrderControl;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -16,11 +17,13 @@ import java.util.Objects;
  */
 public class CustomerControl {
     private final CustomerBoundary   customerBoundary;
+    private final CustomerAddBoundary customerAddBoundary;
     private final CustomerDAO        customerDAO;
     private EmployeesMenuControl control;
 
     public CustomerControl() {
         customerBoundary = new CustomerBoundary();
+        customerAddBoundary = new CustomerAddBoundary();
         customerDAO   = new CustomerDAO();
     }
     
@@ -32,8 +35,19 @@ public class CustomerControl {
         this.control = control;
     }
     
-    public void start() {
+    /**
+     * 各バウンダリーのコントロールをセット
+     */
+    public void initControl() {
         customerBoundary.setControl(this);
+        customerAddBoundary.setControl(this);
+    }
+    
+    public void showCustomerAddBoundary(){
+        customerAddBoundary.setVisible(true);
+    }
+    
+    public void showCustomerCheckBoundary(){
         customerBoundary.setVisible(true);
     }
     
@@ -92,6 +106,7 @@ public class CustomerControl {
      */
     public void exit(){
         customerBoundary.setVisible(false);
+        customerAddBoundary.setVisible(false);
         control.exitMediaView();
     }
 }

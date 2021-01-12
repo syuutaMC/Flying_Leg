@@ -101,11 +101,14 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 顧客情報が見つからなかったときのエラーダイアログ表示
+     * 顧客情報が見つからなかったときの処理
      * @param param パラメータ
      */
     public void showNotFoundErrorMessage(String param) {
-        showErrorMessage("[" + param + "]が見つかりませんでした", "入力エラー");
+        int result = JOptionPane.showConfirmDialog(this,  param + "がありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
+        if(result == JOptionPane.OK_OPTION){
+            control.showCustomerAddBoundary();
+        }
     }
     
     /**
@@ -160,6 +163,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonSelectItem = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldDelivaryNote = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         jPanelOrderItem = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -301,6 +305,8 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jLabel12.setText("配達備考");
 
+        jButton3.setText("新規登録");
+
         javax.swing.GroupLayout jPanelAddAddressLayout = new javax.swing.GroupLayout(jPanelAddAddress);
         jPanelAddAddress.setLayout(jPanelAddAddressLayout);
         jPanelAddAddressLayout.setHorizontalGroup(
@@ -315,27 +321,31 @@ public class OrderBoundary extends javax.swing.JFrame {
                     .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                         .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
                             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(jLabel5))
                             .addComponent(jLabel12)
-                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelAddAddressLayout.createSequentialGroup()
-                                        .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonCustomerCheck)))
-                                .addGap(93, 93, 93)
-                                .addComponent(jCheckBox1)))
-                        .addGap(0, 167, Short.MAX_VALUE)))
+                            .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelAddAddressLayout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jCheckBox1))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelAddAddressLayout.createSequentialGroup()
+                                    .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelAddAddressLayout.createSequentialGroup()
+                                            .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                                                    .addComponent(jLabel2)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING))
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jButtonCustomerCheck)))
+                                    .addGap(53, 53, 53)
+                                    .addComponent(jButton3))))
+                        .addGap(0, 199, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelAddAddressLayout.setVerticalGroup(
@@ -346,9 +356,11 @@ public class OrderBoundary extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCustomerCheck)
+                    .addComponent(jButton3))
+                .addGap(16, 16, 16)
+                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
                     .addComponent(jCheckBox1))
-                .addGap(20, 20, 20)
-                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -496,9 +508,17 @@ public class OrderBoundary extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "商品番号", "名前", "個数", "値段"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTableItem1);
 
         javax.swing.GroupLayout jPanelFinakCheckLayout = new javax.swing.GroupLayout(jPanelFinakCheck);
@@ -655,6 +675,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonCustomerCheck;
     private javax.swing.JButton jButtonFinalCheck;
     private javax.swing.JButton jButtonSearchItemId;

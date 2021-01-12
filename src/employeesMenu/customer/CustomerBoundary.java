@@ -373,7 +373,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCustomerUpdateActionPerformed
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
-        
+        control.exit();
     }//GEN-LAST:event_jButtonCloseActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
