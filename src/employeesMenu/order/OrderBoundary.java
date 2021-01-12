@@ -18,7 +18,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private static final String CARD_ORDER_ITEM = "card3";
     private static final String CARD_FINAL_CHECK = "card4";
     private final CardLayout cardLayout;
-    private OrderControl orderControl;
+    private OrderControl control;
     private Customer customer;
     
     /**
@@ -32,7 +32,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     public void setControl(OrderControl control) {
-        this.orderControl = control;
+        this.control = control;
     }
     
     private void initAddAddress(){
@@ -40,12 +40,16 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldAddress.setEditable(false);
         jTextFieldPhoneNumber2.setEditable(false);
     }
-    
+    /**
+     * ボタンの初期化
+     */
     private void initButton(){
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
     }
-    
+    /**
+     * 画面切り替え処理
+     */
     public void showCardAShippingAddress(){
         cardLayout.show(jPanelCardBase, CARD_SHIPPING_ADRRESS);
     }
@@ -154,8 +158,19 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldPhoneNumber2 = new javax.swing.JTextField();
         jButtonSelectItem = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jTextFieldDelivaryNote = new javax.swing.JTextField();
         jPanelOrderItem = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableItem = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jTextFieldItemId = new javax.swing.JTextField();
+        jTextFieldItemName = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jButtonSearchItemId = new javax.swing.JButton();
+        jButtonSearchItemName = new javax.swing.JButton();
         jPanelFinakCheck = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -164,8 +179,15 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabelName = new javax.swing.JLabel();
         jLabelPhoneNumber = new javax.swing.JLabel();
         jLabelAddress = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableItem1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -277,6 +299,8 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("配達備考");
+
         javax.swing.GroupLayout jPanelAddAddressLayout = new javax.swing.GroupLayout(jPanelAddAddress);
         jPanelAddAddress.setLayout(jPanelAddAddressLayout);
         jPanelAddAddressLayout.setHorizontalGroup(
@@ -290,21 +314,27 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                         .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonCustomerCheck)
-                                .addGap(93, 93, 93)
-                                .addComponent(jCheckBox1))
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(jLabel5))
-                            .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12)
+                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelAddAddressLayout.createSequentialGroup()
+                                        .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonCustomerCheck)))
+                                .addGap(93, 93, 93)
+                                .addComponent(jCheckBox1)))
                         .addGap(0, 167, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -329,14 +359,18 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanelCardBase.add(jPanelAddAddress, "card2");
 
-        jPanelOrderItem.setBackground(new java.awt.Color(204, 255, 255));
+        jPanelOrderItem.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jButton1.setText("確認画面へ");
@@ -349,35 +383,123 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
+        jTableItem.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableItem);
+
+        jLabel9.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jLabel9.setText("商品検索");
+
+        jLabel10.setText("商品番号");
+
+        jLabel11.setText("商品名");
+
+        jButtonSearchItemId.setText("商品番号検索");
+
+        jButtonSearchItemName.setText("商品名検索");
+
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
         jPanelOrderItem.setLayout(jPanelOrderItemLayout);
         jPanelOrderItemLayout.setHorizontalGroup(
             jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
-                .addContainerGap(471, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+            .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
+                        .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                                .addGap(0, 469, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(22, 22, 22))
+                    .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)))
+                    .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jTextFieldItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSearchItemId)
+                    .addComponent(jButtonSearchItemName))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanelOrderItemLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonSearchItemId, jButtonSearchItemName});
+
         jPanelOrderItemLayout.setVerticalGroup(
             jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
-                .addContainerGap(257, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                        .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelOrderItemLayout.createSequentialGroup()
+                        .addComponent(jButtonSearchItemId)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonSearchItemName)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanelCardBase.add(jPanelOrderItem, "card3");
 
-        jPanelFinakCheck.setBackground(new java.awt.Color(255, 204, 204));
+        jPanelFinakCheck.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel6.setFont(new java.awt.Font("MS UI Gothic", 1, 12)); // NOI18N
         jLabel6.setText("配送先");
 
+        jLabel7.setFont(new java.awt.Font("MS UI Gothic", 1, 12)); // NOI18N
         jLabel7.setText("名前");
 
+        jLabel8.setFont(new java.awt.Font("MS UI Gothic", 1, 12)); // NOI18N
         jLabel8.setText("電話番号");
 
         jButton2.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jButton2.setText("注文確定");
+
+        jTableItem1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableItem1);
 
         javax.swing.GroupLayout jPanelFinakCheckLayout = new javax.swing.GroupLayout(jPanelFinakCheck);
         jPanelFinakCheck.setLayout(jPanelFinakCheckLayout);
@@ -386,6 +508,7 @@ public class OrderBoundary extends javax.swing.JFrame {
             .addGroup(jPanelFinakCheckLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelFinakCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFinakCheckLayout.createSequentialGroup()
                         .addGap(0, 481, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -415,7 +538,9 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelAddress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -481,8 +606,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonCustomerCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerCheckActionPerformed
-        orderControl.searchCustomer(jTextFieldPhoneNumber.getText());
+        control.searchCustomer(jTextFieldPhoneNumber.getText());
     }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        control.exit();
+    }//GEN-LAST:event_formWindowClosing
     
     /**
      * @param args the command line arguments
@@ -528,11 +657,16 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCustomerCheck;
     private javax.swing.JButton jButtonFinalCheck;
+    private javax.swing.JButton jButtonSearchItemId;
+    private javax.swing.JButton jButtonSearchItemName;
     private javax.swing.JButton jButtonSelectItem;
     private javax.swing.JButton jButtonSelectedItem;
     private javax.swing.JButton jButtonShippingAddress;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -540,6 +674,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAddress;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelPhoneNumber;
@@ -550,7 +685,14 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCardBase;
     private javax.swing.JPanel jPanelFinakCheck;
     private javax.swing.JPanel jPanelOrderItem;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableItem;
+    private javax.swing.JTable jTableItem1;
     private javax.swing.JTextField jTextFieldAddress;
+    private javax.swing.JTextField jTextFieldDelivaryNote;
+    private javax.swing.JTextField jTextFieldItemId;
+    private javax.swing.JTextField jTextFieldItemName;
     private javax.swing.JTextField jTextFieldName;
     private javax.swing.JTextField jTextFieldPhoneNumber;
     private javax.swing.JTextField jTextFieldPhoneNumber2;

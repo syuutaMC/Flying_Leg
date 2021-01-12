@@ -16,7 +16,7 @@ public class EmployeesMenuControl {
     private final EmployeesMenuBoundary employeesMenuBoundary;
     private final CustomerControl customerControl;
     private final OrderControl orderControl;
-
+    
     public EmployeesMenuControl() {
         employeesMenuBoundary = new EmployeesMenuBoundary();
         customerControl = new CustomerControl();
@@ -30,15 +30,21 @@ public class EmployeesMenuControl {
     
     public void showCustomerBoundary(){
         employeesMenuBoundary.setVisible(false);
+        customerControl.setControl(this);
         customerControl.start();
     }
     
     public void showOrderBoundary(){
         employeesMenuBoundary.setVisible(false);
+        orderControl.setControl(this);
         orderControl.start();
     }
     
     public static void main(String[] args) {
         new EmployeesMenuControl().start();
+    }
+    
+    public void exitMediaView(){
+        employeesMenuBoundary.setVisible(true);
     }
 }

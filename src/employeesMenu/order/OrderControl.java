@@ -7,6 +7,7 @@ package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
 import employeesMenu.customer.CustomerDAO;
+import employeesMenu.EmployeesMenuControl;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class OrderControl {
     private final OrderBoundary orderBoundary;
+    private EmployeesMenuControl control;
     private final OrderDAO      orderDAO;
     private final CustomerDAO   customerDAO;
     
@@ -23,6 +25,15 @@ public class OrderControl {
         orderBoundary   = new OrderBoundary();
         orderDAO        = new OrderDAO();
         customerDAO     = new CustomerDAO();
+        setControl(control);
+    }
+    
+    /**
+     * コントロールを設定
+     * @param control 従業員メニューコントロール
+     */
+    public void setControl(EmployeesMenuControl control){
+        this.control = control;
     }
     
     public void start() {
@@ -54,5 +65,13 @@ public class OrderControl {
      */
     public void setOtherDeliveryDestination(boolean b) {
         OrderBoundary.setDefaultLookAndFeelDecorated(b);
+    }
+    
+    /**
+     * ×ボタン処理
+     */
+    public void exit(){
+        orderBoundary.setVisible(false);
+        control.exitMediaView();
     }
 }
