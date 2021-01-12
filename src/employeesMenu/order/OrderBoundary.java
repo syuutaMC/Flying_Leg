@@ -29,6 +29,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         initAddAddress();
         initButton();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
+        jCheckBox1.setEnabled(false);
     }
     
     public void setControl(OrderControl control) {
@@ -89,6 +90,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldName.setText(getCustomer().getName());
         jTextFieldPhoneNumber2.setText(getCustomer().getPhoneNumber());
         jTextFieldAddress.setText(getCustomer().getAddress());
+        jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
+        jCheckBox1.setEnabled(true);
     }
     
     /**

@@ -52,7 +52,12 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
         jButtonRegister = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -168,13 +173,45 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
+        control.exit();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-        control.addCustomer(jTextFieldName.getText(), jTextFieldAddress.getText(), jTextFieldPhoneNumber.getText());
+        control.addCustomer(jTextFieldName.getText(), jTextFieldAddress.getText(), jTextFieldPhoneNumber.getText(), jTextFieldDelivaryNote.getText());
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        control.exitCustomerAddBoundary();
+    }//GEN-LAST:event_formWindowClosing
+    
+    /**
+     * エラーダイアログ表示
+     * @param message エラーメッセージ
+     * @param title   タイトル
+     */
+    public void showErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * データベース一意制約エラー
+     * @param param 電話番号
+     */
+    public void showRegisteredErrorMeessage(String param){
+        showErrorMessage(param + "登録されています", "確認");
+    }
+    
+    /**
+     * データベースエラー発生時のエラーダイアログ表示
+     */
+    public void showDBErrorMessage() {
+        showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
+    public void showRegistrationSuccessMessage(){
+        JOptionPane.showMessageDialog(this, "登録されました", "確認", JOptionPane.OK_OPTION);
+    }
+    
     /**
      * @param args the command line arguments
      */

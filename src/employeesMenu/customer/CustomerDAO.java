@@ -107,7 +107,7 @@ public class CustomerDAO {
      */
     public void dbAddCustomer(Customer customer) throws SQLIntegrityConstraintViolationException, SQLException {
         String sql = "INSERT INTO " + 
-                     " CUSTOMERS " + 
+                     " CUSTOMERS(name, phone_number, address, delivery_note) " + 
                      " VALUES( ?, ?, ?, ?) ";
         try {
             ps = con.prepareStatement(sql);
@@ -115,6 +115,8 @@ public class CustomerDAO {
             ps.setString(2, customer.getPhoneNumber());     //電話番号
             ps.setString(3, customer.getAddress());         //住所
             ps.setString(4, customer.getDeliveryNote());    //配達備考
+            
+            ps.executeUpdate();
         }
         catch(SQLIntegrityConstraintViolationException e) {
             throw new SQLIntegrityConstraintViolationException();

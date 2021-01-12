@@ -58,19 +58,19 @@ public class CustomerControl {
      * @param address        住所
      * @param phoneNumber   電話番号
      */
-    public void addCustomer(String name, String address, String phoneNumber) {
-        Customer customer = new Customer(name, phoneNumber, address, name);
+    public void addCustomer(String name, String address, String phoneNumber, String delivaryNote) {
+        Customer customer = new Customer(name, phoneNumber, address, delivaryNote);
         
         try {
             customerDAO.dbAddCustomer(customer);
+            customerAddBoundary.showRegistrationSuccessMessage();
         }
         catch(SQLIntegrityConstraintViolationException e) {
-            customerBoundary.showDBErrorMessage();
+            customerAddBoundary.showRegisteredErrorMeessage(phoneNumber);
         }
         catch(SQLException e) {
-            customerBoundary.showDBErrorMessage();
+            customerAddBoundary.showDBErrorMessage();
         }
-        
     }
     
     /**
@@ -117,7 +117,10 @@ public class CustomerControl {
      */
     public void exit(){
         customerBoundary.setVisible(false);
-        customerAddBoundary.setVisible(false);
         control.exitMediaView();
+    }
+    
+    public void exitCustomerAddBoundary(){
+        customerAddBoundary.setVisible(false);
     }
 }
