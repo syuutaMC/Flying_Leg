@@ -32,10 +32,10 @@ public class OrderDAO {
      * @param customerNumber    顧客番号
      * @param deliveryToAddress 配達先住所
      */
-    public void dbAddOrder(int customerNumber, String deliveryToAddress) throws SQLException  {
-        String sql = "INSERT INTO " + 
-                     "ORDERS(customer_number, delivery_to_address, store_number) " + 
-                     "VALUES(?, ?, ?) ";
+    public void dbAddOrder(int customerNumber, String deliveryToAddress, OrderDetail orderDetail) throws SQLException  {
+        String sql = "INSERT " + 
+                     " INTO ORDERS( customer_number, delivery_to_address, store_number) " + 
+                     " VALUES( ?, ?, ?) "; 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, customerNumber);
