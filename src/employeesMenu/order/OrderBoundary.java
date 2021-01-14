@@ -185,8 +185,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButtonSearchItemId = new javax.swing.JButton();
         jPanelMenu = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButtonMainmenu = new javax.swing.JButton();
         jButtonDrink = new javax.swing.JButton();
         jButtonSideMenu = new javax.swing.JButton();
@@ -438,19 +436,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jPanelMenu.setBackground(new java.awt.Color(204, 255, 255));
         jPanelMenu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "メニュー\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("MS UI Gothic", 1, 18))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable1);
-
         jButtonMainmenu.setText("メインメニュー");
 
         jButtonDrink.setText("ドリンク");
@@ -463,14 +448,11 @@ public class OrderBoundary extends javax.swing.JFrame {
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addComponent(jButtonMainmenu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonDrink, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSideMenu))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonMainmenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonDrink, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonSideMenu)
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
@@ -484,9 +466,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                     .addComponent(jButtonMainmenu)
                     .addComponent(jButtonDrink)
                     .addComponent(jButtonSideMenu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(375, 375, 375))
         );
 
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
@@ -510,8 +490,9 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(27, 27, 27)
-                .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(9, 9, 9))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,7 +516,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                         .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -772,8 +753,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableItem;
     private javax.swing.JTable jTableItem1;
     private javax.swing.JTextField jTextFieldAddress;
