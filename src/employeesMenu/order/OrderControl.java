@@ -72,6 +72,10 @@ public class OrderControl {
         control.showCustomerAddBoundary();
     }
     
+    public void showCustomerAddBoundary(String phoneNumber){
+        control.showCustomerAddBoundary(phoneNumber);
+    }
+    
     /**
      * ×ボタン処理
      */

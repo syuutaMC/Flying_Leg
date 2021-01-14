@@ -110,7 +110,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     public void showNotFoundErrorMessage(String param) {
         int result = JOptionPane.showConfirmDialog(this,  param + "がありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
         if(result == JOptionPane.OK_OPTION){
-            control.showCustomerAddBoundary();
+            control.showCustomerAddBoundary(jTextFieldPhoneNumber.getText());
         }
     }
     
@@ -309,6 +309,11 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel12.setText("配達備考");
 
         jButton3.setText("新規登録");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAddAddressLayout = new javax.swing.GroupLayout(jPanelAddAddress);
         jPanelAddAddress.setLayout(jPanelAddAddressLayout);
@@ -635,6 +640,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         control.exit();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        control.showCustomerAddBoundary();
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     /**
      * @param args the command line arguments
