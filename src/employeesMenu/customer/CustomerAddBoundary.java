@@ -208,9 +208,22 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
         showErrorMessage("データベースエラーが発生しました", "エラー");
     }
     
+    /**
+     * 登録完了のメッセージ
+     */
     public void showRegistrationSuccessMessage(){
         JOptionPane.showMessageDialog(this, "登録されました", "確認", JOptionPane.OK_OPTION);
+        control.exitCustomerAddBoundary();
     }
+    
+    /**
+     * 電話番号をセットする
+     * @param phoneNumber 電話番号
+     */
+    public void setPhoneNumber(String phoneNumber){
+        jTextFieldPhoneNumber.setText(phoneNumber);
+    }
+        
     
     /**
      * @param args the command line arguments
