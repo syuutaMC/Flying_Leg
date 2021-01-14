@@ -10,7 +10,9 @@ import employeesMenu.customer.CustomerControl;
 import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesMenuControl;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import managerMenu.Item;
 
 /**
  *
@@ -56,6 +58,44 @@ public class OrderControl {
                 orderBoundary.showNotFoundErrorMessage(phoneNumber);
             }
         } catch (SQLException e) {
+            orderBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 商品を商品番号で検索する
+     * @param itemNumber 商品番号
+     */
+    public void searchItemItemNumber(String itemNumber) {
+        try {
+            List<Item> itemList = orderDAO.dbSearchItemItemNumber(itemNumber);
+            if (itemList.size() > 0) {
+                
+            }
+            else {
+            }
+            
+        }
+        catch (SQLException e) {
+            orderBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 商品を商品名で検索する
+     * @param itemName 商品名
+     */
+    public void searchItemItemName(String itemName) {
+        try {
+            List<Item> itemList = orderDAO.dbSearchItemItemName(itemName);
+            if (itemList.size() > 0) {
+                
+            }
+            else {
+                
+            }
+        }
+        catch (SQLException e) {
             orderBoundary.showDBErrorMessage();
         }
     }
