@@ -21,12 +21,12 @@ import managerMenu.Item;
 public class OrderControl {
     private final OrderBoundary orderBoundary;
     private EmployeesMenuControl control;
-    private final OrderDAO      orderDAO;
+    private final ItemDAO      orderDAO;
     private final CustomerDAO   customerDAO;
     
     public OrderControl() {
         orderBoundary   = new OrderBoundary();
-        orderDAO        = new OrderDAO();
+        orderDAO        = new ItemDAO();
         customerDAO     = new CustomerDAO();
         setControl(control);
     }
