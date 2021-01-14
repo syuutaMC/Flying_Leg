@@ -5,8 +5,14 @@
  */
 package employeesMenu.order;
 
+import java.awt.ItemSelectable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import managerMenu.Item;
 import sys.DBManager;
 
 /**
@@ -26,5 +32,91 @@ public class OrderDAO {
         con = dBManager.getConnection();
     }
     
+    /**
+     * Items テーブル検索処理実行
+     * @return 商品情報
+     * @throws SQLException 
+     */
+    public List<Item> selectItemExucte() throws SQLException {
+        List<Item> itemList = new ArrayList<>();
+        try {
+            itemList.clear();
+            ResultSet rs = ps.executeQuery();
+            //結果の格納
+            while (rs.next()) {                
+                Item item = new Item();
+                setItem(item, rs);
+                itemList.add(item);
+            }
+            rs.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
     
+    /**
+     * 問い合わせ結果をitemに格納
+     * @param item 商品情報
+     * @param rs   問い合わせ結果 
+     */
+    public void setItem(Item item, ResultSet rs) {
+        try {
+            String itemNumber = rs.getString("ITEM_NUMBER");
+            String itemName   = rs.getString("ITEM_NAME");
+            int    unitPrice  = rs.getInt("UNIT_PRICE");
+            item.setItemNumber(itemNumber);
+            item.setItemName(itemName);
+            item.setUnitPrice(unitPrice);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 商品番号検索
+     * @param itemNumber 商品番号
+     * @return 検索結果リスト
+     * @throws SQLException 
+     */
+    public List<Item> dbSearchItemItemNumber(String itemNumber) throws SQLException {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM ITEMS " +
+                     " WHERE ITEM_NUMBER = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, itemNumber);
+            itemList = selectItemExucte();
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        
+        return itemList;
+    }
+    
+    /**
+     * 商品名検索
+     * @param itemName 商品名
+     * @return 商品情報
+     * @throws SQLException 
+     */
+    public List<Item> dbSearchItemItemName(String itemName) throws SQLException {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM ITEMS " + 
+                     " WHERE ITEM_NAME LIKE ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + itemName + "%");
+            itemList = selectItemExucte();
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        
+        return itemList;
+    }
 }
