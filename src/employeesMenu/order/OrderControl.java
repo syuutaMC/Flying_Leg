@@ -6,11 +6,11 @@
 package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
-import employeesMenu.customer.CustomerControl;
+//import employeesMenu.customer.CustomerControl;
 import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesMenuControl;
 import java.sql.SQLException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 import managerMenu.Item;
 
