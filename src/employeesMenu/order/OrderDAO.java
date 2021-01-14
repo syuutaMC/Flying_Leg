@@ -119,4 +119,24 @@ public class OrderDAO {
         
         return itemList;
     }
+    
+    /**
+     * 商品全件検索
+     * @return 商品情報
+     * @throws SQLException 
+     */
+    public List<Item> dbSearchItemAll() throws SQLException {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM ITEMS ";
+        try {
+            ps = con.prepareStatement(sql);
+            itemList = selectItemExucte();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+        
+        return itemList;
+    }
 }
+
