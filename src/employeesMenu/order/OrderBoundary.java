@@ -28,6 +28,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         initComponents();
         initAddAddress();
         initButton();
+        setTitle("注文画面");
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
     }
     

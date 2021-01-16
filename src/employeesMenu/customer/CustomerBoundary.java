@@ -19,6 +19,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
      */
     public CustomerBoundary() {
         initComponents();
+        setTitle("顧客確認画面");
     }
 
     /**
@@ -214,7 +215,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,7 +228,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
                             .addComponent(jTextFieldName)
                             .addComponent(jTextFieldAddress)
                             .addComponent(jTextFieldDelivaryNote))
-                        .addContainerGap(41, Short.MAX_VALUE))
+                        .addGap(41, 41, 41))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonCustomerUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
