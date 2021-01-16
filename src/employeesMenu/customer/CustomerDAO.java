@@ -58,7 +58,7 @@ public class CustomerDAO {
     
     /**
      * 問い合わせ結果をcustomerに格納
-     * @param customer 問い合わせ結果を格納
+     * @param customer 顧客情報
      * @param rs       問い合わせ結果
      */
     public void setCustomer(Customer customer, ResultSet rs) {
@@ -105,23 +105,24 @@ public class CustomerDAO {
      * 顧客追加
      * @param customer 顧客情報 
      */
-    public void dbAddCustomer(Customer customer) {
+    public void dbAddCustomer(Customer customer) throws SQLIntegrityConstraintViolationException, SQLException {
         String sql = "INSERT INTO " + 
-                     " CUSTOMERS " + 
-                     " VALUES( ?, ?, ?, ?, ?) ";//ここに順序を使うかも
+                     " CUSTOMERS(name, phone_number, address, delivery_note) " + 
+                     " VALUES( ?, ?, ?, ?) ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, 1/* sequence(順序)か　メソッドで新規番号追加 */);
-            ps.setString(2, customer.getName());            //顧客名
-            ps.setString(3, customer.getPhoneNumber());     //電話番号
-            ps.setString(4, customer.getAddress());         //住所
-            ps.setString(5, customer.getDeliveryNote());    //配達備考
+            ps.setString(1, customer.getName());            //顧客名
+            ps.setString(2, customer.getPhoneNumber());     //電話番号
+            ps.setString(3, customer.getAddress());         //住所
+            ps.setString(4, customer.getDeliveryNote());    //配達備考
+            
+            ps.executeUpdate();
         }
         catch(SQLIntegrityConstraintViolationException e) {
-            //挿入できなかったときの処理
+            throw new SQLIntegrityConstraintViolationException();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
     

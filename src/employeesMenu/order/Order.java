@@ -77,7 +77,5 @@ public class Order {
 
     public void setStoreNumber(String storeNumber) {
         this.storeNumber = storeNumber;
-    }
-    
-    
+    }   
 }
