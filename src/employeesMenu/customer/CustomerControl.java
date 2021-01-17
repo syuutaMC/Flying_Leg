@@ -44,8 +44,16 @@ public class CustomerControl {
         customerAddBoundary.setControl(this);
     }
     
+    /**
+     * 顧客登録画面を表示 
+     */
     public void showCustomerAddBoundary(){
         customerAddBoundary.setVisible(true);
+    }
+    
+    public void showCustomerAddBoundary(String phoneNumber){
+        customerAddBoundary.setVisible(true);
+        customerAddBoundary.setPhoneNumber(phoneNumber);
     }
     
     public void showCustomerCheckBoundary(){

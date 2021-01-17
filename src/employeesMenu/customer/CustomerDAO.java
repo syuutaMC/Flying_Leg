@@ -58,7 +58,7 @@ public class CustomerDAO {
     
     /**
      * 問い合わせ結果をcustomerに格納
-     * @param customer 問い合わせ結果を格納
+     * @param customer 顧客情報
      * @param rs       問い合わせ結果
      */
     public void setCustomer(Customer customer, ResultSet rs) {
