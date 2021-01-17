@@ -137,5 +137,59 @@ public class ItemDAO {
         
         return itemList;
     }
+    
+    /**
+     * メインメニュー検索
+     * @return メイン商品リスト 
+     */
+    public List<Item> dbSearchItemMainMenu() {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%M%");
+            itemList = selectItemExucte();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
+    
+    /**
+     * ドリンクメニュー検索
+     * @return ドリンク商品リスト
+     */
+    public List<Item> dbSearchItemDrinkMenu() {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%D%");
+            itemList = selectItemExucte();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
+    
+    /**
+     * サイドメニュー検索
+     * @return サイド商品リスト
+     */
+    public List<Item> dbSearchItemSideMenu() {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%S%");
+            itemList = selectItemExucte();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
 }
 
