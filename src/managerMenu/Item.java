@@ -13,6 +13,7 @@ public class Item {
     private String itemNumber;
     private String itemName;
     private int    unitPrice;
+    private int    quantity;
 
     public Item() {
     }
@@ -35,6 +36,10 @@ public class Item {
         return unitPrice;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     public void setItemNumber(String itemNumber) {
         this.itemNumber = itemNumber;
     }
@@ -46,6 +51,9 @@ public class Item {
     public void setUnitPrice(int unitPrice) {
         this.unitPrice = unitPrice;
     }
-    
-    
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+        
 }
