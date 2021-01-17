@@ -5,7 +5,6 @@
  */
 package employeesMenu.order;
 
-import java.awt.ItemSelectable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
