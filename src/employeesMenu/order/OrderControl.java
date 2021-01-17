@@ -21,12 +21,12 @@ import managerMenu.Item;
 public class OrderControl {
     private final OrderBoundary orderBoundary;
     private EmployeesMenuControl control;
-    private final ItemDAO      orderDAO;
+    private final ItemDAO      itemDAO;
     private final CustomerDAO   customerDAO;
     
     public OrderControl() {
         orderBoundary   = new OrderBoundary();
-        orderDAO        = new ItemDAO();
+        itemDAO        = new ItemDAO();
         customerDAO     = new CustomerDAO();
         setControl(control);
     }
@@ -68,7 +68,7 @@ public class OrderControl {
      */
     public void searchItemItemNumber(String itemNumber) {
         try {
-            List<Item> itemList = orderDAO.dbSearchItemItemNumber(itemNumber);
+            List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
                 
             }
@@ -87,7 +87,7 @@ public class OrderControl {
      */
     public void searchItemItemName(String itemName) {
         try {
-            List<Item> itemList = orderDAO.dbSearchItemItemName(itemName);
+            List<Item> itemList = itemDAO.dbSearchItemItemName(itemName);
             if (itemList.size() > 0) {
                 
             }
@@ -114,6 +114,30 @@ public class OrderControl {
     
     public void showCustomerAddBoundary(String phoneNumber){
         control.showCustomerAddBoundary(phoneNumber);
+    }
+    
+    /**
+     * メインメニュー検索
+     */
+    public void searchMainMenu() {
+        List<Item> itemList = itemDAO.dbSearchItemMainMenu();
+        orderBoundary.showMenuTable(itemList);
+    }
+    
+    /**
+     * サイドメニュー検索
+     */
+    public void searchSideMenu() {
+        List<Item> itemList = itemDAO.dbSearchItemSideMenu();
+        orderBoundary.showMenuTable(itemList);
+    }
+    
+    /**
+     * ドリンクメニュー検索
+     */
+    public void searchDrinkMenu() {
+        List<Item> itemList = itemDAO.dbSearchItemDrinkMenu();
+        orderBoundary.showMenuTable(itemList);
     }
     
     /**
