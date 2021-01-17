@@ -7,8 +7,10 @@ package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
 import java.awt.CardLayout;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import managerMenu.Item;
 
 /**
  *
@@ -22,6 +24,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private OrderControl control;
     private Customer customer;
     private DefaultTableModel itemTableModel;
+    private DefaultTableModel menuTableModel;
     
     /**
      * Creates new form OrderBoundary
@@ -31,6 +34,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         initAddAddressPanel();
         initTopPanel();
         initTableModel();
+        initMenuTableModel();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
     }
     
@@ -55,15 +59,27 @@ public class OrderBoundary extends javax.swing.JFrame {
     /**
      * ボタンの初期化
      */
-    private void initTopPanel(){
+    private void initTopPanel() {
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
     }
     
-    private void initTableModel(){
+    /**
+     * 注文商品表見出し初期化
+     */
+    private void initTableModel() {
         String[] heading = {"商品番号", "商品名", "個数", "値段" };
         itemTableModel = new DefaultTableModel(heading, 0);
         jTableItem.setModel(itemTableModel);
+    }
+    
+    /**
+     * メニュー表見出し初期化
+     */
+    private void initMenuTableModel() {
+        String[] heading = {"商品名", "値段" };
+        itemTableModel = new DefaultTableModel(heading, 0);
+        jTableMenu.setModel(menuTableModel);
     }
     
     /**
@@ -110,6 +126,20 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldAddress.setText(getCustomer().getAddress());
         jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
         jCheckBox1.setEnabled(true);
+    }
+    
+    /**
+     * メニュー表にメニューを表示
+     * @param itemList 商品リスト
+     */
+    public void showMenuTable(List<Item> itemList) {
+        menuTableModel.setRowCount(0);
+        String[] row = new String[2];
+        for (Item item : itemList) {
+            row[0] = item.getItemName();
+            row[1] = Integer.toString(item.getQuantity());
+            menuTableModel.addRow(row);
+        }
     }
     
     /**
