@@ -124,7 +124,7 @@ public class ItemDAO {
      * @return 商品情報
      * @throws SQLException 
      */
-    public List<Item> dbSearchItemAll() throws SQLException {
+    public List<Item> dbSearchItemAll() {
         List<Item> itemList = new ArrayList<>();
         String sql = "SELECT * FROM ITEMS ";
         try {
@@ -132,7 +132,7 @@ public class ItemDAO {
             itemList = selectItemExucte();
         }
         catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         }
         
         return itemList;
