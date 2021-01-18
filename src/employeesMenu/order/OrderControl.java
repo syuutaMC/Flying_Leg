@@ -147,6 +147,7 @@ public class OrderControl {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
                 orderBoundary.showItemTable(itemList.get(0));
+                orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
             } else {
                 orderBoundary.showItemNotFoundErrorMessage();
             }
@@ -161,6 +162,23 @@ public class OrderControl {
      */
     public void removeOrderItem(int row) {
         orderBoundary.removeOrderItem(row);
+        orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
+    }
+    
+    /**
+     * 注文確認画面表示
+     */
+    public void showCardFinalCheck() {
+        int totalPrice = orderBoundary.calcTotalPrice();
+        if (OrderBoundary.ORDER_TOTAL_PRICE_UNDER_LIMIT > totalPrice) {
+            orderBoundary.setEnabled(false);
+        }
+        else {
+            orderBoundary.setEnabled(true);
+            orderBoundary.showFinalCheckPanel();
+            orderBoundary.showFinalCheckPanel();
+        }
+        
     }
     
     /**
