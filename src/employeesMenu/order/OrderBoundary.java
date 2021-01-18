@@ -77,9 +77,10 @@ public class OrderBoundary extends javax.swing.JFrame {
      * メニュー表見出し初期化
      */
     private void initMenuTableModel() {
-        String[] heading = {"商品名", "値段" };
+        String[] heading = {"商品番号", "商品名", "値段" };
         itemTableModel = new DefaultTableModel(heading, 0);
         jTableMenu.setModel(menuTableModel);
+        
     }
     
     /**
@@ -117,7 +118,7 @@ public class OrderBoundary extends javax.swing.JFrame {
 
     /**
      * テキストフィールドに顧客情報を表示
-     * @param customer 
+     * @param customer 顧客情報
      */
     public void showCustomerTextField(Customer customer) {
         setCustomer(customer);
@@ -134,12 +135,49 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void showMenuTable(List<Item> itemList) {
         menuTableModel.setRowCount(0);
-        String[] row = new String[2];
+        String[] row = new String[3];
         for (Item item : itemList) {
-            row[0] = item.getItemName();
-            row[1] = Integer.toString(item.getQuantity());
+            row[0] = item.getItemNumber();
+            row[1] = item.getItemName();
+            row[2] = Integer.toString(item.getQuantity());
             menuTableModel.addRow(row);
         }
+    }
+    
+    /**
+     * 注文商品を追加
+     * @param item 商品情報
+     */
+    public void showItemTable(Item item) {
+        String[] row = new String[4];
+        row[0] = item.getItemNumber();
+        row[1] = item.getItemName();
+        row[2] = Integer.toString(item.getQuantity());
+        row[3] = Integer.toString(item.getUnitPrice() * item.getQuantity());
+        itemTableModel.addRow(row);
+    }
+    
+    /**
+     * 注文商品を表示
+     * @param itemList 商品情報リスト
+     */
+//    public void showItemTable(List<Item> itemList) {
+//        String[] row = new String[4];
+//        for (Item item : itemList) {
+//            row[0] = item.getItemNumber();
+//            row[1] = item.getItemName();
+//            row[2] = Integer.toString(item.getQuantity());
+//            row[3] = Integer.toString(item.getUnitPrice() * item.getQuantity());
+//            itemTableModel.addRow(row);
+//        }
+//    }
+    
+    /**
+     * 注文表から商品を削除
+     * @param row 行番号
+     */
+    public void removeOrderItem(int row) {
+        itemTableModel.removeRow(row);
     }
     
     /**
@@ -155,7 +193,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * 顧客情報が見つからなかったときの処理
      * @param param パラメータ
      */
-    public void showNotFoundErrorMessage(String param) {
+    public void showCustomerNotFoundErrorMessage(String param) {
         int result = JOptionPane.showConfirmDialog(this,  param + "がありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
         if(result == JOptionPane.OK_OPTION){
             control.showCustomerAddBoundary(jTextFieldPhoneNumber.getText());
@@ -181,6 +219,13 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void showDBErrorMessage() {
         showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
+    /**
+     * 商品検索で商品が見つからなかったときのエラー
+     */
+    public void showItemNotFoundErrorMessage() {
+        showErrorMessage("商品が見つかりませんでした", "エラー");
     }
     
     /**
@@ -229,6 +274,9 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonMainmenu = new javax.swing.JButton();
         jButtonDrink = new javax.swing.JButton();
         jButtonSideMenu = new javax.swing.JButton();
+        jButtonAddOrderItem = new javax.swing.JButton();
+        jButtonAddOrderItems = new javax.swing.JButton();
+        jButtonRemoveOrderItem = new javax.swing.JButton();
         jPanelFinakCheck = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -466,7 +514,15 @@ public class OrderBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableItem.setToolTipText("");
         jScrollPane1.setViewportView(jTableItem);
 
@@ -487,51 +543,100 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jTableMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Title 1", "Title 2", "Title 3"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTableMenu);
 
         jButtonMainmenu.setText("メインメニュー");
+        jButtonMainmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMainmenuActionPerformed(evt);
+            }
+        });
 
         jButtonDrink.setText("ドリンク");
+        jButtonDrink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDrinkActionPerformed(evt);
+            }
+        });
 
         jButtonSideMenu.setText("サイドメニュー");
+        jButtonSideMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSideMenuActionPerformed(evt);
+            }
+        });
+
+        jButtonAddOrderItem.setText("1個追加");
+        jButtonAddOrderItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddOrderItemActionPerformed(evt);
+            }
+        });
+
+        jButtonAddOrderItems.setText("複数個追加");
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMenuLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanelMenuLayout.createSequentialGroup()
                         .addComponent(jButtonMainmenu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonDrink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(87, 87, 87))
+                        .addComponent(jButtonDrink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(37, 37, 37))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAddOrderItem, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAddOrderItems))
+                .addContainerGap())
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMainmenu)
                     .addComponent(jButtonDrink)
                     .addComponent(jButtonSideMenu))
                 .addGap(37, 37, 37)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelMenuLayout.createSequentialGroup()
+                        .addComponent(jButtonAddOrderItem)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAddOrderItems)))
                 .addContainerGap())
         );
+
+        jButtonRemoveOrderItem.setText("商品を取り除く");
+        jButtonRemoveOrderItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveOrderItemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
         jPanelOrderItem.setLayout(jPanelOrderItemLayout);
@@ -551,12 +656,15 @@ public class OrderBoundary extends javax.swing.JFrame {
                                     .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                                         .addGap(25, 25, 25)
                                         .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(67, 67, 67)
                                 .addComponent(jButtonSearchItemId))
                             .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                                .addComponent(jLabel9))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonRemoveOrderItem)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -578,7 +686,9 @@ public class OrderBoundary extends javax.swing.JFrame {
                             .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonSearchItemId))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonRemoveOrderItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -780,6 +890,28 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void jButtonSearchItemIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchItemIdActionPerformed
         control.searchItemItemNumber(jTextFieldItemId.getText());
     }//GEN-LAST:event_jButtonSearchItemIdActionPerformed
+
+    private void jButtonMainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainmenuActionPerformed
+        control.searchMainMenu();
+    }//GEN-LAST:event_jButtonMainmenuActionPerformed
+
+    private void jButtonDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrinkActionPerformed
+        control.searchDrinkMenu();
+    }//GEN-LAST:event_jButtonDrinkActionPerformed
+
+    private void jButtonSideMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSideMenuActionPerformed
+        control.searchSideMenu();
+    }//GEN-LAST:event_jButtonSideMenuActionPerformed
+
+    private void jButtonAddOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddOrderItemActionPerformed
+        
+    }//GEN-LAST:event_jButtonAddOrderItemActionPerformed
+
+    private void jButtonRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveOrderItemActionPerformed
+        if (jTableItem.getSelectedRow() > 0) {
+            control.removeOrderItem(jTableItem.getSelectedRow());
+        }
+    }//GEN-LAST:event_jButtonRemoveOrderItemActionPerformed
     
     /**
      * @param args the command line arguments
@@ -824,10 +956,13 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAddOrderItem;
+    private javax.swing.JButton jButtonAddOrderItems;
     private javax.swing.JButton jButtonCustomerCheck;
     private javax.swing.JButton jButtonDrink;
     private javax.swing.JButton jButtonFinalCheck;
     private javax.swing.JButton jButtonMainmenu;
+    private javax.swing.JButton jButtonRemoveOrderItem;
     private javax.swing.JButton jButtonSearchItemId;
     private javax.swing.JButton jButtonSelectItem;
     private javax.swing.JButton jButtonSelectedItem;
