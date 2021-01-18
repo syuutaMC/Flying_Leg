@@ -6,6 +6,7 @@
 package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
+import managerMenu.item.Item;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private OrderControl control;
     private Customer customer;
     private DefaultTableModel itemTableModel;
+    private String items[] = new String[4];
     
     /**
      * Creates new form OrderBoundary
@@ -126,10 +128,18 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param param パラメータ
      */
     public void showNotFoundErrorMessage(String param) {
-        int result = JOptionPane.showConfirmDialog(this,  param + "がありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(this,  "該当する情報ががありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
         if(result == JOptionPane.OK_OPTION){
             control.showCustomerAddBoundary(jTextFieldPhoneNumber.getText());
         }
+    }
+    
+    public void showItemTextField(Item item){
+        items[0] = item.getItemNumber();
+        items[1] = item.getItemName();
+        items[2] = "1";
+        items[3] = String.valueOf(item.getUnitPrice());
+        itemTableModel.addRow(items);
     }
     
     /**
@@ -428,13 +438,10 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jTableItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jTableItem.setToolTipText("");
@@ -469,10 +476,25 @@ public class OrderBoundary extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTableMenu);
 
         jButtonMainmenu.setText("メインメニュー");
+        jButtonMainmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMainmenuActionPerformed(evt);
+            }
+        });
 
         jButtonDrink.setText("ドリンク");
+        jButtonDrink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDrinkActionPerformed(evt);
+            }
+        });
 
         jButtonSideMenu.setText("サイドメニュー");
+        jButtonSideMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSideMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
@@ -750,6 +772,18 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void jButtonSearchItemIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchItemIdActionPerformed
         control.searchItemItemNumber(jTextFieldItemId.getText());
     }//GEN-LAST:event_jButtonSearchItemIdActionPerformed
+
+    private void jButtonMainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainmenuActionPerformed
+        control.searchItemItemName("M"); //メインメニュー
+    }//GEN-LAST:event_jButtonMainmenuActionPerformed
+
+    private void jButtonDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrinkActionPerformed
+        control.searchItemItemName("D"); //ドリンク
+    }//GEN-LAST:event_jButtonDrinkActionPerformed
+
+    private void jButtonSideMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSideMenuActionPerformed
+        control.searchItemItemName("S"); //サイドメニュー
+    }//GEN-LAST:event_jButtonSideMenuActionPerformed
     
     /**
      * @param args the command line arguments

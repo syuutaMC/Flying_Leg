@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import managerMenu.Item;
+import managerMenu.item.Item;
 import sys.DBManager;
 
 /**
