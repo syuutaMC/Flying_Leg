@@ -6,11 +6,9 @@
 package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
-import employeesMenu.customer.CustomerControl;
 import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesMenuControl;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import managerMenu.Item;
 
@@ -55,7 +53,7 @@ public class OrderControl {
                 orderBoundary.showCustomerTextField(customer.get(0));
             }
             else {
-                orderBoundary.showNotFoundErrorMessage(phoneNumber);
+                orderBoundary.showCustomerNotFoundErrorMessage(phoneNumber);
             }
         } catch (SQLException e) {
             orderBoundary.showDBErrorMessage();
@@ -89,10 +87,10 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemName(itemName);
             if (itemList.size() > 0) {
-                
+                orderBoundary.showItemTable(itemList.get(0));
             }
             else {
-                
+                orderBoundary.showItemNotFoundErrorMessage();
             }
         }
         catch (SQLException e) {
@@ -138,6 +136,31 @@ public class OrderControl {
     public void searchDrinkMenu() {
         List<Item> itemList = itemDAO.dbSearchItemDrinkMenu();
         orderBoundary.showMenuTable(itemList);
+    }
+    
+    /**
+     * 注文商品追加
+     * @param itemNumber 商品番号
+     */
+    public void addOrderItem(String itemNumber) {
+        try {
+            List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
+            if (itemList.size() > 0) {
+                orderBoundary.showItemTable(itemList.get(0));
+            } else {
+                orderBoundary.showItemNotFoundErrorMessage();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+    
+    /**
+     * 注文商品を取り除く
+     * @param row 行番号
+     */
+    public void removeOrderItem(int row) {
+        orderBoundary.removeOrderItem(row);
     }
     
     /**
