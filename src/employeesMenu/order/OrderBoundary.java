@@ -8,6 +8,7 @@ package employeesMenu.order;
 import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import java.awt.CardLayout;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -154,6 +155,14 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void showDBErrorMessage() {
         showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
+    public void showItemNoIsNothingErrorMessage(String itemNo){
+        showErrorMessage("該当する商品番号がsありません", "エラー");
+    }
+    
+    public void setItem(List<item> itemList){
+        
     }
     
     /**

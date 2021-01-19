@@ -70,10 +70,10 @@ public class OrderControl {
         try {
             List<Item> itemList = orderDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                
+                orderBoundary.setItem(itemList);
             }
             else {
-                
+                orderBoundary.showItemNoIsNothingErrorMessage(itemNumber);
             }
             
         }
