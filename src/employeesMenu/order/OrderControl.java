@@ -70,9 +70,10 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                
+                orderBoundary.showItemTable(itemList.get(0));
             }
             else {
+                orderBoundary.showItemNotFoundErrorMessage();
             }
             
         }
