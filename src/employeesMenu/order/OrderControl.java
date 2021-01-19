@@ -17,15 +17,17 @@ import managerMenu.Item;
  * @author 19jz0115
  */
 public class OrderControl {
-    private final OrderBoundary orderBoundary;
-    private EmployeesMenuControl control;
-    private final ItemDAO      itemDAO;
-    private final CustomerDAO   customerDAO;
+    private final OrderBoundary     orderBoundary;
+    private EmployeesMenuControl    control;
+    private final ItemDAO           itemDAO;
+    private final CustomerDAO       customerDAO;
+    private final OrderDAO          orderDAO;
     
     public OrderControl() {
         orderBoundary   = new OrderBoundary();
-        itemDAO        = new ItemDAO();
+        itemDAO         = new ItemDAO();
         customerDAO     = new CustomerDAO();
+        orderDAO        = new OrderDAO();
         setControl(control);
     }
     
@@ -179,6 +181,23 @@ public class OrderControl {
             orderBoundary.showFinalCheckPanel();
         }
         
+    }
+    
+    /**
+     * 注文確定処理
+     * @param customerNumber    顧客番号
+     * @param deliveryToAddress 配達先住所
+     * @param items             注文商品
+     */
+    public void orderFixing(int customerNumber, String deliveryToAddress, List<Item> items) {
+        try {
+            orderDAO.dbAddOrder(customerNumber, deliveryToAddress, items);
+            orderBoundary.showOrderFixingSuccessMessage();
+            orderBoundary.orderExit();
+        }
+        catch(SQLException e) {
+            orderBoundary.showDBErrorMessage();
+        }
     }
     
     /**
