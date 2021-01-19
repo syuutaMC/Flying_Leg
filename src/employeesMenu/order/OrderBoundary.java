@@ -32,7 +32,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         initComponents();
         initAddAddressPanel();
         initTopPanel();
-        initTableModel();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
     }
     
@@ -60,12 +59,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void initTopPanel(){
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
-    }
-    
-    private void initTableModel(){
-        String[] heading = {"商品番号", "商品名", "個数", "値段" };
-        itemTableModel = new DefaultTableModel(heading, 0);
-        jTableItem.setModel(itemTableModel);
     }
     
     /**
