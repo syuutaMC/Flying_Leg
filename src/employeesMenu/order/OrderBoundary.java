@@ -7,6 +7,7 @@ package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -223,12 +224,28 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
+     * 注文画面終了処理
+     */
+    public void orderExit() {
+        control.exit();
+    }
+    
+    /**
      * エラーダイアログ表示
      * @param message エラーメッセージ
      * @param title   タイトル
      */
     public void showErrorMessage(String message, String title) {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * 確認ダイアログ表示
+     * @param message メッセージ
+     * @param title 　タイトル
+     */
+    public void showConfirmMessage(String message, String title) {
+        JOptionPane.showConfirmDialog(this, message, title, JOptionPane.OK_OPTION);
     }
     
     /**
@@ -275,6 +292,13 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void showTotalPriceErrorMessage() {
         showErrorMessage("注文は1500円以上から受け付けています", "エラー");
+    }
+    
+    /**
+     * 注文確定確認メッセージ
+     */
+    public void showOrderFixingSuccessMessage() {
+        showConfirmMessage("注文を確定しました", "確認");
     }
     
     /**
@@ -750,13 +774,13 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addComponent(jButtonRemoveOrderItem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
+                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15)))
                 .addContainerGap())
         );
 
@@ -766,6 +790,11 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jButton2.setText("注文確定");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -812,10 +841,9 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jLabel6)
                             .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -994,6 +1022,19 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void jTableItemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableItemPropertyChange
         showOrderTotalPrice(calcTotalPrice());
     }//GEN-LAST:event_jTableItemPropertyChange
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        List<Item> items = new ArrayList<>();
+        
+        for (int i = 0; i < jTableItem.getRowCount(); i++) {
+            Item item = new Item();
+            item.setItemNumber(jTableItem.getValueAt(i, 1).toString());
+            item.setQuantity(Integer.parseInt(jTableItem.getValueAt(i, 3).toString()));
+            items.add(item);
+        }
+        
+        control.orderFixing( customer.getCustomerNumber(), customer.getAddress(), items);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     /**
      * @param args the command line arguments
