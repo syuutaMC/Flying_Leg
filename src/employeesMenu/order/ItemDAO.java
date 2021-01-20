@@ -87,7 +87,8 @@ public class ItemDAO {
                      " WHERE ITEM_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "\'" + itemNumber + "\'");
+            //ps.setString(1, itemNumber);
+            ps.setString(1, itemNumber);
             itemList = selectItemExucte();
         }
         catch (Exception e) {
