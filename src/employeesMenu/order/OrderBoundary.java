@@ -23,7 +23,8 @@ public class OrderBoundary extends javax.swing.JFrame {
     private final CardLayout cardLayout;
     private OrderControl control;
     private Customer customer;
-    private DefaultTableModel itemTableModel;
+    private DefaultTableModel orderTableModel;
+    private DefaultTableModel menuTableModel;
     private String items[] = new String[4];
     
     /**
@@ -52,6 +53,17 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldAddress.setEditable(false);
         jTextFieldPhoneNumber2.setEditable(false);
         jCheckBox1.setEnabled(false);
+    }
+    
+    private void initTableModel(){
+        String[] orderTableTitle = {"商品番号", "商品名", "数量", "金額"};
+        String[] menuTableTitle = {"商品名", "金額"};
+        
+        orderTableModel = new DefaultTableModel(orderTableTitle, 0);
+        menuTableModel = new DefaultTableModel(menuTableTitle, 0);
+        
+        jTableItem.setModel(orderTableModel);
+        jTableMenu.setModel(menuTableModel);
     }
     
     /**
@@ -133,7 +145,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         items[1] = item.getItemName();
         items[2] = "1";
         items[3] = String.valueOf(item.getUnitPrice());
-        itemTableModel.addRow(items);
+        orderTableModel.addRow(items);
     }
     
     /**
@@ -161,8 +173,10 @@ public class OrderBoundary extends javax.swing.JFrame {
         showErrorMessage("該当する商品番号がsありません", "エラー");
     }
     
-    public void setItem(List<item> itemList){
-        
+    public void setItem(List<Item> itemList){
+        for(Item item : itemList){
+            showItemTextField(item);
+        }
     }
     
     /**
