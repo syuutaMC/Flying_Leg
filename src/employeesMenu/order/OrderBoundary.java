@@ -80,7 +80,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     private void initMenuTableModel() {
         String[] heading = {"商品番号", "商品名", "値段" };
-        itemTableModel = new DefaultTableModel(heading, 0);
+        menuTableModel = new DefaultTableModel(heading, 0);
         jTableMenu.setModel(menuTableModel);
         
     }
@@ -198,8 +198,8 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public int calcTotalPrice() {
         int totalPrice = 0;
-        for (int i = 0; i < jTableItem.getRowCount(); i++) {
-            totalPrice += Integer.parseInt(jTableItem.getValueAt(i, 4).toString());
+        for (int i = 0; i < 1/*jTableItem.getRowCount()*/; i++) {
+            totalPrice += Integer.parseInt("1"/*jTableItem.getValueAt(i, 4).toString()*/);
         }
         if (ORDER_TOTAL_PRICE_UNDER_LIMIT > totalPrice) {
             showTotalPriceErrorMessage();
@@ -600,11 +600,6 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
         jTableItem.setToolTipText("");
-        jTableItem.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTableItemPropertyChange(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableItem);
 
         jLabel9.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
@@ -1018,10 +1013,6 @@ public class OrderBoundary extends javax.swing.JFrame {
             control.removeOrderItem(jTableItem.getSelectedRow());
         }
     }//GEN-LAST:event_jButtonRemoveOrderItemActionPerformed
-
-    private void jTableItemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableItemPropertyChange
-        showOrderTotalPrice(calcTotalPrice());
-    }//GEN-LAST:event_jTableItemPropertyChange
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         List<Item> items = new ArrayList<>();
