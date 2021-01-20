@@ -89,11 +89,12 @@ public class OrderControl {
     public void searchItemItemName(String itemName) {
         try {
             List<Item> itemList = orderDAO.dbSearchItemItemName(itemName);
+            System.out.println(itemList.size());
             if (itemList.size() > 0) {
-                
+                orderBoundary.setItem(itemList);
             }
             else {
-                
+                orderBoundary.showItemNoIsNothingErrorMessage(itemName);
             }
         }
         catch (SQLException e) {
