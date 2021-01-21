@@ -65,6 +65,7 @@ public class CustomerControl {
      * @param name          顧客名
      * @param address        住所
      * @param phoneNumber   電話番号
+     * @param delivaryNote  配達備考
      */
     public void addCustomer(String name, String address, String phoneNumber, String delivaryNote) {
         Customer customer = new Customer(name, phoneNumber, address, delivaryNote);
@@ -72,6 +73,7 @@ public class CustomerControl {
         try {
             customerDAO.dbAddCustomer(customer);
             customerAddBoundary.showRegistrationSuccessMessage();
+            
         }
         catch(SQLIntegrityConstraintViolationException e) {
             customerAddBoundary.showRegisteredErrorMeessage(phoneNumber);

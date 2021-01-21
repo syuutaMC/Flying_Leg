@@ -6,28 +6,28 @@
 package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
-//import employeesMenu.customer.CustomerControl;
 import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesMenuControl;
 import java.sql.SQLException;
-//import java.util.ArrayList;
 import java.util.List;
-import managerMenu.Item;
+import managerMenu.item.Item;
 
 /**
  *
  * @author 19jz0115
  */
 public class OrderControl {
-    private final OrderBoundary orderBoundary;
-    private EmployeesMenuControl control;
-    private final ItemDAO      orderDAO;
-    private final CustomerDAO   customerDAO;
+    private final OrderBoundary     orderBoundary;
+    private EmployeesMenuControl    control;
+    private final ItemDAO           itemDAO;
+    private final CustomerDAO       customerDAO;
+    private final OrderDAO          orderDAO;
     
     public OrderControl() {
         orderBoundary   = new OrderBoundary();
-        orderDAO        = new ItemDAO();
+        itemDAO         = new ItemDAO();
         customerDAO     = new CustomerDAO();
+        orderDAO        = new OrderDAO();
         setControl(control);
     }
     
@@ -55,7 +55,7 @@ public class OrderControl {
                 orderBoundary.showCustomerTextField(customer.get(0));
             }
             else {
-                orderBoundary.showNotFoundErrorMessage(phoneNumber);
+                orderBoundary.showCustomerNotFoundErrorMessage(phoneNumber);
             }
         } catch (SQLException e) {
             orderBoundary.showDBErrorMessage();
@@ -68,11 +68,12 @@ public class OrderControl {
      */
     public void searchItemItemNumber(String itemNumber) {
         try {
-            List<Item> itemList = orderDAO.dbSearchItemItemNumber(itemNumber);
+            List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                
+                orderBoundary.showOrderTable(itemList.get(0));
             }
             else {
+                orderBoundary.showItemNotFoundErrorMessage();
             }
             
         }
@@ -87,12 +88,12 @@ public class OrderControl {
      */
     public void searchItemItemName(String itemName) {
         try {
-            List<Item> itemList = orderDAO.dbSearchItemItemName(itemName);
+            List<Item> itemList = itemDAO.dbSearchItemItemName(itemName);
             if (itemList.size() > 0) {
-                
+                orderBoundary.showOrderTable(itemList.get(0));
             }
             else {
-                
+                orderBoundary.showItemNotFoundErrorMessage();
             }
         }
         catch (SQLException e) {
@@ -114,6 +115,90 @@ public class OrderControl {
     
     public void showCustomerAddBoundary(String phoneNumber){
         control.showCustomerAddBoundary(phoneNumber);
+    }
+    
+    /**
+     * メインメニュー検索
+     */
+    public void searchMainMenu() {
+        List<Item> itemList = itemDAO.dbSearchItemMainMenu();
+        orderBoundary.showMenuTable(itemList);
+    }
+    
+    /**
+     * サイドメニュー検索
+     */
+    public void searchSideMenu() {
+        List<Item> itemList = itemDAO.dbSearchItemSideMenu();
+        orderBoundary.showMenuTable(itemList);
+    }
+    
+    /**
+     * ドリンクメニュー検索
+     */
+    public void searchDrinkMenu() {
+        List<Item> itemList = itemDAO.dbSearchItemDrinkMenu();
+        orderBoundary.showMenuTable(itemList);
+    }
+    
+    /**
+     * 注文商品追加
+     * @param itemNumber 商品番号
+     */
+    public void addOrderItem(String itemNumber) {
+        try {
+            List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
+            if (itemList.size() > 0) {
+                orderBoundary.showOrderTable(itemList.get(0));
+                orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
+            } else {
+                orderBoundary.showItemNotFoundErrorMessage();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+    
+    /**
+     * 注文商品を取り除く
+     * @param row 行番号
+     */
+    public void removeOrderItem(int row) {
+        orderBoundary.removeOrderItem(row);
+        orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
+    }
+    
+    /**
+     * 注文確認画面表示
+     */
+    public void showCardFinalCheck() {
+        int totalPrice = orderBoundary.calcTotalPrice();
+        if (OrderBoundary.ORDER_TOTAL_PRICE_UNDER_LIMIT > totalPrice) {
+            orderBoundary.setEnabledFinalCheck(false);
+            orderBoundary.showTotalPriceErrorMessage();
+        }
+        else {
+            orderBoundary.setEnabledFinalCheck(true);
+            orderBoundary.showFinalCheckPanel();
+        }
+        
+    }
+    
+    /**
+     * 注文確定処理
+     * @param customerNumber    顧客番号
+     * @param deliveryToAddress 配達先住所
+     * @param items             注文商品
+     */
+    public void orderFixing(int customerNumber, String deliveryToAddress, List<Item> items) {
+        try {
+            orderDAO.dbAddOrder(customerNumber, deliveryToAddress, items);
+            orderBoundary.showOrderFixingSuccessMessage();
+            orderBoundary.orderExit();
+        }
+        catch(SQLException e) {
+            orderBoundary.showDBErrorMessage();
+        }
     }
     
     /**

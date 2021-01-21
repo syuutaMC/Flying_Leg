@@ -117,13 +117,12 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonRegister))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextFieldName)
-                            .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                         .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                         .addComponent(jTextFieldAddress, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -212,7 +211,7 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
      * 登録完了のメッセージ
      */
     public void showRegistrationSuccessMessage(){
-        JOptionPane.showMessageDialog(this, "登録されました", "確認", JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(this, "登録されました", "確認", JOptionPane.INFORMATION_MESSAGE);
         control.exitCustomerAddBoundary();
     }
     
