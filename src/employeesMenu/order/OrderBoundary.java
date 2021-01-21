@@ -599,7 +599,13 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
         jTableOrder.setToolTipText("");
+        jTableOrder.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableOrder);
+        if (jTableOrder.getColumnModel().getColumnCount() > 0) {
+            jTableOrder.getColumnModel().getColumn(0).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(1).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel9.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel9.setText("商品検索");
@@ -920,9 +926,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanelCardBase, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE))
+            .addComponent(jPanelCardBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
             .addComponent(jPanelHeadder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1105,7 +1109,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelOrderTotalPrice;
     private javax.swing.JLabel jLabelPhoneNumber;
-    private javax.swing.JLabel jLabelPrice;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelTotalPrice;
     private javax.swing.JPanel jPanel1;
