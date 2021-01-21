@@ -1105,6 +1105,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelOrderTotalPrice;
     private javax.swing.JLabel jLabelPhoneNumber;
+    private javax.swing.JLabel jLabelPrice;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelTotalPrice;
     private javax.swing.JPanel jPanel1;
