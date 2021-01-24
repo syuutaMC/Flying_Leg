@@ -5,27 +5,30 @@
  */
 package employeesMenu;
 
+import sys.MainMenuBoundary;
 import employeesMenu.customer.CustomerControl;
 import employeesMenu.order.OrderControl;
+import sys.SystemControl;
 
 /**
  * 従業員メニューコントロールクラス
  * @author 19jz0115
  */
-public class EmployeesMenuControl {
-    private final EmployeesMenuBoundary employeesMenuBoundary;
+public class EmployeesControl {
+    private final MainMenuBoundary employeesMenuBoundary;
     private final CustomerControl customerControl;
     private final OrderControl orderControl;
+    private SystemControl control;
     
-    public EmployeesMenuControl() {
-        employeesMenuBoundary = new EmployeesMenuBoundary();
+    public EmployeesControl() {
+        employeesMenuBoundary = new MainMenuBoundary();
         customerControl = new CustomerControl();
         orderControl = new OrderControl();
+        control = new SystemControl();
     }
     
-    public void start(){
-        employeesMenuBoundary.setControl(this);
-        employeesMenuBoundary.setVisible(true);
+    public void setControl(SystemControl control){
+        this.control = control;
     }
     
     /**
@@ -70,13 +73,5 @@ public class EmployeesMenuControl {
         customerControl.setControl(this);
         customerControl.initControl();
         customerControl.showCustomerAddBoundary(phoneNumber);
-    }
-    
-    /**
-     * テストメインクラス
-     * @param args 
-     */
-    public static void main(String[] args) {
-        new EmployeesMenuControl().start();
     }
 }
