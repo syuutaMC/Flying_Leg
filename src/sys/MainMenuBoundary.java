@@ -6,6 +6,7 @@
 package sys;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 
 /**
  * 従業員メニューバウンダリー
@@ -22,9 +23,14 @@ public class MainMenuBoundary extends javax.swing.JFrame {
     
     public MainMenuBoundary() {
         initComponents();
+        initjLabel();
         setTitle("メインメニュー");
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
     }
+    
+    private void initjLabel(){
+        jLabelErrorMesage.setForeground(Color.red);
+   }
     
     /**
      * コントロールを設定
@@ -32,6 +38,10 @@ public class MainMenuBoundary extends javax.swing.JFrame {
      */
     public void setControl(SystemControl control){
         this.control = control;
+    }
+    
+    public void loginFailure(){
+        jLabelErrorMesage.setText("IDまたはパスワードが違います");
     }
 
     /**
@@ -47,13 +57,20 @@ public class MainMenuBoundary extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanelCardBase = new javax.swing.JPanel();
-        MainMenu = new javax.swing.JPanel();
+        jPaneMainMenu = new javax.swing.JPanel();
         jButtonEmoployyesMenu = new javax.swing.JButton();
         jButtonManagerMenu = new javax.swing.JButton();
-        EmployeesMenu = new javax.swing.JPanel();
+        jPaneEmployeesMenu = new javax.swing.JPanel();
         jButtonOrder = new javax.swing.JButton();
         jButtonControlCustomer = new javax.swing.JButton();
-        ManegerMenu = new javax.swing.JPanel();
+        jPaneManegerMenu = new javax.swing.JPanel();
+        jPaneLoginPanel = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabelErrorMesage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,7 +106,7 @@ public class MainMenuBoundary extends javax.swing.JFrame {
 
         jPanelCardBase.setLayout(new java.awt.CardLayout());
 
-        MainMenu.setBackground(new java.awt.Color(255, 255, 255));
+        jPaneMainMenu.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonEmoployyesMenu.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jButtonEmoployyesMenu.setText("従業員メニュー");
@@ -107,20 +124,20 @@ public class MainMenuBoundary extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout MainMenuLayout = new javax.swing.GroupLayout(MainMenu);
-        MainMenu.setLayout(MainMenuLayout);
-        MainMenuLayout.setHorizontalGroup(
-            MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainMenuLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPaneMainMenuLayout = new javax.swing.GroupLayout(jPaneMainMenu);
+        jPaneMainMenu.setLayout(jPaneMainMenuLayout);
+        jPaneMainMenuLayout.setHorizontalGroup(
+            jPaneMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneMainMenuLayout.createSequentialGroup()
                 .addGap(112, 112, 112)
-                .addGroup(MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPaneMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonManagerMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonEmoployyesMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
-        MainMenuLayout.setVerticalGroup(
-            MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainMenuLayout.createSequentialGroup()
+        jPaneMainMenuLayout.setVerticalGroup(
+            jPaneMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneMainMenuLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jButtonEmoployyesMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
@@ -128,9 +145,9 @@ public class MainMenuBoundary extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        jPanelCardBase.add(MainMenu, "card3");
+        jPanelCardBase.add(jPaneMainMenu, "card3");
 
-        EmployeesMenu.setBackground(new java.awt.Color(255, 255, 255));
+        jPaneEmployeesMenu.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonOrder.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jButtonOrder.setText("注文受付");
@@ -148,23 +165,23 @@ public class MainMenuBoundary extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout EmployeesMenuLayout = new javax.swing.GroupLayout(EmployeesMenu);
-        EmployeesMenu.setLayout(EmployeesMenuLayout);
-        EmployeesMenuLayout.setHorizontalGroup(
-            EmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EmployeesMenuLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPaneEmployeesMenuLayout = new javax.swing.GroupLayout(jPaneEmployeesMenu);
+        jPaneEmployeesMenu.setLayout(jPaneEmployeesMenuLayout);
+        jPaneEmployeesMenuLayout.setHorizontalGroup(
+            jPaneEmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneEmployeesMenuLayout.createSequentialGroup()
                 .addGap(112, 112, 112)
-                .addGroup(EmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPaneEmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonControlCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
                 .addContainerGap(137, Short.MAX_VALUE))
         );
 
-        EmployeesMenuLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonControlCustomer, jButtonOrder});
+        jPaneEmployeesMenuLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonControlCustomer, jButtonOrder});
 
-        EmployeesMenuLayout.setVerticalGroup(
-            EmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EmployeesMenuLayout.createSequentialGroup()
+        jPaneEmployeesMenuLayout.setVerticalGroup(
+            jPaneEmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneEmployeesMenuLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jButtonOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
@@ -172,22 +189,78 @@ public class MainMenuBoundary extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        EmployeesMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonControlCustomer, jButtonOrder});
+        jPaneEmployeesMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonControlCustomer, jButtonOrder});
 
-        jPanelCardBase.add(EmployeesMenu, "card2");
+        jPanelCardBase.add(jPaneEmployeesMenu, "card2");
 
-        javax.swing.GroupLayout ManegerMenuLayout = new javax.swing.GroupLayout(ManegerMenu);
-        ManegerMenu.setLayout(ManegerMenuLayout);
-        ManegerMenuLayout.setHorizontalGroup(
-            ManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPaneManegerMenuLayout = new javax.swing.GroupLayout(jPaneManegerMenu);
+        jPaneManegerMenu.setLayout(jPaneManegerMenuLayout);
+        jPaneManegerMenuLayout.setHorizontalGroup(
+            jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        ManegerMenuLayout.setVerticalGroup(
-            ManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPaneManegerMenuLayout.setVerticalGroup(
+            jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 245, Short.MAX_VALUE)
         );
 
-        jPanelCardBase.add(ManegerMenu, "card4");
+        jPanelCardBase.add(jPaneManegerMenu, "card4");
+
+        jPaneLoginPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabel3.setText("従業員番号");
+
+        jLabel4.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabel4.setText("パスワード");
+
+        jButton1.setFont(new java.awt.Font("MS UI Gothic", 1, 12)); // NOI18N
+        jButton1.setText("ログイン");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPaneLoginPanelLayout = new javax.swing.GroupLayout(jPaneLoginPanel);
+        jPaneLoginPanel.setLayout(jPaneLoginPanelLayout);
+        jPaneLoginPanelLayout.setHorizontalGroup(
+            jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelErrorMesage)
+                    .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(38, 38, 38)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(109, Short.MAX_VALUE))
+        );
+        jPaneLoginPanelLayout.setVerticalGroup(
+            jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(47, 47, 47)
+                .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelErrorMesage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+
+        jPanelCardBase.add(jPaneLoginPanel, "card5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,40 +297,14 @@ public class MainMenuBoundary extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonManagerMenuActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.login();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        }
-        catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenuBoundary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenuBoundary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenuBoundary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenuBoundary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -267,16 +314,23 @@ public class MainMenuBoundary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel EmployeesMenu;
-    private javax.swing.JPanel MainMenu;
-    private javax.swing.JPanel ManegerMenu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonControlCustomer;
     private javax.swing.JButton jButtonEmoployyesMenu;
     private javax.swing.JButton jButtonManagerMenu;
     private javax.swing.JButton jButtonOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelErrorMesage;
+    private javax.swing.JPanel jPaneEmployeesMenu;
+    private javax.swing.JPanel jPaneLoginPanel;
+    private javax.swing.JPanel jPaneMainMenu;
+    private javax.swing.JPanel jPaneManegerMenu;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCardBase;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

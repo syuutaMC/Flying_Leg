@@ -8,17 +8,17 @@ import employeesMenu.EmployeesControl;
  */
 public class SystemControl {
     
-    private final MainMenuBoundary meinMenuBoundary;
+    private final MainMenuBoundary mainMenuBoundary;
     private final EmployeesControl employeesControl;
     
     public SystemControl(){
-        meinMenuBoundary = new MainMenuBoundary();
+        mainMenuBoundary = new MainMenuBoundary();
         employeesControl = new EmployeesControl();
     }
     
     public void start(){
-        meinMenuBoundary.setControl(this);
-        meinMenuBoundary.setVisible(true);
+        mainMenuBoundary.setControl(this);
+        setVisibleMainMenu(true);
     }
     
     /**
@@ -35,6 +35,22 @@ public class SystemControl {
     public void showCustomerBoundary(){
         employeesControl.setControl(this);
         employeesControl.showCustomerBoundary();
+    }
+    
+    /**
+     * メインメニューの可視化設定
+     * @param b true : 表示 false : 非表示
+     */
+    public void setVisibleMainMenu(boolean b) {
+        mainMenuBoundary.setVisible(b);
+    }
+    
+    public void login(){
+        if(true){
+            //マネージャーメニューの表示
+        }else{
+            mainMenuBoundary.loginFailure();
+        }
     }
     
     public static void main(String[] args) {

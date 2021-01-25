@@ -15,13 +15,11 @@ import sys.SystemControl;
  * @author 19jz0115
  */
 public class EmployeesControl {
-    private final MainMenuBoundary employeesMenuBoundary;
     private final CustomerControl customerControl;
     private final OrderControl orderControl;
     private SystemControl control;
     
     public EmployeesControl() {
-        employeesMenuBoundary = new MainMenuBoundary();
         customerControl = new CustomerControl();
         orderControl = new OrderControl();
         control = new SystemControl();
@@ -35,7 +33,7 @@ public class EmployeesControl {
      * 顧客確認画面を表示する
      */
     public void showCustomerBoundary(){
-        employeesMenuBoundary.setVisible(false);
+        control.setVisibleMainMenu(false);
         customerControl.setControl(this);
         customerControl.initControl();
         customerControl.showCustomerCheckBoundary();
@@ -45,7 +43,7 @@ public class EmployeesControl {
      * 注文画面を表示する
      */
     public void showOrderBoundary(){
-        employeesMenuBoundary.setVisible(false);
+        control.setVisibleMainMenu(false);
         orderControl.setControl(this);
         orderControl.start();
     }
@@ -54,7 +52,7 @@ public class EmployeesControl {
      * 画面を閉じる処理
      */
     public void exitMediaView(){
-        employeesMenuBoundary.setVisible(true);
+        control.setVisibleMainMenu(true);
     }
     
     /**
