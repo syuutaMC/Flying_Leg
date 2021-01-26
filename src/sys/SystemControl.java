@@ -37,6 +37,10 @@ public class SystemControl {
         employeesControl.showCustomerBoundary();
     }
     
+    /**
+     * メインメニューの画面切り替え処理
+     * @param str CardName
+     */
     public void changeCardLayout(String str){
         mainMenuBoundary.showCardLayout(str);
     }
@@ -49,12 +53,26 @@ public class SystemControl {
         mainMenuBoundary.setVisible(b);
     }
     
+    /**
+     * ログイン処理
+     */
     public void login(){
-        if(false){
-            //マネージャーメニューの表示
-        }else{
+        if(true){   //ログイン成功
+            mainMenuBoundary.setEmployee("number", "Name", "position");
+            mainMenuBoundary.setLoginStatus(true);
+            mainMenuBoundary.login("");
+        }else{  //ログイン失敗
             mainMenuBoundary.loginFailure();
         }
+    }
+    
+    /**
+     * ログアウト処理
+     */
+    public void logout(){
+        mainMenuBoundary.setEmployee("", "", "");
+        mainMenuBoundary.setLoginStatus(false);
+        mainMenuBoundary.logout();
     }
     
     public static void main(String[] args) {
