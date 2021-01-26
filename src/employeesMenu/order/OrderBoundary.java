@@ -8,6 +8,7 @@ package employeesMenu.order;
 import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import java.awt.CardLayout;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -256,8 +257,9 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param totalPrice 合計金額
      */
     public void showOrderTotalPrice(int totalPrice) {
-        jLabelOrderTotalPrice.setText(Integer.toString(totalPrice) + "円");
-        jLabelTotalPriceWarn.setVisible(totalPrice >= ORDER_TOTAL_PRICE_UNDER_LIMIT);
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        jLabelOrderTotalPrice.setText(nf.format(totalPrice) + "円");
+        jLabelTotalPriceWarn.setVisible(totalPrice < ORDER_TOTAL_PRICE_UNDER_LIMIT);
     }
     
     /**
