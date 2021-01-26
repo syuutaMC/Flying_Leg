@@ -67,6 +67,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         jTableOrder.setModel(orderTableModel);
         jTableMenu.setModel(menuTableModel);
+        
+        //jTableOrder.getColumnModel().getColumn(2).setCellEditor(new SpinnerCellEditor());
     }
     
     /**
@@ -581,18 +583,22 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jTableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "商品番号", "商品名", "数量", "金額"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -604,6 +610,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         if (jTableOrder.getColumnModel().getColumnCount() > 0) {
             jTableOrder.getColumnModel().getColumn(0).setResizable(false);
             jTableOrder.getColumnModel().getColumn(1).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(2).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(2).setCellEditor(null);
             jTableOrder.getColumnModel().getColumn(3).setResizable(false);
         }
 
@@ -624,18 +632,22 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jTableMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "商品番号", "商品名", "金額"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
