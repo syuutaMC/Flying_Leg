@@ -149,7 +149,13 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                orderBoundary.addOrderTable(itemList.get(0));
+                int row = orderBoundary.searchOrderItem(itemList.get(0).getItemNumber());
+                if (row > -1) {
+                    orderBoundary.incrementOrderItem(row);
+                }else {
+                    orderBoundary.addOrderTable(itemList.get(0));
+                }
+                
                 orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
             } else {
                 orderBoundary.showItemNotFoundErrorMessage();

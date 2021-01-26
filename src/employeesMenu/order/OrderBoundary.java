@@ -142,6 +142,52 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
+     * 注文商品検索
+     * @param itemNumber 商品番号
+     * @return row found >= 0 | not found -1
+     */
+    public int searchOrderItem(String itemNumber) {
+        
+        for (int i = 0; i < jTableOrder.getRowCount(); i++) {
+            if (itemNumber.equals(jTableOrder.getValueAt(i, 0).toString())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    /**
+     * 指定した行の注文商品の個数を一つ足す
+     * @param row 行番号
+     */
+    public void incrementOrderItem(int row) {
+        if (row > -1) {
+            int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
+            int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString());
+            price = price / quantity;
+            jTableOrder.setValueAt(++quantity, row, 2);
+            jTableOrder.setValueAt(price * quantity , row, 3);
+            
+        }
+    }
+    
+    /**
+     * 指定した行の注文商品の個数を一つ減らす
+     * @param row 
+     */
+    public void decrementOrderItem(int row) {
+        if (row > -1) {
+            int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
+            if (quantity > 1) {
+                int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString());
+                price = price / quantity;
+                jTableOrder.setValueAt(--quantity, row, 2);
+                jTableOrder.setValueAt(price * quantity , row, 3);
+            }
+        }
+    }
+    
+    /**
      * 注文商品を追加
      * @param item 商品情報
      */
@@ -352,6 +398,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonRemoveOrderItem = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabelOrderTotalPrice = new javax.swing.JLabel();
+        jButtonIncrementOrderItem = new javax.swing.JButton();
+        jButtonDecrementItem = new javax.swing.JButton();
         jPanelFinakCheck = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -705,7 +753,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMainmenu)
                     .addComponent(jButtonDrink)
@@ -730,6 +778,20 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabelOrderTotalPrice.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabelOrderTotalPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelOrderTotalPrice.setText("0円");
+
+        jButtonIncrementOrderItem.setText("1つ足す");
+        jButtonIncrementOrderItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncrementOrderItemActionPerformed(evt);
+            }
+        });
+
+        jButtonDecrementItem.setText("1つ減らす");
+        jButtonDecrementItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDecrementItemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
         jPanelOrderItem.setLayout(jPanelOrderItemLayout);
@@ -756,6 +818,10 @@ public class OrderBoundary extends javax.swing.JFrame {
                                 .addComponent(jLabel9))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jButtonIncrementOrderItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDecrementItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonRemoveOrderItem)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -783,7 +849,10 @@ public class OrderBoundary extends javax.swing.JFrame {
                             .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonSearchItemId))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRemoveOrderItem)
+                        .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonRemoveOrderItem)
+                            .addComponent(jButtonIncrementOrderItem)
+                            .addComponent(jButtonDecrementItem))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1045,6 +1114,16 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         control.orderFixing( customer.getCustomerNumber(), customer.getAddress(), items);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonIncrementOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncrementOrderItemActionPerformed
+        incrementOrderItem(jTableOrder.getSelectedRow());
+        showOrderTotalPrice(calcTotalPrice());
+    }//GEN-LAST:event_jButtonIncrementOrderItemActionPerformed
+
+    private void jButtonDecrementItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecrementItemActionPerformed
+        decrementOrderItem(jTableOrder.getSelectedRow());
+        showOrderTotalPrice(calcTotalPrice());
+    }//GEN-LAST:event_jButtonDecrementItemActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1091,8 +1170,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAddOrderItem;
     private javax.swing.JButton jButtonCustomerCheck;
+    private javax.swing.JButton jButtonDecrementItem;
     private javax.swing.JButton jButtonDrink;
     private javax.swing.JButton jButtonFinalCheck;
+    private javax.swing.JButton jButtonIncrementOrderItem;
     private javax.swing.JButton jButtonMainmenu;
     private javax.swing.JButton jButtonRemoveOrderItem;
     private javax.swing.JButton jButtonSearchItemId;

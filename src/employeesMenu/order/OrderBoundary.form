@@ -374,6 +374,10 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButtonIncrementOrderItem" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButtonDecrementItem" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonRemoveOrderItem" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -407,7 +411,11 @@
                                   <Component id="jButtonSearchItemId" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonRemoveOrderItem" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jButtonRemoveOrderItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonIncrementOrderItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonDecrementItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="293" max="-2" attributes="0"/>
                           </Group>
@@ -561,7 +569,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButtonMainmenu" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonDrink" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -678,6 +686,22 @@
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0&#x5186;"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonIncrementOrderItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="1&#x3064;&#x8db3;&#x3059;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonIncrementOrderItemActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonDecrementItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="1&#x3064;&#x6e1b;&#x3089;&#x3059;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDecrementItemActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
