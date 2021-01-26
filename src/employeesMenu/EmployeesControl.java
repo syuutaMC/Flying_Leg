@@ -22,7 +22,6 @@ public class EmployeesControl {
     public EmployeesControl() {
         customerControl = new CustomerControl();
         orderControl = new OrderControl();
-        control = new SystemControl();
     }
     
     public void setControl(SystemControl control){

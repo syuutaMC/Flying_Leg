@@ -37,6 +37,10 @@ public class SystemControl {
         employeesControl.showCustomerBoundary();
     }
     
+    public void changeCardLayout(String str){
+        mainMenuBoundary.showCardLayout(str);
+    }
+    
     /**
      * メインメニューの可視化設定
      * @param b true : 表示 false : 非表示
@@ -46,7 +50,7 @@ public class SystemControl {
     }
     
     public void login(){
-        if(true){
+        if(false){
             //マネージャーメニューの表示
         }else{
             mainMenuBoundary.loginFailure();

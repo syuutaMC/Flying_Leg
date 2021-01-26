@@ -40,10 +40,16 @@ public class MainMenuBoundary extends javax.swing.JFrame {
         this.control = control;
     }
     
-    public void showCardManagerMenu(){
-        cardLayout.show(jPanelCardBase, CARD_LOGIN_MENU);
+    /**
+     * カード切り替え処理
+     */
+    public void showCardLayout(String card){
+        cardLayout.show(jPanelCardBase, card);
     }
     
+    /**
+     * ログイン失敗時の処理
+     */
     public void loginFailure(){
         jLabelErrorMesage.setText("IDまたはパスワードが違います");
     }
@@ -294,11 +300,11 @@ public class MainMenuBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonControlCustomerActionPerformed
 
     private void jButtonEmoployyesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmoployyesMenuActionPerformed
-        // TODO add your handling code here:
+        control.changeCardLayout(CARD_EMPLOYEES_MENU);
     }//GEN-LAST:event_jButtonEmoployyesMenuActionPerformed
 
     private void jButtonManagerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManagerMenuActionPerformed
-        showCardManagerMenu();
+        control.changeCardLayout(CARD_MANAGER_MENU);
     }//GEN-LAST:event_jButtonManagerMenuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
