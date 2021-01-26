@@ -147,6 +147,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
 

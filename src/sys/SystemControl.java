@@ -1,6 +1,9 @@
 package sys;
 
 import employeesMenu.EmployeesControl;
+import javax.swing.JFrame;
+import managerMenu.Employee;
+import managerMenu.EmployeeDAO;
 
 /**
  * メインメニューコントローラー
@@ -10,10 +13,14 @@ public class SystemControl {
     
     private final MainMenuBoundary mainMenuBoundary;
     private final EmployeesControl employeesControl;
+    private final Employee employee;
+    private final EmployeeDAO employeeDAO;
     
     public SystemControl(){
         mainMenuBoundary = new MainMenuBoundary();
         employeesControl = new EmployeesControl();
+        employeeDAO = new EmployeeDAO();
+        employee = new Employee();
     }
     
     public void start(){
@@ -56,8 +63,10 @@ public class SystemControl {
     /**
      * ログイン処理
      */
-    public void login(String EmployeeName, String Password){
-        if(true){   //ログイン成功
+    public void login(String EmployeeNumber, String Password){
+        
+        
+        if(employeeDAO.dbLogin(EmployeeNumber, Password)){   //ログイン成功
             mainMenuBoundary.setEmployee("number", "Name", "position");
             mainMenuBoundary.setLoginStatus(true);
             mainMenuBoundary.login("");
