@@ -7,12 +7,13 @@ package sys;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.util.Timer;
 
 /**
  * 従業員メニューバウンダリー
  * @author 19jz0115
  */
-public class MainMenuBoundary extends javax.swing.JFrame {
+public class MainMenuBoundary extends javax.swing.JFrame{
     private static final String CARD_EMPLOYEES_MENU = "card2";
     private static final String CARD_MAIN_MENU = "card3";
     private static final String CARD_MANAGER_MENU = "card4";
@@ -137,10 +138,10 @@ public class MainMenuBoundary extends javax.swing.JFrame {
         jButtonCheckSales = new javax.swing.JButton();
         jButtonManagerMenu1 = new javax.swing.JButton();
         jPaneLoginPanel = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldEmployeeNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTextFieldPassword = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabelErrorMesage = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -194,9 +195,8 @@ public class MainMenuBoundary extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonLoginLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelEmployeeName)
-                                .addComponent(jLabelEmployeeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabelEmployeeName)
+                            .addComponent(jLabelEmployeeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addContainerGap())
@@ -386,11 +386,11 @@ public class MainMenuBoundary extends javax.swing.JFrame {
                         .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(38, 38, 38)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
@@ -402,12 +402,12 @@ public class MainMenuBoundary extends javax.swing.JFrame {
             .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(47, 47, 47)
                 .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelErrorMesage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
@@ -455,7 +455,7 @@ public class MainMenuBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonManagerMenuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        control.login();
+        control.login(jTextFieldEmployeeNumber.getText(), jTextFieldPassword.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -522,7 +522,7 @@ public class MainMenuBoundary extends javax.swing.JFrame {
     private javax.swing.JPanel jPaneManegerMenu;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCardBase;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextFieldEmployeeNumber;
+    private javax.swing.JTextField jTextFieldPassword;
     // End of variables declaration//GEN-END:variables
 }

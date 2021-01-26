@@ -56,7 +56,7 @@ public class SystemControl {
     /**
      * ログイン処理
      */
-    public void login(){
+    public void login(String EmployeeName, String Password){
         if(true){   //ログイン成功
             mainMenuBoundary.setEmployee("number", "Name", "position");
             mainMenuBoundary.setLoginStatus(true);
