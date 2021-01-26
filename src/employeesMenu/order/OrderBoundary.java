@@ -252,10 +252,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     
     /**
      * 商品選択画面に合計金額を表示
+     * 注文最低金額未満なら警告表示
      * @param totalPrice 合計金額
      */
     public void showOrderTotalPrice(int totalPrice) {
         jLabelOrderTotalPrice.setText(Integer.toString(totalPrice) + "円");
+        jLabelTotalPriceWarn.setVisible(totalPrice >= ORDER_TOTAL_PRICE_UNDER_LIMIT);
     }
     
     /**
@@ -400,7 +402,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabelOrderTotalPrice = new javax.swing.JLabel();
         jButtonIncrementOrderItem = new javax.swing.JButton();
         jButtonDecrementItem = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
+        jLabelTotalPriceWarn = new javax.swing.JLabel();
         jPanelFinakCheck = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -794,9 +796,9 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel16.setText("注文は1500円以上から受け付けています");
+        jLabelTotalPriceWarn.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabelTotalPriceWarn.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelTotalPriceWarn.setText("注文は1500円以上から受け付けています");
 
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
         jPanelOrderItem.setLayout(jPanelOrderItemLayout);
@@ -836,7 +838,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel16)
+                .addComponent(jLabelTotalPriceWarn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -867,14 +869,14 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16)))
+                            .addComponent(jLabelTotalPriceWarn)))
                     .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)))
                 .addContainerGap())
         );
 
-        jLabel16.getAccessibleContext().setAccessibleName("jLabelTotalPriceWarn");
+        jLabelTotalPriceWarn.getAccessibleContext().setAccessibleName("jLabel16");
 
         jPanelCardBase.add(jPanelOrderItem, "card3");
 
@@ -1200,7 +1202,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1216,6 +1217,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPhoneNumber;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelTotalPrice;
+    private javax.swing.JLabel jLabelTotalPriceWarn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAddAddress;
     private javax.swing.JPanel jPanelCardBase;

@@ -390,7 +390,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabelOrderTotalPrice" min="-2" pref="97" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTotalPriceWarn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="136" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -427,7 +427,7 @@
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabelOrderTotalPrice" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelTotalPriceWarn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -708,7 +708,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDecrementItemActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel16">
+            <Component class="javax.swing.JLabel" name="jLabelTotalPriceWarn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="14" style="1"/>
@@ -719,7 +719,7 @@
                 <Property name="text" type="java.lang.String" value="&#x6ce8;&#x6587;&#x306f;1500&#x5186;&#x4ee5;&#x4e0a;&#x304b;&#x3089;&#x53d7;&#x3051;&#x4ed8;&#x3051;&#x3066;&#x3044;&#x307e;&#x3059;"/>
               </Properties>
               <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jLabelTotalPriceWarn"/>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jLabel16"/>
               </AccessibilityProperties>
             </Component>
           </SubComponents>
