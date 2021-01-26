@@ -70,7 +70,7 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                orderBoundary.showOrderTable(itemList.get(0));
+                orderBoundary.addOrderTable(itemList.get(0));
             }
             else {
                 orderBoundary.showItemNotFoundErrorMessage();
@@ -90,7 +90,7 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemName(itemName);
             if (itemList.size() > 0) {
-                orderBoundary.showOrderTable(itemList.get(0));
+                orderBoundary.addOrderTable(itemList.get(0));
             }
             else {
                 orderBoundary.showItemNotFoundErrorMessage();
@@ -149,7 +149,7 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                orderBoundary.showOrderTable(itemList.get(0));
+                orderBoundary.addOrderTable(itemList.get(0));
                 orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
             } else {
                 orderBoundary.showItemNotFoundErrorMessage();

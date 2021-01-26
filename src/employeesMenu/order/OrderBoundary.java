@@ -145,7 +145,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * 注文商品を追加
      * @param item 商品情報
      */
-    public void showOrderTable(Item item) {
+    public void addOrderTable(Item item) {
         String[] row = new String[4];
         
         item.setQuantity(1);
@@ -161,7 +161,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * 注文商品を表示
      * @param itemList 商品情報リスト
      */
-//    public void showOrderTable(List<Item> itemList) {
+//    public void addOrderTable(List<Item> itemList) {
 //        String[] row = new String[4];
 //        for (Item item : itemList) {
 //            row[0] = item.getItemNumber();
