@@ -1016,7 +1016,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddOrderItemActionPerformed
 
     private void jButtonRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveOrderItemActionPerformed
-        if (jTableOrder.getSelectedRow() > 0) {
+        if (jTableOrder.getSelectedRow() > -1) {
             control.removeOrderItem(jTableOrder.getSelectedRow());
         }
     }//GEN-LAST:event_jButtonRemoveOrderItemActionPerformed
