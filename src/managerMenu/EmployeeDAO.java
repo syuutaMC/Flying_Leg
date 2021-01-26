@@ -73,7 +73,7 @@ public class EmployeeDAO {
      * ログイン処理
      * @return ログイン成否
      */
-    public boolean dbLogin(String employeeNumber, String password) {
+    public List<Employee> dbLogin(String employeeNumber, String password) {
         List<Employee> employeeList = new ArrayList<>();
         String sql = "SELECT * " + 
                      " FROM employees " +
@@ -87,6 +87,6 @@ public class EmployeeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeeList.size() > 0;
+        return employeeList;
     }
 }

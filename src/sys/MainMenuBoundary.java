@@ -63,7 +63,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
      * @param employeeName 従業員名前
      * @param position  役職
      */
-    public void setEmployee(String employeeNumber, String employeeName, String position){
+    public void setEmployee(List<Employee>){
         Employee[0] = employeeNumber;
         Employee[1] = employeeName;
         Employee[2] = position;
@@ -122,7 +122,6 @@ public class MainMenuBoundary extends javax.swing.JFrame{
 
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabelEmployeeNumber = new javax.swing.JLabel();
         jLabelEmployeeName = new javax.swing.JLabel();
         jButtonLoginLogout = new javax.swing.JButton();
@@ -159,8 +158,6 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             }
         });
 
-        jLabel2.setText("yyyy/MM/dd hh:mm:ss");
-
         jButtonLoginLogout.setText("ログイン");
         jButtonLoginLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,17 +172,12 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelEmployeeName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonLoginLogout)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelEmployeeName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonLoginLogout)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -198,11 +190,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                             .addComponent(jButtonLoginLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelEmployeeName)
                             .addComponent(jLabelEmployeeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                         .addGap(18, 18, 18))))
         );
 
@@ -481,6 +471,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
 
     private void jButtonLoginLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginLogoutActionPerformed
         if(LoginStatus == false){
+            jTextFieldEmployeeNumber.setText("");
+            jTextFieldPassword.setText("");
+            jLabelErrorMesage.setText("");
             control.changeCardLayout(CARD_LOGIN_MENU);
         }else{
             control.logout();
@@ -511,7 +504,6 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private javax.swing.JButton jButtonManagerMenu1;
     private javax.swing.JButton jButtonOrder;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelEmployeeName;
