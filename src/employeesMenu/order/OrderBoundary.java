@@ -239,7 +239,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 合計金額を計算し、最低合計金額を下回ったらメッセージを表示
+     * 合計金額を計算する
      * @return 合計金額
      */
     public int calcTotalPrice() {
@@ -400,6 +400,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabelOrderTotalPrice = new javax.swing.JLabel();
         jButtonIncrementOrderItem = new javax.swing.JButton();
         jButtonDecrementItem = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         jPanelFinakCheck = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -793,6 +794,10 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel16.setText("注文は1500円以上から受け付けています");
+
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
         jPanelOrderItem.setLayout(jPanelOrderItemLayout);
         jPanelOrderItemLayout.setHorizontalGroup(
@@ -830,6 +835,8 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -858,12 +865,16 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)))
                     .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)))
                 .addContainerGap())
         );
+
+        jLabel16.getAccessibleContext().setAccessibleName("jLabelTotalPriceWarn");
 
         jPanelCardBase.add(jPanelOrderItem, "card3");
 
@@ -1189,6 +1200,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
