@@ -132,12 +132,16 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param itemList 商品リスト
      */
     public void showMenuTable(List<Item> itemList) {
+        
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        
         menuTableModel.setRowCount(0);
         String[] row = new String[3];
+        
         for (Item item : itemList) {
             row[0] = item.getItemNumber();
             row[1] = item.getItemName();
-            row[2] = Integer.toString(item.getUnitPrice());
+            row[2] = nf.format(item.getUnitPrice());
             menuTableModel.addRow(row);
         }
     }
@@ -163,11 +167,14 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void incrementOrderItem(int row) {
         if (row > -1) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
             int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
-            int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString());
+            int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", ""));
+            
             price = price / quantity;
-            jTableOrder.setValueAt(++quantity, row, 2);
-            jTableOrder.setValueAt(price * quantity , row, 3);
+            jTableOrder.setValueAt(nf.format(++quantity), row, 2);
+            jTableOrder.setValueAt(nf.format(price * quantity) , row, 3);
             
         }
     }
@@ -178,12 +185,14 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void decrementOrderItem(int row) {
         if (row > -1) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
             int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
             if (quantity > 1) {
-                int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString());
+                int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", ""));
                 price = price / quantity;
-                jTableOrder.setValueAt(--quantity, row, 2);
-                jTableOrder.setValueAt(price * quantity , row, 3);
+                jTableOrder.setValueAt(nf.format(--quantity), row, 2);
+                jTableOrder.setValueAt(nf.format(price * quantity) , row, 3);
             }
         }
     }
@@ -193,6 +202,8 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param item 商品情報
      */
     public void addOrderTable(Item item) {
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        
         String[] row = new String[4];
         
         item.setQuantity(1);
@@ -200,7 +211,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         row[0] = item.getItemNumber();
         row[1] = item.getItemName();
         row[2] = Integer.toString(item.getQuantity());
-        row[3] = Integer.toString(item.getUnitPrice() * item.getQuantity());
+        row[3] = nf.format(item.getUnitPrice() * item.getQuantity());
         orderTableModel.addRow(row);
     }
     
@@ -246,7 +257,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     public int calcTotalPrice() {
         int totalPrice = 0;
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
-            totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString());
+            totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", ""));
         }
         return totalPrice;
     }
