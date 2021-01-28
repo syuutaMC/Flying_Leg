@@ -66,10 +66,10 @@ public class SystemControl {
      */
     public void login(String EmployeeNumber, String Password){
         
-        List<Employee> emp = employeeDAO.dbLogin(EmployeeNumber, Password);
+        boolean b = employeeDAO.dbLogin(EmployeeNumber, Password);
         
-        if(emp.size() > 0){   //ログイン成功
-            mainMenuBoundary.setEmployee(emp);
+        if(b){   //ログイン成功
+            mainMenuBoundary.setEmployee("", "", "");
             mainMenuBoundary.setLoginStatus(true);
             mainMenuBoundary.login("");
         }else{  //ログイン失敗

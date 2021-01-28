@@ -63,7 +63,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
      * @param employeeName 従業員名前
      * @param position  役職
      */
-    public void setEmployee(List<Employee>){
+    public void setEmployee(String employeeNumber, String employeeName, String position){
         Employee[0] = employeeNumber;
         Employee[1] = employeeName;
         Employee[2] = position;

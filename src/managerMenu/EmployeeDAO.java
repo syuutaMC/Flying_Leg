@@ -58,8 +58,8 @@ public class EmployeeDAO {
         try {
             String employeeNumber = rs.getString("EMPLOYEE_NUMBER");
             String employeeName   = rs.getString("EMPLOYEE_NAME");
-            String employeeType   = rs.getString("EMPLOYEE_NAME");
-            String password       = rs.getString("PASSOWRD");
+            String employeeType   = rs.getString("EMPLOYEE_TYPE");
+            String password       = rs.getString("PASSWORD");
             employee.setEmployeeNumber(employeeNumber);
             employee.setEmployeeName(employeeName);
             employee.setEmployeeType(employeeType);
@@ -73,7 +73,7 @@ public class EmployeeDAO {
      * ログイン処理
      * @return ログイン成否
      */
-    public List<Employee> dbLogin(String employeeNumber, String password) {
+    public boolean dbLogin(String employeeNumber, String password) {
         List<Employee> employeeList = new ArrayList<>();
         String sql = "SELECT * " + 
                      " FROM employees " +
@@ -87,6 +87,6 @@ public class EmployeeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeeList;
+        return employeeList.size() > 0;
     }
 }
