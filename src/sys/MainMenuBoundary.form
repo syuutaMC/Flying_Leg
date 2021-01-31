@@ -273,7 +273,7 @@
                       <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jButtonCheckSales" max="32767" attributes="0"/>
-                          <Component id="jButtonManagerMenu1" min="-2" pref="146" max="-2" attributes="0"/>
+                          <Component id="jButtonPayment" min="-2" pref="146" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="166" max="32767" attributes="0"/>
                   </Group>
@@ -285,7 +285,7 @@
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="jButtonCheckSales" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="jButtonManagerMenu1" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="jButtonPayment" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace pref="61" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -303,7 +303,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCheckSalesActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonManagerMenu1">
+            <Component class="javax.swing.JButton" name="jButtonPayment">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="18" style="1"/>
@@ -311,7 +311,7 @@
                 <Property name="text" type="java.lang.String" value="&#x5165;&#x91d1;&#x767b;&#x9332;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManagerMenu1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPaymentActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

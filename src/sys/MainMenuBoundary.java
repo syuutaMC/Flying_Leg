@@ -66,11 +66,13 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     /**
      * ログイン成功時の処理
      */
-    public void login(String position){
+    public void login(String employeeType){
         jLabelEmployeeNumber.setText(control.emp.getEmployeeNumber());
         jLabelEmployeeName.setText(control.emp.getEmployeeName());
-        control.LoginStatus = true;
         
+        if(employeeType.equals("M")){
+            jButtonManagerMenu.setEnabled(true);
+        }
         jButtonLoginLogout.setText("ログアウト");
         control.changeCardLayout(CARD_MAIN_MENU);
     }
@@ -110,7 +112,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButton2 = new javax.swing.JButton();
         jPaneManegerMenu = new javax.swing.JPanel();
         jButtonCheckSales = new javax.swing.JButton();
-        jButtonManagerMenu1 = new javax.swing.JButton();
+        jButtonPayment = new javax.swing.JButton();
         jPaneLoginPanel = new javax.swing.JPanel();
         jTextFieldEmployeeNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -285,11 +287,11 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             }
         });
 
-        jButtonManagerMenu1.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jButtonManagerMenu1.setText("入金登録");
-        jButtonManagerMenu1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPayment.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jButtonPayment.setText("入金登録");
+        jButtonPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonManagerMenu1ActionPerformed(evt);
+                jButtonPaymentActionPerformed(evt);
             }
         });
 
@@ -301,7 +303,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                 .addGap(132, 132, 132)
                 .addGroup(jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonCheckSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonManagerMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         jPaneManegerMenuLayout.setVerticalGroup(
@@ -310,7 +312,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                 .addGap(57, 57, 57)
                 .addComponent(jButtonCheckSales, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(jButtonManagerMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
@@ -440,9 +442,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCheckSalesActionPerformed
 
-    private void jButtonManagerMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManagerMenu1ActionPerformed
+    private void jButtonPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaymentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonManagerMenu1ActionPerformed
+    }//GEN-LAST:event_jButtonPaymentActionPerformed
 
     private void jButtonLoginLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginLogoutActionPerformed
         if(control.LoginStatus == false){
@@ -476,8 +478,8 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private javax.swing.JButton jButtonEmoployyesMenu;
     private javax.swing.JButton jButtonLoginLogout;
     private javax.swing.JButton jButtonManagerMenu;
-    private javax.swing.JButton jButtonManagerMenu1;
     private javax.swing.JButton jButtonOrder;
+    private javax.swing.JButton jButtonPayment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

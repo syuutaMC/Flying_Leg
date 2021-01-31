@@ -34,6 +34,12 @@ public class Employee {
     public String getEmployeeType() {
         return employeeType;
     }
+    
+    public void setEmployee(String employeeNumber, String employeeName, String employeeType){
+        setEmployeeNumber(employeeNumber);
+        setEmployeeName(employeeName);
+        setEmployeeType(employeeType);
+    }
 
     public void setEmployeeNumber(String employeeNumber) {
         this.employeeNumber = employeeNumber;

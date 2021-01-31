@@ -14,16 +14,15 @@ public class SystemControl {
     
     private final MainMenuBoundary mainMenuBoundary;
     private final EmployeesControl employeesControl;
-    private final Employee employee;
     private final EmployeeDAO employeeDAO;
     public boolean LoginStatus = false;
-    public Employee emp = new Employee();
+    public Employee emp;
     
     public SystemControl(){
         mainMenuBoundary = new MainMenuBoundary();
         employeesControl = new EmployeesControl();
         employeeDAO = new EmployeeDAO();
-        employee = new Employee();
+        emp = new Employee();
     }
     
     public void start(){
@@ -71,12 +70,9 @@ public class SystemControl {
         List<Employee> empList = employeeDAO.dbLogin(EmployeeNumber, Password);
         
         if(empList.size() > 0){   //ログイン成功
-            emp.setEmployeeNumber(empList.get(0).getEmployeeNumber());
-            emp.setEmployeeName(empList.get(0).getEmployeeName());
-            emp.setEmployeeType(empList.get(0).getEmployeeType());
-            
+            emp = empList.get(0);
+            mainMenuBoundary.login(emp.getEmployeeType());
             setLoginStatus(true);
-            mainMenuBoundary.login("");
         }else{  //ログイン失敗
             mainMenuBoundary.loginFailure();
         }
@@ -94,9 +90,7 @@ public class SystemControl {
      * ログアウト処理
      */
     public void logout(){
-        emp.setEmployeeNumber("");
-        emp.setEmployeeName("");
-        emp.setEmployeeType("");
+        emp.setEmployee("", "", "");
         setLoginStatus(false);
         mainMenuBoundary.logout();
     }

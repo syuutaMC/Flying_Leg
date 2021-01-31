@@ -10,12 +10,20 @@ package managerMenu.payment;
  * @author syuuta
  */
 public class PaymentBoundary extends javax.swing.JFrame {
-
-    /**
-     * Creates new form PaymentBoundary
-     */
+    public PaymentControl control;
+    
     public PaymentBoundary() {
         initComponents();
+        initjTextField();
+    }
+    
+    public void setControl(PaymentControl control){
+        this.control = control;
+    }
+    
+    private void initjTextField(){
+        jLabelEmployeeName.setText(control.control.emp.getEmployeeName());
+        jLabelEmplyeeNumber.setText("");
     }
 
     /**
@@ -29,8 +37,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelEmployeeName = new javax.swing.JLabel();
+        jLabelEmplyeeNumber = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -47,9 +55,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel1.setText("入金確認");
 
-        jLabel2.setText("名前");
+        jLabelEmployeeName.setText("名前");
 
-        jLabel3.setText("従業員番号");
+        jLabelEmplyeeNumber.setText("従業員番号");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,9 +67,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(jLabelEmplyeeNumber)
                 .addGap(31, 31, 31)
-                .addComponent(jLabel2)
+                .addComponent(jLabelEmployeeName)
                 .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
@@ -70,8 +78,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabelEmployeeName)
+                    .addComponent(jLabelEmplyeeNumber))
                 .addContainerGap())
         );
 
@@ -115,8 +123,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 .addComponent(jButtonSearchOrderNumber)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,13 +134,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAllSerarch)
                     .addComponent(jButtonNoCheckSearch)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonSearchOrderNumber)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchOrderNumber))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,9 +202,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNoCheckSearch;
     private javax.swing.JButton jButtonSearchOrderNumber;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelEmployeeName;
+    private javax.swing.JLabel jLabelEmplyeeNumber;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

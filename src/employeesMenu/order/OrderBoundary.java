@@ -322,6 +322,23 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
+     * 顧客情報が入力されてるか確認
+     */
+    public void checkAddress(){
+        if(jTextFieldName.getText().equals("")){
+            
+        }
+        
+        if(jTextFieldPhoneNumber.getText().equals("")){  
+            
+        }
+        
+        if(jTextFieldAddress.getText().equals("")){
+            
+        }
+    }
+    
+    /**
      * 顧客情報が無効のときのエラーダイアログ表示
      */
     public void showInvalidCustomerErrorMessage() {
@@ -1089,6 +1106,7 @@ public class OrderBoundary extends javax.swing.JFrame {
 
     private void jButtonSelectItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectItemActionPerformed
         showCardOrderItem();
+        control.checkAddress();
         jButtonSelectedItem.setEnabled(true);
         jLabelName.setText(jTextFieldName.getText());
         jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
