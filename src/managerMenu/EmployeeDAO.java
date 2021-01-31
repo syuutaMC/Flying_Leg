@@ -59,11 +59,9 @@ public class EmployeeDAO {
             String employeeNumber = rs.getString("EMPLOYEE_NUMBER");
             String employeeName   = rs.getString("EMPLOYEE_NAME");
             String employeeType   = rs.getString("EMPLOYEE_TYPE");
-            String password       = rs.getString("PASSWORD");
             employee.setEmployeeNumber(employeeNumber);
             employee.setEmployeeName(employeeName);
             employee.setEmployeeType(employeeType);
-            employee.setPassword(password);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,10 +71,10 @@ public class EmployeeDAO {
      * ログイン処理
      * @return ログイン成否
      */
-    public boolean dbLogin(String employeeNumber, String password) {
+    public List<Employee> dbLogin(String employeeNumber, String password) {
         List<Employee> employeeList = new ArrayList<>();
-        String sql = "SELECT * " + 
-                     " FROM employees " +
+        String sql = "SELECT employeenumber, employeename, employeetype " + 
+                     " FROM employees " + 
                      " WHERE employee_number = ? AND " +
                      "       password = ? ";
         try {
@@ -87,6 +85,6 @@ public class EmployeeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeeList.size() > 0;
+        return employeeList;
     }
 }

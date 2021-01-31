@@ -13,7 +13,6 @@ public class Employee {
     private String employeeNumber;
     private String employeeName;
     private String employeeType;
-    private String password;
 
     public Employee(String employeeNumber, String employeeName, String employeeType) {
         this.employeeNumber = employeeNumber;
@@ -36,10 +35,6 @@ public class Employee {
         return employeeType;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setEmployeeNumber(String employeeNumber) {
         this.employeeNumber = employeeNumber;
     }
@@ -51,10 +46,4 @@ public class Employee {
     public void setEmployeeType(String employeeType) {
         this.employeeType = employeeType;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    
 }

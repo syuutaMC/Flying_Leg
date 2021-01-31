@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad54e85d-6485-426f-8a96-4c531b982fe2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/employeesMenu/EmployeesMenuBoundary.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/employeesMenu/MeinMenuBoundary.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/employeesMenu/EmployeesMenuBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/employeesMenu/MeinMenuBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/employeesMenu/EmployeesMenuControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/employeesMenu/MeinMenuControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/employeesMenu/customer/CustomerControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/employeesMenu/customer/CustomerControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/employeesMenu/order/OrderControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/employeesMenu/order/OrderControl.java" afterDir="false" />
-    </list>
+    <list default="true" id="ad54e85d-6485-426f-8a96-4c531b982fe2" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +32,7 @@
       <option name="presentableId" value="Default" />
       <updated>1611472089212</updated>
       <workItem from="1611472091951" duration="33000" />
+      <workItem from="1611829867711" duration="5000" />
     </task>
     <servers />
   </component>

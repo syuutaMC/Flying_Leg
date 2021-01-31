@@ -18,9 +18,8 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private static final String CARD_MAIN_MENU = "card3";
     private static final String CARD_MANAGER_MENU = "card4";
     private static final String CARD_LOGIN_MENU = "card5";
-    private String[] Employee = new String[3];//{従業員番号, 従業員名前, 従業員役職}
     private String showCard = CARD_MAIN_MENU;
-    private boolean LoginStatus = false;
+    
     private SystemControl control;
     private final CardLayout cardLayout;
     
@@ -58,29 +57,6 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }
     
     /**
-     * 従業員情報を設定
-     * @param employeeNumber 従業員番号
-     * @param employeeName 従業員名前
-     * @param position  役職
-     */
-    public void setEmployee(String employeeNumber, String employeeName, String position){
-        Employee[0] = employeeNumber;
-        Employee[1] = employeeName;
-        Employee[2] = position;
-        
-        jLabelEmployeeNumber.setText(employeeNumber);
-        jLabelEmployeeName.setText(employeeName);
-    }
-    
-    /**
-     * ログイン状況の設定
-     * @param b 
-     */
-    public void setLoginStatus(boolean b){
-        LoginStatus = b;
-    }
-    
-    /**
      * ログイン失敗時の処理
      */
     public void loginFailure(){
@@ -91,10 +67,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
      * ログイン成功時の処理
      */
     public void login(String position){
-        
-        if(true){//マネージャーだったら
-            jButtonManagerMenu.setEnabled(true);
-        }
+        jLabelEmployeeNumber.setText(control.emp.getEmployeeNumber());
+        jLabelEmployeeName.setText(control.emp.getEmployeeName());
+        control.LoginStatus = true;
         
         jButtonLoginLogout.setText("ログアウト");
         control.changeCardLayout(CARD_MAIN_MENU);
@@ -470,7 +445,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }//GEN-LAST:event_jButtonManagerMenu1ActionPerformed
 
     private void jButtonLoginLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginLogoutActionPerformed
-        if(LoginStatus == false){
+        if(control.LoginStatus == false){
             jTextFieldEmployeeNumber.setText("");
             jTextFieldPassword.setText("");
             jLabelErrorMesage.setText("");

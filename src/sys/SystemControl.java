@@ -16,6 +16,8 @@ public class SystemControl {
     private final EmployeesControl employeesControl;
     private final Employee employee;
     private final EmployeeDAO employeeDAO;
+    public boolean LoginStatus = false;
+    public Employee emp = new Employee();
     
     public SystemControl(){
         mainMenuBoundary = new MainMenuBoundary();
@@ -66,11 +68,14 @@ public class SystemControl {
      */
     public void login(String EmployeeNumber, String Password){
         
-        boolean b = employeeDAO.dbLogin(EmployeeNumber, Password);
+        List<Employee> empList = employeeDAO.dbLogin(EmployeeNumber, Password);
         
-        if(b){   //ログイン成功
-            mainMenuBoundary.setEmployee("", "", "");
-            mainMenuBoundary.setLoginStatus(true);
+        if(empList.size() > 0){   //ログイン成功
+            emp.setEmployeeNumber(empList.get(0).getEmployeeNumber());
+            emp.setEmployeeName(empList.get(0).getEmployeeName());
+            emp.setEmployeeType(empList.get(0).getEmployeeType());
+            
+            setLoginStatus(true);
             mainMenuBoundary.login("");
         }else{  //ログイン失敗
             mainMenuBoundary.loginFailure();
@@ -78,11 +83,21 @@ public class SystemControl {
     }
     
     /**
+     * ログイン状況の設定
+     * @param b 
+     */
+    public void setLoginStatus(boolean b){
+        LoginStatus = b;
+    }
+    
+    /**
      * ログアウト処理
      */
     public void logout(){
-        mainMenuBoundary.setEmployee("", "", "");
-        mainMenuBoundary.setLoginStatus(false);
+        emp.setEmployeeNumber("");
+        emp.setEmployeeName("");
+        emp.setEmployeeType("");
+        setLoginStatus(false);
         mainMenuBoundary.logout();
     }
     
