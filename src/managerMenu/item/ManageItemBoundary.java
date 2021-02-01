@@ -36,7 +36,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jButtonManageItem = new javax.swing.JButton();
         jButtonManageCategoly = new javax.swing.JButton();
         jButtonManageSetMenu = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelCardLayout = new javax.swing.JPanel();
         jPanelAddAitem = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -124,8 +124,8 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.CardLayout());
+        jPanelCardLayout.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelCardLayout.setLayout(new java.awt.CardLayout());
 
         jPanelAddAitem.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -193,7 +193,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanelAddAitem, "card2");
+        jPanelCardLayout.add(jPanelAddAitem, "card2");
 
         jPanelManageItem.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -217,7 +217,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addContainerGap(399, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanelManageItem, "card3");
+        jPanelCardLayout.add(jPanelManageItem, "card3");
 
         jPanelManageCategory.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -232,7 +232,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
             .addGap(0, 452, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanelManageCategory, "card4");
+        jPanelCardLayout.add(jPanelManageCategory, "card4");
 
         javax.swing.GroupLayout jPanelMnageSetMenuLayout = new javax.swing.GroupLayout(jPanelMnageSetMenu);
         jPanelMnageSetMenu.setLayout(jPanelMnageSetMenuLayout);
@@ -245,7 +245,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
             .addGap(0, 452, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanelMnageSetMenu, "card5");
+        jPanelCardLayout.add(jPanelMnageSetMenu, "card5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,7 +255,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelCardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +264,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanelCardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -321,9 +321,9 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelAddAitem;
+    private javax.swing.JPanel jPanelCardLayout;
     private javax.swing.JPanel jPanelManageCategory;
     private javax.swing.JPanel jPanelManageItem;
     private javax.swing.JPanel jPanelMnageSetMenu;
