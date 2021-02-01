@@ -5,10 +5,17 @@
  */
 package managerMenu.payment;
 
+import sys.SystemControl;
 /**
- *
+ * 
  * @author syuuta
  */
+
+
 public class PaymentControl {
+    public SystemControl control;
     
+    public void setControl(SystemControl control){
+        this.control = control;
+    }
 }

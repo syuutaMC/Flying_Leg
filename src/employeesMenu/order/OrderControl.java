@@ -117,6 +117,10 @@ public class OrderControl {
         control.showCustomerAddBoundary(phoneNumber);
     }
     
+    public void checkAddress(){
+      orderBoundary.checkAddress();
+    }
+    
     /**
      * メインメニュー検索
      */

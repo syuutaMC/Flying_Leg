@@ -271,9 +271,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButtonCheckSales" max="32767" attributes="0"/>
-                          <Component id="jButtonManagerMenu1" min="-2" pref="146" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jButtonManageItem" min="-2" pref="146" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jButtonCheckSales" max="32767" attributes="0"/>
+                              <Component id="jButtonPayment" alignment="1" min="-2" pref="146" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="166" max="32767" attributes="0"/>
                   </Group>
@@ -282,11 +285,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jButtonCheckSales" min="-2" pref="51" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="jButtonManagerMenu1" min="-2" pref="60" max="-2" attributes="0"/>
-                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="jButtonCheckSales" linkSize="4" min="-2" pref="51" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButtonManageItem" linkSize="4" min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <Component id="jButtonPayment" linkSize="4" min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -298,12 +303,15 @@
                   <Font name="MS UI Gothic" size="18" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x78ba;&#x8a8d;"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCheckSalesActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonManagerMenu1">
+            <Component class="javax.swing.JButton" name="jButtonPayment">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="18" style="1"/>
@@ -311,7 +319,18 @@
                 <Property name="text" type="java.lang.String" value="&#x5165;&#x91d1;&#x767b;&#x9332;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManagerMenu1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPaymentActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonManageItem">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="MS UI Gothic" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x5546;&#x54c1;&#x7ba1;&#x7406;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManageItemActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

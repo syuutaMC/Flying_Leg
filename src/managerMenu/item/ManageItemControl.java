@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managerMenu;
+package managerMenu.item;
 
-import managerMenu.payment.PaymentControl;
 import sys.SystemControl;
-
 /**
  *
- * @author 19jz0115
+ * @author syuuta
  */
-public class ManagerMenuControl {
+public class ManageItemControl {
+    private ManageItemBoundary manageItemBoundary;
     private SystemControl control;
-    private PaymentControl paymentControl;
     
-    public ManagerMenuControl(){
-        paymentControl = new PaymentControl();
+    public ManageItemControl(){
+        manageItemBoundary = new ManageItemBoundary();
     }
     
     public void setControl(SystemControl control){
