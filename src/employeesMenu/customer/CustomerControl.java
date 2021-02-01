@@ -5,7 +5,7 @@
  */
 package employeesMenu.customer;
 
-import employeesMenu.EmployeesMenuControl;
+import employeesMenu.EmployeesControl;
 import employeesMenu.order.OrderControl;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -20,7 +20,7 @@ public class CustomerControl {
     private final CustomerBoundary   customerBoundary;
     private final CustomerAddBoundary customerAddBoundary;
     private final CustomerDAO        customerDAO;
-    private EmployeesMenuControl control;
+    private EmployeesControl control;
 
     public CustomerControl() {
         customerBoundary = new CustomerBoundary();
@@ -32,7 +32,7 @@ public class CustomerControl {
      * コントロールを設定
      * @param control 従業員メニューコントロール
      */
-    public void setControl(EmployeesMenuControl control){
+    public void setControl(EmployeesControl control){
         this.control = control;
     }
     
