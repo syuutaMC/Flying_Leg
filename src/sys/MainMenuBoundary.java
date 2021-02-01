@@ -113,6 +113,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jPaneManegerMenu = new javax.swing.JPanel();
         jButtonCheckSales = new javax.swing.JButton();
         jButtonPayment = new javax.swing.JButton();
+        jButtonManageItem = new javax.swing.JButton();
         jPaneLoginPanel = new javax.swing.JPanel();
         jTextFieldEmployeeNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -281,6 +282,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
 
         jButtonCheckSales.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jButtonCheckSales.setText("売上確認");
+        jButtonCheckSales.setBorder(null);
         jButtonCheckSales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCheckSalesActionPerformed(evt);
@@ -295,26 +297,40 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             }
         });
 
+        jButtonManageItem.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jButtonManageItem.setText("商品管理");
+        jButtonManageItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonManageItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPaneManegerMenuLayout = new javax.swing.GroupLayout(jPaneManegerMenu);
         jPaneManegerMenu.setLayout(jPaneManegerMenuLayout);
         jPaneManegerMenuLayout.setHorizontalGroup(
             jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPaneManegerMenuLayout.createSequentialGroup()
                 .addGap(132, 132, 132)
-                .addGroup(jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonCheckSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonManageItem, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonCheckSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonPayment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         jPaneManegerMenuLayout.setVerticalGroup(
             jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPaneManegerMenuLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(29, 29, 29)
                 .addComponent(jButtonCheckSales, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonManageItem, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jButtonPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
+
+        jPaneManegerMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonCheckSales, jButtonManageItem, jButtonPayment});
 
         jPanelCardBase.add(jPaneManegerMenu, "card4");
 
@@ -457,6 +473,10 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_jButtonLoginLogoutActionPerformed
 
+    private void jButtonManageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonManageItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -477,6 +497,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private javax.swing.JButton jButtonControlCustomer;
     private javax.swing.JButton jButtonEmoployyesMenu;
     private javax.swing.JButton jButtonLoginLogout;
+    private javax.swing.JButton jButtonManageItem;
     private javax.swing.JButton jButtonManagerMenu;
     private javax.swing.JButton jButtonOrder;
     private javax.swing.JButton jButtonPayment;
