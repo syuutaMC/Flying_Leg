@@ -11,6 +11,7 @@ package managerMenu.item;
  */
 public class Item {
     private String itemNumber;
+    private String itemCategory;
     private String itemName;
     private int    unitPrice;
     private int    quantity;
@@ -18,10 +19,11 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemNumber, String itemName, int unitPrice) {
-        this.itemNumber = itemNumber;
-        this.itemName = itemName;
-        this.unitPrice = unitPrice;
+    public Item(String itemNumber, String itemCategory, String itemName, int unitPrice) {
+        this.itemNumber   = itemNumber;
+        this.itemCategory = itemCategory;
+        this.itemName     = itemName;
+        this.unitPrice    = unitPrice;
     }
 
     public String getItemNumber() {
@@ -40,6 +42,10 @@ public class Item {
         return quantity;
     }
 
+    public String getItemCategory() {
+        return itemCategory;
+    }
+
     public void setItemNumber(String itemNumber) {
         this.itemNumber = itemNumber;
     }
@@ -54,6 +60,10 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setItemCategory(String itemCategory) {
+        this.itemCategory = itemCategory;
     }
         
 }

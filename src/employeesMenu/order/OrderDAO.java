@@ -37,13 +37,14 @@ public class OrderDAO {
      * @throws java.sql.SQLException
      */
     public void dbAddOrder(int customerNumber, String deliveryToAddress, List<Item> items) throws SQLException{
+        
         String sql1 = "INSERT INTO " + 
                      " ORDERS(customer_number, delivery_to_address, store_number) " + 
                      " VALUES(?, ?, ?) ";
         
         String sql2 = "INSERT INTO " +
                       " ORDER_DETAILS(order_number, item_number, order_quantity)" +
-                      " VALUES( orders_order_no_sq.CURRVAL, ?, ?)";
+                      " VALUES( (SELECT MAX(order_number) FROM orders), ?, ?)";
         try {
             ps = con.prepareStatement(sql1);
             ps.setInt(1, customerNumber);

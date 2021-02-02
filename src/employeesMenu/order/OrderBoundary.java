@@ -352,7 +352,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param title 　タイトル
      */
     public void showConfirmMessage(String message, String title) {
-        JOptionPane.showConfirmDialog(this, message, title, JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
@@ -782,7 +782,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1210,8 +1210,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
             Item item = new Item();
-            item.setItemNumber(jTableOrder.getValueAt(i, 1).toString());
-            item.setQuantity(Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", "")));
+            item.setItemNumber(jTableOrder.getValueAt(i, 0).toString());
+            item.setQuantity(Integer.parseInt(jTableOrder.getValueAt(i, 2).toString()));
             items.add(item);
         }
         
