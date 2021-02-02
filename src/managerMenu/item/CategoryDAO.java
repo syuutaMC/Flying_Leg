@@ -16,11 +16,11 @@ import sys.DBManager;
  *
  * @author 19jz0137
  */
-public class CategoriesDAO {
+public class CategoryDAO {
     private static Connection con;
     private static PreparedStatement ps;
 
-    public CategoriesDAO() {
+    public CategoryDAO() {
         DBManager dBManager = DBManager.getDBManager();
         con = dBManager.getConnection();
     }
