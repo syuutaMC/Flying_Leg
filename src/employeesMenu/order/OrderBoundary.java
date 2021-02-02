@@ -115,8 +115,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         int cnt = categoryList.size();
         
-        List<JScrollPane> scrollPanes;
-        List<JTable> itemTable;
+        
         
         for(int j = 0; j < cnt; j++){
             scrollPanes.add(new JScrollPane());
