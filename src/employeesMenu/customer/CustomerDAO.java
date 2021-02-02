@@ -11,8 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLType;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 顧客DAO
@@ -143,8 +146,18 @@ public class CustomerDAO {
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getPhoneNumber());
             ps.setString(3, customer.getAddress());
-            ps.setString(4, customer.getDeliveryNote());
+            
+            if (Objects.isNull(customer.getDeliveryNote())) {
+                ps.setString(4, "test");
+            }
+            else {
+                ps.setString(4, customer.getDeliveryNote());
+            }
+            
             ps.setInt(5, customer.getCustomerNumber());
+            
+            ps.executeQuery(sql);
+            
         } catch (SQLException e) {
             throw e;
         }
