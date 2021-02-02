@@ -10,6 +10,8 @@ import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesControl;
 import java.sql.SQLException;
 import java.util.List;
+import managerMenu.item.Category;
+import managerMenu.item.CategoryDAO;
 import managerMenu.item.Item;
 
 /**
@@ -22,12 +24,16 @@ public class OrderControl {
     private final ItemDAO           itemDAO;
     private final CustomerDAO       customerDAO;
     private final OrderDAO          orderDAO;
+    private final Category          category;
+    private final CategoryDAO       categoryDAO;
     
     public OrderControl() {
         orderBoundary   = new OrderBoundary();
         itemDAO         = new ItemDAO();
         customerDAO     = new CustomerDAO();
         orderDAO        = new OrderDAO();
+        category        = new Category();
+        categoryDAO     = new CategoryDAO();
         setControl(control);
     }
     
@@ -42,6 +48,12 @@ public class OrderControl {
     public void start() {
         orderBoundary.setControl(this);
         orderBoundary.setVisible(true);
+    }
+    
+    public List<Category> getCategory(){
+        List<Category> categorys;
+
+        return categorys = categoryDAO.dbSearchItemCategory();
     }
     
     /**
