@@ -1174,8 +1174,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
             Item item = new Item();
-            item.setItemNumber(jTableOrder.getValueAt(i, 1).toString());
-            item.setQuantity(Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", "")));
+            item.setItemNumber(jTableOrder.getValueAt(i, 0).toString());
+            item.setQuantity(Integer.parseInt(jTableOrder.getValueAt(i, 2).toString()));
             items.add(item);
         }
         
