@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import managerMenu.Item;
+import managerMenu.item.Item;
 import sys.DBManager;
 
 /**
@@ -87,6 +87,7 @@ public class ItemDAO {
                      " WHERE ITEM_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
+            //ps.setString(1, itemNumber);
             ps.setString(1, itemNumber);
             itemList = selectItemExucte();
         }
@@ -98,7 +99,7 @@ public class ItemDAO {
     }
     
     /**
-     * 商品名検索
+     * 商品区別検索
      * @param itemName 商品名
      * @return 商品情報
      * @throws SQLException 
@@ -106,7 +107,7 @@ public class ItemDAO {
     public List<Item> dbSearchItemItemName(String itemName) throws SQLException {
         List<Item> itemList = new ArrayList<>();
         String sql = "SELECT * FROM ITEMS " + 
-                     " WHERE ITEM_NAME LIKE ? ";
+                     " WHERE ITEM_NUMBER LIKE ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, "%" + itemName + "%");
@@ -144,10 +145,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemMainMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%M%");
+            ps.setString(1, "M%");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,10 +163,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemDrinkMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%D%");
+            ps.setString(1, "D%");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,10 +181,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemSideMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%S%");
+            ps.setString(1, "S%");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();

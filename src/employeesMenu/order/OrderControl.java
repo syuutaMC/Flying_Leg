@@ -7,10 +7,10 @@ package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
 import employeesMenu.customer.CustomerDAO;
-import employeesMenu.EmployeesMenuControl;
+import employeesMenu.EmployeesControl;
 import java.sql.SQLException;
 import java.util.List;
-import managerMenu.Item;
+import managerMenu.item.Item;
 
 /**
  *
@@ -18,7 +18,7 @@ import managerMenu.Item;
  */
 public class OrderControl {
     private final OrderBoundary     orderBoundary;
-    private EmployeesMenuControl    control;
+    private EmployeesControl    control;
     private final ItemDAO           itemDAO;
     private final CustomerDAO       customerDAO;
     private final OrderDAO          orderDAO;
@@ -35,7 +35,7 @@ public class OrderControl {
      * コントロールを設定
      * @param control 従業員メニューコントロール
      */
-    public void setControl(EmployeesMenuControl control){
+    public void setControl(EmployeesControl control){
         this.control = control;
     }
     
@@ -70,7 +70,7 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                orderBoundary.showItemTable(itemList.get(0));
+                orderBoundary.addOrderTable(itemList.get(0));
             }
             else {
                 orderBoundary.showItemNotFoundErrorMessage();
@@ -90,7 +90,7 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemName(itemName);
             if (itemList.size() > 0) {
-                orderBoundary.showItemTable(itemList.get(0));
+                orderBoundary.addOrderTable(itemList.get(0));
             }
             else {
                 orderBoundary.showItemNotFoundErrorMessage();
@@ -115,6 +115,10 @@ public class OrderControl {
     
     public void showCustomerAddBoundary(String phoneNumber){
         control.showCustomerAddBoundary(phoneNumber);
+    }
+    
+    public void checkAddress(){
+      orderBoundary.checkAddress();
     }
     
     /**
@@ -149,7 +153,13 @@ public class OrderControl {
         try {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                orderBoundary.showItemTable(itemList.get(0));
+                int row = orderBoundary.searchOrderItem(itemList.get(0).getItemNumber());
+                if (row > -1) {
+                    orderBoundary.incrementOrderItem(row);
+                }else {
+                    orderBoundary.addOrderTable(itemList.get(0));
+                }
+                
                 orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
             } else {
                 orderBoundary.showItemNotFoundErrorMessage();
@@ -174,11 +184,11 @@ public class OrderControl {
     public void showCardFinalCheck() {
         int totalPrice = orderBoundary.calcTotalPrice();
         if (OrderBoundary.ORDER_TOTAL_PRICE_UNDER_LIMIT > totalPrice) {
-            orderBoundary.setEnabled(false);
+            orderBoundary.setEnabledFinalCheck(false);
+            orderBoundary.showTotalPriceErrorMessage();
         }
         else {
-            orderBoundary.setEnabled(true);
-            orderBoundary.showFinalCheckPanel();
+            orderBoundary.setEnabledFinalCheck(true);
             orderBoundary.showFinalCheckPanel();
         }
         
