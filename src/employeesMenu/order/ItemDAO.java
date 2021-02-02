@@ -181,7 +181,7 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemSideMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, "S%");
@@ -190,13 +190,6 @@ public class ItemDAO {
             e.printStackTrace();
         }
         
-        return itemList;
-    }
-    
-    public List<Item> dbSearchItemCategory() {
-        List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT DISTINCT ";
-        //作成中
         return itemList;
     }
 }
