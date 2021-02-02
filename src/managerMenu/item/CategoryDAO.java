@@ -78,4 +78,23 @@ public class CategoryDAO {
         }
         return categoryList;
     }
+    
+    /**
+     * カテゴリ追加処理
+     * @param categoryNumber カテゴリ番号
+     * @param categoryName   カテゴリ名
+     */
+    public void dbAddCategory(String categoryNumber, String categoryName) {
+        String sql = "INSERT INTO categories(category_number, category_name)" + 
+                        " VALUES( ?, ?) ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber);
+            ps.setString(2, categoryName);
+            ps.executeQuery().close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

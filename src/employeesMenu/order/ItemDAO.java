@@ -234,12 +234,32 @@ public class ItemDAO {
             ps.setInt(4, item.getUnitPrice());
             ps.setString(5, itemNumber);
             
-            ps.executeQuery();
+            ps.executeQuery().close();
             
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    /**
+     * 新しい商品番号の候補を取得する
+     * @return 新しい商品番号 | 取得に失敗した場合 -1
+     */
+    public int dbGetNewNumber() {
+        int newNumber = -1;
+        String sql = "SELECT MAX(TO_NUMBER(item_number)) FROM items";
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            newNumber = rs.getInt("item_number");
+            rs.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return newNumber;
     }
 }
 
