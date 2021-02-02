@@ -192,5 +192,12 @@ public class ItemDAO {
         
         return itemList;
     }
+    
+    public List<Item> dbSearchItemCategory() {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT DISTINCT ";
+        //作成中
+        return itemList;
+    }
 }
 
