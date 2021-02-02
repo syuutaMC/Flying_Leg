@@ -59,8 +59,6 @@ public class OrderDAO {
                 ps.setString( 1, item.getItemNumber());
                 ps.setInt(2, item.getQuantity());
                 
-                System.out.println(item.getItemNumber() + item.getQuantity());
-                
                 ps.executeUpdate();
             }
         }

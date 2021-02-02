@@ -307,7 +307,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param title 　タイトル
      */
     public void showConfirmMessage(String message, String title) {
-        JOptionPane.showConfirmDialog(this, message, title, JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
