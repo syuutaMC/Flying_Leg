@@ -73,7 +73,7 @@ public class EmployeeDAO {
      */
     public List<Employee> dbLogin(String employeeNumber, String password) {
         List<Employee> employeeList = new ArrayList<>();
-        String sql = "SELECT employeenumber, employeename, employeetype " + 
+        String sql = "SELECT employee_number, employee_name, employee_type " + 
                      " FROM employees " + 
                      " WHERE employee_number = ? AND " +
                      "       password = ? ";
