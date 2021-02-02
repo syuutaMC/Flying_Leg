@@ -140,8 +140,6 @@ public class ManageItemBoundary extends javax.swing.JFrame {
 
         jLabel7.setText("価格");
 
-        jTextField2.setText("jTextField2");
-
         jButton1.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jButton1.setText("商品登録");
 

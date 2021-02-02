@@ -75,6 +75,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         }
         jButtonLoginLogout.setText("ログアウト");
         control.changeCardLayout(CARD_MAIN_MENU);
+        jButtonLoginLogout.setVisible(true);
     }
     
     /**
@@ -82,6 +83,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
      */
     public void logout(){
         jButtonManagerMenu.setEnabled(false);
+        
+        jLabelEmployeeNumber.setText("");
+        jLabelEmployeeName.setText("");
         if(showCard == CARD_MANAGER_MENU){
             control.changeCardLayout(CARD_MAIN_MENU);
         }
@@ -443,6 +447,10 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        if(showCard == CARD_LOGIN_MENU){
+            jButtonLoginLogout.setVisible(true);
+        }
+        
         control.changeCardLayout(CARD_MAIN_MENU);
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -452,6 +460,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         control.changeCardLayout(CARD_MAIN_MENU);
+        jButtonLoginLogout.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonCheckSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckSalesActionPerformed
@@ -467,6 +476,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             jTextFieldEmployeeNumber.setText("");
             jTextFieldPassword.setText("");
             jLabelErrorMesage.setText("");
+            jButtonLoginLogout.setVisible(false);
             control.changeCardLayout(CARD_LOGIN_MENU);
         }else{
             control.logout();
