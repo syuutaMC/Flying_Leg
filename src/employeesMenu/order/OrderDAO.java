@@ -13,7 +13,7 @@ import managerMenu.item.Item;
 import sys.DBManager;
 
 /**
- *
+ * 注文DAO
  * @author 19jz0137
  */
 public class OrderDAO {
@@ -61,6 +61,8 @@ public class OrderDAO {
                 
                 ps.executeUpdate();
             }
+            //ステートメントをclose
+            ps.getResultSet().close();
         }
         catch (SQLException e) {
             throw e;
