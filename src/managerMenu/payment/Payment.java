@@ -12,6 +12,7 @@ import java.util.Date;
  * @author 19jz0137
  */
 public class Payment {
+    private int    orderNumber;
     private String name;
     private String phoneNumber;
     private Date   orderDate;
@@ -21,12 +22,17 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(String name, String phonNumber, Date orderDate, Date paymentDay, int amount) {
+    public Payment(int orderNumber, String name, String phonNumber, Date orderDate, Date paymentDay, int amount) {
+        this.orderNumber = orderNumber;
         this.name = name;
         this.phoneNumber = phonNumber;
         this.orderDate = orderDate;
         this.paymentDay = paymentDay;
         this.amount = amount;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
     }
     
     public String getName() {
@@ -47,6 +53,10 @@ public class Payment {
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public void setName(String name) {
