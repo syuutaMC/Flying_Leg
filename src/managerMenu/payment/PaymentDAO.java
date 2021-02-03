@@ -53,11 +53,13 @@ public class PaymentDAO {
      */
     public void setPayment(Payment payment, ResultSet rs) {
         try {
+            int     orderNumber = rs.getInt("ORDER_NUMBER");
             String  name        = rs.getString("NAME");
             String  phoneNumber = rs.getString("PHONE_NUMBER");
             Date    orderDate   = rs.getDate("ORDER_DATE");
             Date    paymentDay  = rs.getDate("PAYMENT_DAY");
             int     amount      = rs.getInt("AMOUNT");
+            payment.setOrderNumber(orderNumber);
             payment.setName(name);
             payment.setPhoneNumber(phoneNumber);
             payment.setOrderDate(orderDate);
@@ -120,5 +122,24 @@ public class PaymentDAO {
         }
         
         return paymentList;
+    }
+    
+    /**
+     * 支払済み設定処理
+     * 当日の日付で入金日を指定し支払い済みにする
+     * @param orderNumber   支払い済みにする注文番号
+     * @throws SQLException 
+     */
+    public void dbSetPaymentPaid(int orderNumber) throws SQLException {
+        String sql = "UPDATE orders " +
+                     " SET payment_day = sysdate " +
+                     " WHERE order_number = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, orderNumber);
+            ps.executeQuery().close();
+        } catch (SQLException e) {
+            throw e;
+        }
     }
 }
