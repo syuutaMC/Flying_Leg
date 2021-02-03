@@ -73,7 +73,7 @@ public class PaymentDAO {
      * @return 支払情報
      * @throws SQLException 
      */
-    public List<Payment> dbSearchPaymentAll() throws SQLException{
+    public List<Payment> dbSearchPaymentAll() throws SQLException {
         List<Payment> paymentList = new ArrayList<>();
         String sql = "SELECT * FROM payments";
         try {
@@ -86,5 +86,39 @@ public class PaymentDAO {
         return paymentList;
     }
     
+    /**
+     * 支払い済みの支払情報を問い合わせ
+     * @return 支払情報
+     * @throws SQLException 
+     */
+    public List<Payment> dbSearchPaymentPaid() throws SQLException {
+        List<Payment> paymentList = new ArrayList<>();
+        String sql = "SELECT * FROM payments WHERE payment_day IS NOT NULL ";
+        try {
+            ps = con.prepareStatement(sql);
+            paymentList = selectPaymentExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        
+        return paymentList;
+    }
     
+    /**
+     * 未支払いの支払情報を問い合わせ
+     * @return 支払い情報
+     * @throws SQLException 
+     */
+    public List<Payment> dbSearchPaymentUnpaid() throws SQLException {
+        List<Payment> paymentList = new ArrayList<>();
+        String sql = "SELECT * FROM payments WHERE payment_day IS NULL ";
+        try {
+            ps = con.prepareStatement(sql);
+            paymentList = selectPaymentExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        
+        return paymentList;
+    }
 }
