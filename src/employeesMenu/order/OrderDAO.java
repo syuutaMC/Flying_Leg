@@ -61,8 +61,7 @@ public class OrderDAO {
                 
                 ps.executeUpdate();
             }
-            //ステートメントをclose
-            ps.getResultSet().close();
+            
         }
         catch (SQLException e) {
             throw e;
