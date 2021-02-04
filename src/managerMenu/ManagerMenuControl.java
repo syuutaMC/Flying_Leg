@@ -23,4 +23,11 @@ public class ManagerMenuControl {
     public void setControl(SystemControl control){
         this.control = control;
     }
+    
+    
+    public void showPaymentBoundary(){
+        control.setVisibleMainMenu(false);
+        paymentControl.setControl(this);
+        paymentControl.start();
+    }
 }

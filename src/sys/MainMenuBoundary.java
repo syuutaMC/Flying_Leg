@@ -463,7 +463,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonCheckSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckSalesActionPerformed
-        // TODO add your handling code here:
+        control.showPaymentboundary();
     }//GEN-LAST:event_jButtonCheckSalesActionPerformed
 
     private void jButtonPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaymentActionPerformed

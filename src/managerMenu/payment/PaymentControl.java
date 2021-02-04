@@ -5,7 +5,10 @@
  */
 package managerMenu.payment;
 
-import sys.SystemControl;
+import java.util.List;
+import managerMenu.item.Category;
+import managerMenu.item.CategoryDAO;
+import managerMenu.ManagerMenuControl;
 /**
  * 
  * @author syuuta
@@ -13,9 +16,43 @@ import sys.SystemControl;
 
 
 public class PaymentControl {
-    public SystemControl control;
+
+    public ManagerMenuControl control;
+    private final CategoryDAO categoryDAO;
+    private final Category category;
+    private final PaymentBoundary paymentBoundary;
+
+    public PaymentControl() {
+        category = new Category();
+        categoryDAO = new CategoryDAO();
+        paymentBoundary = new PaymentBoundary();
+    }
     
-    public void setControl(SystemControl control){
+    
+    public void setControl(ManagerMenuControl control){
         this.control = control;
+    }
+    
+    /**
+     * カテゴリ取得
+     * @return 
+     */
+    public List<Category> getCategory(){
+        List<Category> categorys;
+
+        return categorys = categoryDAO.dbSearchItemCategory();
+    }
+    
+    /**
+     * メインメニューの画面切り替え処理
+     * @param str CardName
+     */
+    public void changeCardLayout(String str){
+        paymentBoundary.showCardLayout(str);
+    }
+    
+    public void start(){
+        paymentBoundary.setControl(this);
+        paymentBoundary.setVisible(true);
     }
 }

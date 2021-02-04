@@ -8,16 +8,10 @@ package employeesMenu.order;
 import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import managerMenu.item.Category;
-import managerMenu.item.CategoryDAO;
 import java.awt.CardLayout;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,6 +51,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void setControl(OrderControl control) {
         this.control = control;
+        initTabedPane();
     }
     
     /**
@@ -1146,7 +1141,6 @@ public class OrderBoundary extends javax.swing.JFrame {
 
     private void jButtonSelectItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectItemActionPerformed
         showCardOrderItem();
-        initTabedPane();
         control.checkAddress();
         jButtonSelectedItem.setEnabled(true);
         jLabelName.setText(jTextFieldName.getText());
