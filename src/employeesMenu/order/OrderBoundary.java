@@ -102,6 +102,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     private void initTabedPane(){
+        jTabbedPane1.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "金額"};
         menuTableModel = new DefaultTableModel(menuTableTitle, 0);
