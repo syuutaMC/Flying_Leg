@@ -125,6 +125,25 @@ public class PaymentDAO {
     }
     
     /**
+     * 支払情報の注文番号検索
+     * @return 支払情報
+     * @throws SQLException 
+     */
+    public List<Payment> dbSearchPaymentOrderNumber(int orderNumber) throws SQLException {
+        List<Payment> paymentList = new ArrayList<>();
+        String sql = "SELECT * FROM payments WHERE order_number = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, orderNumber);
+            paymentList = selectPaymentExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        
+        return paymentList;
+    }
+    
+    /**
      * 支払済み設定処理
      * 当日の日付で入金日を指定し支払い済みにする
      * @param orderNumber   支払い済みにする注文番号

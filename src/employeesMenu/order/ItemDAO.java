@@ -194,6 +194,24 @@ public class ItemDAO {
     }
     
     /**
+     * 商品をカテゴリで検索
+     * @param categoryNumber 
+     */
+    public List<Item> dbSearchItemCategory(String categoryNumber) {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM ITEMS WHERE category_number = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber);
+            itemList = selectItemExucte();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
+    
+    /**
      * 商品追加
      * @param item 商品情報 
      */
