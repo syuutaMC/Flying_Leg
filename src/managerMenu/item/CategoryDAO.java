@@ -97,4 +97,26 @@ public class CategoryDAO {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * 商品カテゴリ編集処理
+     * @param categoryNumber 編集するカテゴリ番号
+     * @param category       新しい商品カテゴリ情報
+     */
+    public void dbEditCategory(String categoryNumber, Category category) {
+        String sql = "UPDATE category " + 
+                     " SET category_number = ?, " +
+                     "     category_name   = ? " +
+                     " WHERE category_number = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber);
+            ps.setString(2, category.getCategoryNumber());
+            ps.setString(3, category.getCategoryName());
+            ps.executeQuery().close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
