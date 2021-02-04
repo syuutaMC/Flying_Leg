@@ -12,6 +12,7 @@ import managerMenu.item.CategoryDAO;
 import java.awt.CardLayout;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -106,7 +107,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     private void initTabedPane(){
-        int i = 0;
         
         String[] menuTableTitle = {"商品番号","商品名", "金額"};
         menuTableModel = new DefaultTableModel(menuTableTitle, 0);
@@ -115,26 +115,19 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         int cnt = categoryList.size();
         
+        JScrollPane[] scrollPane = new JScrollPane[cnt];
+        JTable[] table = new JTable[cnt];
         
+        ArrayList<JTable> TableList = new ArrayList<JTable>();
+        ArrayList<JScrollPane> scrollPaneList = new ArrayList<JScrollPane>();
         
-        for(int j = 0; j < cnt; j++){
-            scrollPanes.add(new JScrollPane());
+        for(int i = 0; i < categoryList.size(); i++){
+            TableList.add(new JTable(menuTableModel));
+            scrollPaneList.add(new JScrollPane());
+                     
+            scrollPaneList.get(i).setViewportView(TableList.get(i));
+            jTabbedPane1.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
         }
-        
-        itemTable.setModel(menuTableModel);
-        
-        JScrollPane jScrollPane5 = new JScrollPane();
-        JTable jTable2 = new JTable();
-        jScrollPane5.setViewportView(jTable2);
-        JScrollPane jScrollPane6 = new JScrollPane();
-        JTable jTable3 = new JTable();
-        jScrollPane6.setViewportView(jTable3);
-        
-        jTable2.setModel(menuTableModel);
-        jTable3.setModel(menuTableModel);
-        
-        jTabbedPane1.addTab("test", jScrollPane5);
-        jTabbedPane1.addTab("test2", jScrollPane6);
     }
     
     /**
