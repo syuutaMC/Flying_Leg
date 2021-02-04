@@ -194,6 +194,24 @@ public class ItemDAO {
     }
     
     /**
+     * 商品をカテゴリで検索
+     * @param categoryNumber 
+     */
+    public List<Item> dbSearchItemCategory(String categoryNumber) {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT * FROM ITEMS WHERE category_number = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber);
+            itemList = selectItemExucte();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
+    
+    /**
      * 商品追加
      * @param item 商品情報 
      */
@@ -245,8 +263,9 @@ public class ItemDAO {
     /**
      * 新しい商品番号の候補を取得する
      * @return 新しい商品番号 | 取得に失敗した場合 -1
+     * @throws java.sql.SQLException
      */
-    public int dbGetNewNumber() {
+    public String dbGetNewNumber() throws SQLException {
         int newNumber = -1;
         String sql = "SELECT MAX(TO_NUMBER(item_number)) FROM items";
         try {
@@ -255,11 +274,32 @@ public class ItemDAO {
             newNumber = rs.getInt("item_number");
             rs.close();
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (SQLException e) {
+            throw e;
         }
         
-        return newNumber;
+        return Integer.toString(newNumber);
+    }
+    
+    /**
+     * 商品を追加
+     * @param item 商品情報
+     * @throws SQLException 
+     */
+    public void dbSetNewItem(Item item) throws SQLException {
+        String sql = "INSERT INTO items(item_number, item_name, unit_price, category_number) " + 
+                     " VALUES( ?, ?, ?, ?) ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, item.getItemNumber());
+            ps.setString(2, item.getItemName());
+            ps.setInt(3, item.getUnitPrice());
+            ps.setString(4, item.getItemCategory());
+            ResultSet rs = ps.executeQuery();
+            rs.close();
+        } catch (SQLException e) {
+            throw e;
+        }
     }
 }
 
