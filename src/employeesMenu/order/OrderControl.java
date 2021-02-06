@@ -83,6 +83,7 @@ public class OrderControl {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
                 orderBoundary.addOrderTable(itemList.get(0));
+                orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
             }
             else {
                 orderBoundary.showItemNotFoundErrorMessage();
