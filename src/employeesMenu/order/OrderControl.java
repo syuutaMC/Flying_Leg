@@ -134,28 +134,16 @@ public class OrderControl {
       orderBoundary.checkAddress();
     }
     
-    /**
-     * メインメニュー検索
-     */
-    public void searchMainMenu() {
-        List<Item> itemList = itemDAO.dbSearchItemMainMenu();
-        orderBoundary.showMenuTable(itemList);
-    }
     
-    /**
-     * サイドメニュー検索
-     */
-    public void searchSideMenu() {
-        List<Item> itemList = itemDAO.dbSearchItemSideMenu();
-        orderBoundary.showMenuTable(itemList);
-    }
-    
-    /**
-     * ドリンクメニュー検索
-     */
-    public void searchDrinkMenu() {
-        List<Item> itemList = itemDAO.dbSearchItemDrinkMenu();
-        orderBoundary.showMenuTable(itemList);
+    public void showMenu(List<Category> categoryList) {
+        List<Item> itemList;
+        int i = 0;
+        for (Category category : categoryList) {
+            itemList = itemDAO.dbSearchItemCategory(category.getCategoryNumber());
+            orderBoundary.showMenuTable(itemList, i++);
+        }
+        
+        
     }
     
     /**
