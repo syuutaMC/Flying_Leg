@@ -122,8 +122,7 @@ public class ItemDAO {
     
     /**
      * 商品全件検索
-     * @return 商品情報
-     * @throws SQLException 
+     * @return 商品情報 
      */
     public List<Item> dbSearchItemAll() {
         List<Item> itemList = new ArrayList<>();
@@ -195,11 +194,13 @@ public class ItemDAO {
     
     /**
      * 商品をカテゴリで検索
-     * @param categoryNumber 
+     * @param categoryNumber カテゴリ番号
      */
     public List<Item> dbSearchItemCategory(String categoryNumber) {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT * FROM ITEMS WHERE category_number = ? ";
+        String sql = "SELECT CATEGORY_NUMBER || SUBSTR(ITEM_NUMBER, 2) AS \"ITEM_NUMBER\", ITEM_NAME, UNIT_PRICE " +
+                     " FROM ITEMS JOIN ITEM_CATEGORIES USING(CATEGORY_NUMBER) " +
+                     " WHERE CATEGORY_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, categoryNumber);
