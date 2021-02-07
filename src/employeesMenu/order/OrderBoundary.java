@@ -29,10 +29,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     private final CardLayout cardLayout;
     private OrderControl control;
     private Customer customer;
-    private Category category;
     private DefaultTableModel orderTableModel;
-    private DefaultTableModel menuTableModel;
     private DefaultTableModel orderListTableModel;
+    private List<JTable> jtableMenuList;
+    private List<DefaultTableModel> menuTableModelList;
     
     /**
      * Creates new form OrderBoundary
@@ -86,44 +86,38 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void initTableModel(){
         String[] orderTableTitle = {"商品番号", "商品名", "数量", "金額"};
         String[] orderListTitle = {"商品番号", "商品名", "数量", "金額"};
-        String[] menuTableTitle = {"商品番号","商品名", "金額"};
         
         orderListTableModel = new DefaultTableModel(orderListTitle, 0);
         orderTableModel = new DefaultTableModel(orderTableTitle, 0);
-        menuTableModel = new DefaultTableModel(menuTableTitle, 0);
         
         jTableOrderList.setModel(orderListTableModel);
         jTableOrder.setModel(orderTableModel);
-        jTableMenu.setModel(menuTableModel);
-        
-        
-        
-        //jTableOrder.getColumnModel().getColumn(2).setCellEditor(new SpinnerCellEditor());
     }
     
     private void initTabedPane(){
-        jTabbedPane1.removeAll();
+        jTabbedPaneMenu.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "金額"};
-        menuTableModel = new DefaultTableModel(menuTableTitle, 0);
         
         List<Category> categoryList = control.getCategory();
         
-        int cnt = categoryList.size();
-        
-        JScrollPane[] scrollPane = new JScrollPane[cnt];
-        JTable[] table = new JTable[cnt];
-        
-        ArrayList<JTable> TableList = new ArrayList<JTable>();
-        ArrayList<JScrollPane> scrollPaneList = new ArrayList<JScrollPane>();
+        ArrayList<JTable> tableList = new ArrayList<>();
+        ArrayList<JScrollPane> scrollPaneList = new ArrayList<>();
+        List<DefaultTableModel> menuTableModelList = new ArrayList<>();
         
         for(int i = 0; i < categoryList.size(); i++){
-            TableList.add(new JTable(menuTableModel));
+            DefaultTableModel menuTableModel = new DefaultTableModel(menuTableTitle, 0);
+            
+            menuTableModelList.add(menuTableModel);
+            tableList.add(new JTable(menuTableModel));
             scrollPaneList.add(new JScrollPane());
-                     
-            scrollPaneList.get(i).setViewportView(TableList.get(i));
-            jTabbedPane1.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
+            
+            scrollPaneList.get(i).setViewportView(tableList.get(i));
+            jTabbedPaneMenu.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
         }
+        this.menuTableModelList = menuTableModelList;
+        this.jtableMenuList = tableList;
+        control.showMenu(categoryList);
     }
     
     /**
@@ -133,7 +127,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
     }
-    
     
     /**
      * 画面切り替え処理
@@ -184,19 +177,20 @@ public class OrderBoundary extends javax.swing.JFrame {
     /**
      * メニュー表にメニューを表示
      * @param itemList 商品リスト
+     * @param tabIndex タブ番号
      */
-    public void showMenuTable(List<Item> itemList) {
+    public void showMenuTable(List<Item> itemList, int tabIndex) {
         
         NumberFormat nf = NumberFormat.getNumberInstance();
         
-        menuTableModel.setRowCount(0);
+        menuTableModelList.get(tabIndex).setRowCount(0);
         String[] row = new String[3];
         
         for (Item item : itemList) {
             row[0] = item.getItemNumber();
             row[1] = item.getItemName();
             row[2] = nf.format(item.getUnitPrice());
-            menuTableModel.addRow(row);
+            menuTableModelList.get(tabIndex).addRow(row);
         }
     }
     
@@ -438,7 +432,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * 注文確定後の初期化処理　または 中止処理
      */
     public void allReset(){
-        initAddAddressPanel();;
+        initAddAddressPanel();
         initOrderItemPanel();
         initTopPanel();
     }
@@ -452,11 +446,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonAddOrderItem = new javax.swing.JButton();
-        jButtonSideMenu = new javax.swing.JButton();
-        jButtonDrink = new javax.swing.JButton();
-        jButtonMainmenu = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPaneMenu = new javax.swing.JScrollPane();
         jTableMenu = new javax.swing.JTable();
         jPanelHeadder = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -489,7 +479,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButtonSearchItemId = new javax.swing.JButton();
         jPanelMenu = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPaneMenu = new javax.swing.JTabbedPane();
         jButtonRemoveOrderItem = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabelOrderTotalPrice = new javax.swing.JLabel();
@@ -512,34 +502,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabelDelivaryNote = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-
-        jButtonAddOrderItem.setText("追加");
-        jButtonAddOrderItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddOrderItemActionPerformed(evt);
-            }
-        });
-
-        jButtonSideMenu.setText("サイドメニュー");
-        jButtonSideMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSideMenuActionPerformed(evt);
-            }
-        });
-
-        jButtonDrink.setText("ドリンク");
-        jButtonDrink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDrinkActionPerformed(evt);
-            }
-        });
-
-        jButtonMainmenu.setText("メインメニュー");
-        jButtonMainmenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMainmenuActionPerformed(evt);
-            }
-        });
 
         jTableMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -564,7 +526,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTableMenu);
+        jScrollPaneMenu.setViewportView(jTableMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("注文画面");
@@ -787,7 +749,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -829,14 +791,14 @@ public class OrderBoundary extends javax.swing.JFrame {
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPaneMenu)
                 .addContainerGap())
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPaneMenu))
         );
 
         jButtonRemoveOrderItem.setText("商品を取り除く");
@@ -1186,24 +1148,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldItemId.setText("");
     }//GEN-LAST:event_jButtonSearchItemIdActionPerformed
 
-    private void jButtonMainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainmenuActionPerformed
-        control.searchMainMenu();
-    }//GEN-LAST:event_jButtonMainmenuActionPerformed
-
-    private void jButtonDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrinkActionPerformed
-        control.searchDrinkMenu();
-    }//GEN-LAST:event_jButtonDrinkActionPerformed
-
-    private void jButtonSideMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSideMenuActionPerformed
-        control.searchSideMenu();
-    }//GEN-LAST:event_jButtonSideMenuActionPerformed
-
-    private void jButtonAddOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddOrderItemActionPerformed
-        if (jTableMenu.getSelectedRow() > -1) {
-            control.addOrderItem(jTableMenu.getValueAt(jTableMenu.getSelectedRow(), 0).toString());
-        }
-    }//GEN-LAST:event_jButtonAddOrderItemActionPerformed
-
     private void jButtonRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveOrderItemActionPerformed
         if (jTableOrder.getSelectedRow() > -1) {
             control.removeOrderItem(jTableOrder.getSelectedRow());
@@ -1276,19 +1220,15 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonAddOrderItem;
     private javax.swing.JButton jButtonCustomerCheck;
     private javax.swing.JButton jButtonDecrementItem;
-    private javax.swing.JButton jButtonDrink;
     private javax.swing.JButton jButtonFinalCheck;
     private javax.swing.JButton jButtonIncrementOrderItem;
-    private javax.swing.JButton jButtonMainmenu;
     private javax.swing.JButton jButtonRemoveOrderItem;
     private javax.swing.JButton jButtonSearchItemId;
     private javax.swing.JButton jButtonSelectItem;
     private javax.swing.JButton jButtonSelectedItem;
     private javax.swing.JButton jButtonShippingAddress;
-    private javax.swing.JButton jButtonSideMenu;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1322,8 +1262,8 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPaneMenu;
+    private javax.swing.JTabbedPane jTabbedPaneMenu;
     private javax.swing.JTable jTableMenu;
     private javax.swing.JTable jTableOrder;
     private javax.swing.JTable jTableOrderList;
