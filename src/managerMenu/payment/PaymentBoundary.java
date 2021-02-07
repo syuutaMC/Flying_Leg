@@ -22,7 +22,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
     
     private static final String CARD_SALES = "card2";
     private static final String CARD_PAYMENT = "card3";
+    private static final String DAY = "card2";
+    private static final String WEEK = "card3";
+    private static final String MONTH = "card4";
     private final CardLayout cardLayout;
+    private final CardLayout cardLayout2;
     
     public PaymentControl control;
     
@@ -30,6 +34,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         initComponents();
         initjTextField();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
+        cardLayout2 = (CardLayout)jPanelSalesCardBase.getLayout();
     }
     
     public void setControl(PaymentControl control){
@@ -64,6 +69,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                      
             scrollPaneList.get(i).setViewportView(TableList.get(i));
             jTabbedCategory.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
+            jTabbedCategory2.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
         }
     }
 
@@ -78,9 +84,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
         jPanelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabelEmployeeName = new javax.swing.JLabel();
@@ -103,6 +109,16 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
         jTabbedCategory = new javax.swing.JTabbedPane();
         jPanelWeekSales = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jTabbedCategory2 = new javax.swing.JTabbedPane();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanelMonthSales = new javax.swing.JPanel();
         jPanelSubMenu = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -118,7 +134,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
 
         jLabel3.setText("------円");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel5.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabel5.setText("注文数(１時間ごと)");
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -129,10 +148,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jLabel5.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
-        jLabel5.setText("注文数(１時間ごと)");
+        jScrollPane5.setViewportView(jTable5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -279,7 +295,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanelDaySalesLayout.setVerticalGroup(
             jPanelDaySalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,20 +308,96 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 .addGroup(jPanelDaySalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedCategory)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelSalesCardBase.add(jPanelDaySales, "card2");
+
+        jLabel8.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jLabel8.setText("週間売上金額");
+
+        jLabel9.setText("-------円");
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "-月-日", "Title 2", "Title 3", "Title 4", "タイトル 5", "タイトル 6", "タイトル 7"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
+        jLabel12.setText("カテゴリごとの注文数");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jLabel13.setText("１週間全体の売上");
+
+        jLabel14.setText("各曜日の売上金額");
 
         javax.swing.GroupLayout jPanelWeekSalesLayout = new javax.swing.GroupLayout(jPanelWeekSales);
         jPanelWeekSales.setLayout(jPanelWeekSalesLayout);
         jPanelWeekSalesLayout.setHorizontalGroup(
             jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                        .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79)
+                                .addComponent(jLabel9))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jTabbedCategory2, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelWeekSalesLayout.setVerticalGroup(
             jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
+            .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTabbedCategory2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanelSalesCardBase.add(jPanelWeekSales, "card3");
@@ -314,11 +406,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jPanelMonthSales.setLayout(jPanelMonthSalesLayout);
         jPanelMonthSalesLayout.setHorizontalGroup(
             jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGap(0, 975, Short.MAX_VALUE)
         );
         jPanelMonthSalesLayout.setVerticalGroup(
             jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
+            .addGap(0, 554, Short.MAX_VALUE)
         );
 
         jPanelSalesCardBase.add(jPanelMonthSales, "card4");
@@ -326,8 +418,18 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jPanelSubMenu.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton1.setText("当日分売上");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("週間売上");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("月間売上");
 
@@ -352,7 +454,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelSalesLayout = new javax.swing.GroupLayout(jPanelSales);
@@ -363,14 +465,12 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelSalesCardBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelSalesLayout.createSequentialGroup()
-                        .addComponent(jPanelSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(jPanelSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanelSalesLayout.setVerticalGroup(
             jPanelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSalesLayout.createSequentialGroup()
-                .addComponent(jPanelSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanelSalesCardBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -428,22 +528,38 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelCardBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        control.changeCardLayout(CARD_PAYMENT);
+        control.changeCardLayoutMain(CARD_PAYMENT);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.changeCardLayoutSub(DAY);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        control.changeCardLayoutSub(WEEK);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
-    
-    public void showCardLayout(String card){
+    /**
+     * メインのカードパネル切り替え
+     * @param card 
+     */
+    public void showCardLayoutMain(String card){
         cardLayout.show(jPanelCardBase, card);
+    }
+    
+    /**
+     * 売上管理画面の切り替え
+     * @param card 
+     */
+    public void showCardLayoutSub(String card){
+        cardLayout.show(jPanelSalesCardBase, card);
     }
     /**
      * @param args the command line arguments
@@ -491,12 +607,17 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNoCheckSearch;
     private javax.swing.JButton jButtonSearchOrderNumber;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEmployeeName;
     private javax.swing.JLabel jLabelEmplyeeNumber;
     private javax.swing.JPanel jPanelCardBase;
@@ -512,10 +633,15 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedCategory;
+    private javax.swing.JTabbedPane jTabbedCategory2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

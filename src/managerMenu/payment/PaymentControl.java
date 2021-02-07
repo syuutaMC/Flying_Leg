@@ -47,8 +47,12 @@ public class PaymentControl {
      * メインメニューの画面切り替え処理
      * @param str CardName
      */
-    public void changeCardLayout(String str){
-        paymentBoundary.showCardLayout(str);
+    public void changeCardLayoutMain(String str){
+        paymentBoundary.showCardLayoutMain(str);
+    }
+    
+    public void changeCardLayoutSub(String str){
+        paymentBoundary.showCardLayoutSub(str);
     }
     
     public void start(){
