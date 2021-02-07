@@ -9,6 +9,9 @@ import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import managerMenu.item.Category;
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +144,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void initMenuTableModelSetEditableFalse(List<JTable> jTableList) {
         for (JTable jTable : jTableList) {
             jTable.getTableHeader().setReorderingAllowed(false);    //列の並べ替え不可
-            jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に
+            jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に 
         }
     }
     
