@@ -43,8 +43,8 @@ public class OrderDAO {
                      " VALUES(?, ?, ?) ";
         
         String sql2 = "INSERT INTO " +
-                      " ORDER_DETAILS(order_number, item_number, order_quantity)" +
-                      " VALUES( (SELECT MAX(order_number) FROM orders), ?, ?)";
+                      " ORDER_DETAILS(order_number, item_number, order_quantity) " +
+                      " VALUES( (SELECT MAX(order_number) FROM orders), ?, ?) ";
         try {
             ps = con.prepareStatement(sql1);
             ps.setInt(1, customerNumber);
