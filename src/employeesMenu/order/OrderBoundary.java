@@ -92,9 +92,13 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         jTableOrderList.setModel(orderListTableModel);
         jTableOrder.setModel(orderTableModel);
+        
     }
     
-    private void initTabedPane(){
+    /**
+     * ダブドペイン初期化
+     */
+    private void initTabedPane() {
         jTabbedPaneMenu.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "金額"};
@@ -115,6 +119,9 @@ public class OrderBoundary extends javax.swing.JFrame {
             scrollPaneList.get(i).setViewportView(tableList.get(i));
             jTabbedPaneMenu.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
         }
+        
+        initMenuTableModelSetEditableFalse(tableList);
+        
         this.menuTableModelList = menuTableModelList;
         this.jtableMenuList = tableList;
         control.showMenu(categoryList);
@@ -126,6 +133,16 @@ public class OrderBoundary extends javax.swing.JFrame {
     private void initTopPanel() {
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
+    }
+    
+    /**
+     * メニュー表列並べ替えを不可に設定
+     */
+    private void initMenuTableModelSetEditableFalse(List<JTable> jTableList) {
+        for (JTable jTable : jTableList) {
+            jTable.getTableHeader().setReorderingAllowed(false);    //列の並べ替え不可
+            jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に
+        }
     }
     
     /**
