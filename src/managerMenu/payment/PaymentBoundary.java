@@ -48,6 +48,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
     }
     
     private void initTabedPane(){
+        jTabbedCategory.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "注文数"};
         menuTableModel = new DefaultTableModel(menuTableTitle, 0);
