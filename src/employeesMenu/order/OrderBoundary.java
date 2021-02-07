@@ -92,7 +92,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         jTableOrderList.setModel(orderListTableModel);
         jTableOrder.setModel(orderTableModel);
-        
+        jTableOrder.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
     }
     
     /**
