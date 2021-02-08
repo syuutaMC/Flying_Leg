@@ -9,6 +9,9 @@ import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import managerMenu.item.Category;
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,8 +118,19 @@ public class OrderBoundary extends javax.swing.JFrame {
         for(int i = 0; i < categoryList.size(); i++){
             DefaultTableModel menuTableModel = new DefaultTableModel(menuTableTitle, 0);
             
+            JTable jTable = new JTable(menuTableModel);
+            
+            jTable.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent mouseEvent) {
+                    Point point = mouseEvent.getPoint();
+                    int row = jTable.rowAtPoint(point);
+                        if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
+                            menuTableSelectedItem(row);
+                        }
+                    }
+            });
             menuTableModelList.add(menuTableModel);
-            tableList.add(new JTable(menuTableModel));
+            tableList.add(jTable);
             scrollPaneList.add(new JScrollPane());
             
             scrollPaneList.get(i).setViewportView(tableList.get(i));
@@ -1194,6 +1208,14 @@ public class OrderBoundary extends javax.swing.JFrame {
         decrementOrderItem(jTableOrder.getSelectedRow());
         showOrderTotalPrice(calcTotalPrice());
     }//GEN-LAST:event_jButtonDecrementItemActionPerformed
+    
+    private void menuTableSelectedItem(int row) {
+        int tabNo = jTabbedPaneMenu.getSelectedIndex();
+        
+        if (jtableMenuList.get(tabNo).getSelectedRow() > -1) {
+            control.addOrderItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString());
+        }
+    }
     
     /**
      * @param args the command line arguments
