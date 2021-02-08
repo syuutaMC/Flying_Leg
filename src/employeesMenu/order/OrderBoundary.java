@@ -9,9 +9,6 @@ import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import managerMenu.item.Category;
 import java.awt.CardLayout;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,12 +73,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 商品登録画面の初期化
+     * 注文商品選択画面の初期化
      */
     private void initOrderItemPanel(){
         jTextFieldItemId.setText("");
         jTableOrder.setRowHeight(0);
-        jTableMenu.setRowHeight(0);
+        jTableMenu.setRowHeight(0);   
         showOrderTotalPrice(0);
     }
     
@@ -98,6 +95,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTableOrderList.setModel(orderListTableModel);
         jTableOrder.setModel(orderTableModel);
         jTableOrder.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
+        
     }
     
     /**
