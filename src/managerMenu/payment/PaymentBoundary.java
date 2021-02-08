@@ -20,7 +20,7 @@ import managerMenu.item.Category;
 public class PaymentBoundary extends javax.swing.JFrame {
     private DefaultTableModel menuTableModel;
     
-    private static final String CARD_SALES = "card2";
+    private static final String CARD_CHECK_SALES = "card2";
     private static final String CARD_PAYMENT = "card3";
     private static final String DAY = "card2";
     private static final String WEEK = "card3";
@@ -70,6 +70,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
             scrollPaneList.get(i).setViewportView(TableList.get(i));
             jTabbedCategory.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
             jTabbedCategory2.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
+            jTabbedCategory3.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
         }
     }
 
@@ -120,14 +121,24 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanelMonthSales = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
+        jTabbedCategory3 = new javax.swing.JTabbedPane();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable7 = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jPanelSubMenu = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanelMenu = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonChackSales = new javax.swing.JButton();
+        jButtonPayment = new javax.swing.JButton();
+        jButtonManageSales = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel2.setText("売上金額");
@@ -313,6 +324,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
 
         jPanelSalesCardBase.add(jPanelDaySales, "card2");
 
+        jPanelWeekSales.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel8.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel8.setText("週間売上金額");
 
@@ -379,6 +392,12 @@ public class PaymentBoundary extends javax.swing.JFrame {
             .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
                 .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jTabbedCategory2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanelWeekSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,30 +406,102 @@ public class PaymentBoundary extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel14)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelWeekSalesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTabbedCategory2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
+                        .addGap(9, 9, 9)))
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanelSalesCardBase.add(jPanelWeekSales, "card3");
 
+        jPanelMonthSales.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel10.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jLabel10.setText("月間売上金額");
+
+        jLabel11.setText("-------円");
+
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "-月-日", "Title 2", "Title 3", "Title 4", "タイトル 5", "タイトル 6", "タイトル 7"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable6);
+
+        jLabel15.setText("カテゴリごとの注文数");
+
+        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane7.setViewportView(jTable7);
+
+        jLabel16.setText("月全体の売上");
+
+        jLabel17.setText("各週の売上金額");
+
         javax.swing.GroupLayout jPanelMonthSalesLayout = new javax.swing.GroupLayout(jPanelMonthSales);
         jPanelMonthSales.setLayout(jPanelMonthSalesLayout);
         jPanelMonthSalesLayout.setHorizontalGroup(
             jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 975, Short.MAX_VALUE)
+            .addGroup(jPanelMonthSalesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6)
+                    .addGroup(jPanelMonthSalesLayout.createSequentialGroup()
+                        .addGroup(jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelMonthSalesLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79)
+                                .addComponent(jLabel11))
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jTabbedCategory3, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelMonthSalesLayout.setVerticalGroup(
             jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGroup(jPanelMonthSalesLayout.createSequentialGroup()
+                .addGroup(jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMonthSalesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jTabbedCategory3, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanelMonthSalesLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanelMonthSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel17)
+                        .addGap(9, 9, 9)))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanelSalesCardBase.add(jPanelMonthSales, "card4");
@@ -432,6 +523,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
         });
 
         jButton3.setText("月間売上");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelSubMenuLayout = new javax.swing.GroupLayout(jPanelSubMenu);
         jPanelSubMenu.setLayout(jPanelSubMenuLayout);
@@ -454,7 +550,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelSalesLayout = new javax.swing.GroupLayout(jPanelSales);
@@ -477,16 +573,21 @@ public class PaymentBoundary extends javax.swing.JFrame {
 
         jPanelCardBase.add(jPanelSales, "card3");
 
-        jButton4.setText("売上確認");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonChackSales.setText("売上確認");
+        jButtonChackSales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonChackSalesActionPerformed(evt);
             }
         });
 
-        jButton5.setText("入金確認");
+        jButtonPayment.setText("入金確認");
+        jButtonPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPaymentActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("売上管理");
+        jButtonManageSales.setText("売上管理");
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
@@ -495,20 +596,20 @@ public class PaymentBoundary extends javax.swing.JFrame {
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6)
-                    .addComponent(jButton5)
-                    .addComponent(jButton4))
+                    .addComponent(jButtonManageSales)
+                    .addComponent(jButtonPayment)
+                    .addComponent(jButtonChackSales))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButton4)
+                .addComponent(jButtonChackSales)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(jButtonManageSales)
                 .addGap(49, 49, 49)
-                .addComponent(jButton5)
+                .addComponent(jButtonPayment)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -534,9 +635,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonChackSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChackSalesActionPerformed
         control.changeCardLayoutMain(CARD_PAYMENT);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonChackSalesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         control.changeCardLayoutSub(DAY);
@@ -545,6 +646,14 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         control.changeCardLayoutSub(WEEK);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaymentActionPerformed
+        control.changeCardLayoutMain(CARD_CHECK_SALES);
+    }//GEN-LAST:event_jButtonPaymentActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        control.changeCardLayoutSub(MONTH);
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     /**
      * メインのカードパネル切り替え
@@ -559,7 +668,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
      * @param card 
      */
     public void showCardLayoutSub(String card){
-        cardLayout.show(jPanelSalesCardBase, card);
+        cardLayout2.show(jPanelSalesCardBase, card);
     }
     /**
      * @param args the command line arguments
@@ -600,16 +709,21 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonAllSerarch;
+    private javax.swing.JButton jButtonChackSales;
+    private javax.swing.JButton jButtonManageSales;
     private javax.swing.JButton jButtonNoCheckSearch;
+    private javax.swing.JButton jButtonPayment;
     private javax.swing.JButton jButtonSearchOrderNumber;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -635,13 +749,18 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedCategory;
     private javax.swing.JTabbedPane jTabbedCategory2;
+    private javax.swing.JTabbedPane jTabbedCategory3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable6;
+    private javax.swing.JTable jTable7;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

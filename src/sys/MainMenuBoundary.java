@@ -36,8 +36,13 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jLabelErrorMesage.setForeground(Color.red);
    }
     
+    /**
+     * ボタンの初期化
+     * デフォルト値 : false
+     * デバッグ時   : true
+     */
     private void initButton(){
-        jButtonManagerMenu.setEnabled(false);
+        jButtonManagerMenu.setEnabled(true);
     }
     
     /**
