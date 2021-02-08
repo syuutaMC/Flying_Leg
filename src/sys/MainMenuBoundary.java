@@ -290,7 +290,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jPaneManegerMenu.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonCheckSales.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jButtonCheckSales.setText("売上確認");
+        jButtonCheckSales.setText("売上管理");
         jButtonCheckSales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCheckSalesActionPerformed(evt);
@@ -298,7 +298,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         });
 
         jButtonPayment.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jButtonPayment.setText("入金登録");
+        jButtonPayment.setText("システム管理");
         jButtonPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPaymentActionPerformed(evt);

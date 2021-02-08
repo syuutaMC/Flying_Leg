@@ -19,7 +19,6 @@ import managerMenu.item.Category;
  */
 public class PaymentBoundary extends javax.swing.JFrame {
     private DefaultTableModel menuTableModel;
-    
     private static final String CARD_CHECK_SALES = "card2";
     private static final String CARD_PAYMENT = "card3";
     private static final String DAY = "card2";
@@ -599,7 +598,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                     .addComponent(jButtonManageSales)
                     .addComponent(jButtonPayment)
                     .addComponent(jButtonChackSales))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -670,6 +669,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
     public void showCardLayoutSub(String card){
         cardLayout2.show(jPanelSalesCardBase, card);
     }
+    
     /**
      * @param args the command line arguments
      */
