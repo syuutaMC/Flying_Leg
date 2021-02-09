@@ -58,7 +58,7 @@ public class EmployeeDAO {
         try {
             String employeeNumber = rs.getString("EMPLOYEE_NUMBER");
             String employeeName   = rs.getString("EMPLOYEE_NAME");
-            String employeeType   = rs.getString("EMPLOYEE_TYPE");
+            String employeeType   = rs.getString("TYPE_NUMBER");
             employee.setEmployeeNumber(employeeNumber);
             employee.setEmployeeName(employeeName);
             employee.setEmployeeType(employeeType);
@@ -73,7 +73,7 @@ public class EmployeeDAO {
      */
     public List<Employee> dbLogin(String employeeNumber, String password) {
         List<Employee> employeeList = new ArrayList<>();
-        String sql = "SELECT employee_number, employee_name, employee_type " + 
+        String sql = "SELECT employee_number, employee_name, type_number " + 
                      " FROM employees " + 
                      " WHERE employee_number = ? AND " +
                      "       password = ? ";
@@ -95,7 +95,7 @@ public class EmployeeDAO {
      * @throws SQLException 
      */
     public void dbCreateEmployee(Employee employee, String password) throws SQLException {
-        String sql = "INSERT INTO EMPLOYEES(EMPLOYEE_NAME, EMPLOYEE_TYPE, PASSWORD) " +
+        String sql = "INSERT INTO EMPLOYEES(EMPLOYEE_NAME, TYPE_NUMBER, PASSWORD) " +
                      " VALUES( ?, ?, ?) ";
         try {
             ps = con.prepareStatement(sql);
@@ -108,5 +108,5 @@ public class EmployeeDAO {
         catch (SQLException e) {
             throw e;
         }
-    }
+    } 
 }
