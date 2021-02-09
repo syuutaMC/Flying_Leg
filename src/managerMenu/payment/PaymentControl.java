@@ -66,11 +66,45 @@ public class PaymentControl {
         try {
             paymentList = paymentDAO.dbSearchPaymentAll();
             
-            
+            if(paymentList.size() > 0) {
+                paymentBoundary.showPaymentHistory(paymentList);
+            } 
         } catch (SQLException e) {
             paymentBoundary.showDBErrorMessage();
         }
         
+    }
+    
+    /**
+     * 支払済みの履歴を全件表示
+     */
+    public void showPaymentPaidHistoryAll() {
+        List<Payment> paymentList;
+        try {
+            paymentList = paymentDAO.dbSearchPaymentPaid();
+            
+            if(paymentList.size() > 0) {
+                paymentBoundary.showPaymentHistory(paymentList);
+            } 
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 未払の履歴を全件表示
+     */
+    public void showPaymentUnpaidHistoryAll() {
+        List<Payment> paymentList;
+        try {
+            paymentList = paymentDAO.dbSearchPaymentUnpaid();
+            
+            if(paymentList.size() > 0) {
+                paymentBoundary.showPaymentHistory(paymentList);
+            } 
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
     }
     
     public void start(){
