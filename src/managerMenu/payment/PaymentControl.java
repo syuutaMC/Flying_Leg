@@ -107,6 +107,23 @@ public class PaymentControl {
         }
     }
     
+    /**
+     * 注文番号の支払情報を表示する
+     * @param orderNumber 注文番号
+     */
+    public void showPaymentOrderNumberHistory(int orderNumber) {
+        List<Payment> paymentList;
+        try {
+            paymentList = paymentDAO.dbSearchPaymentOrderNumber(orderNumber);
+            
+            if(paymentList.size() > 0) {
+                paymentBoundary.showPaymentHistory(paymentList);
+            } 
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
     public void start(){
         paymentBoundary.setControl(this);
         paymentBoundary.setVisible(true);
