@@ -214,7 +214,7 @@ public class PaymentDAO {
     }
     
     /**
-     * 当日の売り上げを検索する
+     * 当日の売上を検索する
      * @return 当日の売り上げ
      * @throws SQLException 
      */
@@ -234,7 +234,7 @@ public class PaymentDAO {
     }
     
     /**
-     * 今週の売り上げを検索する
+     * 今週の売上を検索する
      * @return
      * @throws SQLException 
      */
@@ -253,4 +253,27 @@ public class PaymentDAO {
         }
         return salseList;
     }
+    
+    /**
+     * 今月の売上を確認する
+     * @return 売上情報
+     * @throws SQLException 
+     */
+    public List<Salse> dbSearchSalseThisMonth() throws SQLException {
+        List<Salse> salseList = new ArrayList<>();
+        String sql = "SELECT * FROM SALSE_PER_DATE " +
+                     " WHERE TRUNC(PAYMENT_DAY, 'MM') = TRUNC(sysdate, 'MM') " +
+                     " ORDER BY PAYMENT_DAY ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.executeQuery();
+            salseList = selectSalseExecute();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+        return salseList;
+    }
+            
+            
 }
