@@ -332,7 +332,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     /**
      * 注文商品検索
      * @param itemNumber 商品番号
-     * @return row found >= 0 | not found -1
+     * @return column found >= 0 | not found -1
      */
     public int searchOrderItem(String itemNumber) {
         
@@ -387,15 +387,15 @@ public class OrderBoundary extends javax.swing.JFrame {
     public void addOrderTable(Item item) {
         NumberFormat nf = NumberFormat.getNumberInstance();
         
-        String[] row = new String[4];
+        String[] column = new String[4];
         
         item.setQuantity(1);
         
-        row[0] = item.getItemNumber();
-        row[1] = item.getItemName();
-        row[2] = Integer.toString(item.getQuantity());
-        row[3] = nf.format(item.getUnitPrice() * item.getQuantity());
-        orderTableModel.addRow(row);
+        column[0] = item.getItemNumber();
+        column[1] = item.getItemName();
+        column[2] = Integer.toString(item.getQuantity());
+        column[3] = nf.format(item.getUnitPrice() * item.getQuantity());
+        orderTableModel.addRow(column);
     }
     
     /**
