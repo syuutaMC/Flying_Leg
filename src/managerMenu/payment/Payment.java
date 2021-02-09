@@ -6,6 +6,7 @@
 package managerMenu.payment;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 支払情報クラス
@@ -15,14 +16,14 @@ public class Payment {
     private int    orderNumber;
     private String name;
     private String phoneNumber;
-    private Date   orderDate;
-    private Date   paymentDay;
+    private String orderDate;
+    private String paymentDay;
     private int    amount;
 
     public Payment() {
     }
 
-    public Payment(int orderNumber, String name, String phonNumber, Date orderDate, Date paymentDay, int amount) {
+    public Payment(int orderNumber, String name, String phonNumber, String orderDate, String paymentDay, int amount) {
         this.orderNumber = orderNumber;
         this.name = name;
         this.phoneNumber = phonNumber;
@@ -43,11 +44,11 @@ public class Payment {
         return phoneNumber;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public Date getPaymentDay() {
+    public String getPaymentDay() {
         return paymentDay;
     }
 
@@ -68,13 +69,26 @@ public class Payment {
     }
 
     public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+        setOrderDate(orderDate.toString());
     }
 
     public void setPaymentDay(Date paymentDay) {
-        this.paymentDay = paymentDay;
+        if (Objects.isNull(paymentDay)) {
+            setPaymentDay("未入金");
+        }
+        else {
+            setPaymentDay(paymentDay.toString());
+        }
     }
 
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setPaymentDay(String paymentDay) {
+        this.paymentDay = paymentDay;
+    }
+    
     public void setAmount(int amount) {
         this.amount = amount;
     }
