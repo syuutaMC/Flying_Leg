@@ -7,7 +7,10 @@ package employeesMenu.order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import managerMenu.item.Item;
 import sys.DBManager;
@@ -27,6 +30,57 @@ public class OrderDAO {
     public OrderDAO() {
         DBManager dBManager = DBManager.getDBManager();
         con = dBManager.getConnection();
+    }
+    
+    /**
+     * 注文情報SELECT処理
+     * @return SELECT 結果
+     * @throws SQLException 
+     */
+    public List<Order> selectOrderExecute() throws SQLException {
+        List<Order> orderList = new ArrayList<>();
+        try {
+            orderList.clear();
+            ResultSet rs = ps.executeQuery();
+            //結果の格納
+            while (rs.next()) {                
+                Order order = new Order();
+                setOrder(order, rs);
+                orderList.add(order);
+            }
+            rs.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return orderList;
+    }
+    
+    /**
+     * 問い合わせ結果をorderに設定
+     * @param order 注文情報
+     * @param rs    問い合わせ結果
+     */
+    public void setOrder(Order order, ResultSet rs) {
+        try {
+            int     orderNumber         = rs.getInt("ORDER_NUMBER");
+            int     customerNumber      = rs.getInt("CUSTOMER_NUMBER");
+            Date    deliveryTime        = rs.getDate("DELIVERY_TIME");
+            String  deliveryToAddress   = rs.getString("DELIVERY_TO_ADDRESS");
+            Date    paymentDay          = rs.getDate("PAYMENT_DAY");
+            String  storeNumber         = rs.getString("STORE_NUMBER");
+            
+            order.setOrderNumber(orderNumber);
+            order.setCustomerNumber(customerNumber);
+            order.setDeliveryTime(deliveryTime);
+            order.setDeliveryToAddress(deliveryToAddress);
+            order.setPaymentDay(paymentDay);
+            order.setStoreNumber(storeNumber);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -65,6 +119,65 @@ public class OrderDAO {
         }
         catch (SQLException e) {
             throw e;
+        }
+    }
+    
+    /**
+     * 注文情報を検索
+     * @param orderNumber 注文番号
+     * @return 注文情報
+     * @throws SQLException 
+     */
+    public List<Order> dbSearchOrder(int orderNumber) throws SQLException {
+        List<Order> orderList = new ArrayList<>();
+        String sql = "SELECT * FROM ORDERS " +
+                     " WHERE ORDER_NUMBER = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, orderNumber);
+            orderList = selectOrderExecute();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+        return orderList;
+    }
+    
+    /**
+     * 注文をキャンセル（削除）する
+     * @param orderNo 注文番号
+     * @return true 削除された | false 削除されなかった
+     * @throws java.sql.SQLException
+     */
+    public boolean dbDeleteOrder(int orderNo) throws SQLException {
+        String sql = "DELETE ORDERS " +
+                     " WHERE ORDER_NUMBER = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, orderNo);
+            return ps.executeUpdate() > 0;
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+    }
+    
+    /**
+     * 支払済みの注文かどうかチェックする
+     * @param orderNo 注文番号
+     * @return true 支払済みの注文 | false 未払いの注文
+     * @throws java.sql.SQLException
+     */
+    public boolean dbCheckPaidOrder(int orderNo) throws SQLException {
+        String sql = "SELECT * FROM ORDERS " +
+                     " WHERE ORDER_MUMBER = ? AND " +
+                     "       PAYMENT_DAY IS NOT NULL ";
+        try {
+            ps = con.prepareCall(sql);
+            return ps.executeUpdate() > 0;
+        }
+        catch (SQLException e) {
+            throw e; 
         }
     }
 }
