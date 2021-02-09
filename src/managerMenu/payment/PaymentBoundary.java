@@ -8,6 +8,7 @@ package managerMenu.payment;
 import java.awt.CardLayout;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -45,6 +46,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
         initTabedPane();
     }
     
+    /** 初期化 ****************************************************************/
+    
     private void initjTextField(){
         jLabelEmployeeName.setText("");
         jLabelEmplyeeNumber.setText("");
@@ -54,7 +57,6 @@ public class PaymentBoundary extends javax.swing.JFrame {
         String[] paymentHistoryTitle = {"注文番号", "顧客名", "顧客電話番号", "注文日", "支払日", "金額"};
         
         paymentHistoryTableModel = new DefaultTableModel(paymentHistoryTitle, 0);
-        
         jTablePaymentHistory.setModel(menuTableModel);
         jTablePaymentHistory.setDefaultEditor(Object.class, null);  //エディタにnullを指定し編集不可に
     }
@@ -90,6 +92,28 @@ public class PaymentBoundary extends javax.swing.JFrame {
         }
     }
 
+    /**************************************************************************/
+    
+    
+    /** 画面切り替え ***********************************************************/
+    
+    /**
+     * メインのカードパネル切り替え
+     * @param card 
+     */
+    public void showCardLayoutMain(String card){
+        cardLayout.show(jPanelCardBase, card);
+    }
+    
+    /**
+     * 売上管理画面の切り替え
+     * @param card 
+     */
+    public void showCardLayoutSub(String card){
+        cardLayout2.show(jPanelSalesCardBase, card);
+    }
+    
+    /**************************************************************************/
     /**
      * エラーダイアログ表示
      * @param message エラーメッセージ
@@ -106,11 +130,26 @@ public class PaymentBoundary extends javax.swing.JFrame {
         showErrorMessage("データベースエラーが発生しました", "エラー");
     }
     
+    /**
+     * 支払履歴表示
+     * @param paymentList 支払情報 
+     */
     public void showPaymentHistory(List<Payment> paymentList) {
         
+        //金額カンマ区切りフォーマット
         NumberFormat nf = NumberFormat.getNumberInstance();
         
+        String[] column = new String[6];
         
+        for (Payment payment : paymentList) {
+            column[0] = Integer.toString(payment.getOrderNumber());
+            column[1] = payment.getName();
+            column[2] = payment.getPhoneNumber();
+            column[3] = payment.getOrderDate().toString();
+            column[4] = payment.getPaymentDay().toString();
+            column[5] = nf.format(Integer.toString(payment.getAmount()));
+            paymentHistoryTableModel.addRow(column);
+        }
     }
     
     /**
@@ -249,8 +288,22 @@ public class PaymentBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTablePaymentHistory.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTablePaymentHistory);
+        if (jTablePaymentHistory.getColumnModel().getColumnCount() > 0) {
+            jTablePaymentHistory.getColumnModel().getColumn(0).setResizable(false);
+            jTablePaymentHistory.getColumnModel().getColumn(1).setResizable(false);
+            jTablePaymentHistory.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jButtonAllSerarch.setText("全件表示");
         jButtonAllSerarch.addActionListener(new java.awt.event.ActionListener() {
@@ -712,21 +765,6 @@ public class PaymentBoundary extends javax.swing.JFrame {
         control.changeCardLayoutSub(MONTH);
     }//GEN-LAST:event_jButton3ActionPerformed
     
-    /**
-     * メインのカードパネル切り替え
-     * @param card 
-     */
-    public void showCardLayoutMain(String card){
-        cardLayout.show(jPanelCardBase, card);
-    }
-    
-    /**
-     * 売上管理画面の切り替え
-     * @param card 
-     */
-    public void showCardLayoutSub(String card){
-        cardLayout2.show(jPanelSalesCardBase, card);
-    }
     /**
      * @param args the command line arguments
      */
