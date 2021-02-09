@@ -58,10 +58,15 @@ public class PaymentControl {
         paymentBoundary.showCardLayoutSub(str);
     }
     
+    /**
+     * 支払履歴を未払含め全件表示
+     */
     public void showPaymentHistoryAll() {
-        
+        List<Payment> paymentList;
         try {
-            paymentDAO.dbSearchPaymentAll();
+            paymentList = paymentDAO.dbSearchPaymentAll();
+            
+            
         } catch (SQLException e) {
             paymentBoundary.showDBErrorMessage();
         }
