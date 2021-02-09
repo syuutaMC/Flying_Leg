@@ -114,6 +114,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
     }
     
     /**************************************************************************/
+    
+    /** ダイアログ *************************************************************/
+    
     /**
      * エラーダイアログ表示
      * @param message エラーメッセージ
@@ -129,6 +132,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
     public void showDBErrorMessage() {
         showErrorMessage("データベースエラーが発生しました", "エラー");
     }
+    
+    /**************************************************************************/
+    
+    /** 支払履歴画面 ***********************************************************/
     
     /**
      * 支払履歴表示
@@ -151,6 +158,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
             paymentHistoryTableModel.addRow(column);
         }
     }
+    
+    /**************************************************************************/
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -750,11 +759,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonAllSerarchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllSerarchActionPerformed
-        // TODO add your handling code here:
+        control.showPaymentHistoryAll();
     }//GEN-LAST:event_jButtonAllSerarchActionPerformed
 
     private void jButtonNoCheckSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNoCheckSearchActionPerformed
-        // TODO add your handling code here:
+        control.showPaymentUnpaidHistoryAll();
     }//GEN-LAST:event_jButtonNoCheckSearchActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
