@@ -72,10 +72,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
         JScrollPane[] scrollPane = new JScrollPane[cnt];
         JTable[] table = new JTable[cnt];
         
-        ArrayList<JTable> TableList = new ArrayList<JTable>();
-        ArrayList<JScrollPane> scrollPaneList = new ArrayList<JScrollPane>();
-        ArrayList<JScrollPane> scrollPaneList2 = new ArrayList<JScrollPane>();
-        ArrayList<JScrollPane> scrollPaneList3 = new ArrayList<JScrollPane>();
+        ArrayList<JTable> TableList = new ArrayList<>();
+        ArrayList<JScrollPane> scrollPaneList = new ArrayList<>();
+        ArrayList<JScrollPane> scrollPaneList2 = new ArrayList<>();
+        ArrayList<JScrollPane> scrollPaneList3 = new ArrayList<>();
         
         for(int i = 0; i < categoryList.size(); i++){
             TableList.add(new JTable(menuTableModel));
