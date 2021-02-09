@@ -87,4 +87,26 @@ public class EmployeeDAO {
         }
         return employeeList;
     }
+    
+    /**
+     * 新規従業員を登録
+     * @param employee 登録する従業員情報
+     * @param password 登録するパスワード
+     * @throws SQLException 
+     */
+    public void dbCreateEmployee(Employee employee, String password) throws SQLException {
+        String sql = "INSERT INTO EMPLOYEES(EMPLOYEE_NAME, EMPLOYEE_TYPE, PASSWORD) " +
+                     " VALUES( ?, ?, ?) ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, employee.getEmployeeName());
+            ps.setString(2, employee.getEmployeeType());
+            ps.setString(3, password);
+            
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+    }
 }
