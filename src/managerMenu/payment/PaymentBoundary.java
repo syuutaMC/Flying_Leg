@@ -331,6 +331,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel4.setText("注文番号");
 
         jButtonSearchOrderNumber.setText("検索");
+        jButtonSearchOrderNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchOrderNumberActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCheckPaymentLayout = new javax.swing.GroupLayout(jPanelCheckPayment);
         jPanelCheckPayment.setLayout(jPanelCheckPaymentLayout);
@@ -773,6 +778,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         control.changeCardLayoutSub(MONTH);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonSearchOrderNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderNumberActionPerformed
+        control.showPaymentOrderNumberHistory(Integer.parseInt(jTextField1.getText()));
+    }//GEN-LAST:event_jButtonSearchOrderNumberActionPerformed
     
     /**
      * @param args the command line arguments
