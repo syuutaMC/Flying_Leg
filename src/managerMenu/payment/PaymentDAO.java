@@ -61,7 +61,7 @@ public class PaymentDAO {
             int     orderNumber = rs.getInt("ORDER_NUMBER");
             String  name        = rs.getString("NAME");
             String  phoneNumber = rs.getString("PHONE_NUMBER");
-            Date    orderDate   = rs.getDate("ORDER_DATE");
+            String  orderDate   = rs.getString("ORDER_DATE");
             Date    paymentDay  = rs.getDate("PAYMENT_DAY");
             int     amount      = rs.getInt("AMOUNT");
             payment.setOrderNumber(orderNumber);
