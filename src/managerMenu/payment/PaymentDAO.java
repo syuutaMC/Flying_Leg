@@ -156,9 +156,29 @@ public class PaymentDAO {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, orderNumber);
-            ps.executeQuery().close();
+            ps.executeQuery();
         } catch (SQLException e) {
             throw e;
         }
+    }
+    
+    /**
+     * 当日の売り上げを検索する
+     * @return
+     * @throws SQLException 
+     */
+    public List<Payment> dbSearchSalseToday() throws SQLException {
+        List<Payment> paymentList = new ArrayList<>();
+        String sql = "SELECT * FROM SALSE_PER_DATE " +
+                     " WHERE PAYMENT_DAY = TRUNC(sysdate, 'DD') " +
+                     " ORDER BY PAYMENT_DAY ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.executeQuery();
+            paymentList = selectPaymentExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return paymentList;
     }
 }
