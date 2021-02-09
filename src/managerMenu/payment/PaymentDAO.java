@@ -27,6 +27,11 @@ public class PaymentDAO {
         con = dBManager.getConnection();
     }
     
+    /**
+     * 支払情報SELECT処理
+     * @return SELECT 結果
+     * @throws SQLException 
+     */
     public List<Payment> selectPaymentExecute() throws SQLException {
         List<Payment> paymentList = new ArrayList<>();
         try {
@@ -65,7 +70,53 @@ public class PaymentDAO {
             payment.setOrderDate(orderDate);
             payment.setPaymentDay(paymentDay);
             payment.setAmount(amount);
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 売上情報SELECT処理
+     * @return SELECT 結果
+     * @throws SQLException 
+     */
+    public List<Salse> selectSalseExecute() throws SQLException {
+        List<Salse> salseList = new ArrayList<>();
+        try {
+            salseList.clear();
+            ResultSet rs = ps.executeQuery();
+            //結果の格納
+            while (rs.next()) {                
+                Salse salse = new Salse();
+                setPayment(salse, rs);
+                salseList.add(salse);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return salseList;
+    }
+    
+    /**
+     * 問い合わせ結果をsalseに格納
+     * @param salse   売上情報
+     * @param rs      問い合わせ結果
+     */
+    public void setPayment(Salse salse, ResultSet rs) {
+        try {
+            Date paymentDay     = rs.getDate("PAYMENT_DAY");
+            int  storeNumber    = rs.getInt("STORE_NUMBER");
+            int  orderQuantity  = rs.getInt("ORDER_QUANTITY");
+            int  salseAmount    = rs.getInt("SALSE_AMOUNT");
+            
+            salse.setPaymentDay(paymentDay);
+            salse.setStoreNumber(storeNumber);
+            salse.setOrderQuantity(orderQuantity);
+            salse.setSalseAmount(salseAmount);
+            
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -164,21 +215,42 @@ public class PaymentDAO {
     
     /**
      * 当日の売り上げを検索する
-     * @return
+     * @return 当日の売り上げ
      * @throws SQLException 
      */
-    public List<Payment> dbSearchSalseToday() throws SQLException {
-        List<Payment> paymentList = new ArrayList<>();
+    public List<Salse> dbSearchSalseToday() throws SQLException {
+        List<Salse> salseList = new ArrayList<>();
         String sql = "SELECT * FROM SALSE_PER_DATE " +
                      " WHERE PAYMENT_DAY = TRUNC(sysdate, 'DD') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
-            paymentList = selectPaymentExecute();
+            salseList = selectSalseExecute();
         } catch (SQLException e) {
             throw e;
         }
-        return paymentList;
+        return salseList;
+    }
+    
+    /**
+     * 今週の売り上げを検索する
+     * @return
+     * @throws SQLException 
+     */
+    public List<Salse> dbSearchSalseThisWeek() throws SQLException {
+        List<Salse> salseList = new ArrayList<>();
+        String sql = "SELECT * FROM SALSE_PER_DATE " +
+                     " WHERE PAYMENT_DAY BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
+                     " ORDER BY PAYMENT_DAY ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.executeQuery();
+            salseList = selectSalseExecute();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+        return salseList;
     }
 }
