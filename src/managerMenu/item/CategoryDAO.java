@@ -67,8 +67,8 @@ public class CategoryDAO {
      */
     public List<Category> dbSearchItemCategory() {
         List<Category> categoryList = new ArrayList<>();
-        String sql = "SELECT category_number " +
-                     " FROM categories ";
+        String sql = "SELECT * " +
+                     " FROM item_categories ";
         try {
             ps = con.prepareStatement(sql);
             categoryList = selectCategoryExecute();

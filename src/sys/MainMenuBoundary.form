@@ -302,7 +302,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x78ba;&#x8a8d;"/>
+                <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x7ba1;&#x7406;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCheckSalesActionPerformed"/>
@@ -313,7 +313,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x5165;&#x91d1;&#x767b;&#x9332;"/>
+                <Property name="text" type="java.lang.String" value="&#x30b7;&#x30b9;&#x30c6;&#x30e0;&#x7ba1;&#x7406;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPaymentActionPerformed"/>

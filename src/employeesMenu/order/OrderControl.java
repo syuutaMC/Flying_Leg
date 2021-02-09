@@ -10,6 +10,8 @@ import employeesMenu.customer.CustomerDAO;
 import employeesMenu.EmployeesControl;
 import java.sql.SQLException;
 import java.util.List;
+import managerMenu.item.Category;
+import managerMenu.item.CategoryDAO;
 import managerMenu.item.Item;
 
 /**
@@ -22,12 +24,16 @@ public class OrderControl {
     private final ItemDAO           itemDAO;
     private final CustomerDAO       customerDAO;
     private final OrderDAO          orderDAO;
+    private final Category          category;
+    private final CategoryDAO       categoryDAO;
     
     public OrderControl() {
         orderBoundary   = new OrderBoundary();
         itemDAO         = new ItemDAO();
         customerDAO     = new CustomerDAO();
         orderDAO        = new OrderDAO();
+        category        = new Category();
+        categoryDAO     = new CategoryDAO();
         setControl(control);
     }
     
@@ -42,6 +48,12 @@ public class OrderControl {
     public void start() {
         orderBoundary.setControl(this);
         orderBoundary.setVisible(true);
+    }
+    
+    public List<Category> getCategory(){
+        List<Category> categorys;
+
+        return categorys = categoryDAO.dbSearchItemCategory();
     }
     
     /**
@@ -71,6 +83,7 @@ public class OrderControl {
             List<Item> itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
                 orderBoundary.addOrderTable(itemList.get(0));
+                orderBoundary.showOrderTotalPrice(orderBoundary.calcTotalPrice());
             }
             else {
                 orderBoundary.showItemNotFoundErrorMessage();
@@ -121,28 +134,16 @@ public class OrderControl {
       orderBoundary.checkAddress();
     }
     
-    /**
-     * メインメニュー検索
-     */
-    public void searchMainMenu() {
-        List<Item> itemList = itemDAO.dbSearchItemMainMenu();
-        orderBoundary.showMenuTable(itemList);
-    }
     
-    /**
-     * サイドメニュー検索
-     */
-    public void searchSideMenu() {
-        List<Item> itemList = itemDAO.dbSearchItemSideMenu();
-        orderBoundary.showMenuTable(itemList);
-    }
-    
-    /**
-     * ドリンクメニュー検索
-     */
-    public void searchDrinkMenu() {
-        List<Item> itemList = itemDAO.dbSearchItemDrinkMenu();
-        orderBoundary.showMenuTable(itemList);
+    public void showMenu(List<Category> categoryList) {
+        List<Item> itemList;
+        int i = 0;
+        for (Category category : categoryList) {
+            itemList = itemDAO.dbSearchItemCategory(category.getCategoryNumber());
+            orderBoundary.showMenuTable(itemList, i++);
+        }
+        
+        
     }
     
     /**
