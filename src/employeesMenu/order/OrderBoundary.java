@@ -9,6 +9,9 @@ import employeesMenu.customer.Customer;
 import managerMenu.item.Item;
 import managerMenu.item.Category;
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         initTabedPane();
     }
     
+    /** 初期化 ****************************************************************/
+    
     /**
      * 住所入力画面の初期化
      */
@@ -71,12 +76,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 商品登録画面の初期化
+     * 注文商品選択画面の初期化
      */
     private void initOrderItemPanel(){
         jTextFieldItemId.setText("");
         jTableOrder.setRowHeight(0);
-        jTableMenu.setRowHeight(0);
+        jTableMenu.setRowHeight(0);   
         showOrderTotalPrice(0);
     }
     
@@ -92,9 +97,14 @@ public class OrderBoundary extends javax.swing.JFrame {
         
         jTableOrderList.setModel(orderListTableModel);
         jTableOrder.setModel(orderTableModel);
+        jTableOrder.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
+        
     }
     
-    private void initTabedPane(){
+    /**
+     * ダブドペイン初期化
+     */
+    private void initTabedPane() {
         jTabbedPaneMenu.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "金額"};
@@ -108,13 +118,27 @@ public class OrderBoundary extends javax.swing.JFrame {
         for(int i = 0; i < categoryList.size(); i++){
             DefaultTableModel menuTableModel = new DefaultTableModel(menuTableTitle, 0);
             
+            JTable jTable = new JTable(menuTableModel);
+            
+            jTable.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent mouseEvent) {
+                    Point point = mouseEvent.getPoint();
+                    int row = jTable.rowAtPoint(point);
+                        if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
+                            menuTableSelectedItem(row);
+                        }
+                    }
+            });
             menuTableModelList.add(menuTableModel);
-            tableList.add(new JTable(menuTableModel));
+            tableList.add(jTable);
             scrollPaneList.add(new JScrollPane());
             
             scrollPaneList.get(i).setViewportView(tableList.get(i));
             jTabbedPaneMenu.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
         }
+        
+        initMenuTableModelSetEditableFalse(tableList);
+        
         this.menuTableModelList = menuTableModelList;
         this.jtableMenuList = tableList;
         control.showMenu(categoryList);
@@ -127,6 +151,20 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButtonSelectedItem.setEnabled(false);
         jButtonFinalCheck.setEnabled(false);
     }
+    
+    /**
+     * メニュー表列並べ替えを不可に設定
+     */
+    private void initMenuTableModelSetEditableFalse(List<JTable> jTableList) {
+        for (JTable jTable : jTableList) {
+            jTable.getTableHeader().setReorderingAllowed(false);    //列の並べ替え不可
+            jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に 
+        }
+    }
+    
+    /**************************************************************************/
+    
+    /** 画面切り替え ***********************************************************/
     
     /**
      * 画面切り替え処理
@@ -142,14 +180,89 @@ public class OrderBoundary extends javax.swing.JFrame {
     public void showCardFinalCheck(){
         cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
     }
-
-    public Customer getCustomer() {
-        return customer;
+    
+    /**************************************************************************/
+    
+    /** ダイアログ *************************************************************/
+    
+    /**
+     * エラーダイアログ表示
+     * @param message エラーメッセージ
+     * @param title   タイトル
+     */
+    public void showErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    
+    /**
+     * 確認ダイアログ表示
+     * @param message メッセージ
+     * @param title 　タイトル
+     */
+    public void showConfirmMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    /**
+     * 顧客情報が見つからなかったときの処理
+     * @param param パラメータ
+     */
+    public void showCustomerNotFoundErrorMessage(String param) {
+        int result = JOptionPane.showConfirmDialog(this,  param + "がありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
+        if(result == JOptionPane.OK_OPTION){
+            control.showCustomerAddBoundary(jTextFieldSearchPhoneNumber.getText());
+        }
+    }
+    
+    /**
+     * 顧客情報が無効のときのエラーダイアログ表示
+     */
+    public void showInvalidCustomerErrorMessage() {
+        showErrorMessage("顧客情報が無効です", "エラー");
+    }
+    
+    /**
+     * 顧客情報を設定していなかったときのメッセージ
+     */
+    public void showCustomerNothingErrorMessage() {
+        showErrorMessage("顧客情報を設定してください", "エラー");
+    }
+    
+    /**
+     * データベースエラー発生時のエラーダイアログ表示
+     */
+    public void showDBErrorMessage() {
+        showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
+    public void showItemNoIsNothingErrorMessage(String itemNo){
+        showErrorMessage("該当する商品番号がsありません", "エラー");
+    }
+    
+    /**
+     * 商品検索で商品が見つからなかったときのエラー
+     */
+    public void showItemNotFoundErrorMessage() {
+        showErrorMessage("商品が見つかりませんでした", "エラー");
+    }
+    
+    /**
+     * 合計金額が1500円以下のときのメッセージ
+     */
+    public void showTotalPriceErrorMessage() {
+        showErrorMessage("注文は1500円以上から受け付けています", "エラー");
+    }
+    
+    /**
+     * 注文確定確認メッセージ
+     */
+    public void showOrderFixingSuccessMessage() {
+        showConfirmMessage("注文を確定しました", "確認");
+    }
+    
+    /**************************************************************************/
+    
+    /** 顧客確認画面処理 *******************************************************/
     
     /**
      * 顧客情報テキストフィールド編集可否設定
@@ -166,13 +279,33 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param customer 顧客情報
      */
     public void showCustomerTextField(Customer customer) {
-        setCustomer(customer);
-        jTextFieldName.setText(getCustomer().getName());
-        jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
-        jTextFieldAddress.setText(getCustomer().getAddress());
-        jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
+        jTextFieldName.setText(customer.getName());
+        jTextFieldPhoneNumber.setText(customer.getPhoneNumber());
+        jTextFieldAddress.setText(customer.getAddress());
+        jTextFieldDelivaryNote.setText(customer.getDeliveryNote());
         jCheckBox1.setEnabled(true);
     }
+    
+    /**
+     * 顧客情報が入力されてるか確認
+     */
+    public void checkAddress(){
+        if(jTextFieldName.getText().equals("")){
+            
+        }
+        
+        if(jTextFieldPhoneNumber.getText().equals("")){  
+            
+        }
+        
+        if(jTextFieldAddress.getText().equals("")){
+            
+        }
+    }
+    
+    /**************************************************************************/
+    
+    /** 注文商品選択画面 *******************************************************/
     
     /**
      * メニュー表にメニューを表示
@@ -264,38 +397,11 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 注文商品を表示
-     * @param itemList 商品情報リスト
-     */
-//    public void addOrderTable(List<Item> itemList) {
-//        String[] row = new String[4];
-//        for (Item item : itemList) {
-//            row[0] = item.getItemNumber();
-//            row[1] = item.getItemName();
-//            row[2] = Integer.toString(item.getQuantity());
-//            row[3] = Integer.toString(item.getUnitPrice() * item.getQuantity());
-//            itemTableModel.addRow(row);
-//        }
-//    }
-    
-    /**
      * 注文表から商品を削除
      * @param row 行番号
      */
     public void removeOrderItem(int row) {
         orderTableModel.removeRow(row);
-    }
-    
-    /**
-     * 注文確認画面に情報を表示
-     */
-    public void showFinalCheckPanel() {
-        jLabelName.setText(jTextFieldName.getText());
-        jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
-        jLabelAddress.setText(jTextFieldAddress.getText());
-        jLabelDelivaryNote.setText(jTextFieldDelivaryNote.getText());
-        jLabelTotalPrice.setText(jLabelOrderTotalPrice.getText());
-        showCardFinalCheck();
     }
     
     /**
@@ -310,6 +416,22 @@ public class OrderBoundary extends javax.swing.JFrame {
         return totalPrice;
     }
     
+    /**************************************************************************/
+    
+    /** 注文確認画面 ***********************************************************/
+    
+    /**
+     * 注文確認画面に情報を表示
+     */
+    public void showFinalCheckPanel() {
+        jLabelName.setText(jTextFieldName.getText());
+        jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
+        jLabelAddress.setText(jTextFieldAddress.getText());
+        jLabelDelivaryNote.setText(jTextFieldDelivaryNote.getText());
+        jLabelTotalPrice.setText(jLabelOrderTotalPrice.getText());
+        showCardFinalCheck();
+    }
+   
     /**
      * 商品選択画面に合計金額を表示
      * 注文最低金額未満なら警告表示
@@ -337,98 +459,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * エラーダイアログ表示
-     * @param message エラーメッセージ
-     * @param title   タイトル
-     */
-    public void showErrorMessage(String message, String title) {
-        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
-    }
-    
-    /**
-     * 確認ダイアログ表示
-     * @param message メッセージ
-     * @param title 　タイトル
-     */
-    public void showConfirmMessage(String message, String title) {
-        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
-    }
-    
-    /**
-     * 顧客情報が見つからなかったときの処理
-     * @param param パラメータ
-     */
-    public void showCustomerNotFoundErrorMessage(String param) {
-        int result = JOptionPane.showConfirmDialog(this,  param + "がありません。\n新規登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION);
-        if(result == JOptionPane.OK_OPTION){
-            control.showCustomerAddBoundary(jTextFieldSearchPhoneNumber.getText());
-        }
-    }
-    
-    /**
-     * 顧客情報が入力されてるか確認
-     */
-    public void checkAddress(){
-        if(jTextFieldName.getText().equals("")){
-            
-        }
-        
-        if(jTextFieldPhoneNumber.getText().equals("")){  
-            
-        }
-        
-        if(jTextFieldAddress.getText().equals("")){
-            
-        }
-    }
-    
-    /**
-     * 顧客情報が無効のときのエラーダイアログ表示
-     */
-    public void showInvalidCustomerErrorMessage() {
-        showErrorMessage("顧客情報が無効です", "エラー");
-    }
-    
-    /**
-     * 顧客情報を設定していなかったときのメッセージ
-     */
-    public void showCustomerNothingErrorMessage() {
-        showErrorMessage("顧客情報を設定してください", "エラー");
-    }
-    
-    /**
-     * データベースエラー発生時のエラーダイアログ表示
-     */
-    public void showDBErrorMessage() {
-        showErrorMessage("データベースエラーが発生しました", "エラー");
-    }
-    
-    public void showItemNoIsNothingErrorMessage(String itemNo){
-        showErrorMessage("該当する商品番号がsありません", "エラー");
-    }
-    
-    /**
-     * 商品検索で商品が見つからなかったときのエラー
-     */
-    public void showItemNotFoundErrorMessage() {
-        showErrorMessage("商品が見つかりませんでした", "エラー");
-    }
-    
-    /**
-     * 合計金額が1500円以下のときのメッセージ
-     */
-    public void showTotalPriceErrorMessage() {
-        showErrorMessage("注文は1500円以上から受け付けています", "エラー");
-    }
-    
-    /**
-     * 注文確定確認メッセージ
-     */
-    public void showOrderFixingSuccessMessage() {
-        showConfirmMessage("注文を確定しました", "確認");
-    }
-    
-    /**
      * 注文確定後の初期化処理　または 中止処理
      */
     public void allReset(){
@@ -436,6 +466,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         initOrderItemPanel();
         initTopPanel();
     }
+    
+    /**************************************************************************/
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1176,6 +1208,14 @@ public class OrderBoundary extends javax.swing.JFrame {
         decrementOrderItem(jTableOrder.getSelectedRow());
         showOrderTotalPrice(calcTotalPrice());
     }//GEN-LAST:event_jButtonDecrementItemActionPerformed
+    
+    private void menuTableSelectedItem(int row) {
+        int tabNo = jTabbedPaneMenu.getSelectedIndex();
+        
+        if (jtableMenuList.get(tabNo).getSelectedRow() > -1) {
+            control.addOrderItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString());
+        }
+    }
     
     /**
      * @param args the command line arguments

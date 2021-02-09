@@ -5,6 +5,7 @@
  */
 package managerMenu.payment;
 
+import java.sql.SQLException;
 import java.util.List;
 import managerMenu.item.Category;
 import managerMenu.item.CategoryDAO;
@@ -21,10 +22,12 @@ public class PaymentControl {
     private final CategoryDAO categoryDAO;
     private final Category category;
     private final PaymentBoundary paymentBoundary;
+    private final PaymentDAO paymentDAO;
 
     public PaymentControl() {
         category = new Category();
         categoryDAO = new CategoryDAO();
+        paymentDAO = new PaymentDAO();
         paymentBoundary = new PaymentBoundary();
     }
     
@@ -53,6 +56,16 @@ public class PaymentControl {
     
     public void changeCardLayoutSub(String str){
         paymentBoundary.showCardLayoutSub(str);
+    }
+    
+    public void showPaymentHistoryAll() {
+        
+        try {
+            paymentDAO.dbSearchPaymentAll();
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+        
     }
     
     public void start(){
