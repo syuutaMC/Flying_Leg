@@ -44,6 +44,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
     public void setControl(PaymentControl control){
         this.control = control;
         initTabedPane();
+        initTableModel();
     }
     
     /** 初期化 ****************************************************************/
@@ -57,7 +58,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         String[] paymentHistoryTitle = {"注文番号", "顧客名", "顧客電話番号", "注文日", "支払日", "金額"};
         
         paymentHistoryTableModel = new DefaultTableModel(paymentHistoryTitle, 0);
-        jTablePaymentHistory.setModel(menuTableModel);
+        jTablePaymentHistory.setModel(paymentHistoryTableModel);
         jTablePaymentHistory.setDefaultEditor(Object.class, null);  //エディタにnullを指定し編集不可に
     }
     
@@ -147,14 +148,16 @@ public class PaymentBoundary extends javax.swing.JFrame {
         NumberFormat nf = NumberFormat.getNumberInstance();
         
         String[] column = new String[6];
-        
+        //行をクリア
+        paymentHistoryTableModel.setRowCount(0);
+
         for (Payment payment : paymentList) {
             column[0] = Integer.toString(payment.getOrderNumber());
             column[1] = payment.getName();
             column[2] = payment.getPhoneNumber();
-            column[3] = payment.getOrderDate().toString();
-            column[4] = payment.getPaymentDay().toString();
-            column[5] = nf.format(Integer.toString(payment.getAmount()));
+            column[3] = payment.getOrderDate();
+            column[4] = payment.getPaymentDay();
+            column[5] = nf.format(payment.getAmount());
             paymentHistoryTableModel.addRow(column);
         }
     }
