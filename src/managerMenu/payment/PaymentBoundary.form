@@ -909,11 +909,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonShowMonthSales" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonShowMonthSalesCard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButtonShowWeekSales" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonShowWeekSalesCard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButtonShowDateSales" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonShowDateSalesCard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -923,9 +923,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonShowMonthSales" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonShowWeekSales" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonShowDateSales" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonShowMonthSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonShowWeekSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonShowDateSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -933,28 +933,28 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButtonShowMonthSales">
+                <Component class="javax.swing.JButton" name="jButtonShowMonthSalesCard">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x5f53;&#x65e5;&#x5206;&#x58f2;&#x4e0a;"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowMonthSalesActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowMonthSalesCardActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButtonShowWeekSales">
+                <Component class="javax.swing.JButton" name="jButtonShowWeekSalesCard">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x9031;&#x9593;&#x58f2;&#x4e0a;"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowWeekSalesActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowWeekSalesCardActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButtonShowDateSales">
+                <Component class="javax.swing.JButton" name="jButtonShowDateSalesCard">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x6708;&#x9593;&#x58f2;&#x4e0a;"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowDateSalesActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowDateSalesCardActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -971,9 +971,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonShowSalesManagementCard" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonShowPaymentCard" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonShowSalesCard" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="52" max="32767" attributes="0"/>
               </Group>
@@ -983,34 +983,34 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonShowSalesCard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonShowSalesManagementCard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonShowPaymentCard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="jButtonShowSalesCard">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x78ba;&#x8a8d;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowSalesCardActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="jButtonShowPaymentCard">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x5165;&#x91d1;&#x78ba;&#x8a8d;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowPaymentCardActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="jButtonShowSalesManagementCard">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x7ba1;&#x7406;"/>
           </Properties>
