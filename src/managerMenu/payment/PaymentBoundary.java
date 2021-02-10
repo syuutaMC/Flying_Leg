@@ -412,8 +412,23 @@ public class PaymentBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "タイトル 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableDateSales.getTableHeader().setReorderingAllowed(false);
         jScrollPaneDateSales.setViewportView(jTableDateSales);
+        if (jTableDateSales.getColumnModel().getColumnCount() > 0) {
+            jTableDateSales.getColumnModel().getColumn(0).setResizable(false);
+            jTableDateSales.getColumnModel().getColumn(1).setResizable(false);
+            jTableDateSales.getColumnModel().getColumn(2).setResizable(false);
+            jTableDateSales.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanelDateSalesLayout = new javax.swing.GroupLayout(jPanelDateSales);
         jPanelDateSales.setLayout(jPanelDateSalesLayout);
@@ -465,8 +480,26 @@ public class PaymentBoundary extends javax.swing.JFrame {
             new String [] {
                 "-月-日", "Title 2", "Title 3", "Title 4", "タイトル 5", "タイトル 6", "タイトル 7"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableWeekEveryDaySales.getTableHeader().setReorderingAllowed(false);
         jScrollPaneWeekEveryDaySales.setViewportView(jTableWeekEveryDaySales);
+        if (jTableWeekEveryDaySales.getColumnModel().getColumnCount() > 0) {
+            jTableWeekEveryDaySales.getColumnModel().getColumn(0).setResizable(false);
+            jTableWeekEveryDaySales.getColumnModel().getColumn(1).setResizable(false);
+            jTableWeekEveryDaySales.getColumnModel().getColumn(2).setResizable(false);
+            jTableWeekEveryDaySales.getColumnModel().getColumn(3).setResizable(false);
+            jTableWeekEveryDaySales.getColumnModel().getColumn(4).setResizable(false);
+            jTableWeekEveryDaySales.getColumnModel().getColumn(5).setResizable(false);
+            jTableWeekEveryDaySales.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         jLabel12.setText("カテゴリごとの注文数");
 
@@ -480,8 +513,23 @@ public class PaymentBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableWeekSales.getTableHeader().setReorderingAllowed(false);
         jScrollPaneWeekSales.setViewportView(jTableWeekSales);
+        if (jTableWeekSales.getColumnModel().getColumnCount() > 0) {
+            jTableWeekSales.getColumnModel().getColumn(0).setResizable(false);
+            jTableWeekSales.getColumnModel().getColumn(1).setResizable(false);
+            jTableWeekSales.getColumnModel().getColumn(2).setResizable(false);
+            jTableWeekSales.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel13.setText("１週間全体の売上");
 
@@ -556,8 +604,26 @@ public class PaymentBoundary extends javax.swing.JFrame {
             new String [] {
                 "-月-日", "Title 2", "Title 3", "Title 4", "タイトル 5", "タイトル 6", "タイトル 7"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableMonthEveryWeekSales.getTableHeader().setReorderingAllowed(false);
         jScrollPaneMonthEveryWeekSales.setViewportView(jTableMonthEveryWeekSales);
+        if (jTableMonthEveryWeekSales.getColumnModel().getColumnCount() > 0) {
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(0).setResizable(false);
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(1).setResizable(false);
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(2).setResizable(false);
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(3).setResizable(false);
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(4).setResizable(false);
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(5).setResizable(false);
+            jTableMonthEveryWeekSales.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         jLabel15.setText("カテゴリごとの注文数");
 
@@ -571,8 +637,23 @@ public class PaymentBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableMonthSales.getTableHeader().setReorderingAllowed(false);
         jScrollPaneMonthSales.setViewportView(jTableMonthSales);
+        if (jTableMonthSales.getColumnModel().getColumnCount() > 0) {
+            jTableMonthSales.getColumnModel().getColumn(0).setResizable(false);
+            jTableMonthSales.getColumnModel().getColumn(1).setResizable(false);
+            jTableMonthSales.getColumnModel().getColumn(2).setResizable(false);
+            jTableMonthSales.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel16.setText("月間全体の売上");
 
