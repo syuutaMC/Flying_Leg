@@ -73,11 +73,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
         ////////////////////////////////////////////////////////////////////////
         
         //月間、週間、日間表の列見出し
-        String[] salseTitle = {"注文日", "店舗番号", "注文回数", "売上金額"};
+        String[] salesTitle = {"注文日", "店舗番号", "注文回数", "売上金額"};
         
         //日間売上画面表初期化///////////////////////////////////////////////////
         
-        dateSalesTableModel = new DefaultTableModel(salseTitle, 0);
+        dateSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableDateSales.setModel(dateSalesTableModel);
         jTableDateSales.setDefaultEditor(Object.class, null);
         
@@ -85,7 +85,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         
         //週間売上画面表初期化///////////////////////////////////////////////////
         
-        weekSalesTableModel = new DefaultTableModel(salseTitle, 0);
+        weekSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableWeekSales.setModel(weekSalesTableModel);
         jTableWeekSales.setDefaultEditor(Object.class, null);
         
@@ -93,7 +93,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         
         //月間売上画面表初期化///////////////////////////////////////////////////
         
-        monthSalesTableModel = new DefaultTableModel(salseTitle, 0);
+        monthSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableMonthSales.setModel(monthSalesTableModel);
         jTableMonthSales.setDefaultEditor(Object.class, null);
         

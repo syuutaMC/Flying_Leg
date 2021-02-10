@@ -11,20 +11,20 @@ import java.util.Date;
  * 売り上げ情報クラス
  * @author 19jz0137
  */
-public class Salse {
+public class Sales {
     private Date paymentDay;
     private int  storeNumber;
     private int  orderQuantity;
-    private int  salseAmount;
+    private int  salesAmount;
     
-    public Salse() {
+    public Sales() {
     }
 
-    public Salse(Date paymentDay, int storeNumber, int orderQuantity, int salseAmount) {
+    public Sales(Date paymentDay, int storeNumber, int orderQuantity, int salesAmount) {
         this.paymentDay = paymentDay;
         this.storeNumber = storeNumber;
         this.orderQuantity = orderQuantity;
-        this.salseAmount = salseAmount;
+        this.salesAmount = salesAmount;
     }
 
     public Date getPaymentDay() {
@@ -51,12 +51,12 @@ public class Salse {
         this.orderQuantity = orderQuantity;
     }
 
-    public int getSalseAmount() {
-        return salseAmount;
+    public int getSalesAmount() {
+        return salesAmount;
     }
 
-    public void setSalseAmount(int salseAmount) {
-        this.salseAmount = salseAmount;
+    public void setSalesAmount(int salesAmount) {
+        this.salesAmount = salesAmount;
     }
     
     

@@ -80,41 +80,41 @@ public class PaymentDAO {
      * @return SELECT 結果
      * @throws SQLException 
      */
-    public List<Salse> selectSalseExecute() throws SQLException {
-        List<Salse> salseList = new ArrayList<>();
+    public List<Sales> selectSalesExecute() throws SQLException {
+        List<Sales> salesList = new ArrayList<>();
         try {
-            salseList.clear();
+            salesList.clear();
             ResultSet rs = ps.executeQuery();
             //結果の格納
             while (rs.next()) {                
-                Salse salse = new Salse();
-                setPayment(salse, rs);
-                salseList.add(salse);
+                Sales sales = new Sales();
+                setPayment(sales, rs);
+                salesList.add(sales);
             }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-        return salseList;
+        return salesList;
     }
     
     /**
-     * 問い合わせ結果をsalseに格納
-     * @param salse   売上情報
+     * 問い合わせ結果をsalesに格納
+     * @param sales   売上情報
      * @param rs      問い合わせ結果
      */
-    public void setPayment(Salse salse, ResultSet rs) {
+    public void setPayment(Sales sales, ResultSet rs) {
         try {
             Date paymentDay     = rs.getDate("PAYMENT_DAY");
             int  storeNumber    = rs.getInt("STORE_NUMBER");
             int  orderQuantity  = rs.getInt("ORDER_QUANTITY");
-            int  salseAmount    = rs.getInt("SALSE_AMOUNT");
+            int  salesAmount    = rs.getInt("SALES_AMOUNT");
             
-            salse.setPaymentDay(paymentDay);
-            salse.setStoreNumber(storeNumber);
-            salse.setOrderQuantity(orderQuantity);
-            salse.setSalseAmount(salseAmount);
+            sales.setPaymentDay(paymentDay);
+            sales.setStoreNumber(storeNumber);
+            sales.setOrderQuantity(orderQuantity);
+            sales.setSalesAmount(salesAmount);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -218,19 +218,19 @@ public class PaymentDAO {
      * @return 当日の売り上げ
      * @throws SQLException 
      */
-    public List<Salse> dbSearchSalseToday() throws SQLException {
-        List<Salse> salseList = new ArrayList<>();
-        String sql = "SELECT * FROM SALSE_PER_DATE " +
+    public List<Sales> dbSearchSalesToday() throws SQLException {
+        List<Sales> salesList = new ArrayList<>();
+        String sql = "SELECT * FROM SALES_PER_DATE " +
                      " WHERE PAYMENT_DAY = TRUNC(sysdate, 'DD') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
-            salseList = selectSalseExecute();
+            salesList = selectSalesExecute();
         } catch (SQLException e) {
             throw e;
         }
-        return salseList;
+        return salesList;
     }
     
     /**
@@ -238,20 +238,20 @@ public class PaymentDAO {
      * @return
      * @throws SQLException 
      */
-    public List<Salse> dbSearchSalseThisWeek() throws SQLException {
-        List<Salse> salseList = new ArrayList<>();
-        String sql = "SELECT * FROM SALSE_PER_DATE " +
+    public List<Sales> dbSearchSalesThisWeek() throws SQLException {
+        List<Sales> salesList = new ArrayList<>();
+        String sql = "SELECT * FROM SALES_PER_DATE " +
                      " WHERE PAYMENT_DAY BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
-            salseList = selectSalseExecute();
+            salesList = selectSalesExecute();
         }
         catch (SQLException e) {
             throw e;
         }
-        return salseList;
+        return salesList;
     }
     
     /**
@@ -259,20 +259,20 @@ public class PaymentDAO {
      * @return 売上情報
      * @throws SQLException 
      */
-    public List<Salse> dbSearchSalseThisMonth() throws SQLException {
-        List<Salse> salseList = new ArrayList<>();
-        String sql = "SELECT * FROM SALSE_PER_DATE " +
+    public List<Sales> dbSearchSalesThisMonth() throws SQLException {
+        List<Sales> salesList = new ArrayList<>();
+        String sql = "SELECT * FROM SALES_PER_DATE " +
                      " WHERE TRUNC(PAYMENT_DAY, 'MM') = TRUNC(sysdate, 'MM') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
-            salseList = selectSalseExecute();
+            salesList = selectSalesExecute();
         }
         catch (SQLException e) {
             throw e;
         }
-        return salseList;
+        return salesList;
     }
             
             
