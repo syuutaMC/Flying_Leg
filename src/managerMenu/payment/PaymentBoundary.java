@@ -251,7 +251,12 @@ public class PaymentBoundary extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTable5);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanelTop.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -785,6 +790,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private void jButtonSearchOrderNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderNumberActionPerformed
         control.showPaymentOrderNumberHistory(Integer.parseInt(jTextField1.getText()));
     }//GEN-LAST:event_jButtonSearchOrderNumberActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        control.exit();
+    }//GEN-LAST:event_formWindowClosing
     
     /**
      * @param args the command line arguments

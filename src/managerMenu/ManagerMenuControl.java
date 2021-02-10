@@ -14,7 +14,7 @@ import sys.SystemControl;
  */
 public class ManagerMenuControl {
     private SystemControl control;
-    private PaymentControl paymentControl;
+    private final PaymentControl paymentControl;
     
     public ManagerMenuControl(){
         paymentControl = new PaymentControl();
@@ -29,5 +29,12 @@ public class ManagerMenuControl {
         control.setVisibleMainMenu(false);
         paymentControl.setControl(this);
         paymentControl.start();
+    }
+    
+    /**
+     * 画面を閉じる処理
+     */
+    public void exitMediaView(){
+        control.setVisibleMainMenu(true);
     }
 }

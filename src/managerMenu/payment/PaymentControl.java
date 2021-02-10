@@ -128,4 +128,12 @@ public class PaymentControl {
         paymentBoundary.setControl(this);
         paymentBoundary.setVisible(true);
     }
+    
+    /**
+     * ×ボタン処理
+     */
+    public void exit() {
+       paymentBoundary.setVisible(false);
+       control.exitMediaView();
+    }
 }
