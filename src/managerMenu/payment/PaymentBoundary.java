@@ -21,14 +21,20 @@ import managerMenu.item.Category;
  * @author syuuta
  */
 public class PaymentBoundary extends javax.swing.JFrame {
+    
     private DefaultTableModel menuTableModel;
     private DefaultTableModel paymentHistoryTableModel;
+    
+    private DefaultTableModel dateSalesTableModel;
+    private DefaultTableModel weekSalesTableModel;
+    private DefaultTableModel monthSalesTableModel;
     
     private static final String CARD_SALES = "card3";
     private static final String CARD_PAYMENT = "card2";
     private static final String DAY = "card2";
     private static final String WEEK = "card3";
     private static final String MONTH = "card4";
+    
     private final CardLayout cardLayout;
     private final CardLayout cardLayout2;
     
@@ -55,11 +61,43 @@ public class PaymentBoundary extends javax.swing.JFrame {
     }
     
     private void initTableModel() {
+        
+        //支払い確認画面表初期化/////////////////////////////////////////////////
+        
         String[] paymentHistoryTitle = {"注文番号", "顧客名", "顧客電話番号", "注文日", "支払日", "金額"};
         
         paymentHistoryTableModel = new DefaultTableModel(paymentHistoryTitle, 0);
         jTablePaymentHistory.setModel(paymentHistoryTableModel);
         jTablePaymentHistory.setDefaultEditor(Object.class, null);  //エディタにnullを指定し編集不可に
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        //月間、週間、日間表の列見出し
+        String[] salseTitle = {"注文日", "店舗番号", "注文回数", "売上金額"};
+        
+        //日間売上画面表初期化///////////////////////////////////////////////////
+        
+        dateSalesTableModel = new DefaultTableModel(salseTitle, 0);
+        jTableDateSales.setModel(dateSalesTableModel);
+        jTableDateSales.setDefaultEditor(Object.class, null);
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        //週間売上画面表初期化///////////////////////////////////////////////////
+        
+        weekSalesTableModel = new DefaultTableModel(salseTitle, 0);
+        jTableWeekSales.setModel(weekSalesTableModel);
+        jTableWeekSales.setDefaultEditor(Object.class, null);
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        //月間売上画面表初期化///////////////////////////////////////////////////
+        
+        monthSalesTableModel = new DefaultTableModel(salseTitle, 0);
+        jTableMonthSales.setModel(monthSalesTableModel);
+        jTableMonthSales.setDefaultEditor(Object.class, null);
+        
+        ////////////////////////////////////////////////////////////////////////
     }
     
     private void initTabedPane(){
