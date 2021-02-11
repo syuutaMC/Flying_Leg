@@ -12,7 +12,7 @@ import java.util.Date;
  * @author 19jz0137
  */
 public class Sales {
-    private Date paymentDay;
+    private Date salesDate;
     private int  storeNumber;
     private int  orderQuantity;
     private int  salesAmount;
@@ -20,19 +20,19 @@ public class Sales {
     public Sales() {
     }
 
-    public Sales(Date paymentDay, int storeNumber, int orderQuantity, int salesAmount) {
-        this.paymentDay = paymentDay;
+    public Sales(Date salesDate, int storeNumber, int orderQuantity, int salesAmount) {
+        this.salesDate = salesDate;
         this.storeNumber = storeNumber;
         this.orderQuantity = orderQuantity;
         this.salesAmount = salesAmount;
     }
 
-    public Date getPaymentDay() {
-        return paymentDay;
+    public Date getSalesDate() {
+        return salesDate;
     }
 
-    public void setPaymentDay(Date paymentDay) {
-        this.paymentDay = paymentDay;
+    public void setSalesDate(Date paymentDay) {
+        this.salesDate = paymentDay;
     }
 
     public int getStoreNumber() {
@@ -59,5 +59,8 @@ public class Sales {
         this.salesAmount = salesAmount;
     }
     
-    
+    @Override
+    public String toString() {
+        return getSalesDate() + "," + getStoreNumber() + "," + getOrderQuantity() + "," + getSalesAmount();
+    }
 }
