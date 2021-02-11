@@ -21,7 +21,12 @@ public class EmployeesBoundary extends javax.swing.JPanel {
     
     public EmployeesBoundary() {
         initComponents();
+        initComboBox();
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
+    }
+    
+    public void initComboBox(){
+        
     }
     
     public void setControl(EmployeeControl control){
@@ -64,7 +69,7 @@ public class EmployeesBoundary extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldName2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxType = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldPassword2 = new javax.swing.JTextField();
@@ -248,7 +253,7 @@ public class EmployeesBoundary extends javax.swing.JPanel {
 
         jLabel10.setText("役職");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton2.setText("更新する");
 
@@ -283,7 +288,7 @@ public class EmployeesBoundary extends javax.swing.JPanel {
                             .addComponent(jLabel11))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
@@ -346,7 +351,7 @@ public class EmployeesBoundary extends javax.swing.JPanel {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -394,7 +399,7 @@ public class EmployeesBoundary extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSearchEmployeeNumber;
     private javax.swing.JButton jButtonSearchName;
     private javax.swing.JButton jButtonSetRoll;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

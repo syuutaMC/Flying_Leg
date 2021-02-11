@@ -127,10 +127,10 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jTextFieldEmployeeNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldPassword = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabelErrorMesage = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -366,6 +366,8 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             }
         });
 
+        jPasswordField.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPaneLoginPanelLayout = new javax.swing.GroupLayout(jPaneLoginPanel);
         jPaneLoginPanel.setLayout(jPaneLoginPanelLayout);
         jPaneLoginPanelLayout.setHorizontalGroup(
@@ -374,21 +376,23 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                 .addGap(55, 55, 55)
                 .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelErrorMesage)
-                    .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
+                    .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
+                        .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addGap(38, 38, 38)
+                            .addComponent(jLabel4))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
+
+        jPaneLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPasswordField, jTextFieldEmployeeNumber});
+
         jPaneLoginPanelLayout.setVerticalGroup(
             jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPaneLoginPanelLayout.createSequentialGroup()
@@ -399,7 +403,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                 .addGap(47, 47, 47)
                 .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelErrorMesage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
@@ -447,7 +451,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }//GEN-LAST:event_jButtonManagerMenuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        control.login(jTextFieldEmployeeNumber.getText(), jTextFieldPassword.getText());
+        control.login(jTextFieldEmployeeNumber.getText(), jPasswordField.getPassword());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -478,7 +482,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private void jButtonLoginLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginLogoutActionPerformed
         if(control.LoginStatus == false){
             jTextFieldEmployeeNumber.setText("");
-            jTextFieldPassword.setText("");
+            jPasswordField.setText("");
             jLabelErrorMesage.setText("");
             jButtonLoginLogout.setVisible(false);
             control.changeCardLayout(CARD_LOGIN_MENU);
@@ -527,7 +531,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private javax.swing.JPanel jPaneManegerMenu;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCardBase;
+    private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTextFieldEmployeeNumber;
-    private javax.swing.JTextField jTextFieldPassword;
     // End of variables declaration//GEN-END:variables
 }
