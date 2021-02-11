@@ -111,7 +111,7 @@ public class PaymentDAO {
             int  orderQuantity  = rs.getInt("ORDER_QUANTITY");
             int  salesAmount    = rs.getInt("SALES_AMOUNT");
             
-            sales.setPaymentDay(paymentDay);
+            sales.setSalesDate(paymentDay);
             sales.setStoreNumber(storeNumber);
             sales.setOrderQuantity(orderQuantity);
             sales.setSalesAmount(salesAmount);
@@ -221,7 +221,7 @@ public class PaymentDAO {
     public List<Sales> dbSearchSalesToday() throws SQLException {
         List<Sales> salesList = new ArrayList<>();
         String sql = "SELECT * FROM SALES_PER_DATE " +
-                     " WHERE PAYMENT_DAY = TRUNC(sysdate, 'DD') " +
+                     " WHERE SALES_DATE = TRUNC(sysdate, 'DD') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
@@ -241,7 +241,7 @@ public class PaymentDAO {
     public List<Sales> dbSearchSalesThisWeek() throws SQLException {
         List<Sales> salesList = new ArrayList<>();
         String sql = "SELECT * FROM SALES_PER_DATE " +
-                     " WHERE PAYMENT_DAY BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
+                     " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
@@ -262,7 +262,7 @@ public class PaymentDAO {
     public List<Sales> dbSearchSalesThisMonth() throws SQLException {
         List<Sales> salesList = new ArrayList<>();
         String sql = "SELECT * FROM SALES_PER_DATE " +
-                     " WHERE TRUNC(PAYMENT_DAY, 'MM') = TRUNC(sysdate, 'MM') " +
+                     " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') " +
                      " ORDER BY PAYMENT_DAY ";
         try {
             ps = con.prepareStatement(sql);
