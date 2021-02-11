@@ -7,6 +7,7 @@ package managerMenu;
 
 import managerMenu.payment.PaymentControl;
 import managerMenu.item.ManageItemControl;
+import managerMenu.employeeBoundary.EmployeeControl;
 import sys.SystemControl;
 
 /**
@@ -17,10 +18,12 @@ public class ManagerMenuControl {
     private SystemControl control;
     private final PaymentControl paymentControl;
     private final ManageItemControl manageItemControl;
+    private final EmployeeControl employeeControl;
     
     public ManagerMenuControl(){
         paymentControl = new PaymentControl();
         manageItemControl = new ManageItemControl();
+        employeeControl = new EmployeeControl();
     }
     
     /**
@@ -50,11 +53,12 @@ public class ManagerMenuControl {
     }
     
     /**
-     * 従業員管理画面の作成
+     * 従業員管理画面の表示処理
      */
     public void showManagerboundary(){
         control.setVisibleMainMenu(false);
-        
+        employeeControl.setControl(this);
+        employeeControl.showManegerMenuBoundary();
     }
     
     /**

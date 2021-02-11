@@ -76,6 +76,11 @@ public class SystemControl {
         mainMenuBoundary.showCardLayout(str);
     }
     
+    public void showEmployeeBoundary(){
+        managerMenuControl.showManagerboundary();
+        managerMenuControl.showManageitemBoundary();
+    }
+    
     /**
      * メインメニューの可視化設定
      * @param b true : 表示 false : 非表示

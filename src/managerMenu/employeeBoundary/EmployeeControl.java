@@ -22,7 +22,7 @@ public class EmployeeControl {
         this.control = control;
     }
     
-    public void showMaagerMenuBoundary(){
+    public void showManegerMenuBoundary(){
         employeesBoundary.setVisible(true);
         employeesBoundary.setControl(this);
     }

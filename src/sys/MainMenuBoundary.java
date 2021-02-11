@@ -120,8 +120,8 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButtonControlCustomer = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPaneManegerMenu = new javax.swing.JPanel();
-        jButtonCheckSales = new javax.swing.JButton();
-        jButtonPayment = new javax.swing.JButton();
+        jButtonManageSales = new javax.swing.JButton();
+        jButtonManageEmployee = new javax.swing.JButton();
         jButtonManageItem = new javax.swing.JButton();
         jPaneLoginPanel = new javax.swing.JPanel();
         jTextFieldEmployeeNumber = new javax.swing.JTextField();
@@ -289,19 +289,19 @@ public class MainMenuBoundary extends javax.swing.JFrame{
 
         jPaneManegerMenu.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButtonCheckSales.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jButtonCheckSales.setText("売上管理");
-        jButtonCheckSales.addActionListener(new java.awt.event.ActionListener() {
+        jButtonManageSales.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jButtonManageSales.setText("売上管理");
+        jButtonManageSales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCheckSalesActionPerformed(evt);
+                jButtonManageSalesActionPerformed(evt);
             }
         });
 
-        jButtonPayment.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jButtonPayment.setText("システム管理");
-        jButtonPayment.addActionListener(new java.awt.event.ActionListener() {
+        jButtonManageEmployee.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
+        jButtonManageEmployee.setText("従業員管理");
+        jButtonManageEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPaymentActionPerformed(evt);
+                jButtonManageEmployeeActionPerformed(evt);
             }
         });
 
@@ -322,23 +322,23 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                 .addGroup(jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonManageItem, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonCheckSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonPayment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonManageSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonManageEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         jPaneManegerMenuLayout.setVerticalGroup(
             jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPaneManegerMenuLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jButtonCheckSales, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonManageSales, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonManageItem, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButtonPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonManageEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
 
-        jPaneManegerMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonCheckSales, jButtonManageItem, jButtonPayment});
+        jPaneManegerMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonManageEmployee, jButtonManageItem, jButtonManageSales});
 
         jPanelCardBase.add(jPaneManegerMenu, "card4");
 
@@ -467,13 +467,13 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButtonLoginLogout.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButtonCheckSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckSalesActionPerformed
+    private void jButtonManageSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageSalesActionPerformed
         control.showPaymentboundary();
-    }//GEN-LAST:event_jButtonCheckSalesActionPerformed
+    }//GEN-LAST:event_jButtonManageSalesActionPerformed
 
-    private void jButtonPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaymentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonPaymentActionPerformed
+    private void jButtonManageEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEmployeeActionPerformed
+        control.showEmployeeBoundary();
+    }//GEN-LAST:event_jButtonManageEmployeeActionPerformed
 
     private void jButtonLoginLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginLogoutActionPerformed
         if(control.LoginStatus == false){
@@ -507,14 +507,14 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonCheckSales;
     private javax.swing.JButton jButtonControlCustomer;
     private javax.swing.JButton jButtonEmoployyesMenu;
     private javax.swing.JButton jButtonLoginLogout;
+    private javax.swing.JButton jButtonManageEmployee;
     private javax.swing.JButton jButtonManageItem;
+    private javax.swing.JButton jButtonManageSales;
     private javax.swing.JButton jButtonManagerMenu;
     private javax.swing.JButton jButtonOrder;
-    private javax.swing.JButton jButtonPayment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

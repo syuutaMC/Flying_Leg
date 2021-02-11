@@ -274,8 +274,8 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jButtonManageItem" min="-2" pref="146" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButtonCheckSales" max="32767" attributes="0"/>
-                              <Component id="jButtonPayment" alignment="1" min="-2" pref="146" max="-2" attributes="0"/>
+                              <Component id="jButtonManageSales" max="32767" attributes="0"/>
+                              <Component id="jButtonManageEmployee" alignment="1" min="-2" pref="146" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="166" max="32767" attributes="0"/>
@@ -286,18 +286,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="jButtonCheckSales" linkSize="4" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="jButtonManageSales" linkSize="4" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonManageItem" linkSize="4" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace pref="16" max="32767" attributes="0"/>
-                      <Component id="jButtonPayment" linkSize="4" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="jButtonManageEmployee" linkSize="4" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButtonCheckSales">
+            <Component class="javax.swing.JButton" name="jButtonManageSales">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="18" style="1"/>
@@ -305,18 +305,18 @@
                 <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x7ba1;&#x7406;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCheckSalesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManageSalesActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonPayment">
+            <Component class="javax.swing.JButton" name="jButtonManageEmployee">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="MS UI Gothic" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x30b7;&#x30b9;&#x30c6;&#x30e0;&#x7ba1;&#x7406;"/>
+                <Property name="text" type="java.lang.String" value="&#x5f93;&#x696d;&#x54e1;&#x7ba1;&#x7406;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPaymentActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManageEmployeeActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonManageItem">
