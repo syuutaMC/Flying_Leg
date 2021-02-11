@@ -5,6 +5,7 @@
  */
 package managerMenu.payment;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -29,6 +30,16 @@ public class Sales {
 
     public Date getSalesDate() {
         return salesDate;
+    }
+    
+    /**
+     * フォーマット指定日付取得
+     * @param format フォーマット
+     * @return 　　　フォーマットされた日付
+     */
+    public String getsalesDate(String format) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(getSalesDate());
     }
 
     public void setSalesDate(Date paymentDay) {
