@@ -488,7 +488,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }//GEN-LAST:event_jButtonLoginLogoutActionPerformed
 
     private void jButtonManageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageItemActionPerformed
-        // TODO add your handling code here:
+        control.showIManageItemBoundary();
     }//GEN-LAST:event_jButtonManageItemActionPerformed
 
     /**

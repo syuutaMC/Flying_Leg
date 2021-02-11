@@ -6,6 +6,7 @@
 package managerMenu;
 
 import managerMenu.payment.PaymentControl;
+import managerMenu.item.ManageItemControl;
 import sys.SystemControl;
 
 /**
@@ -15,20 +16,45 @@ import sys.SystemControl;
 public class ManagerMenuControl {
     private SystemControl control;
     private final PaymentControl paymentControl;
+    private final ManageItemControl manageItemControl;
     
     public ManagerMenuControl(){
         paymentControl = new PaymentControl();
+        manageItemControl = new ManageItemControl();
     }
     
+    /**
+     * コントロールを設定
+     * @param control SystemControl
+     */
     public void setControl(SystemControl control){
         this.control = control;
     }
     
-    
+    /**
+     * 売上管理画面の表示処理
+     */
     public void showPaymentBoundary(){
         control.setVisibleMainMenu(false);
         paymentControl.setControl(this);
         paymentControl.start();
+    }
+    
+    /**
+     * 商品管理画面の表示処置
+     */
+    public void showManageitemBoundary(){
+        control.setVisibleMainMenu(false);
+        manageItemControl.setControl(this);
+        manageItemControl.start();
+    }
+    
+    /**
+     * 従業員管理画面の作成
+     */
+    public void showManagerboundary(){
+        control.setVisibleMainMenu(false);
+        
     }
     
     /**

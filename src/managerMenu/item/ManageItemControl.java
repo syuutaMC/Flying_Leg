@@ -5,20 +5,40 @@
  */
 package managerMenu.item;
 
-import sys.SystemControl;
+import managerMenu.ManagerMenuControl;
 /**
  *
  * @author syuuta
  */
 public class ManageItemControl {
     private ManageItemBoundary manageItemBoundary;
-    private SystemControl control;
+    private ManagerMenuControl control;
     
     public ManageItemControl(){
         manageItemBoundary = new ManageItemBoundary();
     }
     
-    public void setControl(SystemControl control){
+    /**
+     * コントロールをセット
+     * @param control ManagerMenuControl
+     */
+    public void setControl(ManagerMenuControl control){
         this.control = control;
+    }
+    
+    /**
+     * アイテム管理画面の画面切り替え処理
+     * @param card カードレイアウト名
+     */
+    public void changeCardLayout(String card){
+        manageItemBoundary.changeCardLayout(card);
+    }
+    
+    /**
+     * 商品管理画面スタート処理
+     */
+    public void start(){
+        manageItemBoundary.setVisible(true);
+        manageItemBoundary.setControl(this);
     }
 }

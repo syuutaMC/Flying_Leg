@@ -2,6 +2,7 @@ package sys;
 
 import employeesMenu.EmployeesControl;
 import managerMenu.ManagerMenuControl;
+import managerMenu.item.ManageItemControl;
 import java.util.List;
 import javax.swing.JFrame;
 import managerMenu.Employee;
@@ -16,6 +17,7 @@ public class SystemControl {
     private final MainMenuBoundary mainMenuBoundary;
     private final EmployeesControl employeesControl;
     private final ManagerMenuControl managerMenuControl;
+    private final ManageItemControl manageItemControl;
     private final EmployeeDAO employeeDAO;
     public boolean LoginStatus = false;
     public Employee emp;
@@ -24,6 +26,7 @@ public class SystemControl {
         mainMenuBoundary = new MainMenuBoundary();
         employeesControl = new EmployeesControl();
         managerMenuControl = new ManagerMenuControl();
+        manageItemControl = new ManageItemControl();
         employeeDAO = new EmployeeDAO();
         emp = new Employee();
     }
@@ -55,6 +58,14 @@ public class SystemControl {
     public void showPaymentboundary(){
         managerMenuControl.setControl(this);
         managerMenuControl.showPaymentBoundary();
+    }
+    
+    /**
+     * 商品管理画面の表示
+     */
+    public void showIManageItemBoundary(){
+        managerMenuControl.setControl(this);
+        managerMenuControl.showManageitemBoundary();
     }
     
     /**
