@@ -7,6 +7,7 @@ package managerMenu.payment;
 
 import java.awt.CardLayout;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -169,7 +170,22 @@ public class PaymentBoundary extends javax.swing.JFrame {
      * @param card 
      */
     public void showCardLayoutSub(String card){
+        
+        switch(card) {
+            case DAY:
+                
+                break;
+                
+            case WEEK:
+                
+                break;
+                
+            case MONTH:
+                
+                break;
+        }
         cardLayout2.show(jPanelSalesCardBase, card);
+        
     }
     
     /**************************************************************************/
@@ -220,6 +236,73 @@ public class PaymentBoundary extends javax.swing.JFrame {
         }
     }
     
+    /**************************************************************************/
+    
+    /** 日間売上画面 ***********************************************************/
+    
+        /**
+         * 日間売上表に売上情報を表示
+         * @param salesList 売上情報
+         */
+        public void showDateSalesTable(List<Sales> salesList) {
+            
+            //金額カンマ区切りフォーマット
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            String[] column = new String[4];
+            
+            dateSalesTableModel.setRowCount(0);
+            
+            for (Sales sales : salesList) {
+                column[0] = sales.getSalesDate("yyyy年 MM月 dd日");
+                column[1] = Integer.toString(sales.getStoreNumber());
+                column[2] = Integer.toString(sales.getOrderQuantity());
+                column[3] = nf.format(sales.getSalesAmount());
+            }
+        }
+        
+        /**
+         * 週間売上表に売上情報を表示
+         * @param salesList 売上情報
+         */
+        public void showWeekSalesTable(List<Sales> salesList) {
+            
+            //金額カンマ区切りフォーマット
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            String[] column = new String[4];
+            
+            weekSalesTableModel.setRowCount(0);
+            
+            for (Sales sales : salesList) {
+                column[0] = sales.getSalesDate(DAY);
+                column[1] = ;
+                column[2] = ;
+                column[3] = ;
+            }
+        }
+        
+        /**
+         * 月間売上表に売上情報を表示
+         * @param salesList 売上情報
+         */
+        public void showMonthSalesTable(List<Sales> salesList) {
+            
+            //金額カンマ区切りフォーマット
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            String[] column = new String[4];
+            
+            monthSalesTableModel.setRowCount(0);
+            
+            for (Sales sales : salesList) {
+                column[0] = ;
+                column[1] = ;
+                column[2] = ;
+                column[3] = ;
+            }
+        }
+        
     /**************************************************************************/
     
     /**
@@ -280,9 +363,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanelSubMenu = new javax.swing.JPanel();
-        jButtonShowMonthSalesCard = new javax.swing.JButton();
-        jButtonShowWeekSalesCard = new javax.swing.JButton();
         jButtonShowDateSalesCard = new javax.swing.JButton();
+        jButtonShowWeekSalesCard = new javax.swing.JButton();
+        jButtonShowMonthSalesCard = new javax.swing.JButton();
         jPanelMenu = new javax.swing.JPanel();
         jButtonShowSalesCard = new javax.swing.JButton();
         jButtonShowPaymentCard = new javax.swing.JButton();
@@ -771,10 +854,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
 
         jPanelSubMenu.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButtonShowMonthSalesCard.setText("当日分売上");
-        jButtonShowMonthSalesCard.addActionListener(new java.awt.event.ActionListener() {
+        jButtonShowDateSalesCard.setText("当日分売上");
+        jButtonShowDateSalesCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonShowMonthSalesCardActionPerformed(evt);
+                jButtonShowDateSalesCardActionPerformed(evt);
             }
         });
 
@@ -785,10 +868,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
             }
         });
 
-        jButtonShowDateSalesCard.setText("月間売上");
-        jButtonShowDateSalesCard.addActionListener(new java.awt.event.ActionListener() {
+        jButtonShowMonthSalesCard.setText("月間売上");
+        jButtonShowMonthSalesCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonShowDateSalesCardActionPerformed(evt);
+                jButtonShowMonthSalesCardActionPerformed(evt);
             }
         });
 
@@ -798,11 +881,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
             jPanelSubMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSubMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonShowMonthSalesCard)
+                .addComponent(jButtonShowDateSalesCard)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonShowWeekSalesCard)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonShowDateSalesCard)
+                .addComponent(jButtonShowMonthSalesCard)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelSubMenuLayout.setVerticalGroup(
@@ -810,9 +893,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
             .addGroup(jPanelSubMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelSubMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonShowMonthSalesCard)
+                    .addComponent(jButtonShowDateSalesCard)
                     .addComponent(jButtonShowWeekSalesCard)
-                    .addComponent(jButtonShowDateSalesCard))
+                    .addComponent(jButtonShowMonthSalesCard))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -902,9 +985,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
         control.changeCardLayoutMain(CARD_SALES);
     }//GEN-LAST:event_jButtonShowSalesCardActionPerformed
 
-    private void jButtonShowMonthSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowMonthSalesCardActionPerformed
+    private void jButtonShowDateSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowDateSalesCardActionPerformed
         control.changeCardLayoutSub(DAY);
-    }//GEN-LAST:event_jButtonShowMonthSalesCardActionPerformed
+    }//GEN-LAST:event_jButtonShowDateSalesCardActionPerformed
 
     private void jButtonShowWeekSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowWeekSalesCardActionPerformed
         control.changeCardLayoutSub(WEEK);
@@ -922,9 +1005,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
         control.changeCardLayoutMain(CARD_PAYMENT);
     }//GEN-LAST:event_jButtonShowPaymentCardActionPerformed
 
-    private void jButtonShowDateSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowDateSalesCardActionPerformed
+    private void jButtonShowMonthSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowMonthSalesCardActionPerformed
         control.changeCardLayoutSub(MONTH);
-    }//GEN-LAST:event_jButtonShowDateSalesCardActionPerformed
+    }//GEN-LAST:event_jButtonShowMonthSalesCardActionPerformed
 
     private void jButtonSearchOrderNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderNumberActionPerformed
         control.showPaymentOrderNumberHistory(Integer.parseInt(jTextField1.getText()));

@@ -909,11 +909,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonShowMonthSalesCard" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonShowDateSalesCard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButtonShowWeekSalesCard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButtonShowDateSalesCard" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonShowMonthSalesCard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -923,9 +923,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonShowMonthSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonShowWeekSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonShowDateSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonShowWeekSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonShowMonthSalesCard" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -933,12 +933,12 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButtonShowMonthSalesCard">
+                <Component class="javax.swing.JButton" name="jButtonShowDateSalesCard">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x5f53;&#x65e5;&#x5206;&#x58f2;&#x4e0a;"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowMonthSalesCardActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowDateSalesCardActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonShowWeekSalesCard">
@@ -949,12 +949,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowWeekSalesCardActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButtonShowDateSalesCard">
+                <Component class="javax.swing.JButton" name="jButtonShowMonthSalesCard">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x6708;&#x9593;&#x58f2;&#x4e0a;"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowDateSalesCardActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowMonthSalesCardActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
