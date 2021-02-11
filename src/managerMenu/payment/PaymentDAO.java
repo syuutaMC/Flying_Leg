@@ -106,12 +106,12 @@ public class PaymentDAO {
      */
     public void setPayment(Sales sales, ResultSet rs) {
         try {
-            Date paymentDay     = rs.getDate("PAYMENT_DAY");
+            Date salesDate     = rs.getDate("SALES_DATE");
             int  storeNumber    = rs.getInt("STORE_NUMBER");
             int  orderQuantity  = rs.getInt("ORDER_QUANTITY");
             int  salesAmount    = rs.getInt("SALES_AMOUNT");
             
-            sales.setSalesDate(paymentDay);
+            sales.setSalesDate(salesDate);
             sales.setStoreNumber(storeNumber);
             sales.setOrderQuantity(orderQuantity);
             sales.setSalesAmount(salesAmount);
