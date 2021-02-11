@@ -12,7 +12,7 @@ import java.util.Date;
  * @author 19jz0137
  */
 public class SalesAtWeek {
-    private Date SalesDate;
+    private int  weekNumber;
     private int  sun;
     private int  mon;
     private int  yue;
@@ -23,14 +23,22 @@ public class SalesAtWeek {
     public SalesAtWeek() {
     }
 
-    public Date getSalesDate() {
-        return SalesDate;
+    public int getWeekNumber() {
+        return weekNumber;
     }
 
-    public void setSalesDate(Date SalesDate) {
-        this.SalesDate = SalesDate;
+    public void setWeekNumber(int SalesDate) {
+        this.weekNumber = SalesDate;
     }
 
+    public String getWeekName() {
+        String[] week =  { "日", "月", "火", "水", "木", "金", "土"};
+        if (7 >= getWeekNumber() && getWeekNumber() >= 1) {
+            return week[getWeekNumber() - 1];
+        }
+        return "?";
+    }
+    
     public int getSun() {
         return sun;
     }
