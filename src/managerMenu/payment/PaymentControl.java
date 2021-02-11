@@ -124,6 +124,57 @@ public class PaymentControl {
         }
     }
     
+    /**
+     * 日間の売り上げを表示する
+     */
+    public void showSalesToday() {
+        List<Sales> salesList;
+        try {
+            salesList = paymentDAO.dbSearchSalesToday();
+            
+            if (salesList.size() > 0) {
+                paymentBoundary.showDateSalesTable(salesList);
+            }
+        }
+        catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 週間の売り上げを表示する
+     */
+    public void showSalesWeek() {
+        List<Sales> salesList;
+        try {
+            salesList = paymentDAO.dbSearchSalesThisWeek();
+            
+            if (salesList.size() > 0) {
+                paymentBoundary.showWeekSalesTable(salesList);
+            }
+        }
+        catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 月間の売り上げを表示する
+     */
+    public void showSalesMonth() {
+        List<Sales> salesList;
+        try {
+            salesList = paymentDAO.dbSearchSalesThisMonth();
+            
+            if (salesList.size() > 0) {
+                paymentBoundary.showMonthSalesTable(salesList);
+            }
+        }
+        catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
     public void start(){
         paymentBoundary.setControl(this);
         paymentBoundary.setVisible(true);
