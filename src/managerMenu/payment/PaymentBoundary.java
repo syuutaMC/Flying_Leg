@@ -28,6 +28,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private DefaultTableModel dateSalesTableModel;
     private DefaultTableModel weekSalesTableModel;
     private DefaultTableModel monthSalesTableModel;
+    private DefaultTableModel weekAtDaySalesTableModel;
+    private DefaultTableModel monthAtWeekSalesTableModel;
     
     private static final String CARD_SALES = "card3";
     private static final String CARD_PAYMENT = "card2";
@@ -75,6 +77,12 @@ public class PaymentBoundary extends javax.swing.JFrame {
         //月間、週間、日間表の列見出し
         String[] salesTitle = {"注文日", "店舗番号", "注文回数", "売上金額"};
         
+        //週間の曜日表の列見出し
+        String[] salesWeekAtDayalesTitle = {"売上週", "日", "月", "火", "水", "木", "金", "土"};
+        
+        //月間の週表の見出し
+        String[] salesMonthAtWeek = {"売上月", "日", "月", "火", "水", "木", "金", "土"};
+        
         //日間売上画面表初期化///////////////////////////////////////////////////
         
         dateSalesTableModel = new DefaultTableModel(salesTitle, 0);
@@ -85,17 +93,29 @@ public class PaymentBoundary extends javax.swing.JFrame {
         
         //週間売上画面表初期化///////////////////////////////////////////////////
         
+        //週ごとの売り上げ表
         weekSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableWeekSales.setModel(weekSalesTableModel);
         jTableWeekSales.setDefaultEditor(Object.class, null);
+        
+        //曜日ごとの売り上げ表
+        weekAtDaySalesTableModel = new DefaultTableModel(salesWeekAtDayalesTitle, 0);
+        jTableWeekEveryDaySales.setModel(weekAtDaySalesTableModel);
+        jTableWeekEveryDaySales.setDefaultEditor(Object.class, null);
         
         ////////////////////////////////////////////////////////////////////////
         
         //月間売上画面表初期化///////////////////////////////////////////////////
         
+        //月ごとの売上表
         monthSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableMonthSales.setModel(monthSalesTableModel);
         jTableMonthSales.setDefaultEditor(Object.class, null);
+        
+        //週ごとの売上表
+        monthAtWeekSalesTableModel = new DefaultTableModel(salesMonthAtWeek, 0);
+        jTableMonthEveryWeekSales.setModel(monthAtWeekSalesTableModel);
+        jTableMonthEveryWeekSales.setDefaultEditor(Object.class, null);
         
         ////////////////////////////////////////////////////////////////////////
     }
