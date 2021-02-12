@@ -100,6 +100,7 @@ public class SalesDAO {
     public void setSalesAtWeek(SalesAtWeek salesAtWeek, ResultSet rs) {
         try {
             Date salesDate      = rs.getDate("SALES_DATE");
+            int  weekNumber     = rs.getInt("WEEK_NUMBER");
             int  storeNumber    = rs.getInt("STORE_NUMBER");
             int  sun            = rs.getInt("SUN");
             int  mon            = rs.getInt("MON");
@@ -110,6 +111,7 @@ public class SalesDAO {
             int  sat            = rs.getInt("SAT");
             
             salesAtWeek.setSalesDate(salesDate);
+            salesAtWeek.setWeekNumber(weekNumber);
             salesAtWeek.setStoreNumber(storeNumber);
             salesAtWeek.setSun(sun);
             salesAtWeek.setMon(mon);
@@ -130,14 +132,13 @@ public class SalesDAO {
      * @throws SQLException 
      */
     public List<Sales> dbSearchSalesToday() throws SQLException {
-        List<Sales> salesList = new ArrayList<>();
+        List<Sales> salesList;
         String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " + 
                      " FROM SALES_PER_DATE " +
                      " WHERE SALES_DATE = TRUNC(sysdate, 'DD') " +
                      " ORDER BY SALES_DATE ";
         try {
             ps = con.prepareStatement(sql);
-            ps.executeQuery();
             salesList = selectSalesExecute();
         } catch (SQLException e) {
             throw e;
@@ -151,14 +152,13 @@ public class SalesDAO {
      * @throws SQLException 
      */
     public List<Sales> dbSearchSalesThisWeek() throws SQLException {
-        List<Sales> salesList = new ArrayList<>();
+        List<Sales> salesList;
         String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " +
                      " FROM SALES_PER_DATE " +
                      " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
                      " ORDER BY SALES_DATE ";
         try {
             ps = con.prepareStatement(sql);
-            ps.executeQuery();
             salesList = selectSalesExecute();
         }
         catch (SQLException e) {
@@ -173,19 +173,56 @@ public class SalesDAO {
      * @throws SQLException 
      */
     public List<Sales> dbSearchSalesThisMonth() throws SQLException {
-        List<Sales> salesList = new ArrayList<>();
+        List<Sales> salesList;
         String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " +
                      " FROM SALES_PER_DATE " +
                      " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') " +
                      " ORDER BY SALES_DATE ";
         try {
             ps = con.prepareStatement(sql);
-            ps.executeQuery();
             salesList = selectSalesExecute();
         }
         catch (SQLException e) {
             throw e;
         }
         return salesList;
+    }
+    
+    /**
+     * 今月の各週の売り上げを確認する
+     * @return
+     * @throws SQLException 
+     */
+    public List<SalesAtWeek> dbSearchSalesThisMonthEveryWeek() throws SQLException {
+        List<SalesAtWeek> salesAtWeekList;
+        String sql = "SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     " FROM SALES_PER_DAY " +
+                     " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') ";
+        try {
+            ps = con.prepareCall(sql);
+            salesAtWeekList = selectSalesAtWeeksExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return salesAtWeekList;
+    }
+    
+    /**
+     * 今週の各曜日の売り上げを確認
+     * @return
+     * @throws SQLException 
+     */
+    public List<SalesAtWeek> dbSearchSalesThisWeekEveryDay() throws SQLException {
+        List<SalesAtWeek> salesAtWeekList;
+        String sql = "SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     " FROM SALES_PER_DAY " +
+                     " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') ";
+        try {
+            ps = con.prepareCall(sql);
+            salesAtWeekList = selectSalesAtWeeksExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return salesAtWeekList;
     }
 }
