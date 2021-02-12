@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class Sales {
     private Date salesDate;
+    private int  weekNumber;
     private int  storeNumber;
     private int  orderQuantity;
     private int  salesAmount;
@@ -69,6 +70,14 @@ public class Sales {
 
     public void setSalesAmount(int salesAmount) {
         this.salesAmount = salesAmount;
+    }
+
+    public int getWeekNumber() {
+        return weekNumber;
+    }
+
+    public void setWeekNumber(int weekNumber) {
+        this.weekNumber = weekNumber;
     }
     
     @Override
