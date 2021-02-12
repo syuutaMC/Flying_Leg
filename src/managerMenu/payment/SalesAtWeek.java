@@ -21,6 +21,7 @@ public class SalesAtWeek {
     private int  wed;
     private int  thu;
     private int  fry;
+    private int  sat;
 
     public SalesAtWeek() {
     }
@@ -103,6 +104,14 @@ public class SalesAtWeek {
 
     public void setFry(int fry) {
         this.fry = fry;
+    }
+
+    public int getSat() {
+        return sat;
+    }
+
+    public void setSat(int sat) {
+        this.sat = sat;
     }
  
 }
