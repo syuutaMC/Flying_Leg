@@ -72,7 +72,7 @@ public class SalesDAO {
             e.printStackTrace();
         }
     }
-    
+      
     /**
      * 当日の売上を検索する
      * @return 当日の売り上げ
@@ -80,9 +80,10 @@ public class SalesDAO {
      */
     public List<Sales> dbSearchSalesToday() throws SQLException {
         List<Sales> salesList = new ArrayList<>();
-        String sql = "SELECT * FROM SALES_PER_DATE " +
+        String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " + 
+                     " FROM SALES_PER_DATE " +
                      " WHERE SALES_DATE = TRUNC(sysdate, 'DD') " +
-                     " ORDER BY PAYMENT_DAY ";
+                     " ORDER BY SALES_DATE ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
@@ -100,9 +101,10 @@ public class SalesDAO {
      */
     public List<Sales> dbSearchSalesThisWeek() throws SQLException {
         List<Sales> salesList = new ArrayList<>();
-        String sql = "SELECT * FROM SALES_PER_DATE " +
+        String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " +
+                     " FROM SALES_PER_DATE " +
                      " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
-                     " ORDER BY PAYMENT_DAY ";
+                     " ORDER BY SALES_DATE ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
@@ -121,9 +123,10 @@ public class SalesDAO {
      */
     public List<Sales> dbSearchSalesThisMonth() throws SQLException {
         List<Sales> salesList = new ArrayList<>();
-        String sql = "SELECT * FROM SALES_PER_DATE " +
+        String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " +
+                     " FROM SALES_PER_DATE " +
                      " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') " +
-                     " ORDER BY PAYMENT_DAY ";
+                     " ORDER BY SALES_DATE ";
         try {
             ps = con.prepareStatement(sql);
             ps.executeQuery();
