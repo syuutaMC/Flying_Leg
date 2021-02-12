@@ -12,6 +12,7 @@ import java.util.Date;
  * @author 19jz0137
  */
 public class SalesAtWeek {
+    private Date salesDate;
     private int  weekNumber;
     private int  sun;
     private int  mon;
@@ -23,6 +24,14 @@ public class SalesAtWeek {
     public SalesAtWeek() {
     }
 
+    public Date getSalesDate() {
+        return salesDate;
+    }
+
+    public void setSalesDate(Date salesDate) {
+        this.salesDate = salesDate;
+    }
+    
     public int getWeekNumber() {
         return weekNumber;
     }
