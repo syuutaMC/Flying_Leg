@@ -54,6 +54,11 @@ public class PaymentBoundary extends javax.swing.JFrame {
         this.control = control;
         initTabedPane();
         initTableModel();
+        
+        control.showPaymentHistoryAll();
+        control.showSalesMonth();
+        control.showSalesWeek();
+        control.showSalesToday();
     }
     
     /** 初期化 ****************************************************************/
@@ -258,6 +263,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[1] = Integer.toString(sales.getStoreNumber());
                 column[2] = Integer.toString(sales.getOrderQuantity());
                 column[3] = nf.format(sales.getSalesAmount());
+                
+                dateSalesTableModel.addRow(column);
             }
         }
         
@@ -275,10 +282,12 @@ public class PaymentBoundary extends javax.swing.JFrame {
             weekSalesTableModel.setRowCount(0);
             
             for (Sales sales : salesList) {
-                column[0] = sales.getSalesDate(DAY);
-                column[1] = ;
-                column[2] = ;
-                column[3] = ;
+                column[0] = sales.getSalesDate("yyyy年 MM月") + "第" + Integer.toString(sales.getWeekNumber()) + "週";
+                column[1] = Integer.toString(sales.getStoreNumber());
+                column[2] = Integer.toString(sales.getSalesAmount());
+                column[3] = nf.format(sales.getSalesAmount());
+                
+                weekSalesTableModel.addRow(column);
             }
         }
         
@@ -296,10 +305,12 @@ public class PaymentBoundary extends javax.swing.JFrame {
             monthSalesTableModel.setRowCount(0);
             
             for (Sales sales : salesList) {
-                column[0] = ;
-                column[1] = ;
-                column[2] = ;
-                column[3] = ;
+                column[0] = sales.getSalesDate("yyyy年 MM月");
+                column[1] = Integer.toString(sales.getStoreNumber());
+                column[2] = Integer.toString(sales.getOrderQuantity());
+                column[3] = nf.format(sales.getSalesAmount());
+                
+                monthSalesTableModel.addRow(column);
             }
         }
         

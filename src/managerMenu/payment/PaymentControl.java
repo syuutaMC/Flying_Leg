@@ -18,17 +18,19 @@ import managerMenu.ManagerMenuControl;
 
 public class PaymentControl {
 
-    public ManagerMenuControl control;
-    private final CategoryDAO categoryDAO;
-    private final Category category;
-    private final PaymentBoundary paymentBoundary;
-    private final PaymentDAO paymentDAO;
+    public ManagerMenuControl       control;
+    private final CategoryDAO       categoryDAO;
+    private final Category          category;
+    private final PaymentBoundary   paymentBoundary;
+    private final PaymentDAO        paymentDAO;
+    private final SalesDAO          salesDAO;
 
     public PaymentControl() {
-        category = new Category();
-        categoryDAO = new CategoryDAO();
-        paymentDAO = new PaymentDAO();
+        category        = new Category();
+        categoryDAO     = new CategoryDAO();
+        paymentDAO      = new PaymentDAO();
         paymentBoundary = new PaymentBoundary();
+        salesDAO        = new SalesDAO();
     }
     
     
@@ -130,7 +132,7 @@ public class PaymentControl {
     public void showSalesToday() {
         List<Sales> salesList;
         try {
-            salesList = paymentDAO.dbSearchSalesToday();
+            salesList = salesDAO.dbSearchSalesToday();
             
             if (salesList.size() > 0) {
                 paymentBoundary.showDateSalesTable(salesList);
@@ -147,7 +149,7 @@ public class PaymentControl {
     public void showSalesWeek() {
         List<Sales> salesList;
         try {
-            salesList = paymentDAO.dbSearchSalesThisWeek();
+            salesList = salesDAO.dbSearchSalesThisWeek();
             
             if (salesList.size() > 0) {
                 paymentBoundary.showWeekSalesTable(salesList);
@@ -164,7 +166,7 @@ public class PaymentControl {
     public void showSalesMonth() {
         List<Sales> salesList;
         try {
-            salesList = paymentDAO.dbSearchSalesThisMonth();
+            salesList = salesDAO.dbSearchSalesThisMonth();
             
             if (salesList.size() > 0) {
                 paymentBoundary.showMonthSalesTable(salesList);
