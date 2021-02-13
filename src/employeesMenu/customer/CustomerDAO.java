@@ -89,7 +89,7 @@ public class CustomerDAO {
      * @throws java.sql.SQLException
      */
     public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) throws SQLException {
-        List<Customer> customerList = new ArrayList<>();
+        List<Customer> customerList;
         String sql = "SELECT * FROM CUSTOMERS " + 
                      " WHERE PHONE_NUMBER = ? ";
         try {
@@ -98,6 +98,24 @@ public class CustomerDAO {
             customerList = selectCustomerExcute();
         }
         catch (SQLException e) {
+            throw e;
+        }
+        
+        return customerList;
+    }
+    
+    /**
+     * 顧客情報全件検索
+     * @return 顧客情報
+     * @throws SQLException 
+     */
+    public List<Customer> dbSearchCustomerAll() throws SQLException {
+        List<Customer> customerList;
+        String sql = "SELECT * FROM CUSTOMER ";
+        try {
+            ps = con.prepareCall(sql);
+            customerList = selectCustomerExcute();
+        } catch (SQLException e) {
             throw e;
         }
         
