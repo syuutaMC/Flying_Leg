@@ -194,7 +194,7 @@ public class PaymentControl {
     }
     
     /**
-     * 週間の各曜日の売り上げを確認
+     * 週間の各曜日の売り上げを表示
      */
     public void showSalesWeekEveryDay() {
         List<SalesAtWeek> salesAtWeekList;
@@ -203,6 +203,57 @@ public class PaymentControl {
             
             if (salesAtWeekList.size() > 0) {
                 paymentBoundary.showWeekEveryDaySalesTable(salesAtWeekList);
+            }
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 今月の商品カテゴリ別売上を表示
+     * @param categoryNumber カテゴリ番号
+     */
+    public void showSalesAtCategoryThisMonth(String categoryNumber) {
+        List<SalesAtCategory> salesAtCategoryList;
+        try {
+            salesAtCategoryList = salesDAO.dbSearchSalesAtCategoryThisMonth(categoryNumber);
+            
+            if (salesAtCategoryList.size() > 0) {
+                
+            }
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 今週の商品カテゴリ別売上を表示
+     * @param categoryNumber 
+     */
+    public void showSalesAtCategoryThisWeek(String categoryNumber) {
+        List<SalesAtCategory> salesAtCategoryList;
+        try {
+            salesAtCategoryList = salesDAO.dbSearchSalesAtCategoryThisWeek(categoryNumber);
+            
+            if (salesAtCategoryList.size() > 0) {
+                
+            }
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 
+     * @param categoryNumber 
+     */
+    public void showSalesAtCategoryThisDate(String categoryNumber) {
+        List<SalesAtCategory> salesAtCategoryList;
+        try {
+            salesAtCategoryList = salesDAO.dbSearchSalesAtCategoryThisDate(categoryNumber);
+            
+            if (salesAtCategoryList.size() > 0) {
+                
             }
         } catch (SQLException e) {
             paymentBoundary.showDBErrorMessage();
