@@ -74,6 +74,11 @@ public class SalesDAO {
         }
     }
     
+    /**
+     * 週間売り上げ検索処理実行
+     * @return 週間売上情報
+     * @throws SQLException 
+     */
     public List<SalesAtWeek> selectSalesAtWeeksExecute() throws SQLException {
         List<SalesAtWeek> salesAtWeekList = new ArrayList<>();
         try {
@@ -121,6 +126,51 @@ public class SalesDAO {
             salesAtWeek.setFry(fry);
             salesAtWeek.setSat(sat);
             
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 週間売り上げ検索処理実行
+     * @return 週間売上情報
+     * @throws SQLException 
+     */
+    public List<SalesAtCategory> selectSalesAtCategoryExecute() throws SQLException {
+        List<SalesAtCategory> salesAtCategoryList = new ArrayList<>();
+        try {
+            salesAtCategoryList.clear();
+            ResultSet rs = ps.executeQuery();
+            //結果の格納
+            while (rs.next()) {                
+                SalesAtCategory salesAtCategory = new SalesAtCategory();
+                setSalesAtCategory(salesAtCategory, rs);
+                salesAtCategoryList.add(salesAtCategory);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesAtCategoryList;
+    }
+    
+    /**
+     * 問い合わせ結果をsalesAtWeekに格納
+     * @param salesAtCategory
+     * @param rs 　　　　　問い合わせ結果
+     */
+    public void setSalesAtCategory(SalesAtCategory salesAtCategory, ResultSet rs) {
+        try {
+            String itemNumber    = rs.getString("ITEM_MUMBER");
+            String itemName      = rs.getString("ITEM_NAME");
+            int    storeNumber   = rs.getInt("STORE_NUMBER");
+            int    orderQuantity = rs.getInt("ORDER_QUANTITY");
+            int    salesAmount   = rs.getInt("SALES_AMOUNT");
+            
+            salesAtCategory.setItemName(itemName);
+            salesAtCategory.setStoreNumber(storeNumber);
+            salesAtCategory.setOrderQuantity(orderQuantity);
+            salesAtCategory.setSalesAmount(salesAmount);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -226,5 +276,80 @@ public class SalesDAO {
             throw e;
         }
         return salesAtWeekList;
+    }
+    
+    /**
+     * 今月の商品カテゴリごとの売上を確認
+     * @param categoryNumber 商品カテゴリ
+     * @return 商品カテゴリ別売上情報
+     * @throws SQLException 
+     */
+    public List<SalesAtCategory> dbSearchSalesAtCategoryThisMonth(String categoryNumber) throws SQLException {
+        List<SalesAtCategory> salesAtCategoryList;
+        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
+                     " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
+                     " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
+                     " FROM SALES_AT_WEEK " +
+                     " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') AND " +
+                     " ITEM_NAME LIKE ? " +
+                     " GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber + "%");
+            salesAtCategoryList = selectSalesAtCategoryExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return salesAtCategoryList;
+    }
+    
+    /**
+     * 今週の商品カテゴリごとの売上を確認
+     * @param categoryNumber 商品カテゴリ
+     * @return 商品カテゴリ別売上情報
+     * @throws SQLException 
+     */
+    public List<SalesAtCategory> dbSearchSalesAtCategoryThisWeek(String categoryNumber) throws SQLException {
+        List<SalesAtCategory> salesAtCategoryList;
+        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
+                     " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
+                     " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
+                     " FROM SALES_AT_WEEK " +
+                     " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') " + 
+                     " ITEM_NAME LIKE ? " +
+                     "GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber + "%");
+            salesAtCategoryList = selectSalesAtCategoryExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return salesAtCategoryList;
+    }
+    
+    /**
+     * 当日の商品カテゴリごとの売上を確認
+     * @param categoryNumber 商品カテゴリ
+     * @return 商品カテゴリ別売上情報
+     * @throws SQLException 
+     */
+    public List<SalesAtCategory> dbSearchSalesAtCategoryThisDate(String categoryNumber) throws SQLException {
+        List<SalesAtCategory> salesAtCategoryList;
+        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
+                     " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
+                     " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
+                     " FROM SALES_AT_WEEK " +
+                     " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " + 
+                     " ITEM_NAME LIKE ? " +
+                     "GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber + "%");
+            salesAtCategoryList = selectSalesAtCategoryExecute();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return salesAtCategoryList;
     }
 }
