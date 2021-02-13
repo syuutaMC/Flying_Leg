@@ -98,7 +98,12 @@ public class OrderBoundary extends javax.swing.JFrame {
         orderListTableModel = new DefaultTableModel(orderTableTitle, 0);
         orderTableModel = new DefaultTableModel(orderTableTitle, 0);
         
+        //注文確認画面の注文表初期化
         jTableOrderList.setModel(orderListTableModel);
+        jTableOrderList.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
+        setCellHorizontalAlignmentRight(jTableOrderList, 3);    //金額列を右寄せに
+        
+        //注文画面の注文表初期化
         jTableOrder.setModel(orderTableModel);
         jTableOrder.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
         setCellHorizontalAlignmentRight(jTableOrder, 3);    //金額列を右寄せに
@@ -466,6 +471,25 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabelTotalPrice.setText(jLabelOrderTotalPrice.getText());
         showCardFinalCheck();
     } 
+    
+    /**
+     * 注文確認画面の注文表に注文商品を表示する
+     */
+    public void showOrderListTable() {
+        
+        String[] column = new String[4];
+        
+        orderListTableModel.setRowCount(0);
+        
+        for (int i = 0; orderTableModel.getRowCount() > i; i++) {
+            column[0] = (String)orderTableModel.getValueAt(i, 0);
+            column[1] = (String)orderTableModel.getValueAt(i, 1);
+            column[2] = (String)orderTableModel.getValueAt(i, 2);
+            column[3] = (String)orderTableModel.getValueAt(i, 3);
+            
+            orderListTableModel.addRow(column);
+        }
+    }
     
     /**
      * 注文確認画面を有効化
@@ -1050,8 +1074,23 @@ public class OrderBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableOrderList.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableOrderList);
+        if (jTableOrderList.getColumnModel().getColumnCount() > 0) {
+            jTableOrderList.getColumnModel().getColumn(0).setResizable(false);
+            jTableOrderList.getColumnModel().getColumn(1).setResizable(false);
+            jTableOrderList.getColumnModel().getColumn(2).setResizable(false);
+            jTableOrderList.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel7.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

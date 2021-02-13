@@ -190,6 +190,7 @@ public class OrderControl {
         }
         else {
             orderBoundary.setEnabledFinalCheck(true);
+            orderBoundary.showOrderListTable();
             orderBoundary.showFinalCheckPanel();
         }
         
