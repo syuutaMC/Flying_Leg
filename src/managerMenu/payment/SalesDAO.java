@@ -115,7 +115,7 @@ public class SalesDAO {
             salesAtWeek.setStoreNumber(storeNumber);
             salesAtWeek.setSun(sun);
             salesAtWeek.setMon(mon);
-            salesAtWeek.setYue(tue);
+            salesAtWeek.setTue(tue);
             salesAtWeek.setWed(wed);
             salesAtWeek.setThu(thu);
             salesAtWeek.setFry(fry);
@@ -175,7 +175,7 @@ public class SalesDAO {
     public List<Sales> dbSearchSalesThisMonth() throws SQLException {
         List<Sales> salesList;
         String sql = "SELECT SALES_DATE, STORE_NUMBER, ORDER_QUANTITY, SALES_AMOUNT " +
-                     " FROM SALES_PER_DATE " +
+                     " FROM SALES_PER_MONTH " +
                      " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') " +
                      " ORDER BY SALES_DATE ";
         try {
@@ -195,8 +195,9 @@ public class SalesDAO {
      */
     public List<SalesAtWeek> dbSearchSalesThisMonthEveryWeek() throws SQLException {
         List<SalesAtWeek> salesAtWeekList;
-        String sql = "SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
-                     " FROM SALES_PER_DAY " +
+        String sql = //"SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     "SELECT SALES_DATE, WEEK_NUMBER, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     " FROM SALES_PER_MONTH_EVERY_WEEK" +
                      " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') ";
         try {
             ps = con.prepareCall(sql);
@@ -214,8 +215,9 @@ public class SalesDAO {
      */
     public List<SalesAtWeek> dbSearchSalesThisWeekEveryDay() throws SQLException {
         List<SalesAtWeek> salesAtWeekList;
-        String sql = "SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
-                     " FROM SALES_PER_DAY " +
+        String sql = //"SELECT WEEK_NUMBER, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     "SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     " FROM  SALES_PER_DAY " +
                      " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') ";
         try {
             ps = con.prepareCall(sql);

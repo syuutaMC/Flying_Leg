@@ -177,6 +177,38 @@ public class PaymentControl {
         }
     }
     
+    /**
+     * 月間の各週の売り上げを確認
+     */
+    public void showSalesMonthEveryWeek() {
+        List<SalesAtWeek> salesAtWeekList;
+        try {
+            salesAtWeekList = salesDAO.dbSearchSalesThisMonthEveryWeek();
+            
+            if (salesAtWeekList.size() > 0) {
+                paymentBoundary.showMonthEveryWeekSalesTable(salesAtWeekList);
+            }
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 週間の各曜日の売り上げを確認
+     */
+    public void showSalesWeekEveryDay() {
+        List<SalesAtWeek> salesAtWeekList;
+        try {
+            salesAtWeekList = salesDAO.dbSearchSalesThisWeekEveryDay();
+            
+            if (salesAtWeekList.size() > 0) {
+                paymentBoundary.showWeekEveryDaySalesTable(salesAtWeekList);
+            }
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
     public void start(){
         paymentBoundary.setControl(this);
         paymentBoundary.setVisible(true);

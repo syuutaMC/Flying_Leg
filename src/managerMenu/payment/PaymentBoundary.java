@@ -56,8 +56,13 @@ public class PaymentBoundary extends javax.swing.JFrame {
         initTableModel();
         
         control.showPaymentHistoryAll();
+        
         control.showSalesMonth();
+        control.showSalesMonthEveryWeek();
+        
         control.showSalesWeek();
+        control.showSalesWeekEveryDay();
+        
         control.showSalesToday();
     }
     
@@ -84,10 +89,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
         String[] salesTitle = {"注文日", "店舗番号", "注文回数", "売上金額"};
         
         //週間の曜日表の列見出し
-        String[] salesWeekAtDayalesTitle = {"売上週", "日", "月", "火", "水", "木", "金", "土"};
+        String[] salesWeekAtDayalesTitle = { "日", "月", "火", "水", "木", "金", "土"};
         
         //月間の週表の見出し
-        String[] salesMonthAtWeek = {"売上月", "日", "月", "火", "水", "木", "金", "土"};
+        String[] salesMonthAtWeek = {"週番号", "日", "月", "火", "水", "木", "金", "土"};
         
         //日間売上画面表初期化///////////////////////////////////////////////////
         
@@ -268,6 +273,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
             }
         }
         
+    /**************************************************************************/
+        
+    /** 週間売上画面 ***********************************************************/
+        
         /**
          * 週間売上表に売上情報を表示
          * @param salesList 売上情報
@@ -292,6 +301,36 @@ public class PaymentBoundary extends javax.swing.JFrame {
         }
         
         /**
+         * 週間の各曜日を表示
+         * @param salesAtWeekList 週間売上情報
+         */
+        public void showWeekEveryDaySalesTable(List<SalesAtWeek> salesAtWeekList) {
+            
+            //金額カンマ区切りフォーマット
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            String[] column = new String[7];
+            
+            weekAtDaySalesTableModel.setRowCount(0);
+            
+            for (SalesAtWeek salesAtWeek : salesAtWeekList) {
+                column[0] = nf.format(salesAtWeek.getSun());
+                column[1] = nf.format(salesAtWeek.getMon());
+                column[2] = nf.format(salesAtWeek.getTue());
+                column[3] = nf.format(salesAtWeek.getWed());
+                column[4] = nf.format(salesAtWeek.getThu());
+                column[5] = nf.format(salesAtWeek.getFry());
+                column[6] = nf.format(salesAtWeek.getSat());
+                
+                weekAtDaySalesTableModel.addRow(column);
+            }
+        }
+    
+    /**************************************************************************/
+    
+    /** 月間売上画面 ***********************************************************/
+        
+        /**
          * 月間売上表に売上情報を表示
          * @param salesList 売上情報
          */
@@ -311,6 +350,31 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[3] = nf.format(sales.getSalesAmount());
                 
                 monthSalesTableModel.addRow(column);
+            }
+        }
+        
+        /**
+         * 月の各週の売り上げを確認
+         * @param salesAtWeekList 週間売上情報 
+         */
+        public void showMonthEveryWeekSalesTable(List<SalesAtWeek> salesAtWeekList) {
+            
+            //金額カンマ区切りフォーマット
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            String[] column = new String[8];
+            
+            monthAtWeekSalesTableModel.setRowCount(0);
+            
+            for (SalesAtWeek salesAtWeek : salesAtWeekList) {
+                column[0] = "第" + Integer.toHexString(salesAtWeek.getWeekNumber()) + "週";
+                column[1] = nf.format(salesAtWeek.getSun());
+                column[2] = nf.format(salesAtWeek.getMon());
+                column[3] = nf.format(salesAtWeek.getTue());
+                column[4] = nf.format(salesAtWeek.getWed());
+                column[5] = nf.format(salesAtWeek.getThu());
+                column[6] = nf.format(salesAtWeek.getFry());
+                column[7] = nf.format(salesAtWeek.getSat());
             }
         }
         
