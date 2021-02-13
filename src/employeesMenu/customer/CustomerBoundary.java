@@ -5,6 +5,9 @@
  */
 package employeesMenu.customer;
 
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +46,17 @@ public class CustomerBoundary extends javax.swing.JFrame {
         
         jTable1.setModel(customerTableModel);
         jTable1.setDefaultEditor(Object.class, null);
+        
+        jTable1.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent mouseEvent) {
+                    Point point = mouseEvent.getPoint();
+                    int row = jTable1.rowAtPoint(point);
+                        if (mouseEvent.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
+                            customerTableSelectedItem(row);
+                        }
+                    }
+            });
     }
     
     /**
@@ -102,6 +116,14 @@ public class CustomerBoundary extends javax.swing.JFrame {
             
             customerTableModel.addRow(culumn);
         }
+    }
+    
+    /**
+     * 顧客情報表ダブルクリック時の処理
+     * @param row 行番号
+     */
+    public void customerTableSelectedItem(int row) {
+        control.searchCustomer((String)jTable1.getValueAt(row, 2));
     }
     
     /**
