@@ -79,7 +79,11 @@ public class Customer {
     }
 
     public void setDeliveryNote(String deliveryNote) {
-        this.deliveryNote = deliveryNote;
+        if (Objects.equals(deliveryNote, null)) {
+            this.deliveryNote = "";
+        } else {
+            this.deliveryNote = deliveryNote;
+        }
     }  
     
 }
