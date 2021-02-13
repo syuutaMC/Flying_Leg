@@ -17,7 +17,7 @@ public class SalesAtWeek {
     private int  weekNumber;
     private int  sun;
     private int  mon;
-    private int  yue;
+    private int  tue;
     private int  wed;
     private int  thu;
     private int  fry;
@@ -74,12 +74,12 @@ public class SalesAtWeek {
         this.mon = mon;
     }
 
-    public int getYue() {
-        return yue;
+    public int getTue() {
+        return tue;
     }
 
-    public void setYue(int yue) {
-        this.yue = yue;
+    public void setTue(int tue) {
+        this.tue = tue;
     }
 
     public int getWed() {
