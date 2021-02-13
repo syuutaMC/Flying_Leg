@@ -1,6 +1,9 @@
 package sys;
 
 import employeesMenu.EmployeesControl;
+import java.io.CharArrayReader;
+import java.io.IOException;
+import java.io.Reader;
 import managerMenu.ManagerMenuControl;
 import managerMenu.item.ManageItemControl;
 import java.util.List;
@@ -69,6 +72,14 @@ public class SystemControl {
     }
     
     /**
+     * 従業員管理画面の表示
+     */
+    public void showEmployeeBoundary(){
+        managerMenuControl.setControl(this);
+        managerMenuControl.showManagerboundary();
+    }
+    
+    /**
      * メインメニューの画面切り替え処理
      * @param str CardName
      */
@@ -76,10 +87,6 @@ public class SystemControl {
         mainMenuBoundary.showCardLayout(str);
     }
     
-    public void showEmployeeBoundary(){
-        managerMenuControl.showManagerboundary();
-        managerMenuControl.showManageitemBoundary();
-    }
     
     /**
      * メインメニューの可視化設定
@@ -92,9 +99,9 @@ public class SystemControl {
     /**
      * ログイン処理
      */
-    public void login(String EmployeeNumber, String Password){
+    public void login(String EmployeeNumber, char[] Password){
         
-        List<Employee> empList = employeeDAO.dbLogin(EmployeeNumber, Password);
+        List<Employee> empList = employeeDAO.dbLogin(EmployeeNumber, new String(Password));
         
         if(empList.size() > 0){   //ログイン成功
             emp = empList.get(0);

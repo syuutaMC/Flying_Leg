@@ -78,6 +78,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         if(employeeType.equals("M")){
             jButtonManagerMenu.setEnabled(true);
         }
+        jPasswordField.setText("");
         jButtonLoginLogout.setText("ログアウト");
         control.changeCardLayout(CARD_MAIN_MENU);
         jButtonLoginLogout.setVisible(true);

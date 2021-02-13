@@ -5,6 +5,10 @@
  */
 package managerMenu;
 
+import java.io.CharArrayReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,11 +72,36 @@ public class EmployeeDAO {
     }
     
     /**
+     * 従業員番号をもとに従業員検索
+     * @param employeeNumber 従業員番号
+     * @return               従業員情報
+     */
+    public List<Employee> searchEmployeeNumber(String employeeNumber){
+        List<Employee> employeeList = new ArrayList<>();
+        
+        String sql = "SELECT employee_number, employee_name, type_number " + 
+                     " FROMemployees " + 
+                     " WHERE employee_number = ? ";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, employeeNumber);
+            employeeList = selectEmployeeExecute();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return employeeList;
+    }
+    
+    /**
      * ログイン処理
      * @return ログイン成否
      */
     public List<Employee> dbLogin(String employeeNumber, String password) {
         List<Employee> employeeList = new ArrayList<>();
+                
         String sql = "SELECT employee_number, employee_name, type_number " + 
                      " FROM employees " + 
                      " WHERE employee_number = ? AND " +
@@ -108,5 +137,5 @@ public class EmployeeDAO {
         catch (SQLException e) {
             throw e;
         }
-    } 
+    }
 }

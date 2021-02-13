@@ -37,8 +37,8 @@ public class ManageItemControl {
     /**
      * 商品管理画面スタート処理
      */
-    public void start(){
-        manageItemBoundary.setVisible(true);
+    public void start(){  
         manageItemBoundary.setControl(this);
+        manageItemBoundary.setVisible(true);
     }
 }

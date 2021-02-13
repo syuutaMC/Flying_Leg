@@ -5,9 +5,10 @@
  */
 package managerMenu;
 
+import java.util.List;
 import managerMenu.payment.PaymentControl;
 import managerMenu.item.ManageItemControl;
-import managerMenu.employeeBoundary.EmployeeControl;
+import managerMenu.employees.EmployeeControl;
 import sys.SystemControl;
 
 /**
@@ -19,11 +20,13 @@ public class ManagerMenuControl {
     private final PaymentControl paymentControl;
     private final ManageItemControl manageItemControl;
     private final EmployeeControl employeeControl;
+    private final EmployeeDAO employeeDAO;
     
     public ManagerMenuControl(){
         paymentControl = new PaymentControl();
         manageItemControl = new ManageItemControl();
         employeeControl = new EmployeeControl();
+        employeeDAO = new EmployeeDAO();
     }
     
     /**
@@ -58,7 +61,16 @@ public class ManagerMenuControl {
     public void showManagerboundary(){
         control.setVisibleMainMenu(false);
         employeeControl.setControl(this);
-        employeeControl.showManegerMenuBoundary();
+        employeeControl.start();
+    }
+    
+    /**
+     * 従業員番号で検索
+     * @param employeeeNumber 従業員番号
+     * @return 
+     */
+    public List<Employee> searchEmployeeNumber(String employeeeNumber){
+        return employeeDAO.searchEmployeeNumber(employeeeNumber);
     }
     
     /**
