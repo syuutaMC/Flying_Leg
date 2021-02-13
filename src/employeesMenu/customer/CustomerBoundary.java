@@ -5,7 +5,9 @@
  */
 package employeesMenu.customer;
 
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * 顧客確認バウンダリー
@@ -14,6 +16,8 @@ import javax.swing.JOptionPane;
 public class CustomerBoundary extends javax.swing.JFrame {
     private CustomerControl control;
     private Customer customer;
+    
+    private DefaultTableModel customerTableModel;
     /**
      * Creates new form OrderBoundary
      */
@@ -21,6 +25,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
         initComponents();
         initTextBox();
         setTitle("顧客確認画面");
+        initTableModel();
         jCheckBox1.setEnabled(false);
     }
     
@@ -31,12 +36,22 @@ public class CustomerBoundary extends javax.swing.JFrame {
         jTextFieldPhoneNumber.setEditable(false);
     }
 
+    public void initTableModel() {
+        String[] customerTableTitle = {"顧客番号","顧客名","電話番号","住所", "配達備考"};
+        
+        customerTableModel = new DefaultTableModel(customerTableTitle, 0);
+        
+        jTable1.setModel(customerTableModel);
+        jTable1.setDefaultEditor(Object.class, null);
+    }
+    
     /**
      * コントロールを設定
      * @param control 顧客コントロールクラス
      */
     public void setControl(CustomerControl control){
         this.control = control;
+        control.showAllCustomerTable();
     }
 
     /**
@@ -66,6 +81,27 @@ public class CustomerBoundary extends javax.swing.JFrame {
         jTextFieldAddress.setText(getCustomer().getAddress());
         jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
         jCheckBox1.setEnabled(true);
+    }
+    
+    /**
+     * 顧客表に顧客情報を表示
+     * @param customerList 顧客情報
+     */
+    public void showCustomerTable(List<Customer> customerList) {
+        
+        String[] culumn = new String[5];
+        
+        customerTableModel.setRowCount(0);
+        
+        for (Customer customer : customerList) {
+            culumn[0] = Integer.toString(customer.getCustomerNumber());
+            culumn[1] = customer.getName();
+            culumn[2] = customer.getPhoneNumber();
+            culumn[3] = customer.getAddress();
+            culumn[4] = customer.getDeliveryNote();
+            
+            customerTableModel.addRow(culumn);
+        }
     }
     
     /**
@@ -176,8 +212,23 @@ public class CustomerBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jButtonCustomerSerarch.setText("顧客を検索する");
         jButtonCustomerSerarch.addActionListener(new java.awt.event.ActionListener() {

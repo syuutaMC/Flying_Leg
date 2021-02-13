@@ -123,6 +123,22 @@ public class CustomerControl {
     }
     
     /**
+     * 顧客情報全件表示処理
+     */
+    public void showAllCustomerTable() {
+        List<Customer> customerList;
+        try {
+            customerList = customerDAO.dbSearchCustomerAll();
+            
+            if (customerList.size() > 0) {
+                customerBoundary.showCustomerTable(customerList);
+            }
+        } catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
      * ×ボタン処理
      */
     public void exit(){

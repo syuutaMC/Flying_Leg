@@ -111,7 +111,7 @@ public class CustomerDAO {
      */
     public List<Customer> dbSearchCustomerAll() throws SQLException {
         List<Customer> customerList;
-        String sql = "SELECT * FROM CUSTOMER ";
+        String sql = "SELECT * FROM CUSTOMERS ";
         try {
             ps = con.prepareCall(sql);
             customerList = selectCustomerExcute();
