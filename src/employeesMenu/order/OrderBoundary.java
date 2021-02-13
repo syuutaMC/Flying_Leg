@@ -15,9 +15,11 @@ import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -99,6 +101,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTableOrderList.setModel(orderListTableModel);
         jTableOrder.setModel(orderTableModel);
         jTableOrder.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
+        setCellHorizontalAlignmentRight(jTableOrder, 3);    //金額列を右寄せに
         
     }
     
@@ -121,6 +124,7 @@ public class OrderBoundary extends javax.swing.JFrame {
             
             JTable jTable = new JTable(menuTableModel);
             
+            //ダブルクリック選択リスナー設定
             jTable.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent mouseEvent) {
                     Point point = mouseEvent.getPoint();
@@ -130,6 +134,10 @@ public class OrderBoundary extends javax.swing.JFrame {
                         }
                     }
             });
+            
+            //金額列を右寄せに
+            setCellHorizontalAlignmentRight(jTable, 2);
+            
             menuTableModelList.add(menuTableModel);
             tableList.add(jTable);
             scrollPaneList.add(new JScrollPane());
@@ -161,6 +169,18 @@ public class OrderBoundary extends javax.swing.JFrame {
             jTable.getTableHeader().setReorderingAllowed(false);    //列の並べ替え不可
             jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に 
         }
+    }
+    
+    /**
+     * テーブルの指定した列を右寄せ表示にする
+     * @param jTable       設定するテーブル
+     * @param culumnNumber 設定する列
+     */
+    private void setCellHorizontalAlignmentRight(JTable jTable, int culumnNumber) {
+        DefaultTableCellRenderer rightCellRenderer = new DefaultTableCellRenderer();
+        
+        rightCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        jTable.getColumnModel().getColumn(culumnNumber).setCellRenderer(rightCellRenderer);
     }
     
     /**************************************************************************/
@@ -324,7 +344,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         for (Item item : itemList) {
             row[0] = item.getItemNumber();
             row[1] = item.getItemName();
-            row[2] = nf.format(item.getUnitPrice());
+            row[2] = nf.format(item.getUnitPrice()) + "円";
             menuTableModelList.get(tabIndex).addRow(row);
         }
     }
@@ -353,11 +373,11 @@ public class OrderBoundary extends javax.swing.JFrame {
             NumberFormat nf = NumberFormat.getNumberInstance();
             
             int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
-            int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", ""));
+            int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", "").replace("円", ""));
             
             price = price / quantity;
             jTableOrder.setValueAt(nf.format(++quantity), row, 2);
-            jTableOrder.setValueAt(nf.format(price * quantity) , row, 3);
+            jTableOrder.setValueAt(nf.format(price * quantity) + "円", row, 3);
             
         }
     }
@@ -372,10 +392,10 @@ public class OrderBoundary extends javax.swing.JFrame {
             
             int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
             if (quantity > 1) {
-                int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", ""));
+                int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", "").replace("円", ""));
                 price = price / quantity;
                 jTableOrder.setValueAt(nf.format(--quantity), row, 2);
-                jTableOrder.setValueAt(nf.format(price * quantity) , row, 3);
+                jTableOrder.setValueAt(nf.format(price * quantity) + "円", row, 3);
             }
         }
     }
@@ -394,7 +414,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         column[0] = item.getItemNumber();
         column[1] = item.getItemName();
         column[2] = Integer.toString(item.getQuantity());
-        column[3] = nf.format(item.getUnitPrice() * item.getQuantity());
+        column[3] = nf.format(item.getUnitPrice() * item.getQuantity()) + "円";
         orderTableModel.addRow(column);
     }
     
@@ -413,7 +433,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     public int calcTotalPrice() {
         int totalPrice = 0;
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
-            totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", ""));
+            totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", "").replace("円", ""));
         }
         totalPrice += taxCalculation(totalPrice);
         return totalPrice;
