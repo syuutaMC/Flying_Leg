@@ -50,10 +50,19 @@ public class OrderControl {
         orderBoundary.setVisible(true);
     }
     
+    /**
+     * 商品カテゴリを取得
+     * @return 商品カテゴリリスト 
+     */
     public List<Category> getCategory(){
-        List<Category> categorys;
-
-        return categorys = categoryDAO.dbSearchItemCategory();
+        List<Category> categoryList = null;
+        try {
+            categoryList = categoryDAO.dbSearchItemCategoryAll();
+        } catch (SQLException e) {
+            orderBoundary.showDBErrorMessage();
+        }
+        
+        return categoryList;
     }
     
     /**
