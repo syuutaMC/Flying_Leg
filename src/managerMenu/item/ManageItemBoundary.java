@@ -5,19 +5,80 @@
  */
 package managerMenu.item;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author syuuta
  */
 public class ManageItemBoundary extends javax.swing.JFrame {
-
+    private ManageItemControl manageItemControl;
     /**
      * Creates new form ManageItemBoundary
      */
     public ManageItemBoundary() {
+        manageItemControl = new ManageItemControl();
         initComponents();
     }
+    
+    /** 初期化 ****************************************************************/
+    
+    /**
+     * 商品追加画面初期化
+     */
+    private void initAdditem() {
+        manageItemControl.setCategoryComboBox();
+    }
+    
+    /**************************************************************************/
+    
+    /** 商品追加画面 ***********************************************************/
+    
+    /**
+     * コンボボックスに商品カテゴリを追加
+     * @param categoryList 商品カテゴリリスト
+     */
+    public void setCategoryComboBox(List<Category> categoryList) {
+        
+        jComboBoxItemCategory.removeAllItems();
+        
+        for (Category category : categoryList) {
+            jComboBoxItemCategory.addItem(category.getCategoryNumber()  + " : " + category.getCategoryName());
+        }
+    }
+    
+    /**************************************************************************/
+    
+    /** ダイアログ *************************************************************/
+    
+    /**
+     * エラーダイアログ表示
+     * @param message エラーメッセージ
+     * @param title   タイトル
+     */
+    public void showErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * 確認ダイアログ表示
+     * @param message メッセージ
+     * @param title 　タイトル
+     */
+    public void showConfirmMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * データベースエラー発生時のエラーダイアログ表示
+     */
+    public void showDBErrorMessage() {
+        showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
 
+    /**************************************************************************/
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +100,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jPanelCardLayout = new javax.swing.JPanel();
         jPanelAddAitem = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxItemCategory = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -149,7 +210,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel4.setText("商品追加");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxItemCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("商品カテゴリ");
 
@@ -175,7 +236,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                                 .addGap(39, 39, 39)
                                 .addGroup(jPanelAddAitemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxItemCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(jTextField1)
                                     .addComponent(jLabel7)
@@ -194,7 +255,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxItemCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -452,7 +513,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonManageCategoly;
     private javax.swing.JButton jButtonManageItem;
     private javax.swing.JButton jButtonManageSetMenu;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxItemCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
