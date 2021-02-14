@@ -6,7 +6,11 @@
 package managerMenu.item;
 
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +18,9 @@ import javax.swing.JOptionPane;
  */
 public class ManageItemBoundary extends javax.swing.JFrame {
     private ManageItemControl manageItemControl;
+    
+    private DefaultTableModel manageItemTableModel;
+    private DefaultTableModel addSetMenuTableModel;
     /**
      * Creates new form ManageItemBoundary
      */
@@ -26,6 +33,8 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     public void setControl(ManageItemControl manageItemControl) {
         this.manageItemControl = manageItemControl;
         initAdditem();
+        initManageItem();
+        initAddSetMenu();
     }
     
     /**
@@ -33,6 +42,59 @@ public class ManageItemBoundary extends javax.swing.JFrame {
      */
     private void initAdditem() {
         manageItemControl.setCategoryComboBox();
+    }
+    
+    /**
+     * 商品編集画面初期化
+     */
+    private void initManageItem() {
+        initManageItemTable();
+    }
+    
+    /**
+     * セット商品追加画面初期化
+     */
+    private void initAddSetMenu() {
+        initAddSetMenuTable();
+    }
+    
+    /**
+     * 商品編集表初期化
+     */
+    private void initManageItemTable() {
+        String[] manageItemTableTitle = {"", ""};   //列見出しを設定してください
+        manageItemTableModel = new DefaultTableModel(manageItemTableTitle, 0);
+        
+        //商品編集画面表初期化
+        jTableManageItem.setModel(manageItemTableModel);
+        jTableManageItem.setDefaultEditor(Object.class, null);
+        setCellHorizontalAlignmentRight(jTableManageItem, 0); //指定した列を右寄せに　詳しくはJavaDoc参照
+        
+    }
+    
+    /**
+     * セット商品追加画面表初期化
+     */
+    private void initAddSetMenuTable() {
+        String[] addSetMenuTableTitle = {"", ""};
+        addSetMenuTableModel = new DefaultTableModel(addSetMenuTableTitle, 0);
+        
+         //セット商品追加画面表
+        jTableAddSetMenuTable.setModel(addSetMenuTableModel);
+        jTableAddSetMenuTable.setDefaultEditor(Object.class, null);
+        setCellHorizontalAlignmentRight(jTableAddSetMenuTable, 0);  //こちらも同様
+    }
+    
+    /**
+     * テーブルの指定した列を右寄せ表示にする
+     * @param jTable       設定するテーブル
+     * @param culumnNumber 設定する列
+     */
+    private void setCellHorizontalAlignmentRight(JTable jTable, int culumnNumber) {
+        DefaultTableCellRenderer rightCellRenderer = new DefaultTableCellRenderer();
+        
+        rightCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        jTable.getColumnModel().getColumn(culumnNumber).setCellRenderer(rightCellRenderer);
     }
     
     /**************************************************************************/
@@ -107,17 +169,17 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jComboBoxItemCategory = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldAddItemName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldAddItemPrice = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanelManageItem = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableManageItem = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jTextFieldSearchItemNumber = new javax.swing.JTextField();
+        jButtonSearchItem = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -125,13 +187,13 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jPanelMnageSetMenu = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        jTableAddSetMenuTable = new javax.swing.JTable();
+        jButtonAddSetMenu = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jLabel12 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldAddSetMenuPrice = new javax.swing.JTextField();
+        jButtonAddItemToSetMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,9 +304,9 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jComboBoxItemCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
-                                    .addComponent(jTextField1)
+                                    .addComponent(jTextFieldAddItemName)
                                     .addComponent(jLabel7)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jTextFieldAddItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelAddAitemLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -263,11 +325,11 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldAddItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldAddItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -280,7 +342,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel8.setText("商品編集");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableManageItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -290,12 +352,27 @@ public class ManageItemBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableManageItem.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableManageItem);
+        if (jTableManageItem.getColumnModel().getColumnCount() > 0) {
+            jTableManageItem.getColumnModel().getColumn(0).setResizable(false);
+            jTableManageItem.getColumnModel().getColumn(1).setResizable(false);
+            jTableManageItem.getColumnModel().getColumn(2).setResizable(false);
+            jTableManageItem.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel9.setText("商品番号");
 
-        jButton2.setText("検索");
+        jButtonSearchItem.setText("検索");
 
         jButton3.setText("jButton3");
 
@@ -320,9 +397,9 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                                     .addGroup(jPanelManageItemLayout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldSearchItemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2))
+                                        .addComponent(jButtonSearchItem))
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelManageItemLayout.createSequentialGroup()
                                 .addContainerGap()
@@ -342,8 +419,8 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelManageItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(jTextFieldSearchItemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchItem))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelManageItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -376,7 +453,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel10.setText("セットメニュー作成");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAddSetMenuTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -386,17 +463,32 @@ public class ManageItemBoundary extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jButton6.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
-        jButton6.setText("登録");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableAddSetMenuTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableAddSetMenuTable);
+        if (jTableAddSetMenuTable.getColumnModel().getColumnCount() > 0) {
+            jTableAddSetMenuTable.getColumnModel().getColumn(0).setResizable(false);
+            jTableAddSetMenuTable.getColumnModel().getColumn(1).setResizable(false);
+            jTableAddSetMenuTable.getColumnModel().getColumn(2).setResizable(false);
+            jTableAddSetMenuTable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jButtonAddSetMenu.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jButtonAddSetMenu.setText("登録");
 
         jLabel11.setText("商品番号");
 
-        jToggleButton1.setText("追加");
-
         jLabel12.setText("金額");
+
+        jButtonAddItemToSetMenu.setText("追加");
 
         javax.swing.GroupLayout jPanelMnageSetMenuLayout = new javax.swing.GroupLayout(jPanelMnageSetMenu);
         jPanelMnageSetMenu.setLayout(jPanelMnageSetMenuLayout);
@@ -407,7 +499,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addGroup(jPanelMnageSetMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMnageSetMenuLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonAddSetMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelMnageSetMenuLayout.createSequentialGroup()
                         .addGroup(jPanelMnageSetMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,11 +508,11 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToggleButton1))
+                                .addComponent(jButtonAddItemToSetMenu))
                             .addGroup(jPanelMnageSetMenuLayout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldAddSetMenuPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 99, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -434,15 +526,15 @@ public class ManageItemBoundary extends javax.swing.JFrame {
                 .addGroup(jPanelMnageSetMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1))
+                    .addComponent(jButtonAddItemToSetMenu))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelMnageSetMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldAddSetMenuPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonAddSetMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -508,15 +600,16 @@ public class ManageItemBoundary extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonAddItem;
+    private javax.swing.JButton jButtonAddItemToSetMenu;
+    private javax.swing.JButton jButtonAddSetMenu;
     private javax.swing.JButton jButtonManageCategoly;
     private javax.swing.JButton jButtonManageItem;
     private javax.swing.JButton jButtonManageSetMenu;
+    private javax.swing.JButton jButtonSearchItem;
     private javax.swing.JComboBox<String> jComboBoxItemCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -539,13 +632,12 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMnageSetMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable jTableAddSetMenuTable;
+    private javax.swing.JTable jTableManageItem;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField jTextFieldAddItemName;
+    private javax.swing.JTextField jTextFieldAddItemPrice;
+    private javax.swing.JTextField jTextFieldAddSetMenuPrice;
+    private javax.swing.JTextField jTextFieldSearchItemNumber;
     // End of variables declaration//GEN-END:variables
 }
