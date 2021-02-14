@@ -231,12 +231,32 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         );
 
         jButtonAddItem.setText("商品追加");
+        jButtonAddItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddItemActionPerformed(evt);
+            }
+        });
 
         jButtonManageItem.setText("商品編集");
+        jButtonManageItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonManageItemActionPerformed(evt);
+            }
+        });
 
         jButtonManageCategoly.setText("カテゴリ編集");
+        jButtonManageCategoly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonManageCategolyActionPerformed(evt);
+            }
+        });
 
         jButtonManageSetMenu.setText("セットメニュー編集");
+        jButtonManageSetMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonManageSetMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -562,6 +582,22 @@ public class ManageItemBoundary extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAddItemActionPerformed
+
+    private void jButtonManageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonManageItemActionPerformed
+
+    private void jButtonManageCategolyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageCategolyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonManageCategolyActionPerformed
+
+    private void jButtonManageSetMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageSetMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonManageSetMenuActionPerformed
 
     /**
      * @param args the command line arguments

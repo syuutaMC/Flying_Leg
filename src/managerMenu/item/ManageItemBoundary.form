@@ -139,21 +139,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x5546;&#x54c1;&#x8ffd;&#x52a0;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAddItemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonManageItem">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x5546;&#x54c1;&#x7de8;&#x96c6;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManageItemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonManageCategoly">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x30ab;&#x30c6;&#x30b4;&#x30ea;&#x7de8;&#x96c6;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManageCategolyActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonManageSetMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x30bb;&#x30c3;&#x30c8;&#x30e1;&#x30cb;&#x30e5;&#x30fc;&#x7de8;&#x96c6;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonManageSetMenuActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
