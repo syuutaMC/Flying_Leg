@@ -43,9 +43,13 @@ public class PaymentControl {
      * @return 
      */
     public List<Category> getCategory(){
-        List<Category> categorys;
-
-        return categorys = categoryDAO.dbSearchItemCategory();
+        List<Category> categorys = null;
+        try {
+           categorys = categoryDAO.dbSearchItemCategoryAll();
+        } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+        return categorys;
     }
     
     /**
