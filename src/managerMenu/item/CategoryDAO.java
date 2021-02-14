@@ -71,7 +71,7 @@ public class CategoryDAO {
      * @throws java.sql.SQLException 
      */
     public List<Category> dbSearchItemCategoryAll() throws SQLException {
-        List<Category> categoryList = new ArrayList<>();
+        List<Category> categoryList;
         String sql = "SELECT * " +
                      " FROM item_categories ";
         try {
