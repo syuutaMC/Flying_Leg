@@ -26,6 +26,12 @@ public class ManageItemControl {
         this.control = control;
     }
     
+    
+    public void showManageItemBoundary() {
+        control.setVisibleMainMenu(false);
+        start();
+    }
+    
     /**
      * コンボボックスに商品カテゴリを設定
      */
@@ -37,5 +43,18 @@ public class ManageItemControl {
         } catch (SQLException e) {
             manageItemBoundary.showDBErrorMessage();
         }
+    }
+    
+    public void start() {
+        manageItemBoundary.setControl(this);
+        manageItemBoundary.setVisible(true);
+    }
+    
+    /**
+     * ×ボタン処理
+     */
+    public void exit() {
+        manageItemBoundary.setVisible(false);
+        control.setVisibleMainMenu(true);
     }
 }

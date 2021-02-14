@@ -18,11 +18,18 @@ public class ManageItemBoundary extends javax.swing.JFrame {
      * Creates new form ManageItemBoundary
      */
     public ManageItemBoundary() {
-        manageItemControl = new ManageItemControl();
         initComponents();
     }
     
     /** 初期化 ****************************************************************/
+    
+    public void showManageItemBoundary() {
+        
+    }
+    
+    public void setControl(ManageItemControl manageItemControl) {
+        this.manageItemControl = manageItemControl;
+    }
     
     /**
      * 商品追加画面初期化
