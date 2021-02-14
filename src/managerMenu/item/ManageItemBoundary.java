@@ -23,12 +23,9 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     
     /** 初期化 ****************************************************************/
     
-    public void showManageItemBoundary() {
-        
-    }
-    
     public void setControl(ManageItemControl manageItemControl) {
         this.manageItemControl = manageItemControl;
+        initAdditem();
     }
     
     /**
