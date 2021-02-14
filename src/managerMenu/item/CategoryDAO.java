@@ -25,7 +25,7 @@ public class CategoryDAO {
         con = dBManager.getConnection();
     }
     
-    public List<Category> selectCategoryExecute() {
+    private List<Category> selectCategoryExecute() {
         List<Category> categoryList = new ArrayList<>();
         try {
             categoryList.clear();
@@ -49,7 +49,7 @@ public class CategoryDAO {
      * @param category 商品カテゴリ情報
      * @param rs       問い合わせ結果
      */
-    public void setCategory(Category category, ResultSet rs) {
+    private void setCategory(Category category, ResultSet rs) {
         try {
             String categoryNumber = rs.getString("CATEGORY_NUMBER");
             String categoryName   = rs.getString("CATEGORY_NAME");
