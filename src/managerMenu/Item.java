@@ -24,6 +24,11 @@ public class Item {
         this.unitPrice = unitPrice;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" + "itemNumber=" + itemNumber + ", itemName=" + itemName + ", unitPrice=" + unitPrice + ", quantity=" + quantity + '}';
+    }
+
     public String getItemNumber() {
         return itemNumber;
     }

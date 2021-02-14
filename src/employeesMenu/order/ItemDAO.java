@@ -191,5 +191,12 @@ public class ItemDAO {
         
         return itemList;
     }
+    public static void main(String[] args) {
+        ItemDAO idao = new ItemDAO();
+        List<Item> itemList = idao.dbSearchItemAll();
+        for (Item i : itemList) {
+            System.out.println(i);
+        }
+    }
 }
 
