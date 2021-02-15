@@ -16,10 +16,10 @@ import managerMenu.ManagerMenuControl;
  */
 public class EmployeeControl {
     private ManagerMenuControl control;
-    private final EmployeesBoundary employeesBoundary;
+    private final EmployeeBoundary employeeBoundary;
     
     public EmployeeControl() {
-        employeesBoundary = new EmployeesBoundary();
+        employeeBoundary = new EmployeeBoundary();
     }
     
     /**
@@ -35,7 +35,7 @@ public class EmployeeControl {
      * @param card カード名
      */
     public void changeCardLayout(String card){
-        employeesBoundary.changeCardLayout(card);
+        employeeBoundary.changeCardLayout(card);
     }
     
     /**
@@ -44,7 +44,7 @@ public class EmployeeControl {
      * @param title 
      */
     public void showErroeMessage(String message, String title){
-        employeesBoundary.showErrorMessage(message, title);
+        employeeBoundary.showErrorMessage(message, title);
     }
     
     /**
@@ -55,7 +55,7 @@ public class EmployeeControl {
         List<Employee> emp = control.searchEmployeeNumber(employeeNumber);
         
         if(emp.size() >= 0){
-            employeesBoundary.setEmployee(emp.get(0));
+            employeeBoundary.setEmployee(emp.get(0));
         }
     }
     
@@ -63,7 +63,7 @@ public class EmployeeControl {
      * マネージャー管理メニュー表示処理
      */
     public void start(){
-        employeesBoundary.setVisible(true);
-        employeesBoundary.setControl(this);
+        employeeBoundary.setVisible(true);
+        employeeBoundary.setControl(this);
     }
 }
