@@ -67,7 +67,7 @@ public class Customer {
     }
     
     public void setName(String name) {
-        this.name = name;
+        this.name = name.replace("　", " ");
     }
 
     public void setPhoneNumber(String phoneNumber) {

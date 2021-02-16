@@ -155,9 +155,9 @@ public class CustomerDAO {
     public void dbUpdateCustomer(Customer customer) throws SQLException {
         String sql = "UPDATE CUSTOMERS " +   
                      " SET   NAME = ?," + 
-                     "       PHONE_NUMBER = ?," +
-                     "       ADDRESS = ?," + 
-                     "       DELIVERY_NOTE = ?" + 
+                     "       PHONE_NUMBER = ?, " +
+                     "       ADDRESS = ?, " + 
+                     "       DELIVERY_NOTE = ? " + 
                      " WHERE CUSTOMER_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
@@ -165,17 +165,18 @@ public class CustomerDAO {
             ps.setString(2, customer.getPhoneNumber());
             ps.setString(3, customer.getAddress());
             
-            if (Objects.isNull(customer.getDeliveryNote())) {
-                ps.setString(4, "test");
-            }
-            else {
-                ps.setString(4, customer.getDeliveryNote());
-            }
+//            if (Objects.isNull(customer.getDeliveryNote())) {
+//                ps.setString(4, customer.getDeliveryNote());
+//            }
+//            else {
+//                ps.setString(4, customer.getDeliveryNote());
+//            }
             
+            ps.setString(4, "TEST");
+
             ps.setInt(5, customer.getCustomerNumber());
             
-            ps.executeQuery(sql);
-            
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         }
@@ -193,7 +194,6 @@ public class CustomerDAO {
             ps.setString(1, phoneNumber);
             
             ps.executeUpdate();
-            ps.close();
         }
         catch (SQLException e) {
             throw e;
