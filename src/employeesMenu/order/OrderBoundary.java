@@ -440,7 +440,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
             totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", "").replace("円", ""));
         }
-        totalPrice += taxCalculation(totalPrice);
+        //totalPrice += taxCalculation(totalPrice);
         return totalPrice;
     }
     
@@ -521,7 +521,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @return 消費税金額
      */
     private int taxCalculation(int price) {
-        return (int)(price * TAX);
+        return (int)(Math.floor(price * TAX));
     }
     
     /**************************************************************************/
