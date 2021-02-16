@@ -53,20 +53,10 @@ public class EmployeeControl {
      */
     public void searchEmployeeNumber(String employeeNumber){
         List<Employee> emp = control.searchEmployeeNumber(employeeNumber);
-
+        
         if(emp.size() >= 0){
             employeeBoundary.setEmployee(emp.get(0));
-            employeeBoundary.showEmployee();
-        } 
-    }
-    
-    /**
-     * 従業員情報の更新
-     * @param emp 従業員情報
-     * @param password パスワード
-     */
-    public void updateEmployee(Employee emp, char[] password){
-        
+        }
     }
     
     /**

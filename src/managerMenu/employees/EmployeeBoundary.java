@@ -17,19 +17,20 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
     public EmployeeBoundary() {
         initComponents();
+        //initComboBox();
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
     }
     
-    private EmployeeControl control;
+     private EmployeeControl control;
     private final CardLayout cardLayout;
     private final String ADD_EMPLOYEE = "card2";
     private final String MANAGE_EMPLOYEE = "card4";
     private final String MANAGE_ROLL = "card3";
-    private Employee emp;
+    
     
     
     public void initComboBox(){
-       
+        
     }
     
     /**
@@ -57,18 +58,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
     
-    /**
-     * 従業員情報をセット
-     * @param emp 
-     */
     public void setEmployee(Employee emp){
-        this.emp = emp; 
-    }
-    
-    /**
-     * 従業員情報を表示
-     */
-    public void showEmployee(){
         jTextFieldName2.setText(emp.getEmployeeName());
     }
 
@@ -326,22 +316,12 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton2.setText("更新する");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("パスワード");
 
         jLabel12.setText("名前検索");
 
         jButtonSearchName.setText("検索");
-        jButtonSearchName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSearchNameActionPerformed(evt);
-            }
-        });
 
         jLabel14.setForeground(new java.awt.Color(231, 231, 231));
         jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(234, 234, 234)));
@@ -475,7 +455,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         //User登録処理
-        if(jTextFieldName.getText().equals("")){
+        if(jTextFieldName.getText() != ""){
             try{
                 jPasswordField.getPassword();
             }
@@ -487,32 +467,8 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonSearchEmployeeNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchEmployeeNumberActionPerformed
-        if(jTextFieldSearchEmployeeNumber.getText().equals("")){
-            showErrorMessage("従業員番号を入力してください", "エラー");
-        }else{
-            control.searchEmployeeNumber(jTextFieldSearchEmployeeNumber.getText());
-        }
+        control.searchEmployeeNumber(jTextFieldSearchEmployeeNumber.getText());
     }//GEN-LAST:event_jButtonSearchEmployeeNumberActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(jPasswordField.getPassword() == jPasswordFieldCheck.getPassword()){
-            emp.setEmployeeName(jTextFieldName2.getText());
-            emp.setEmployeeType(emp.getEmployeeType());
-        
-            control.updateEmployee(emp, jPasswordField.getPassword());
-        }
-        else{
-            jLabelErroPassword.setText("パスワードが間違ってます");
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchNameActionPerformed
-        if(jTextFieldSearchName.getText().equals("")){
-            showErrorMessage("名前を入力してください", "エラー");
-        }else{
-            
-        }
-    }//GEN-LAST:event_jButtonSearchNameActionPerformed
 
     /**
      * @param args the command line arguments
