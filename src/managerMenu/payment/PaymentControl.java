@@ -124,7 +124,10 @@ public class PaymentControl {
             
             if(paymentList.size() > 0) {
                 paymentBoundary.showPaymentHistory(paymentList);
-            } 
+            }
+            else {
+                paymentBoundary.showErrorMessage("[" + orderNumber + "]は見つかりませんでした", "エラー");
+            }
         } catch (SQLException e) {
             paymentBoundary.showDBErrorMessage();
         }
