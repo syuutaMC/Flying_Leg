@@ -48,6 +48,7 @@ public class CustomerControl {
      * 顧客登録画面を表示 
      */
     public void showCustomerAddBoundary(){
+        customerAddBoundary.initTextField();
         customerAddBoundary.setVisible(true);
     }
     

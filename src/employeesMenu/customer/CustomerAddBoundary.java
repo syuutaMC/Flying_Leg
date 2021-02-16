@@ -28,6 +28,16 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
     public void setControl(CustomerControl control){
         this.control = control;
     }
+    
+    /**
+     * テキストボックス初期化処理
+     */
+    public void initTextField(){
+        jTextFieldAddress.setText("");
+        jTextFieldDelivaryNote.setText("");
+        jTextFieldName.setText("");
+        jTextFieldPhoneNumber.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,7 +183,7 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        control.exit();
+        control.exitCustomerAddBoundary();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
