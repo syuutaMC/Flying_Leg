@@ -90,6 +90,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
      */
     public void showMemberTextField(Customer customer) {
         setCustomer(customer);
+        jTextFieldPhoneNumber2.setText(getCustomer().getPhoneNumber());
         jTextFieldName.setText(getCustomer().getName());
         jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
         jTextFieldAddress.setText(getCustomer().getAddress());
@@ -171,6 +172,15 @@ public class CustomerBoundary extends javax.swing.JFrame {
      */
     public void showDBErrorMessage() {
         showErrorMessage("データベースエラーが発生しました", "エラー");
+    }
+    
+    /**
+     * 確認ダイアログ表示
+     * @param message メッセージ
+     * @param title   タイトル
+     */
+    public void showConfirmMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
