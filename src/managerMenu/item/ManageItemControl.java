@@ -8,6 +8,8 @@ package managerMenu.item;
 import java.sql.SQLException;
 import java.util.List;
 import sys.SystemControl;
+import managerMenu.ManagerMenuControl;
+
 /**
  *
  * @author syuuta
@@ -15,20 +17,19 @@ import sys.SystemControl;
 public class ManageItemControl {
     private final ManageItemBoundary manageItemBoundary;
     private final CategoryDAO categoryDAO;
-    private SystemControl control;
+    private ManagerMenuControl control;
     
     public ManageItemControl(){
         manageItemBoundary = new ManageItemBoundary();
         categoryDAO = new CategoryDAO();
     }
     
-    public void setControl(SystemControl control){
+    public void setControl(ManagerMenuControl control){
         this.control = control;
     }
     
     
     public void showManageItemBoundary() {
-        control.setVisibleMainMenu(false);
         start();
     }
     
@@ -55,6 +56,6 @@ public class ManageItemControl {
      */
     public void exit() {
         manageItemBoundary.setVisible(false);
-        control.setVisibleMainMenu(true);
+        control.exitMediaView();
     }
 }
