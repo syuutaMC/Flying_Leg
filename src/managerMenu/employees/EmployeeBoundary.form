@@ -508,6 +508,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x66f4;&#x65b0;&#x3059;&#x308b;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -527,6 +530,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x691c;&#x7d22;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchNameActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>

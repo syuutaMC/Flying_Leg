@@ -71,6 +71,17 @@ public class EmployeeDAO {
         }
     }
     
+    public void setEmployeeType(ResultSet rs){
+        try{
+            String typeNumber = rs.getString("TYPE_NUMBER");
+            String typeName = rs.getString("TYPE_NAME");
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * 従業員番号をもとに従業員検索
      * @param employeeNumber 従業員番号
@@ -80,7 +91,7 @@ public class EmployeeDAO {
         List<Employee> employeeList = new ArrayList<>();
         
         String sql = "SELECT employee_number, employee_name, type_number " + 
-                     " FROMemployees " + 
+                     " FROM employees " + 
                      " WHERE employee_number = ? ";
         
         try{
@@ -136,6 +147,43 @@ public class EmployeeDAO {
         }
         catch (SQLException e) {
             throw e;
+        }
+    }
+    
+    /**
+     * 従業員データを更新
+     * @param employee
+     * @param passeord
+     * @throws SQLException 
+     */
+    public void updateEmployee(Employee employee, char[] passeord) throws SQLException{
+        String sql = "UPDATE employees " + 
+                    " SET employee_name = ?, " + 
+                    "     type_number = ?, " + 
+                    "     password = ? " +
+                    " WHERE employee_number = ? ";
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, employee.getEmployeeName());
+            ps.setString(2, employee.getEmployeeType());
+            ps.setString(3, new String(passeord));
+            ps.setString(4, employee.getEmployeeNumber());
+            
+            ps.executeUpdate();
+        }
+        catch(SQLException e){
+            throw e;
+        }
+    }
+    
+    public void getEmployeeTypes(){
+        String sql = "SELECT * FROM employee_types";
+        
+        try{
+            ps = con.prepareStatement(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
     }
 }
