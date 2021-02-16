@@ -180,4 +180,22 @@ public class CustomerDAO {
             throw e;
         }
     }
+    
+    /**
+     * 顧客情報を削除する
+     * @param customerNumber 顧客番号
+     * @throws SQLException 
+     */
+    public void dbDeleteCustomer(int customerNumber) throws SQLException {
+        String sql = "DELETE CUSTOMERS WHERE CUSTOMER_NUMBER = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, customerNumber);
+            
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+    }
 }
