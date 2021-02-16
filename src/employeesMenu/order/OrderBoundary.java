@@ -496,7 +496,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param b true 有効化（切り替え可） | false 無効化(切り替え不可)
      */
     public void setEnabledFinalCheck(boolean b) {
-        jButtonFinalCheck.setEnabled(true);
+        jButtonFinalCheck.setEnabled(b);
     }
     
     /**
@@ -788,12 +788,6 @@ public class OrderBoundary extends javax.swing.JFrame {
                             .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
-                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
-                        .addGap(75, 75, 75))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -802,7 +796,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addComponent(jButtonCustomerCheck)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                         .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
                             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
@@ -811,7 +805,12 @@ public class OrderBoundary extends javax.swing.JFrame {
                                 .addComponent(jTextFieldOrderNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonSearchOrderNumber)))
-                        .addGap(9, 9, 9))))
+                        .addGap(9, 9, 9))
+                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                        .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelAddAddressLayout.setVerticalGroup(
             jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
