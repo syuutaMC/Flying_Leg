@@ -440,7 +440,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
             totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", "").replace("円", ""));
         }
-        totalPrice += taxCalculation(totalPrice);
+        //totalPrice += taxCalculation(totalPrice);
         return totalPrice;
     }
     
@@ -521,7 +521,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @return 消費税金額
      */
     private int taxCalculation(int price) {
-        return (int)(price * TAX);
+        return (int)(Math.floor(price * TAX));
     }
     
     /**************************************************************************/
@@ -1323,6 +1323,9 @@ public class OrderBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRemoveOrderItemActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (JOptionPane.showConfirmDialog(this,"注文を確定しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION) {
+            return;
+        }
         List<Item> items = new ArrayList<>();
         
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {

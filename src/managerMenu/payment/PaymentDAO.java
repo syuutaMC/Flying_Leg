@@ -161,7 +161,7 @@ public class PaymentDAO {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, orderNumber);
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         }
