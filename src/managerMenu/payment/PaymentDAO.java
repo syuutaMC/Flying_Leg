@@ -61,7 +61,7 @@ public class PaymentDAO {
             int     orderNumber = rs.getInt("ORDER_NUMBER");
             String  name        = rs.getString("NAME");
             String  phoneNumber = rs.getString("PHONE_NUMBER");
-            String  orderDate   = rs.getString("ORDER_DATE");
+            Date    orderDate   = rs.getDate("ORDER_DATE");
             Date    paymentDay  = rs.getDate("PAYMENT_DAY");
             int     amount      = rs.getInt("AMOUNT");
             payment.setOrderNumber(orderNumber);
@@ -161,7 +161,7 @@ public class PaymentDAO {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, orderNumber);
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         }

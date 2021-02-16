@@ -6,7 +6,10 @@
 package managerMenu.payment;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import javax.swing.JOptionPane;
 import managerMenu.item.Category;
 import managerMenu.item.CategoryDAO;
 import managerMenu.ManagerMenuControl;
@@ -124,7 +127,10 @@ public class PaymentControl {
             
             if(paymentList.size() > 0) {
                 paymentBoundary.showPaymentHistory(paymentList);
-            } 
+            }
+            else {
+                paymentBoundary.showErrorMessage("[" + orderNumber + "]は見つかりませんでした", "エラー");
+            }
         } catch (SQLException e) {
             paymentBoundary.showDBErrorMessage();
         }
@@ -248,7 +254,7 @@ public class PaymentControl {
     }
     
     /**
-     * 
+     * 当日のカテゴリーごとの売り上げ
      * @param categoryNumber 
      */
     public void showSalesAtCategoryThisDate(String categoryNumber) {
@@ -260,6 +266,26 @@ public class PaymentControl {
                 
             }
         } catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 注文を支払済みにする
+     * @param orderNumber 注文番号
+     */
+    public void setPaidPayment(int orderNumber) {
+        List<Payment> paymentList;
+        try {
+            paymentList = paymentDAO.dbSearchPaymentOrderNumber(orderNumber);
+            
+            if (paymentList.size() > 0) {
+                if (paymentBoundary.showConfirmDialog("[" + paymentList.get(0).getOrderNumber() + "]を入金済みにしますか？", "確認") == JOptionPane.YES_OPTION) {
+                    paymentDAO.dbSetPaymentPaid(orderNumber);
+                }
+            }
+        }
+        catch (SQLException e) {
             paymentBoundary.showDBErrorMessage();
         }
     }

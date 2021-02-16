@@ -6,14 +6,20 @@
 package managerMenu.payment;
 
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import managerMenu.item.Category;
 
@@ -82,6 +88,18 @@ public class PaymentBoundary extends javax.swing.JFrame {
         paymentHistoryTableModel = new DefaultTableModel(paymentHistoryTitle, 0);
         jTablePaymentHistory.setModel(paymentHistoryTableModel);
         jTablePaymentHistory.setDefaultEditor(Object.class, null);  //エディタにnullを指定し編集不可に
+        setCellHorizontalAlignmentRight(jTablePaymentHistory, 5);
+        //ダブルクリック選択リスナー設定
+        jTablePaymentHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+                Point point = mouseEvent.getPoint();
+                int row = jTablePaymentHistory.rowAtPoint(point);
+                    if (mouseEvent.getClickCount() == 2 && jTablePaymentHistory.getSelectedRow() != -1) {
+                        setPaidPayment(row);
+                    }
+                }
+        });
         
         ////////////////////////////////////////////////////////////////////////
         
@@ -99,6 +117,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         dateSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableDateSales.setModel(dateSalesTableModel);
         jTableDateSales.setDefaultEditor(Object.class, null);
+        setCellHorizontalAlignmentRight(jTableDateSales, 3);
         
         ////////////////////////////////////////////////////////////////////////
         
@@ -108,6 +127,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         weekSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableWeekSales.setModel(weekSalesTableModel);
         jTableWeekSales.setDefaultEditor(Object.class, null);
+        setCellHorizontalAlignmentRight(jTableWeekSales, 3);
         
         //曜日ごとの売り上げ表
         weekAtDaySalesTableModel = new DefaultTableModel(salesWeekAtDayalesTitle, 0);
@@ -122,6 +142,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         monthSalesTableModel = new DefaultTableModel(salesTitle, 0);
         jTableMonthSales.setModel(monthSalesTableModel);
         jTableMonthSales.setDefaultEditor(Object.class, null);
+        setCellHorizontalAlignmentRight(jTableMonthSales, 3);
         
         //週ごとの売上表
         monthAtWeekSalesTableModel = new DefaultTableModel(salesMonthAtWeek, 0);
@@ -162,6 +183,18 @@ public class PaymentBoundary extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * テーブルの指定した列を右寄せ表示にする
+     * @param jTable       設定するテーブル
+     * @param culumnNumber 設定する列
+     */
+    private void setCellHorizontalAlignmentRight(JTable jTable, int culumnNumber) {
+        DefaultTableCellRenderer rightCellRenderer = new DefaultTableCellRenderer();
+        
+        rightCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        jTable.getColumnModel().getColumn(culumnNumber).setCellRenderer(rightCellRenderer);
+    }
+    
     /**************************************************************************/
     
     
@@ -218,6 +251,16 @@ public class PaymentBoundary extends javax.swing.JFrame {
         showErrorMessage("データベースエラーが発生しました", "エラー");
     }
     
+    /**
+     * コンファームダイアログ表示
+     * @param message メッセージ
+     * @param title   タイトル
+     * @return 結果
+     */
+    public int showConfirmDialog(String message, String title) {
+        return JOptionPane.showConfirmDialog(this, message, title, JOptionPane.OK_CANCEL_OPTION);
+    }
+    
     /**************************************************************************/
     
     /** 支払履歴画面 ***********************************************************/
@@ -239,10 +282,21 @@ public class PaymentBoundary extends javax.swing.JFrame {
             column[0] = Integer.toString(payment.getOrderNumber());
             column[1] = payment.getName();
             column[2] = payment.getPhoneNumber();
-            column[3] = payment.getOrderDate();
-            column[4] = payment.getPaymentDay();
-            column[5] = nf.format(payment.getAmount());
+            column[3] = payment.getOrderDate("yyyy年 MM月 dd日");
+            column[4] = payment.getPaymentDay("yyyy年 MM月 dd日");
+            column[5] = nf.format(payment.getAmount()) + "円";
             paymentHistoryTableModel.addRow(column);
+        }
+    }
+    
+    /**
+     * ダブルクリックされた行を支払済みにする
+     * @param row 行番号
+     */
+    public void setPaidPayment(int row) {
+        if (jTablePaymentHistory.getValueAt(row, 4).toString() == "未入金") {
+            control.setPaidPayment(Integer.parseInt(jTablePaymentHistory.getValueAt(row, 0).toString()));
+            control.showPaymentHistoryAll();
         }
     }
     
@@ -1085,7 +1139,18 @@ public class PaymentBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonShowMonthSalesCardActionPerformed
 
     private void jButtonSearchOrderNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderNumberActionPerformed
-        control.showPaymentOrderNumberHistory(Integer.parseInt(jTextField1.getText()));
+        if (jTextField1.getText().equals("")) {
+            control.showPaymentHistoryAll();
+        }
+        else {
+            if (jTextField1.getText().matches("[0-9]*")) {
+                control.showPaymentOrderNumberHistory(Integer.parseInt(jTextField1.getText()));
+            }
+            else {
+                showErrorMessage("入力は数字のみです", "入力エラー");
+            }
+        }
+        
     }//GEN-LAST:event_jButtonSearchOrderNumberActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

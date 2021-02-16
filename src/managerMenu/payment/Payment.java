@@ -5,6 +5,7 @@
  */
 package managerMenu.payment;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,14 +17,14 @@ public class Payment {
     private int    orderNumber;
     private String name;
     private String phoneNumber;
-    private String orderDate;
-    private String paymentDay;
+    private Date orderDate;
+    private Date paymentDay;
     private int    amount;
 
     public Payment() {
     }
 
-    public Payment(int orderNumber, String name, String phonNumber, String orderDate, String paymentDay, int amount) {
+    public Payment(int orderNumber, String name, String phonNumber, Date orderDate, Date paymentDay, int amount) {
         this.orderNumber = orderNumber;
         this.name = name;
         this.phoneNumber = phonNumber;
@@ -44,14 +45,27 @@ public class Payment {
         return phoneNumber;
     }
 
-    public String getOrderDate() {
+    public String getOrderDate(String format) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(orderDate);
+    }
+
+    public Date getOrderDate() {
         return orderDate;
     }
-
-    public String getPaymentDay() {
-        return paymentDay;
+    
+    public String getPaymentDay(String format) {
+        if (Objects.equals(this.paymentDay, null)) {
+            return "未入金";
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return Objects.equals(this.paymentDay, null) ? null : dateFormat.format(orderDate);
     }
 
+    public Date getPaymentDay() {
+        return orderDate;
+    }
+    
     public int getAmount() {
         return amount;
     }
@@ -69,24 +83,16 @@ public class Payment {
     }
 
     public void setOrderDate(Date orderDate) {
-        setOrderDate(orderDate.toString());
+        this.orderDate = orderDate;
     }
 
     public void setPaymentDay(Date paymentDay) {
         if (Objects.isNull(paymentDay)) {
-            setPaymentDay("未入金");
+            this.paymentDay = null;
         }
         else {
-            setPaymentDay(paymentDay.toString());
+           this.paymentDay = paymentDay;
         }
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public void setPaymentDay(String paymentDay) {
-        this.paymentDay = paymentDay;
     }
     
     public void setAmount(int amount) {
