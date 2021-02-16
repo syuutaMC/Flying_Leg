@@ -140,6 +140,25 @@ public class CustomerControl {
     }
     
     /**
+     * 顧客情報を削除する
+     * @param phoneNumber 電話番号 
+     */
+    void deleteCustomer(String phoneNumber) {
+        List<Customer> customerList;
+        try {
+            customerList = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
+            
+            if (customerList.size() > 0) {
+                customerDAO.dbDeleteCustomer(phoneNumber);
+                customerBoundary.clearMemberTextField();
+            }
+        }
+        catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
      * ×ボタン処理
      */
     public void exit(){

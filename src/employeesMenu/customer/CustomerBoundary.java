@@ -118,6 +118,15 @@ public class CustomerBoundary extends javax.swing.JFrame {
         }
     }
     
+    public void clearMemberTextField() {
+        jTextFieldPhoneNumber.setText("");
+        jTextFieldName.setText("");
+        jTextFieldPhoneNumber2.setText("");
+        jTextFieldAddress.setText("");
+        jTextFieldDelivaryNote.setText("");
+        control.showAllCustomerTable();
+    }
+    
     /**
      * 顧客情報表ダブルクリック時の処理
      * @param row 行番号
@@ -192,6 +201,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
         jButtonClose = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
+        jButtonDeleteCustomer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -212,7 +222,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(731, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,6 +330,13 @@ public class CustomerBoundary extends javax.swing.JFrame {
 
         jLabel6.setText("電話番号");
 
+        jButtonDeleteCustomer.setText("顧客情報を削除する");
+        jButtonDeleteCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteCustomerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -335,7 +352,10 @@ public class CustomerBoundary extends javax.swing.JFrame {
                                     .addComponent(jTextFieldPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jButtonCustomerSerarch)))
-                            .addComponent(jButtonCustomerUpdate)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButtonCustomerUpdate)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonDeleteCustomer))
                             .addComponent(jLabel5)
                             .addComponent(jTextFieldDelivaryNote)
                             .addComponent(jLabel4)
@@ -347,7 +367,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addGap(221, 221, 221))
                                 .addComponent(jTextFieldName)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -390,7 +410,9 @@ public class CustomerBoundary extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCustomerUpdate))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonCustomerUpdate)
+                            .addComponent(jButtonDeleteCustomer)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jButtonClose)
@@ -474,6 +496,14 @@ public class CustomerBoundary extends javax.swing.JFrame {
         control.exit();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButtonDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCustomerActionPerformed
+        if (JOptionPane.showConfirmDialog(this,"顧客情報を削除しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            control.deleteCustomer(getCustomer().getPhoneNumber());
+            control.showAllCustomerTable();
+        }
+        
+    }//GEN-LAST:event_jButtonDeleteCustomerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -520,6 +550,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonCustomerSerarch;
     private javax.swing.JButton jButtonCustomerUpdate;
+    private javax.swing.JButton jButtonDeleteCustomer;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

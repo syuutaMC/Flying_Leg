@@ -294,7 +294,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
      * @param row 行番号
      */
     public void setPaidPayment(int row) {
-        if (jTablePaymentHistory.getValueAt(row, 4).toString() == "未入金") {
+        if ("未入金".equals(jTablePaymentHistory.getValueAt(row, 4).toString())) {
             control.setPaidPayment(Integer.parseInt(jTablePaymentHistory.getValueAt(row, 0).toString()));
             control.showPaymentHistoryAll();
         }

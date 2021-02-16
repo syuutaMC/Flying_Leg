@@ -183,16 +183,17 @@ public class CustomerDAO {
     
     /**
      * 顧客情報を削除する
-     * @param customerNumber 顧客番号
+     * @param phoneNumber 電話番号
      * @throws SQLException 
      */
-    public void dbDeleteCustomer(int customerNumber) throws SQLException {
-        String sql = "DELETE CUSTOMERS WHERE CUSTOMER_NUMBER = ? ";
+    public void dbDeleteCustomer(String phoneNumber) throws SQLException {
+        String sql = "DELETE CUSTOMERS WHERE PHONE_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, customerNumber);
+            ps.setString(1, phoneNumber);
             
             ps.executeUpdate();
+            ps.close();
         }
         catch (SQLException e) {
             throw e;
