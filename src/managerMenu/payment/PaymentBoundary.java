@@ -6,6 +6,9 @@
 package managerMenu.payment;
 
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,6 +89,17 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jTablePaymentHistory.setModel(paymentHistoryTableModel);
         jTablePaymentHistory.setDefaultEditor(Object.class, null);  //エディタにnullを指定し編集不可に
         setCellHorizontalAlignmentRight(jTablePaymentHistory, 5);
+        //ダブルクリック選択リスナー設定
+        jTablePaymentHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+                Point point = mouseEvent.getPoint();
+                int row = jTablePaymentHistory.rowAtPoint(point);
+                    if (mouseEvent.getClickCount() == 2 && jTablePaymentHistory.getSelectedRow() != -1) {
+                        setPaidPayment(row);
+                    }
+                }
+        });
         
         ////////////////////////////////////////////////////////////////////////
         
@@ -237,6 +251,16 @@ public class PaymentBoundary extends javax.swing.JFrame {
         showErrorMessage("データベースエラーが発生しました", "エラー");
     }
     
+    /**
+     * コンファームダイアログ表示
+     * @param message メッセージ
+     * @param title   タイトル
+     * @return 結果
+     */
+    public int showConfirmDialog(String message, String title) {
+        return JOptionPane.showConfirmDialog(this, message, title, JOptionPane.OK_CANCEL_OPTION);
+    }
+    
     /**************************************************************************/
     
     /** 支払履歴画面 ***********************************************************/
@@ -262,6 +286,17 @@ public class PaymentBoundary extends javax.swing.JFrame {
             column[4] = payment.getPaymentDay("yyyy年 MM月 dd日");
             column[5] = nf.format(payment.getAmount()) + "円";
             paymentHistoryTableModel.addRow(column);
+        }
+    }
+    
+    /**
+     * ダブルクリックされた行を支払済みにする
+     * @param row 行番号
+     */
+    public void setPaidPayment(int row) {
+        if (jTablePaymentHistory.getValueAt(row, 4).toString() == "未入金") {
+            control.setPaidPayment(Integer.parseInt(jTablePaymentHistory.getValueAt(row, 0).toString()));
+            control.showPaymentHistoryAll();
         }
     }
     
