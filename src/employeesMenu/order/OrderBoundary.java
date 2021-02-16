@@ -1324,6 +1324,9 @@ public class OrderBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRemoveOrderItemActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (JOptionPane.showConfirmDialog(this,"注文を確定しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION) {
+            return;
+        }
         List<Item> items = new ArrayList<>();
         
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
