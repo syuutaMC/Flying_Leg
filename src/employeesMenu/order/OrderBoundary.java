@@ -6,12 +6,21 @@
 package employeesMenu.order;
 
 import employeesMenu.customer.Customer;
+import managerMenu.item.Item;
+import managerMenu.item.Category;
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import managerMenu.Item;
 
 /**
  * 注文画面
@@ -25,8 +34,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     private final CardLayout cardLayout;
     private OrderControl control;
     private Customer customer;
-    private DefaultTableModel itemTableModel;
-    private DefaultTableModel menuTableModel;
+    private DefaultTableModel orderTableModel;
+    private DefaultTableModel orderListTableModel;
+    private List<JTable> jtableMenuList;
+    private List<DefaultTableModel> menuTableModelList;
+    
+    private final double TAX = 0.1;
     
     /**
      * Creates new form OrderBoundary
@@ -36,7 +49,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         initAddAddressPanel();
         initTopPanel();
         initTableModel();
-        initMenuTableModel();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
     }
     
@@ -46,7 +58,10 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     public void setControl(OrderControl control) {
         this.control = control;
+        initTabedPane();
     }
+    
+    /** 初期化 ****************************************************************/
     
     /**
      * 住所入力画面の初期化
@@ -55,7 +70,92 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldName.setEditable(false);
         jTextFieldAddress.setEditable(false);
         jTextFieldPhoneNumber.setEditable(false);
+        jTextFieldDelivaryNote.setEditable(false);
+        jTextFieldSearchPhoneNumber.setText("");
+        jTextFieldPhoneNumber.setText("");
+        jTextFieldAddress.setText("");
+        jTextFieldName.setText("");
+        jTextFieldDelivaryNote.setText("");
         jCheckBox1.setEnabled(false);
+    }
+    
+    /**
+     * 注文商品選択画面の初期化
+     */
+    private void initOrderItemPanel(){
+        jTextFieldItemId.setText("");
+        jTableOrder.setRowHeight(0);
+        jTableMenu.setRowHeight(0);   
+        showOrderTotalPrice(0);
+    }
+    
+    /**
+     * TableModelの初期化
+     */
+    private void initTableModel(){
+        String[] orderTableTitle = {"商品番号", "商品名", "数量", "金額(税抜)"};
+        
+        orderListTableModel = new DefaultTableModel(orderTableTitle, 0);
+        orderTableModel = new DefaultTableModel(orderTableTitle, 0);
+        
+        //注文確認画面の注文表初期化
+        jTableOrderList.setModel(orderListTableModel);
+        jTableOrderList.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
+        setCellHorizontalAlignmentRight(jTableOrderList, 3);    //金額列を右寄せに
+        
+        //注文画面の注文表初期化
+        jTableOrder.setModel(orderTableModel);
+        jTableOrder.setDefaultEditor(Object.class, null);   //エディタにnullを指定し編集不可に
+        setCellHorizontalAlignmentRight(jTableOrder, 3);    //金額列を右寄せに
+        
+    }
+    
+    /**
+     * ダブドペイン初期化
+     */
+    private void initTabedPane() {
+        jTabbedPaneMenu.removeAll();
+        
+        String[] menuTableTitle = {"商品番号","商品名", "金額"};
+        
+        List<Category> categoryList = control.getCategory();
+        
+        ArrayList<JTable> tableList = new ArrayList<>();
+        ArrayList<JScrollPane> scrollPaneList = new ArrayList<>();
+        List<DefaultTableModel> menuTableModelList = new ArrayList<>();
+        
+        for(int i = 0; i < categoryList.size(); i++){
+            DefaultTableModel menuTableModel = new DefaultTableModel(menuTableTitle, 0);
+            
+            JTable jTable = new JTable(menuTableModel);
+            
+            //ダブルクリック選択リスナー設定
+            jTable.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent mouseEvent) {
+                    Point point = mouseEvent.getPoint();
+                    int row = jTable.rowAtPoint(point);
+                        if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
+                            menuTableSelectedItem(row);
+                        }
+                    }
+            });
+            
+            //金額列を右寄せに
+            setCellHorizontalAlignmentRight(jTable, 2);
+            
+            menuTableModelList.add(menuTableModel);
+            tableList.add(jTable);
+            scrollPaneList.add(new JScrollPane());
+            
+            scrollPaneList.get(i).setViewportView(tableList.get(i));
+            jTabbedPaneMenu.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
+        }
+        
+        initMenuTableModelSetEditableFalse(tableList);
+        
+        this.menuTableModelList = menuTableModelList;
+        this.jtableMenuList = tableList;
+        control.showMenu(categoryList);
     }
     
     /**
@@ -67,23 +167,30 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 注文商品表見出し初期化
+     * メニュー表列並べ替えを不可に設定
      */
-    private void initTableModel() {
-        String[] heading = {"商品番号", "商品名", "個数", "値段" };
-        itemTableModel = new DefaultTableModel(heading, 0);
-        jTableItem.setModel(itemTableModel);
+    private void initMenuTableModelSetEditableFalse(List<JTable> jTableList) {
+        for (JTable jTable : jTableList) {
+            jTable.getTableHeader().setReorderingAllowed(false);    //列の並べ替え不可
+            jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に 
+        }
     }
     
     /**
-     * メニュー表見出し初期化
+     * テーブルの指定した列を右寄せ表示にする
+     * @param jTable       設定するテーブル
+     * @param culumnNumber 設定する列
      */
-    private void initMenuTableModel() {
-        String[] heading = {"商品番号", "商品名", "値段" };
-        menuTableModel = new DefaultTableModel(heading, 0);
-        jTableMenu.setModel(menuTableModel);
+    private void setCellHorizontalAlignmentRight(JTable jTable, int culumnNumber) {
+        DefaultTableCellRenderer rightCellRenderer = new DefaultTableCellRenderer();
         
+        rightCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        jTable.getColumnModel().getColumn(culumnNumber).setCellRenderer(rightCellRenderer);
     }
+    
+    /**************************************************************************/
+    
+    /** 画面切り替え ***********************************************************/
     
     /**
      * 画面切り替え処理
@@ -99,136 +206,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     public void showCardFinalCheck(){
         cardLayout.show(jPanelCardBase, CARD_FINAL_CHECK);
     }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
     
-    /**
-     * 顧客情報テキストフィールド編集可否設定
-     * @param b true 編集可 | false 編集不可
-     */
-    public void setEditableCustomerTextFielde(boolean b) {
-        jTextFieldName.setEditable(b);
-        jTextFieldAddress.setEditable(b);
-        jTextFieldPhoneNumber.setEditable(b);
-    }
-
-    /**
-     * テキストフィールドに顧客情報を表示
-     * @param customer 顧客情報
-     */
-    public void showCustomerTextField(Customer customer) {
-        setCustomer(customer);
-        jTextFieldName.setText(getCustomer().getName());
-        jTextFieldPhoneNumber.setText(getCustomer().getPhoneNumber());
-        jTextFieldAddress.setText(getCustomer().getAddress());
-        jTextFieldDelivaryNote.setText(getCustomer().getDeliveryNote());
-        jCheckBox1.setEnabled(true);
-    }
+    /**************************************************************************/
     
-    /**
-     * メニュー表にメニューを表示
-     * @param itemList 商品リスト
-     */
-    public void showMenuTable(List<Item> itemList) {
-        menuTableModel.setRowCount(0);
-        String[] row = new String[3];
-        for (Item item : itemList) {
-            row[0] = item.getItemNumber();
-            row[1] = item.getItemName();
-            row[2] = Integer.toString(item.getQuantity());
-            menuTableModel.addRow(row);
-        }
-    }
-    
-    /**
-     * 注文商品を追加
-     * @param item 商品情報
-     */
-    public void showItemTable(Item item) {
-        String[] row = new String[4];
-        row[0] = item.getItemNumber();
-        row[1] = item.getItemName();
-        row[2] = Integer.toString(item.getQuantity());
-        row[3] = Integer.toString(item.getUnitPrice() * item.getQuantity());
-        itemTableModel.addRow(row);
-    }
-    
-    /**
-     * 注文商品を表示
-     * @param itemList 商品情報リスト
-     */
-//    public void showItemTable(List<Item> itemList) {
-//        String[] row = new String[4];
-//        for (Item item : itemList) {
-//            row[0] = item.getItemNumber();
-//            row[1] = item.getItemName();
-//            row[2] = Integer.toString(item.getQuantity());
-//            row[3] = Integer.toString(item.getUnitPrice() * item.getQuantity());
-//            itemTableModel.addRow(row);
-//        }
-//    }
-    
-    /**
-     * 注文表から商品を削除
-     * @param row 行番号
-     */
-    public void removeOrderItem(int row) {
-        itemTableModel.removeRow(row);
-    }
-    
-    /**
-     * 注文確認画面に情報を表示
-     */
-    public void showFinalCheckPanel() {
-        jLabelName.setText(jTextFieldName.getText());
-        jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
-        jLabelAddress.setText(jTextFieldAddress.getText());
-        jLabelDelivaryNote.setText(jTextFieldDelivaryNote.getText());
-    }
-    
-    /**
-     * 合計金額を計算し、最低合計金額を下回ったらメッセージを表示
-     * @return 合計金額
-     */
-    public int calcTotalPrice() {
-        int totalPrice = 0;
-        for (int i = 0; i < 1/*jTableItem.getRowCount()*/; i++) {
-            totalPrice += Integer.parseInt("1"/*jTableItem.getValueAt(i, 4).toString()*/);
-        }
-        if (ORDER_TOTAL_PRICE_UNDER_LIMIT > totalPrice) {
-            showTotalPriceErrorMessage();
-        } 
-        return totalPrice;
-    }
-    
-    /**
-     * 商品選択画面に合計金額を表示
-     * @param totalPrice 合計金額
-     */
-    public void showOrderTotalPrice(int totalPrice) {
-        jLabelOrderTotalPrice.setText(Integer.toString(totalPrice));
-    }
-    
-    /**
-     * 注文確認画面を有効化
-     * @param b true 有効化（切り替え可） | false 無効化(切り替え不可)
-     */
-    public void setEnabledFinalCheck(boolean b) {
-        jButtonFinalCheck.setEnabled(true);
-    }
-    
-    /**
-     * 注文画面終了処理
-     */
-    public void orderExit() {
-        control.exit();
-    }
+    /** ダイアログ *************************************************************/
     
     /**
      * エラーダイアログ表示
@@ -245,7 +226,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param title 　タイトル
      */
     public void showConfirmMessage(String message, String title) {
-        JOptionPane.showConfirmDialog(this, message, title, JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
@@ -280,6 +261,10 @@ public class OrderBoundary extends javax.swing.JFrame {
         showErrorMessage("データベースエラーが発生しました", "エラー");
     }
     
+    public void showItemNoIsNothingErrorMessage(String itemNo){
+        showErrorMessage("該当する商品番号がsありません", "エラー");
+    }
+    
     /**
      * 商品検索で商品が見つからなかったときのエラー
      */
@@ -301,6 +286,246 @@ public class OrderBoundary extends javax.swing.JFrame {
         showConfirmMessage("注文を確定しました", "確認");
     }
     
+    /**************************************************************************/
+    
+    /** 顧客確認画面処理 *******************************************************/
+    
+    /**
+     * 顧客情報テキストフィールド編集可否設定
+     * @param b true 編集可 | false 編集不可
+     */
+    public void setEditableCustomerTextFielde(boolean b) {
+        jTextFieldName.setEditable(b);
+        jTextFieldAddress.setEditable(b);
+        jTextFieldPhoneNumber.setEditable(b);
+    }
+
+    /**
+     * テキストフィールドに顧客情報を表示
+     * @param customer 顧客情報
+     */
+    public void showCustomerTextField(Customer customer) {
+        jLabelCustomerNumber.setText(Integer.toString(customer.getCustomerNumber()));
+        jTextFieldName.setText(customer.getName());
+        jTextFieldPhoneNumber.setText(customer.getPhoneNumber());
+        jTextFieldAddress.setText(customer.getAddress());
+        jTextFieldDelivaryNote.setText(customer.getDeliveryNote());
+        jCheckBox1.setEnabled(true);
+    }
+    
+    /**
+     * 顧客情報が入力されてるか確認
+     */
+    public void checkAddress(){
+        if(jTextFieldName.getText().equals("")){
+            
+        }
+        
+        if(jTextFieldPhoneNumber.getText().equals("")){  
+            
+        }
+        
+        if(jTextFieldAddress.getText().equals("")){
+            
+        }
+    }
+    
+    /**************************************************************************/
+    
+    /** 注文商品選択画面 *******************************************************/
+    
+    /**
+     * メニュー表にメニューを表示
+     * @param itemList 商品リスト
+     * @param tabIndex タブ番号
+     */
+    public void showMenuTable(List<Item> itemList, int tabIndex) {
+        
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        
+        menuTableModelList.get(tabIndex).setRowCount(0);
+        String[] row = new String[3];
+        
+        for (Item item : itemList) {
+            row[0] = item.getItemNumber();
+            row[1] = item.getItemName();
+            row[2] = nf.format(item.getUnitPrice()) + "円";
+            menuTableModelList.get(tabIndex).addRow(row);
+        }
+    }
+    
+    /**
+     * 注文商品検索
+     * @param itemNumber 商品番号
+     * @return column found >= 0 | not found -1
+     */
+    public int searchOrderItem(String itemNumber) {
+        
+        for (int i = 0; i < jTableOrder.getRowCount(); i++) {
+            if (itemNumber.equals(jTableOrder.getValueAt(i, 0).toString())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    /**
+     * 指定した行の注文商品の個数を一つ足す
+     * @param row 行番号
+     */
+    public void incrementOrderItem(int row) {
+        if (row > -1) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
+            int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", "").replace("円", ""));
+            
+            price = price / quantity;
+            jTableOrder.setValueAt(nf.format(++quantity), row, 2);
+            jTableOrder.setValueAt(nf.format(price * quantity) + "円", row, 3);
+            
+        }
+    }
+    
+    /**
+     * 指定した行の注文商品の個数を一つ減らす
+     * @param row 
+     */
+    public void decrementOrderItem(int row) {
+        if (row > -1) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            int quantity = Integer.parseInt(jTableOrder.getValueAt(row, 2).toString());
+            if (quantity > 1) {
+                int price    = Integer.parseInt(jTableOrder.getValueAt(row, 3).toString().replace(",", "").replace("円", ""));
+                price = price / quantity;
+                jTableOrder.setValueAt(nf.format(--quantity), row, 2);
+                jTableOrder.setValueAt(nf.format(price * quantity) + "円", row, 3);
+            }
+        }
+    }
+    
+    /**
+     * 注文商品を追加
+     * @param item 商品情報
+     */
+    public void addOrderTable(Item item) {
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        
+        String[] column = new String[4];
+        
+        item.setQuantity(1);
+        
+        column[0] = item.getItemNumber();
+        column[1] = item.getItemName();
+        column[2] = Integer.toString(item.getQuantity());
+        column[3] = nf.format(item.getUnitPrice() * item.getQuantity()) + "円";
+        orderTableModel.addRow(column);
+    }
+    
+    /**
+     * 注文表から商品を削除
+     * @param row 行番号
+     */
+    public void removeOrderItem(int row) {
+        orderTableModel.removeRow(row);
+    }
+    
+    /**
+     * 税込み合計金額を計算する
+     * @return 合計金額
+     */
+    public int calcTotalPrice() {
+        int totalPrice = 0;
+        for (int i = 0; i < jTableOrder.getRowCount(); i++) {
+            totalPrice += Integer.parseInt(jTableOrder.getValueAt(i, 3).toString().replace(",", "").replace("円", ""));
+        }
+        //totalPrice += taxCalculation(totalPrice);
+        return totalPrice;
+    }
+    
+    /**
+     * 商品選択画面に合計金額を表示
+     * 注文最低金額未満なら警告表示
+     * @param totalPrice 合計金額
+     */
+    public void showOrderTotalPrice(int totalPrice) {
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        jLabelTax.setText(nf.format(taxCalculation(totalPrice)) + "円");
+        jLabelOrderTotalPrice.setText(nf.format(taxCalculation(totalPrice) + totalPrice) + "円");
+        jLabelTotalPriceWarn.setVisible(taxCalculation(totalPrice) + totalPrice < ORDER_TOTAL_PRICE_UNDER_LIMIT);
+    }
+    
+    /**************************************************************************/
+    
+    /** 注文確認画面 ***********************************************************/
+    
+    /**
+     * 注文確認画面に情報を表示
+     */
+    public void showFinalCheckPanel() {
+        jLabelName.setText(jTextFieldName.getText());
+        jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
+        jLabelAddress.setText(jTextFieldAddress.getText());
+        jLabelDelivaryNote.setText(jTextFieldDelivaryNote.getText());
+        jLabelTotalPrice.setText(jLabelOrderTotalPrice.getText());
+        showCardFinalCheck();
+    } 
+    
+    /**
+     * 注文確認画面の注文表に注文商品を表示する
+     */
+    public void showOrderListTable() {
+        
+        String[] column = new String[4];
+        
+        orderListTableModel.setRowCount(0);
+        
+        for (int i = 0; orderTableModel.getRowCount() > i; i++) {
+            column[0] = (String)orderTableModel.getValueAt(i, 0);
+            column[1] = (String)orderTableModel.getValueAt(i, 1);
+            column[2] = (String)orderTableModel.getValueAt(i, 2);
+            column[3] = (String)orderTableModel.getValueAt(i, 3);
+            
+            orderListTableModel.addRow(column);
+        }
+    }
+    
+    /**
+     * 注文確認画面を有効化
+     * @param b true 有効化（切り替え可） | false 無効化(切り替え不可)
+     */
+    public void setEnabledFinalCheck(boolean b) {
+        jButtonFinalCheck.setEnabled(true);
+    }
+    
+    /**
+     * 注文画面終了処理
+     */
+    public void orderExit() {
+        control.exit();
+    }
+    
+    /**
+     * 注文確定後の初期化処理　または 中止処理
+     */
+    public void allReset(){
+        initAddAddressPanel();
+        initOrderItemPanel();
+        initTopPanel();
+    }
+    
+    /**
+     * 消費税計算
+     * @param price 金額
+     * @return 消費税金額
+     */
+    private int taxCalculation(int price) {
+        return (int)(Math.floor(price * TAX));
+    }
+    
+    /**************************************************************************/
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,9 +535,10 @@ public class OrderBoundary extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPaneMenu = new javax.swing.JScrollPane();
+        jTableMenu = new javax.swing.JTable();
         jPanelHeadder = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabelTime = new javax.swing.JLabel();
         jPanelTop = new javax.swing.JPanel();
         jButtonFinalCheck = new javax.swing.JButton();
         jButtonShippingAddress = new javax.swing.JButton();
@@ -333,27 +559,34 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextFieldDelivaryNote = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jLabelCustomerNumber = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jTextFieldOrderNumber = new javax.swing.JTextField();
+        jButtonSearchOrderNumber = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
         jPanelOrderItem = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableItem = new javax.swing.JTable();
+        jTableOrder = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldItemId = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButtonSearchItemId = new javax.swing.JButton();
         jPanelMenu = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableMenu = new javax.swing.JTable();
-        jButtonMainmenu = new javax.swing.JButton();
-        jButtonDrink = new javax.swing.JButton();
-        jButtonSideMenu = new javax.swing.JButton();
-        jButtonAddOrderItem = new javax.swing.JButton();
+        jTabbedPaneMenu = new javax.swing.JTabbedPane();
+        jLabel17 = new javax.swing.JLabel();
         jButtonRemoveOrderItem = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabelOrderTotalPrice = new javax.swing.JLabel();
+        jButtonIncrementOrderItem = new javax.swing.JButton();
+        jButtonDecrementItem = new javax.swing.JButton();
+        jLabelTotalPriceWarn = new javax.swing.JLabel();
         jPanelFinakCheck = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableOrderList = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -361,10 +594,37 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabelPhoneNumber = new javax.swing.JLabel();
         jLabelAddress = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabelPrice = new javax.swing.JLabel();
+        jLabelTotalPrice = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabelDelivaryNote = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabelTax = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+
+        jTableMenu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "商品番号", "商品名", "金額"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPaneMenu.setViewportView(jTableMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("注文画面");
@@ -380,8 +640,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
         jLabel1.setText("注文受付");
 
-        jLabelTime.setText("yyyy/MM/dd hh:mm:ss");
-
         javax.swing.GroupLayout jPanelHeadderLayout = new javax.swing.GroupLayout(jPanelHeadder);
         jPanelHeadder.setLayout(jPanelHeadderLayout);
         jPanelHeadderLayout.setHorizontalGroup(
@@ -389,15 +647,12 @@ public class OrderBoundary extends javax.swing.JFrame {
             .addGroup(jPanelHeadderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelHeadderLayout.setVerticalGroup(
             jPanelHeadderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHeadderLayout.createSequentialGroup()
-                .addGroup(jPanelHeadderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelTime)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
@@ -495,6 +750,17 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
+        jLabel18.setText("顧客番号");
+
+        jLabelCustomerNumber.setText(" ");
+
+        jLabel19.setText("伝票番号");
+
+        jButtonSearchOrderNumber.setText("検索");
+
+        jLabel20.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel20.setText("注文処理が完了しているものを変更する場合に入力");
+
         javax.swing.GroupLayout jPanelAddAddressLayout = new javax.swing.GroupLayout(jPanelAddAddress);
         jPanelAddAddress.setLayout(jPanelAddAddressLayout);
         jPanelAddAddressLayout.setHorizontalGroup(
@@ -502,9 +768,6 @@ public class OrderBoundary extends javax.swing.JFrame {
             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                        .addGap(592, 592, 592))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -512,17 +775,10 @@ public class OrderBoundary extends javax.swing.JFrame {
                     .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                         .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(376, 376, 376)
+                                .addComponent(jLabelCustomerNumber)
+                                .addGap(364, 364, 364)
                                 .addComponent(jCheckBox1))
-                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldSearchPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonCustomerCheck)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3))
+                            .addComponent(jLabel4)
                             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(jLabel5))
@@ -531,21 +787,57 @@ public class OrderBoundary extends javax.swing.JFrame {
                             .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
+                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
+                        .addGap(75, 75, 75))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldSearchPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCustomerCheck)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldOrderNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSearchOrderNumber)))
+                        .addGap(9, 9, 9))))
         );
         jPanelAddAddressLayout.setVerticalGroup(
             jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldSearchPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCustomerCheck)
-                    .addComponent(jButton3))
-                .addGap(27, 27, 27)
-                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jButton3)
+                    .addComponent(jLabel19)
+                    .addComponent(jTextFieldOrderNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchOrderNumber))
+                .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelAddAddressLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jCheckBox1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelCustomerNumber)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -560,7 +852,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -580,27 +872,38 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
-        jTableItem.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "商品番号", "商品名", "数量", "金額"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTableItem.setToolTipText("");
-        jScrollPane1.setViewportView(jTableItem);
+        jTableOrder.setToolTipText("");
+        jTableOrder.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableOrder);
+        if (jTableOrder.getColumnModel().getColumnCount() > 0) {
+            jTableOrder.getColumnModel().getColumn(0).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(1).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(2).setResizable(false);
+            jTableOrder.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel9.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel9.setText("商品検索");
@@ -617,87 +920,28 @@ public class OrderBoundary extends javax.swing.JFrame {
         jPanelMenu.setBackground(new java.awt.Color(204, 255, 255));
         jPanelMenu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "メニュー\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("MS UI Gothic", 1, 18))); // NOI18N
 
-        jTableMenu.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(jTableMenu);
-
-        jButtonMainmenu.setText("メインメニュー");
-        jButtonMainmenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMainmenuActionPerformed(evt);
-            }
-        });
-
-        jButtonDrink.setText("ドリンク");
-        jButtonDrink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDrinkActionPerformed(evt);
-            }
-        });
-
-        jButtonSideMenu.setText("サイドメニュー");
-        jButtonSideMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSideMenuActionPerformed(evt);
-            }
-        });
-
-        jButtonAddOrderItem.setText("追加");
-        jButtonAddOrderItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddOrderItemActionPerformed(evt);
-            }
-        });
+        jLabel17.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel17.setText("ダブルクリックで商品選択");
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
+            .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPaneMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                     .addGroup(jPanelMenuLayout.createSequentialGroup()
-                        .addComponent(jButtonMainmenu)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonDrink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(37, 37, 37))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonAddOrderItem, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMenuLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonMainmenu)
-                    .addComponent(jButtonDrink)
-                    .addComponent(jButtonSideMenu))
-                .addGap(37, 37, 37)
-                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAddOrderItem))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPaneMenu))
         );
 
         jButtonRemoveOrderItem.setText("商品を取り除く");
@@ -708,11 +952,29 @@ public class OrderBoundary extends javax.swing.JFrame {
         });
 
         jLabel15.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
-        jLabel15.setText("合計金額 : ");
+        jLabel15.setText("合計金額(税込み) : ");
 
         jLabelOrderTotalPrice.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabelOrderTotalPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelOrderTotalPrice.setText("0円");
+
+        jButtonIncrementOrderItem.setText("1つ足す");
+        jButtonIncrementOrderItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncrementOrderItemActionPerformed(evt);
+            }
+        });
+
+        jButtonDecrementItem.setText("1つ減らす");
+        jButtonDecrementItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDecrementItemActionPerformed(evt);
+            }
+        });
+
+        jLabelTotalPriceWarn.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabelTotalPriceWarn.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelTotalPriceWarn.setText("注文は1500円以上から受け付けています");
 
         javax.swing.GroupLayout jPanelOrderItemLayout = new javax.swing.GroupLayout(jPanelOrderItem);
         jPanelOrderItem.setLayout(jPanelOrderItemLayout);
@@ -727,27 +989,31 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelOrderItemLayout.createSequentialGroup()
-                                .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addGroup(jPanelOrderItemLayout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(25, 25, 25)
+                                .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
                                 .addComponent(jButtonSearchItemId))
                             .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9))))
+                                .addComponent(jLabel9))
+                            .addComponent(jLabel10)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jButtonIncrementOrderItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDecrementItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonRemoveOrderItem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderItemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelTotalPriceWarn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -765,19 +1031,26 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldItemId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonSearchItemId))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRemoveOrderItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonRemoveOrderItem)
+                            .addComponent(jButtonIncrementOrderItem)
+                            .addComponent(jButtonDecrementItem))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelOrderItemLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelOrderTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelTotalPriceWarn)))
                     .addGroup(jPanelOrderItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)))
                 .addContainerGap())
         );
+
+        jLabelTotalPriceWarn.getAccessibleContext().setAccessibleName("jLabel16");
 
         jPanelCardBase.add(jPanelOrderItem, "card3");
 
@@ -790,6 +1063,34 @@ public class OrderBoundary extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jTableOrderList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableOrderList.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableOrderList);
+        if (jTableOrderList.getColumnModel().getColumnCount() > 0) {
+            jTableOrderList.getColumnModel().getColumn(0).setResizable(false);
+            jTableOrderList.getColumnModel().getColumn(1).setResizable(false);
+            jTableOrderList.getColumnModel().getColumn(2).setResizable(false);
+            jTableOrderList.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel7.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -813,12 +1114,17 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("支払総金額");
 
-        jLabelPrice.setText("allPrice");
+        jLabelTotalPrice.setText("allPrice");
 
         jLabel14.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel14.setText("配達備考");
 
         jLabelDelivaryNote.setText("a");
+
+        jLabel16.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabel16.setText("消費税額");
+
+        jLabelTax.setText("jLabel17");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -827,31 +1133,38 @@ public class OrderBoundary extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                            .addComponent(jLabelPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(340, 340, 340))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPrice)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-                                    .addComponent(jLabelPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(328, 328, 328))))))
+                            .addComponent(jLabelTax)
+                            .addComponent(jLabelTotalPrice))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel6, jLabel7, jLabel8, jLabelPrice});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel6, jLabel7, jLabel8, jLabelTotalPrice});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -872,14 +1185,20 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabelDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabelTax))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPrice))
-                .addContainerGap(155, Short.MAX_VALUE))
+                    .addComponent(jLabelTotalPrice))
+                .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel13, jLabel6, jLabel7, jLabel8, jLabelAddress, jLabelName, jLabelPhoneNumber, jLabelPrice});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel13, jLabel6, jLabel7, jLabel8, jLabelAddress, jLabelName, jLabelPhoneNumber, jLabelTotalPrice});
 
         jLabel11.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel11.setText("伝票確認");
@@ -897,7 +1216,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                     .addGroup(jPanelFinakCheckLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(42, 42, 42)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -921,9 +1240,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanelCardBase, javax.swing.GroupLayout.PREFERRED_SIZE, 983, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanelCardBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelHeadder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -945,15 +1262,18 @@ public class OrderBoundary extends javax.swing.JFrame {
             jTextFieldName.setEditable(true);
             jTextFieldAddress.setEditable(true);
             jTextFieldPhoneNumber.setEditable(true);
+            jTextFieldDelivaryNote.setEditable(true);
         }else{
             jTextFieldName.setEditable(false);
             jTextFieldAddress.setEditable(false);
             jTextFieldPhoneNumber.setEditable(false);
+            jTextFieldDelivaryNote.setEditable(false);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButtonSelectItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectItemActionPerformed
         showCardOrderItem();
+        control.checkAddress();
         jButtonSelectedItem.setEnabled(true);
         jLabelName.setText(jTextFieldName.getText());
         jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
@@ -977,7 +1297,11 @@ public class OrderBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonCustomerCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerCheckActionPerformed
-        control.searchCustomer(jTextFieldSearchPhoneNumber.getText());
+        if(jTextFieldSearchPhoneNumber.getText().equals("")){
+            showErrorMessage("電話番号を入力してください", "エラー");
+        }else{
+            control.searchCustomer(jTextFieldSearchPhoneNumber.getText());
+        }
     }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -990,42 +1314,48 @@ public class OrderBoundary extends javax.swing.JFrame {
 
     private void jButtonSearchItemIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchItemIdActionPerformed
         control.searchItemItemNumber(jTextFieldItemId.getText());
+        jTextFieldItemId.setText("");
     }//GEN-LAST:event_jButtonSearchItemIdActionPerformed
 
-    private void jButtonMainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMainmenuActionPerformed
-        control.searchMainMenu();
-    }//GEN-LAST:event_jButtonMainmenuActionPerformed
-
-    private void jButtonDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrinkActionPerformed
-        control.searchDrinkMenu();
-    }//GEN-LAST:event_jButtonDrinkActionPerformed
-
-    private void jButtonSideMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSideMenuActionPerformed
-        control.searchSideMenu();
-    }//GEN-LAST:event_jButtonSideMenuActionPerformed
-
-    private void jButtonAddOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddOrderItemActionPerformed
-        
-    }//GEN-LAST:event_jButtonAddOrderItemActionPerformed
-
     private void jButtonRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveOrderItemActionPerformed
-        if (jTableItem.getSelectedRow() > 0) {
-            control.removeOrderItem(jTableItem.getSelectedRow());
+        if (jTableOrder.getSelectedRow() > -1) {
+            control.removeOrderItem(jTableOrder.getSelectedRow());
         }
     }//GEN-LAST:event_jButtonRemoveOrderItemActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (JOptionPane.showConfirmDialog(this,"注文を確定しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.CANCEL_OPTION) {
+            return;
+        }
         List<Item> items = new ArrayList<>();
         
-        for (int i = 0; i < jTableItem.getRowCount(); i++) {
+        for (int i = 0; i < jTableOrder.getRowCount(); i++) {
             Item item = new Item();
-            item.setItemNumber(jTableItem.getValueAt(i, 1).toString());
-            item.setQuantity(Integer.parseInt(jTableItem.getValueAt(i, 3).toString()));
+            item.setItemNumber(jTableOrder.getValueAt(i, 0).toString());
+            item.setQuantity(Integer.parseInt(jTableOrder.getValueAt(i, 2).toString()));
             items.add(item);
         }
         
-        control.orderFixing( customer.getCustomerNumber(), customer.getAddress(), items);
+        control.orderFixing( Integer.parseInt(jLabelCustomerNumber.getText()), jTextFieldAddress.getText(), items);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonIncrementOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncrementOrderItemActionPerformed
+        incrementOrderItem(jTableOrder.getSelectedRow());
+        showOrderTotalPrice(calcTotalPrice());
+    }//GEN-LAST:event_jButtonIncrementOrderItemActionPerformed
+
+    private void jButtonDecrementItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecrementItemActionPerformed
+        decrementOrderItem(jTableOrder.getSelectedRow());
+        showOrderTotalPrice(calcTotalPrice());
+    }//GEN-LAST:event_jButtonDecrementItemActionPerformed
+    
+    private void menuTableSelectedItem(int row) {
+        int tabNo = jTabbedPaneMenu.getSelectedIndex();
+        
+        if (jtableMenuList.get(tabNo).getSelectedRow() > -1) {
+            control.addOrderItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString());
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -1070,17 +1400,16 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonAddOrderItem;
     private javax.swing.JButton jButtonCustomerCheck;
-    private javax.swing.JButton jButtonDrink;
+    private javax.swing.JButton jButtonDecrementItem;
     private javax.swing.JButton jButtonFinalCheck;
-    private javax.swing.JButton jButtonMainmenu;
+    private javax.swing.JButton jButtonIncrementOrderItem;
     private javax.swing.JButton jButtonRemoveOrderItem;
     private javax.swing.JButton jButtonSearchItemId;
+    private javax.swing.JButton jButtonSearchOrderNumber;
     private javax.swing.JButton jButtonSelectItem;
     private javax.swing.JButton jButtonSelectedItem;
     private javax.swing.JButton jButtonShippingAddress;
-    private javax.swing.JButton jButtonSideMenu;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1089,7 +1418,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1098,12 +1432,14 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAddress;
+    private javax.swing.JLabel jLabelCustomerNumber;
     private javax.swing.JLabel jLabelDelivaryNote;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelOrderTotalPrice;
     private javax.swing.JLabel jLabelPhoneNumber;
-    private javax.swing.JLabel jLabelPrice;
-    private javax.swing.JLabel jLabelTime;
+    private javax.swing.JLabel jLabelTax;
+    private javax.swing.JLabel jLabelTotalPrice;
+    private javax.swing.JLabel jLabelTotalPriceWarn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAddAddress;
     private javax.swing.JPanel jPanelCardBase;
@@ -1113,13 +1449,17 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelOrderItem;
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTableItem;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneMenu;
+    private javax.swing.JTabbedPane jTabbedPaneMenu;
     private javax.swing.JTable jTableMenu;
+    private javax.swing.JTable jTableOrder;
+    private javax.swing.JTable jTableOrderList;
     private javax.swing.JTextField jTextFieldAddress;
     private javax.swing.JTextField jTextFieldDelivaryNote;
     private javax.swing.JTextField jTextFieldItemId;
     private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldOrderNumber;
     private javax.swing.JTextField jTextFieldPhoneNumber;
     private javax.swing.JTextField jTextFieldSearchPhoneNumber;
     // End of variables declaration//GEN-END:variables

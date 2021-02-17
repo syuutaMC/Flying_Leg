@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import managerMenu.Item;
+import managerMenu.item.Item;
 import sys.DBManager;
 
 /**
@@ -87,6 +87,7 @@ public class ItemDAO {
                      " WHERE ITEM_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
+            //ps.setString(1, itemNumber);
             ps.setString(1, itemNumber);
             itemList = selectItemExucte();
         }
@@ -98,7 +99,7 @@ public class ItemDAO {
     }
     
     /**
-     * 商品名検索
+     * 商品区別検索
      * @param itemName 商品名
      * @return 商品情報
      * @throws SQLException 
@@ -106,7 +107,7 @@ public class ItemDAO {
     public List<Item> dbSearchItemItemName(String itemName) throws SQLException {
         List<Item> itemList = new ArrayList<>();
         String sql = "SELECT * FROM ITEMS " + 
-                     " WHERE ITEM_NAME LIKE ? ";
+                     " WHERE ITEM_NUMBER LIKE ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, "%" + itemName + "%");
@@ -121,8 +122,7 @@ public class ItemDAO {
     
     /**
      * 商品全件検索
-     * @return 商品情報
-     * @throws SQLException 
+     * @return 商品情報 
      */
     public List<Item> dbSearchItemAll() {
         List<Item> itemList = new ArrayList<>();
@@ -144,10 +144,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemMainMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%M%");
+            ps.setString(1, "M%");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,10 +162,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemDrinkMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%D%");
+            ps.setString(1, "D%");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,10 +180,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemSideMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELCT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ? ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%S%");
+            ps.setString(1, "S%");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,11 +191,115 @@ public class ItemDAO {
         
         return itemList;
     }
-    public static void main(String[] args) {
-        ItemDAO idao = new ItemDAO();
-        List<Item> itemList = idao.dbSearchItemAll();
-        for (Item i : itemList) {
-            System.out.println(i);
+    
+    /**
+     * 商品をカテゴリで検索
+     * @param categoryNumber カテゴリ番号
+     */
+    public List<Item> dbSearchItemCategory(String categoryNumber) {
+        List<Item> itemList = new ArrayList<>();
+        String sql = "SELECT CATEGORY_NUMBER || SUBSTR(ITEM_NUMBER, 2) AS \"ITEM_NUMBER\", ITEM_NAME, UNIT_PRICE " +
+                     " FROM ITEMS JOIN ITEM_CATEGORIES USING(CATEGORY_NUMBER) " +
+                     " WHERE CATEGORY_NUMBER = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber);
+            itemList = selectItemExucte();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return itemList;
+    }
+    
+    /**
+     * 商品追加
+     * @param item 商品情報 
+     */
+    public void dbAddItem(Item item) {
+        String sql = "INSERT INTO items( item_number, category_number, item_name, unit_price) " + 
+                     " VALUES( ?, ?, ?, ?) ";
+        try {
+            ps = con.prepareCall(sql);
+            ps.setString(1, item.getItemNumber());
+            ps.setString(2, item.getItemCategory());
+            ps.setString(3, item.getItemName());
+            ps.setInt(4, item.getUnitPrice());
+            
+            ps.executeQuery();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 商品情報更新処理
+     * @param itemNumber 更新する商品番号
+     * @param item       新しい商品情報
+     */
+    public void dbUpdateItem(String itemNumber, Item item) {
+        String sql = "UPDATE items " +
+                     " SET item_number     = ? " +
+                     "     category_number = ? " +
+                     "     item_name       = ? " +
+                     "     unit_price      = ? " +
+                     " WHERE item_number   = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, item.getItemNumber());
+            ps.setString(2, item.getItemCategory());
+            ps.setString(3, item.getItemName());
+            ps.setInt(4, item.getUnitPrice());
+            ps.setString(5, itemNumber);
+            
+            ps.executeQuery().close();
+            
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 新しい商品番号の候補を取得する
+     * @return 新しい商品番号 | 取得に失敗した場合 -1
+     * @throws java.sql.SQLException
+     */
+    public String dbGetNewNumber() throws SQLException {
+        int newNumber = -1;
+        String sql = "SELECT MAX(TO_NUMBER(item_number)) FROM items";
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            newNumber = rs.getInt("item_number");
+            rs.close();
+        }
+        catch (SQLException e) {
+            throw e;
+        }
+        
+        return Integer.toString(newNumber);
+    }
+    
+    /**
+     * 商品を追加
+     * @param item 商品情報
+     * @throws SQLException 
+     */
+    public void dbSetNewItem(Item item) throws SQLException {
+        String sql = "INSERT INTO items(item_number, item_name, unit_price, category_number) " + 
+                     " VALUES( ?, ?, ?, ?) ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, item.getItemNumber());
+            ps.setString(2, item.getItemName());
+            ps.setInt(3, item.getUnitPrice());
+            ps.setString(4, item.getItemCategory());
+            ResultSet rs = ps.executeQuery();
+            rs.close();
+        } catch (SQLException e) {
+            throw e;
         }
     }
 }

@@ -1,0 +1,69 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package managerMenu.item;
+
+/**
+ * 商品クラス
+ * @author 19jz0137
+ */
+public class Item {
+    private String itemNumber;
+    private String itemCategory;
+    private String itemName;
+    private int    unitPrice;
+    private int    quantity;
+
+    public Item() {
+    }
+
+    public Item(String itemNumber, String itemCategory, String itemName, int unitPrice) {
+        this.itemNumber   = itemNumber;
+        this.itemCategory = itemCategory;
+        this.itemName     = itemName;
+        this.unitPrice    = unitPrice;
+    }
+
+    public String getItemNumber() {
+        return itemNumber;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getUnitPrice() {
+        return unitPrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getItemCategory() {
+        return itemCategory;
+    }
+
+    public void setItemNumber(String itemNumber) {
+        this.itemNumber = itemNumber;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setUnitPrice(int unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setItemCategory(String itemCategory) {
+        this.itemCategory = itemCategory;
+    }
+        
+}

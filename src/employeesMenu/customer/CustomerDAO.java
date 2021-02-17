@@ -11,8 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLType;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 顧客DAO
@@ -86,7 +89,7 @@ public class CustomerDAO {
      * @throws java.sql.SQLException
      */
     public List<Customer> dbSearchCustomerPhoneNumber(String phoneNumber) throws SQLException {
-        List<Customer> customerList = new ArrayList<>();
+        List<Customer> customerList;
         String sql = "SELECT * FROM CUSTOMERS " + 
                      " WHERE PHONE_NUMBER = ? ";
         try {
@@ -95,6 +98,24 @@ public class CustomerDAO {
             customerList = selectCustomerExcute();
         }
         catch (SQLException e) {
+            throw e;
+        }
+        
+        return customerList;
+    }
+    
+    /**
+     * 顧客情報全件検索
+     * @return 顧客情報
+     * @throws SQLException 
+     */
+    public List<Customer> dbSearchCustomerAll() throws SQLException {
+        List<Customer> customerList;
+        String sql = "SELECT * FROM CUSTOMERS ";
+        try {
+            ps = con.prepareCall(sql);
+            customerList = selectCustomerExcute();
+        } catch (SQLException e) {
             throw e;
         }
         
@@ -134,18 +155,47 @@ public class CustomerDAO {
     public void dbUpdateCustomer(Customer customer) throws SQLException {
         String sql = "UPDATE CUSTOMERS " +   
                      " SET   NAME = ?," + 
-                     "       PHONE_NUMBER = ?," +
-                     "       ADDRESS = ?," + 
-                     "       DELIVERY_NOTE = ?" + 
+                     "       PHONE_NUMBER = ?, " +
+                     "       ADDRESS = ?, " + 
+                     "       DELIVERY_NOTE = ? " + 
                      " WHERE CUSTOMER_NUMBER = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getPhoneNumber());
             ps.setString(3, customer.getAddress());
-            ps.setString(4, customer.getDeliveryNote());
+            
+//            if (Objects.isNull(customer.getDeliveryNote())) {
+//                ps.setString(4, customer.getDeliveryNote());
+//            }
+//            else {
+//                ps.setString(4, customer.getDeliveryNote());
+//            }
+            
+            ps.setString(4, "TEST");
+
             ps.setInt(5, customer.getCustomerNumber());
+            
+            ps.executeUpdate();
         } catch (SQLException e) {
+            throw e;
+        }
+    }
+    
+    /**
+     * 顧客情報を削除する
+     * @param phoneNumber 電話番号
+     * @throws SQLException 
+     */
+    public void dbDeleteCustomer(String phoneNumber) throws SQLException {
+        String sql = "DELETE CUSTOMERS WHERE PHONE_NUMBER = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, phoneNumber);
+            
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
             throw e;
         }
     }

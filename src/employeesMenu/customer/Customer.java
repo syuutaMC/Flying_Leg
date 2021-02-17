@@ -5,6 +5,8 @@
  */
 package employeesMenu.customer;
 
+import java.util.Objects;
+
 /**
  * 顧客クラス
  * @author 19jz0137
@@ -21,7 +23,7 @@ public class Customer {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.deliveryNote = deliveryNote;
+        setDeliveryNote(deliveryNote);
     }
 
     public Customer(String name, String phoneNumber, String address, String deliveryNote) {
@@ -37,7 +39,7 @@ public class Customer {
      * @return 有効 true | 無効 false
      */
     public boolean isValid() {
-        return !(customerNumber <= 0 || name.equals("") || phoneNumber.equals("") || address.equals("") || deliveryNote.equals(""));
+        return !(name.equals("") || phoneNumber.equals("") || address.equals(""));
     }
     
     public int getCustomerNumber() {
@@ -65,7 +67,7 @@ public class Customer {
     }
     
     public void setName(String name) {
-        this.name = name;
+        this.name = name.replace("　", " ");
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -77,7 +79,11 @@ public class Customer {
     }
 
     public void setDeliveryNote(String deliveryNote) {
-        this.deliveryNote = deliveryNote;
+        if (Objects.equals(deliveryNote, null)) {
+            this.deliveryNote = "";
+        } else {
+            this.deliveryNote = deliveryNote;
+        }
     }  
     
 }

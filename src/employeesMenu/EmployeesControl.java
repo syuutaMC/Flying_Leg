@@ -7,32 +7,31 @@ package employeesMenu;
 
 import employeesMenu.customer.CustomerControl;
 import employeesMenu.order.OrderControl;
+import sys.SystemControl;
 
 /**
  * 従業員メニューコントロールクラス
  * @author 19jz0115
  */
-public class EmployeesMenuControl {
-    private final EmployeesMenuBoundary employeesMenuBoundary;
+public class EmployeesControl {
     private final CustomerControl customerControl;
     private final OrderControl orderControl;
+    private SystemControl control;
     
-    public EmployeesMenuControl() {
-        employeesMenuBoundary = new EmployeesMenuBoundary();
+    public EmployeesControl() {
         customerControl = new CustomerControl();
         orderControl = new OrderControl();
     }
     
-    public void start(){
-        employeesMenuBoundary.setControl(this);
-        employeesMenuBoundary.setVisible(true);
+    public void setControl(SystemControl control){
+        this.control = control;
     }
     
     /**
      * 顧客確認画面を表示する
      */
     public void showCustomerBoundary(){
-        employeesMenuBoundary.setVisible(false);
+        control.setVisibleMainMenu(false);
         customerControl.setControl(this);
         customerControl.initControl();
         customerControl.showCustomerCheckBoundary();
@@ -42,7 +41,7 @@ public class EmployeesMenuControl {
      * 注文画面を表示する
      */
     public void showOrderBoundary(){
-        employeesMenuBoundary.setVisible(false);
+        control.setVisibleMainMenu(false);
         orderControl.setControl(this);
         orderControl.start();
     }
@@ -51,7 +50,7 @@ public class EmployeesMenuControl {
      * 画面を閉じる処理
      */
     public void exitMediaView(){
-        employeesMenuBoundary.setVisible(true);
+        control.setVisibleMainMenu(true);
     }
     
     /**
@@ -70,13 +69,5 @@ public class EmployeesMenuControl {
         customerControl.setControl(this);
         customerControl.initControl();
         customerControl.showCustomerAddBoundary(phoneNumber);
-    }
-    
-    /**
-     * テストメインクラス
-     * @param args 
-     */
-    public static void main(String[] args) {
-        new EmployeesMenuControl().start();
     }
 }
