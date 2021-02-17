@@ -165,14 +165,7 @@ public class CustomerDAO {
             ps.setString(2, customer.getPhoneNumber());
             ps.setString(3, customer.getAddress());
             
-//            if (Objects.isNull(customer.getDeliveryNote())) {
-//                ps.setString(4, customer.getDeliveryNote());
-//            }
-//            else {
-//                ps.setString(4, customer.getDeliveryNote());
-//            }
-            
-            ps.setString(4, "TEST");
+            ps.setString(4, customer.getDeliveryNote());
 
             ps.setInt(5, customer.getCustomerNumber());
             
