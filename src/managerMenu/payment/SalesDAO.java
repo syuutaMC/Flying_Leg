@@ -132,6 +132,61 @@ public class SalesDAO {
     }
     
     /**
+     * 問い合わせ結果をsalesAtWeekに格納
+     * @param salesAtWeek 曜日売上
+     * @param rs 　　　　　問い合わせ結果
+     */
+    public void setSalesAtDay(SalesAtWeek salesAtWeek, ResultSet rs) {
+        try {
+            Date salesDate      = rs.getDate("SALES_DATE");
+            int  storeNumber    = rs.getInt("STORE_NUMBER");
+            int  sun            = rs.getInt("SUN");
+            int  mon            = rs.getInt("MON");
+            int  tue            = rs.getInt("TUE");
+            int  wed            = rs.getInt("WED");
+            int  thu            = rs.getInt("THU");
+            int  fry            = rs.getInt("FRY");
+            int  sat            = rs.getInt("SAT");
+            
+            salesAtWeek.setSalesDate(salesDate);
+            salesAtWeek.setStoreNumber(storeNumber);
+            salesAtWeek.setSun(sun);
+            salesAtWeek.setMon(mon);
+            salesAtWeek.setTue(tue);
+            salesAtWeek.setWed(wed);
+            salesAtWeek.setThu(thu);
+            salesAtWeek.setFry(fry);
+            salesAtWeek.setSat(sat);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 曜日売り上げ検索処理実行
+     * @return 週間売上情報
+     * @throws SQLException 
+     */
+    public List<SalesAtWeek> selectSalesAtDayExecute() throws SQLException {
+        List<SalesAtWeek> salesAtWeekList = new ArrayList<>();
+        try {
+            salesAtWeekList.clear();
+            ResultSet rs = ps.executeQuery();
+            //結果の格納
+            while (rs.next()) {                
+                SalesAtWeek salesAtWeek = new SalesAtWeek();
+                setSalesAtDay(salesAtWeek, rs);
+                salesAtWeekList.add(salesAtWeek);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesAtWeekList;
+    }
+    
+    /**
      * 週間売り上げ検索処理実行
      * @return 週間売上情報
      * @throws SQLException 
@@ -250,7 +305,7 @@ public class SalesDAO {
                      " FROM SALES_PER_MONTH_EVERY_WEEK" +
                      " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') ";
         try {
-            ps = con.prepareCall(sql);
+            ps = con.prepareStatement(sql);
             salesAtWeekList = selectSalesAtWeeksExecute();
         } catch (SQLException e) {
             throw e;
@@ -271,7 +326,7 @@ public class SalesDAO {
                      " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') ";
         try {
             ps = con.prepareCall(sql);
-            salesAtWeekList = selectSalesAtWeeksExecute();
+            salesAtWeekList = selectSalesAtDayExecute();
         } catch (SQLException e) {
             throw e;
         }
