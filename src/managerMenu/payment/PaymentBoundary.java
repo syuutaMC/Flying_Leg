@@ -154,6 +154,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
     
     private void initTabedPane(){
         jTabbedCategoryDate.removeAll();
+        jTabbedCategoryWeek.removeAll();
+        jTabbedCategoryMonth.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "注文数"};
         menuTableModel = new DefaultTableModel(menuTableTitle, 0);
@@ -347,7 +349,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
             for (Sales sales : salesList) {
                 column[0] = sales.getSalesDate("yyyy年 MM月") + "第" + Integer.toString(sales.getWeekNumber()) + "週";
                 column[1] = Integer.toString(sales.getStoreNumber());
-                column[2] = Integer.toString(sales.getSalesAmount());
+                column[2] = Integer.toString(sales.getOrderQuantity());
                 column[3] = nf.format(sales.getSalesAmount());
                 
                 weekSalesTableModel.addRow(column);
@@ -429,6 +431,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[5] = nf.format(salesAtWeek.getThu());
                 column[6] = nf.format(salesAtWeek.getFry());
                 column[7] = nf.format(salesAtWeek.getSat());
+                
+                monthAtWeekSalesTableModel.addRow(column);
             }
         }
         
