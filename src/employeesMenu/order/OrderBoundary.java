@@ -76,7 +76,12 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldAddress.setText("");
         jTextFieldName.setText("");
         jTextFieldDelivaryNote.setText("");
+        jLabelCustomerNumber.setText("");
+        jLabelErrorName.setText("");
+        jLabelErrorAddress.setText("");
+        jLabelErrorPhoneNumber.setText("");
         jCheckBox1.setEnabled(false);
+        jButtonSelectItem.setEnabled(false);
     }
     
     /**
@@ -84,8 +89,8 @@ public class OrderBoundary extends javax.swing.JFrame {
      */
     private void initOrderItemPanel(){
         jTextFieldItemId.setText("");
-        jTableOrder.setRowHeight(0);
-        jTableMenu.setRowHeight(0);   
+        orderListTableModel.setRowCount(0);
+        orderTableModel.setRowCount(0);
         showOrderTotalPrice(0);
     }
     
@@ -188,6 +193,16 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTable.getColumnModel().getColumn(culumnNumber).setCellRenderer(rightCellRenderer);
     }
     
+    /**
+     * 入力値のクリア処理 & 画面を初期に戻す
+     */
+    public void reset(){
+        initAddAddressPanel();
+        initOrderItemPanel();
+        initTableModel();
+        initTopPanel();
+    }
+    
     /**************************************************************************/
     
     /** 画面切り替え ***********************************************************/
@@ -201,6 +216,12 @@ public class OrderBoundary extends javax.swing.JFrame {
     
     public void showCardOrderItem(){
         cardLayout.show(jPanelCardBase, CARD_ORDER_ITEM);
+        if(jCheckBox1.isSelected()){
+            customer.setName(jTextFieldName.getText());
+            customer.setPhoneNumber(jTextFieldPhoneNumber.getText());
+            customer.setAddress(jTextFieldAddress.getText());
+            customer.setDeliveryNote(jTextFieldDelivaryNote.getText());
+        }
     }
     
     public void showCardFinalCheck(){
@@ -298,6 +319,7 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldName.setEditable(b);
         jTextFieldAddress.setEditable(b);
         jTextFieldPhoneNumber.setEditable(b);
+        
     }
 
     /**
@@ -305,6 +327,7 @@ public class OrderBoundary extends javax.swing.JFrame {
      * @param customer 顧客情報
      */
     public void showCustomerTextField(Customer customer) {
+        this.customer = customer;
         jLabelCustomerNumber.setText(Integer.toString(customer.getCustomerNumber()));
         jTextFieldName.setText(customer.getName());
         jTextFieldPhoneNumber.setText(customer.getPhoneNumber());
@@ -316,18 +339,29 @@ public class OrderBoundary extends javax.swing.JFrame {
     /**
      * 顧客情報が入力されてるか確認
      */
-    public void checkAddress(){
+    public boolean checkAddress(){
+        boolean b = true;
+        int i = 3;
         if(jTextFieldName.getText().equals("")){
-            
+            jLabelErrorName.setText("名前を入力してください");
+            i--;
         }
         
         if(jTextFieldPhoneNumber.getText().equals("")){  
-            
+            jLabelErrorPhoneNumber.setText("電話番号を入力してください");
+            i--;
         }
         
         if(jTextFieldAddress.getText().equals("")){
-            
+            jLabelErrorAddress.setText("住所を入力してください");
+            i--;
         }
+        
+        if(i != 3){
+            b = false;
+        }
+        
+        return b;
     }
     
     /**************************************************************************/
@@ -464,10 +498,10 @@ public class OrderBoundary extends javax.swing.JFrame {
      * 注文確認画面に情報を表示
      */
     public void showFinalCheckPanel() {
-        jLabelName.setText(jTextFieldName.getText());
-        jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
-        jLabelAddress.setText(jTextFieldAddress.getText());
-        jLabelDelivaryNote.setText(jTextFieldDelivaryNote.getText());
+        jLabelName.setText(customer.getName());
+        jLabelPhoneNumber.setText(customer.getPhoneNumber());
+        jLabelAddress.setText(customer.getAddress());
+        jLabelDelivaryNote.setText(customer.getDeliveryNote());
         jLabelTotalPrice.setText(jLabelOrderTotalPrice.getText());
         showCardFinalCheck();
     } 
@@ -565,6 +599,9 @@ public class OrderBoundary extends javax.swing.JFrame {
         jTextFieldOrderNumber = new javax.swing.JTextField();
         jButtonSearchOrderNumber = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
+        jLabelErrorName = new javax.swing.JLabel();
+        jLabelErrorPhoneNumber = new javax.swing.JLabel();
+        jLabelErrorAddress = new javax.swing.JLabel();
         jPanelOrderItem = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -720,9 +757,9 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("住所");
+        jLabel3.setText("* 住所");
 
-        jLabel4.setText("名前");
+        jLabel4.setText("* 名前");
 
         jCheckBox1.setText("他配達先");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -731,7 +768,7 @@ public class OrderBoundary extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("電話番号");
+        jLabel5.setText("* 電話番号");
 
         jButtonSelectItem.setFont(new java.awt.Font("MS UI Gothic", 1, 12)); // NOI18N
         jButtonSelectItem.setText("商品選択へ");
@@ -758,8 +795,14 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jButtonSearchOrderNumber.setText("検索");
 
-        jLabel20.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel20.setForeground(new java.awt.Color(255, 51, 51));
         jLabel20.setText("注文処理が完了しているものを変更する場合に入力");
+
+        jLabelErrorName.setForeground(new java.awt.Color(255, 0, 51));
+
+        jLabelErrorPhoneNumber.setForeground(new java.awt.Color(255, 0, 51));
+
+        jLabelErrorAddress.setForeground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout jPanelAddAddressLayout = new javax.swing.GroupLayout(jPanelAddAddress);
         jPanelAddAddress.setLayout(jPanelAddAddressLayout);
@@ -809,7 +852,10 @@ public class OrderBoundary extends javax.swing.JFrame {
                     .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                         .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
-                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelErrorName)
+                            .addComponent(jLabelErrorPhoneNumber)
+                            .addComponent(jLabelErrorAddress))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelAddAddressLayout.setVerticalGroup(
@@ -839,19 +885,25 @@ public class OrderBoundary extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelErrorName)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelErrorPhoneNumber)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelErrorAddress)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldDelivaryNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addComponent(jButtonSelectItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1267,16 +1319,21 @@ public class OrderBoundary extends javax.swing.JFrame {
             jTextFieldAddress.setEditable(false);
             jTextFieldPhoneNumber.setEditable(false);
             jTextFieldDelivaryNote.setEditable(false);
+            jTextFieldName.setText(customer.getName());
+            jTextFieldAddress.setText(customer.getAddress());
+             jTextFieldPhoneNumber.setText(customer.getPhoneNumber());
+            jTextFieldDelivaryNote.setText(customer.getDeliveryNote());
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButtonSelectItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectItemActionPerformed
-        showCardOrderItem();
-        control.checkAddress();
-        jButtonSelectedItem.setEnabled(true);
-        jLabelName.setText(jTextFieldName.getText());
-        jLabelPhoneNumber.setText(jTextFieldPhoneNumber.getText());
-        jLabelAddress.setText(jTextFieldAddress.getText());
+          if(control.checkAddress()){
+            jButtonSelectedItem.setEnabled(true);
+            showCardOrderItem();
+        }else{
+            showErrorMessage("未入力項目があります", "エラー");
+        }
+        
     }//GEN-LAST:event_jButtonSelectItemActionPerformed
 
     private void jButtonShippingAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShippingAddressActionPerformed
@@ -1300,6 +1357,7 @@ public class OrderBoundary extends javax.swing.JFrame {
             showErrorMessage("電話番号を入力してください", "エラー");
         }else{
             control.searchCustomer(jTextFieldSearchPhoneNumber.getText());
+            jButtonSelectItem.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonCustomerCheckActionPerformed
 
@@ -1337,7 +1395,7 @@ public class OrderBoundary extends javax.swing.JFrame {
             items.add(item);
         }
         
-        control.orderFixing( Integer.parseInt(jLabelCustomerNumber.getText()), jTextFieldAddress.getText(), items);
+        control.orderFixing( customer.getCustomerNumber(), customer.getAddress(), items);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonIncrementOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncrementOrderItemActionPerformed
@@ -1435,6 +1493,9 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelAddress;
     private javax.swing.JLabel jLabelCustomerNumber;
     private javax.swing.JLabel jLabelDelivaryNote;
+    private javax.swing.JLabel jLabelErrorAddress;
+    private javax.swing.JLabel jLabelErrorName;
+    private javax.swing.JLabel jLabelErrorPhoneNumber;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelOrderTotalPrice;
     private javax.swing.JLabel jLabelPhoneNumber;

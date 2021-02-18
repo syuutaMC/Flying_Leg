@@ -266,6 +266,9 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextFieldName" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
+                                  <Component id="jLabelErrorName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelErrorPhoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelErrorAddress" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -304,19 +307,25 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabelErrorName" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldPhoneNumber" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabelErrorPhoneNumber" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldAddress" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabelErrorAddress" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jTextFieldDelivaryNote" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="81" max="32767" attributes="0"/>
+                      <EmptySpace pref="120" max="32767" attributes="0"/>
                       <Component id="jButtonSelectItem" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -341,12 +350,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x4f4f;&#x6240;"/>
+                <Property name="text" type="java.lang.String" value="* &#x4f4f;&#x6240;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x540d;&#x524d;"/>
+                <Property name="text" type="java.lang.String" value="* &#x540d;&#x524d;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldName">
@@ -363,7 +372,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x96fb;&#x8a71;&#x756a;&#x53f7;"/>
+                <Property name="text" type="java.lang.String" value="* &#x96fb;&#x8a71;&#x756a;&#x53f7;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldPhoneNumber">
@@ -419,9 +428,30 @@
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="ff" type="rgb"/>
+                  <Color blue="33" green="33" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x6ce8;&#x6587;&#x51e6;&#x7406;&#x304c;&#x5b8c;&#x4e86;&#x3057;&#x3066;&#x3044;&#x308b;&#x3082;&#x306e;&#x3092;&#x5909;&#x66f4;&#x3059;&#x308b;&#x5834;&#x5408;&#x306b;&#x5165;&#x529b;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelErrorName">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelErrorPhoneNumber">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelErrorAddress">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>

@@ -139,8 +139,8 @@ public class OrderControl {
         control.showCustomerAddBoundary(phoneNumber);
     }
     
-    public void checkAddress(){
-      orderBoundary.checkAddress();
+    public boolean checkAddress(){
+      return orderBoundary.checkAddress();
     }
     
     
@@ -226,7 +226,10 @@ public class OrderControl {
      * ×ボタン処理
      */
     public void exit(){
+        orderBoundary.showCardAShippingAddress();
         orderBoundary.setVisible(false);
+        orderBoundary.reset();
+
         control.exitMediaView();
     }
 }

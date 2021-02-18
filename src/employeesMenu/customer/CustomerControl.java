@@ -169,6 +169,9 @@ public class CustomerControl {
         control.exitMediaView();
     }
     
+    /**
+     * 画面を閉じる処理
+     */
     public void exitCustomerAddBoundary(){
         customerAddBoundary.setVisible(false);
     }
