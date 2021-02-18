@@ -223,6 +223,30 @@ public class OrderControl {
     }
     
     /**
+     * 注文キャンセル処理
+     */
+    public void orderCancel(int orderNumber) {
+        List<Order> orderList;
+        try {
+            orderList = orderDAO.dbSearchOrder(orderNumber);
+            if (orderList.size() <= 0) {
+                orderBoundary.showErrorMessage("注文が存在しません", "エラー");
+                return;
+            }
+            
+            if (orderDAO.dbCheckPaidOrder(orderNumber)) {
+                orderDAO.dbDeleteOrder(orderNumber);
+                orderBoundary.showConfirmMessage("削除しました", "確認");
+            }
+            else {
+                orderBoundary.showErrorMessage("入金済みの注文です", "エラー");
+            }
+        }
+        catch (SQLException e) {
+        }
+    }
+    
+    /**
      * ×ボタン処理
      */
     public void exit(){

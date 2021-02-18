@@ -146,20 +146,18 @@ public class OrderDAO {
     /**
      * 注文をキャンセル（削除）する
      * @param orderNo 注文番号
-     * @return true 削除された | false 削除されなかった
      * @throws java.sql.SQLException
      */
-    public boolean dbDeleteOrder(int orderNo) throws SQLException {
-        String sql = "DELETE ORDERS " +
-                     " WHERE ORDER_NUMBER = ? AND " +
-                     "       PAYMENT_DAY IS NULL; " + 
-                     " DELETE ORDER_DETAILS " +
-                     " WHERE ORDER_NUMBER = ? ";
+    public void dbDeleteOrder(int orderNo) throws SQLException {
+        String sql = "DELETE ORDER_DETAILS " +
+                     " WHERE ORDER_NUMBER = ? ; " + 
+                     " DELETE ORDERS " +
+                     " WHERE ORDER_NUMBER = ? ;";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, orderNo);
             ps.setInt(2, orderNo);
-            return ps.executeUpdate() > 0;
+            ps.executeUpdate();
         }
         catch (SQLException e) {
             throw e;
@@ -174,11 +172,13 @@ public class OrderDAO {
      */
     public boolean dbCheckPaidOrder(int orderNo) throws SQLException {
         String sql = "SELECT * FROM ORDERS " +
-                     " WHERE ORDER_MUMBER = ? AND " +
+                     " WHERE ORDER_NUMBER = ? AND " +
                      "       PAYMENT_DAY IS NOT NULL ";
         try {
-            ps = con.prepareCall(sql);
-            return ps.executeUpdate() > 0;
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, orderNo);
+            boolean b = selectOrderExecute().size() > 0;
+            return b;
         }
         catch (SQLException e) {
             throw e; 

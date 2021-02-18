@@ -757,6 +757,11 @@ public class OrderBoundary extends javax.swing.JFrame {
         jLabel19.setText("伝票番号");
 
         jButtonSearchOrderNumber.setText("検索");
+        jButtonSearchOrderNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchOrderNumberActionPerformed(evt);
+            }
+        });
 
         jLabel20.setForeground(new java.awt.Color(255, 102, 102));
         jLabel20.setText("注文処理が完了しているものを変更する場合に入力");
@@ -1349,6 +1354,15 @@ public class OrderBoundary extends javax.swing.JFrame {
         decrementOrderItem(jTableOrder.getSelectedRow());
         showOrderTotalPrice(calcTotalPrice());
     }//GEN-LAST:event_jButtonDecrementItemActionPerformed
+
+    private void jButtonSearchOrderNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderNumberActionPerformed
+//        if (jTextFieldOrderNumber.getText() != "") {
+//            control.orderCancel(Integer.parseInt(jTextFieldOrderNumber.getText()));
+//        }
+//        else {
+//            showErrorMessage("番号を入力してください", "エラー");
+//        }       
+    }//GEN-LAST:event_jButtonSearchOrderNumberActionPerformed
     
     private void menuTableSelectedItem(int row) {
         int tabNo = jTabbedPaneMenu.getSelectedIndex();

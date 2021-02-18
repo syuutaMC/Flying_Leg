@@ -166,4 +166,23 @@ public class PaymentDAO {
             throw e;
         }
     }        
+    
+    /**
+     * 未払設定処理
+     * 当日の日付で入金日を指定し未払にする
+     * @param orderNumber   未払いにする注文番号
+     * @throws SQLException 
+     */
+    public void dbSetPaymentUnpaid(int orderNumber) throws SQLException {
+        String sql = "UPDATE orders " +
+                     " SET payment_day = null " +
+                     " WHERE order_number = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, orderNumber);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
 }
