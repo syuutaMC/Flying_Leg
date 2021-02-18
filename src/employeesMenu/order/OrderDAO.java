@@ -151,9 +151,8 @@ public class OrderDAO {
      */
     public boolean dbDeleteOrder(int orderNo) throws SQLException {
         String sql = "DELETE ORDERS " +
-                     " WHERE ORDER_NUMBER = ? ;" +
-                     " DELETE ORDER_DETAILS " +
-                     " WHERE ORDER_NUMBER = ? ";
+                     " WHERE ORDER_NUMBER = ? AND " +
+                     "       PAYMENT_DAY IS NULL";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, orderNo);
