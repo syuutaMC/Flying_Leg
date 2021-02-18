@@ -70,4 +70,12 @@ public class EmployeesControl {
         customerControl.initControl();
         customerControl.showCustomerAddBoundary(phoneNumber);
     }
+    
+    /**
+     * 新規登録した後に顧客情報を表示する
+     * @param phoneNumber 
+     */
+    public void searchCustomer(String phoneNumber){
+        orderControl.searchCustomer(phoneNumber);
+    }
 }

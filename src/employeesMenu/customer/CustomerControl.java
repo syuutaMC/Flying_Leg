@@ -74,7 +74,6 @@ public class CustomerControl {
         try {
             customerDAO.dbAddCustomer(customer);
             customerAddBoundary.showRegistrationSuccessMessage();
-            
         }
         catch(SQLIntegrityConstraintViolationException e) {
             customerAddBoundary.showRegisteredErrorMeessage(phoneNumber);
@@ -159,6 +158,14 @@ public class CustomerControl {
         catch (SQLException e) {
             customerBoundary.showDBErrorMessage();
         }
+    }
+    
+    /**
+     * 注文画面に表示するための処理
+     * @param phoneNumber 
+     */
+    public void showCustomer(String phoneNumber){
+        control.searchCustomer(phoneNumber);
     }
     
     /**

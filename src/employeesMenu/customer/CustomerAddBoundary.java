@@ -223,6 +223,8 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
      */
     public void showRegistrationSuccessMessage(){
         JOptionPane.showMessageDialog(this, "登録されました", "確認", JOptionPane.INFORMATION_MESSAGE);
+        control.exitCustomerAddBoundary();
+        control.showCustomer(jTextFieldPhoneNumber.getText());
     }
     
     /**
