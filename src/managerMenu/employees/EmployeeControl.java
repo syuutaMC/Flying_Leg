@@ -5,8 +5,10 @@
  */
 package managerMenu.employees;
 
+import java.sql.SQLException;
 import java.util.List;
 import managerMenu.Employee;
+import managerMenu.EmployeeDAO;
 import managerMenu.ManagerMenuControl;
 
 
@@ -17,9 +19,11 @@ import managerMenu.ManagerMenuControl;
 public class EmployeeControl {
     private ManagerMenuControl control;
     private final EmployeeBoundary employeeBoundary;
+    private final EmployeeDAO employeeDAO;
     
     public EmployeeControl() {
         employeeBoundary = new EmployeeBoundary();
+        employeeDAO = new EmployeeDAO();
     }
     
     /**
@@ -52,11 +56,39 @@ public class EmployeeControl {
      * @param employeeNumber 
      */
     public void searchEmployeeNumber(String employeeNumber){
-        List<Employee> emp = control.searchEmployeeNumber(employeeNumber);
+        List<Employee> emp = employeeDAO.searchEmployeeNumber(employeeNumber);
         
         if(emp.size() >= 0){
             employeeBoundary.setEmployee(emp.get(0));
         }
+    }
+    
+    /**
+     * 従業員登録処理
+     * @param employeeName 従業員名
+     * @param empCategory 役職
+     * @param password パスワード
+     */
+    public void registarEmployee(String employeeName, String empCategory, char[] password){
+        try{
+            int cnt = employeeDAO.dbCreateEmployee(employeeName, empCategory, password);
+            if(cnt > 0){
+                employeeBoundary.showConfirmDialog("登録されました！", "登録完了");
+            }else{
+                employeeBoundary.showErrorMessage("登録できませんでした", "エラー");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 従業員カテゴリを取得
+     * @return カテゴリリスト
+     */
+    public List<EmployeeType> getEmployeeType(){
+        return employeeDAO.getEmployeeCategory();
     }
     
     /**

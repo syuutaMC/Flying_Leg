@@ -6,6 +6,7 @@
 package managerMenu.employees;
 
 import java.awt.CardLayout;
+import java.util.List;
 import javax.swing.JOptionPane;
 import managerMenu.Employee;
 
@@ -14,23 +15,29 @@ import managerMenu.Employee;
  * @author syuuta
  */
 public class EmployeeBoundary extends javax.swing.JFrame {
-
+    private EmployeeType employeeType;
+    
     public EmployeeBoundary() {
         initComponents();
         //initComboBox();
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
     }
     
-     private EmployeeControl control;
+    private EmployeeControl control;
     private final CardLayout cardLayout;
     private final String ADD_EMPLOYEE = "card2";
     private final String MANAGE_EMPLOYEE = "card4";
     private final String MANAGE_ROLL = "card3";
-    
+    private List<EmployeeType> employeeTypeList;
     
     
     public void initComboBox(){
-        
+        jComboBoxType2.removeAllItems();
+        employeeTypeList.clear();
+        employeeTypeList = control.getEmployeeType();
+        for(int i = 0; employeeTypeList.size() > 0; i++){
+            jComboBoxType2.addItem(employeeTypeList.get(i).getCategoryName());
+        }
     }
     
     /**
@@ -39,6 +46,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
      */
     public void setControl(EmployeeControl control){
         this.control = control;
+        initComboBox();
     }
     
     /**
@@ -60,6 +68,10 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     
     public void setEmployee(Employee emp){
         jTextFieldName2.setText(emp.getEmployeeName());
+    }
+    
+    public void showConfirmDialog(String text, String title){
+        JOptionPane.showConfirmDialog(this, text, title, JOptionPane.OK_OPTION);
     }
 
     /**
@@ -91,6 +103,8 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         jPasswordField = new javax.swing.JPasswordField();
         jPasswordFieldCheck = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBoxType2 = new javax.swing.JComboBox<>();
         jPanelManageRole = new javax.swing.JPanel();
         jPanelManageEmployees = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -227,29 +241,36 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
         jLabel5.setText("パスワード再入力");
 
+        jLabel6.setText("役職");
+
+        jComboBoxType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanelAddEmployeeLayout = new javax.swing.GroupLayout(jPanelAddEmployee);
         jPanelAddEmployee.setLayout(jPanelAddEmployeeLayout);
         jPanelAddEmployeeLayout.setHorizontalGroup(
             jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAddEmployeeLayout.createSequentialGroup()
-                .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelAddEmployeeLayout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelAddEmployeeLayout.createSequentialGroup()
-                            .addGap(161, 161, 161)
+                .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAddEmployeeLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAddEmployeeLayout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
                             .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
                                     .addComponent(jLabel3)
-                                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabelErroPassword)
+                                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jComboBoxType2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jLabelErroeName)
-                                .addComponent(jPasswordFieldCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanelAddEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelErroPassword)
+                                    .addComponent(jPasswordFieldCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))))))
                 .addContainerGap(210, Short.MAX_VALUE))
         );
         jPanelAddEmployeeLayout.setVerticalGroup(
@@ -263,7 +284,11 @@ public class EmployeeBoundary extends javax.swing.JFrame {
                 .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelErroeName)
-                .addGap(8, 8, 8)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxType2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +300,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
                 .addComponent(jLabelErroPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addGap(26, 26, 26))
         );
 
         jPanelCardLayout.add(jPanelAddEmployee, "card2");
@@ -342,21 +367,20 @@ public class EmployeeBoundary extends javax.swing.JFrame {
                     .addGroup(jPanelManageEmployeesLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelManageEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelManageEmployeesLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel12)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(5, 5, 5)
-                            .addComponent(jButtonSearchName))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelManageEmployeesLayout.createSequentialGroup()
-                            .addGap(12, 12, 12)
-                            .addComponent(jLabel8)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextFieldSearchEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(5, 5, 5)
-                            .addComponent(jButtonSearchEmployeeNumber)))
+                    .addGroup(jPanelManageEmployeesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jButtonSearchName))
+                    .addGroup(jPanelManageEmployeesLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldSearchEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jButtonSearchEmployeeNumber))
                     .addGroup(jPanelManageEmployeesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel13)
@@ -455,14 +479,19 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         //User登録処理
-        if(jTextFieldName.getText() != ""){
+        if(jTextFieldName.getText().equals("")){
             try{
-                jPasswordField.getPassword();
+                if(jPasswordField.getPassword() == jPasswordFieldCheck.getPassword()){
+                    control.registarEmployee(jTextFieldName.getText(), employeeTypeList.get(jComboBoxType2.getSelectedIndex() + 1).getCategoryNumber() ,jPasswordField.getPassword());
+                }else{
+                    jLabelErroPassword.setText("パスワードが間違ってます");
+                }
             }
             catch(NullPointerException e){
                 e.printStackTrace();
             }
-
+        }else{
+            jLabelErroeName.setText("名前を入力してください");
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -514,6 +543,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSearchName;
     private javax.swing.JButton jButtonSetRoll;
     private javax.swing.JComboBox<String> jComboBoxType;
+    private javax.swing.JComboBox<String> jComboBoxType2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -524,6 +554,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

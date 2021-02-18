@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import managerMenu.employees.EmployeeType;
 import sys.DBManager;
 
 /**
@@ -53,6 +54,26 @@ public class EmployeeDAO {
         return employeeList;
     }
     
+    public List<EmployeeType> selectEmployeeTypeExecute(){
+        List<EmployeeType> employeeTypeList = new ArrayList<>();
+        try{
+            employeeTypeList.clear();
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                EmployeeType employeeType = new EmployeeType();
+                setEmployeeType(employeeType, rs);
+                employeeTypeList.add(employeeType);
+            }
+            rs.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return employeeTypeList;
+    }
+    
     /**
      * 問い合わせ結果をemployeeに格納
      * @param employee 社員情報
@@ -67,6 +88,23 @@ public class EmployeeDAO {
             employee.setEmployeeName(employeeName);
             employee.setEmployeeType(employeeType);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 問い合わせ結果をemployeeTypeに格納
+     * @param employeeType 従業員タイプ
+     * @param rs           問い合わせ結果
+     */
+    public void setEmployeeType(EmployeeType employeeType, ResultSet rs){
+        try{
+            String typeNumber = rs.getString("TYPE_NUMBER");
+            String typeName = rs.getString("TYPE_NAME");
+            employeeType.setCategoryNumber(typeNumber);
+            employeeType.setCategoryName(typeName);
+        }
+        catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -118,24 +156,69 @@ public class EmployeeDAO {
     }
     
     /**
-     * 新規従業員を登録
-     * @param employee 登録する従業員情報
-     * @param password 登録するパスワード
+     * 従業員登録処理
+     * @param name 従業員名
+     * @param empCategory 従業員役職
+     * @param password パスワード
+     * @return 登録できたか
      * @throws SQLException 
      */
-    public void dbCreateEmployee(Employee employee, String password) throws SQLException {
+    public int dbCreateEmployee(String name, String empCategory, char[] password) throws SQLException {
         String sql = "INSERT INTO EMPLOYEES(EMPLOYEE_NAME, TYPE_NUMBER, PASSWORD) " +
                      " VALUES( ?, ?, ?) ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, employee.getEmployeeName());
-            ps.setString(2, employee.getEmployeeType());
-            ps.setString(3, password);
+            ps.setString(1, name);
+            ps.setString(2, empCategory);
+            ps.setString(3, new String(password));
             
-            ps.executeUpdate();
+            return ps.executeUpdate();
         }
         catch (SQLException e) {
             throw e;
         }
+    }
+    
+    /**
+     * 従業員更新処理
+     * @param employee 従業員情報
+     * @param password パスワード
+     * @throws SQLException  
+     */
+    public void updateEmployee(Employee employee, String password) throws SQLException{
+        String sql = "UPDATE employees" + 
+                     " SET  employee_name = ?, " + 
+                     "      type_number = ?, " +
+                     "      password = ? " + 
+                     " WHERE emplyee_number = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, employee.getEmployeeName());
+            ps.setString(2, employee.getEmployeeType());
+            ps.setString(3, new String(password));
+            ps.setString(4, employee.getEmployeeNumber());
+            
+            ps.executeUpdate();
+        }
+        catch(SQLException e){
+            throw e;
+        }
+    }
+     
+    public List<EmployeeType> getEmployeeCategory(){
+        List<EmployeeType> employeeTypeList = new ArrayList<>();
+        
+        String sql = "SELECT * FROM employee_types";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            employeeTypeList = selectEmployeeTypeExecute();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return employeeTypeList;
     }
 }

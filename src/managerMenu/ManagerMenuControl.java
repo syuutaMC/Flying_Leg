@@ -5,6 +5,7 @@
  */
 package managerMenu;
 
+import java.sql.SQLException;
 import java.util.List;
 import managerMenu.payment.PaymentControl;
 import managerMenu.item.ManageItemControl;
@@ -62,15 +63,6 @@ public class ManagerMenuControl {
         control.setVisibleMainMenu(false);
         employeeControl.setControl(this);
         employeeControl.start();
-    }
-    
-    /**
-     * 従業員番号で検索
-     * @param employeeeNumber 従業員番号
-     * @return 
-     */
-    public List<Employee> searchEmployeeNumber(String employeeeNumber){
-        return employeeDAO.searchEmployeeNumber(employeeeNumber);
     }
     
     /**
