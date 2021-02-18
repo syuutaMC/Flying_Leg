@@ -198,7 +198,7 @@
                           <Component id="jButtonSearchOrderNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPanePaymentHistory" pref="511" max="32767" attributes="0"/>
+                      <Component id="jScrollPanePaymentHistory" pref="512" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -349,9 +349,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jScrollPaneDateSales" min="-2" pref="341" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                      <Component id="jTabbedCategoryDate" min="-2" pref="520" max="-2" attributes="0"/>
+                                      <Component id="jScrollPaneDateSales" min="-2" pref="385" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                      <Component id="jTabbedCategoryDate" min="-2" pref="500" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel6" min="-2" pref="81" max="-2" attributes="0"/>
@@ -359,7 +359,7 @@
                                       <Component id="jLabelDateSalesAmount" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <EmptySpace pref="40" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -393,7 +393,7 @@
                     <Component class="javax.swing.JLabel" name="jLabelDateSalesAmount">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="MS UI Gothic" size="14" style="0"/>
+                          <Font name="MS UI Gothic" size="18" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="------&#x5186;"/>
                       </Properties>
@@ -478,16 +478,17 @@
                                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                               <Component id="jLabelWeekSalesAmount" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPaneWeekSales" min="-2" pref="373" max="-2" attributes="0"/>
                                           <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTabbedCategoryWeek" min="-2" pref="568" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jScrollPaneWeekSales" pref="455" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jTabbedCategoryWeek" min="-2" pref="489" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -510,16 +511,15 @@
                                       <Component id="jScrollPaneWeekSales" min="-2" pref="264" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jTabbedCategoryWeek" min="-2" pref="367" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" pref="23" max="32767" attributes="0"/>
                               <Component id="jScrollPaneWeekEveryDaySales" min="-2" pref="125" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -537,6 +537,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabelWeekSalesAmount">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="MS UI Gothic" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="-------&#x5186;"/>
                       </Properties>
                     </Component>
@@ -693,7 +696,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPaneMonthEveryWeekSales" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jScrollPaneMonthEveryWeekSales" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
@@ -701,19 +707,24 @@
                                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                               <Component id="jLabelMonthSalesAmount" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPaneMonthSales" alignment="0" min="-2" pref="373" max="-2" attributes="0"/>
                                           <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jScrollPaneMonthSales" min="-2" pref="460" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTabbedCategoryMonth" alignment="0" min="-2" pref="568" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace pref="25" max="32767" attributes="0"/>
+                                              <Component id="jTabbedCategoryMonth" min="-2" pref="467" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -733,16 +744,15 @@
                                       <Component id="jScrollPaneMonthSales" min="-2" pref="264" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jTabbedCategoryMonth" min="-2" pref="367" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" pref="23" max="32767" attributes="0"/>
                               <Component id="jScrollPaneMonthEveryWeekSales" min="-2" pref="125" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -760,6 +770,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabelMonthSalesAmount">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="MS UI Gothic" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="-------&#x5186;"/>
                       </Properties>
                     </Component>
