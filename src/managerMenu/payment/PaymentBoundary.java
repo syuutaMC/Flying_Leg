@@ -154,6 +154,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
     
     private void initTabedPane(){
         jTabbedCategoryDate.removeAll();
+        jTabbedCategoryWeek.removeAll();
+        jTabbedCategoryMonth.removeAll();
         
         String[] menuTableTitle = {"商品番号","商品名", "注文数"};
         menuTableModel = new DefaultTableModel(menuTableTitle, 0);
@@ -294,7 +296,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
      * @param row 行番号
      */
     public void setPaidPayment(int row) {
-        if (jTablePaymentHistory.getValueAt(row, 4).toString() == "未入金") {
+        if ("未入金".equals(jTablePaymentHistory.getValueAt(row, 4).toString())) {
             control.setPaidPayment(Integer.parseInt(jTablePaymentHistory.getValueAt(row, 0).toString()));
             control.showPaymentHistoryAll();
         }
@@ -314,17 +316,22 @@ public class PaymentBoundary extends javax.swing.JFrame {
             NumberFormat nf = NumberFormat.getNumberInstance();
             
             String[] column = new String[4];
+            int total = 0;
             
             dateSalesTableModel.setRowCount(0);
             
             for (Sales sales : salesList) {
                 column[0] = sales.getSalesDate("yyyy年 MM月 dd日");
                 column[1] = Integer.toString(sales.getStoreNumber());
-                column[2] = Integer.toString(sales.getOrderQuantity());
-                column[3] = nf.format(sales.getSalesAmount());
+                column[2] = Integer.toString(sales.getOrderQuantity()) + "回";
+                column[3] = nf.format(sales.getSalesAmount()) + "円";
+                
+                total += sales.getOrderQuantity() + sales.getSalesAmount();
                 
                 dateSalesTableModel.addRow(column);
             }
+            
+            jLabelDateSalesAmount.setText(Integer.toString(total) + "円");
         }
         
     /**************************************************************************/
@@ -347,7 +354,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
             for (Sales sales : salesList) {
                 column[0] = sales.getSalesDate("yyyy年 MM月") + "第" + Integer.toString(sales.getWeekNumber()) + "週";
                 column[1] = Integer.toString(sales.getStoreNumber());
-                column[2] = Integer.toString(sales.getSalesAmount());
+                column[2] = Integer.toString(sales.getOrderQuantity());
                 column[3] = nf.format(sales.getSalesAmount());
                 
                 weekSalesTableModel.addRow(column);
@@ -429,6 +436,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[5] = nf.format(salesAtWeek.getThu());
                 column[6] = nf.format(salesAtWeek.getFry());
                 column[7] = nf.format(salesAtWeek.getSat());
+                
+                monthAtWeekSalesTableModel.addRow(column);
             }
         }
         
@@ -662,6 +671,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel6.setText("売上金額");
 
+        jLabelDateSalesAmount.setFont(new java.awt.Font("MS UI Gothic", 0, 14)); // NOI18N
         jLabelDateSalesAmount.setText("------円");
 
         jTableDateSales.setModel(new javax.swing.table.DefaultTableModel(

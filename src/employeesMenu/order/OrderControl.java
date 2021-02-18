@@ -193,7 +193,7 @@ public class OrderControl {
      */
     public void showCardFinalCheck() {
         int totalPrice = orderBoundary.calcTotalPrice();
-        if (OrderBoundary.ORDER_TOTAL_PRICE_UNDER_LIMIT > totalPrice) {
+        if (OrderBoundary.ORDER_TOTAL_PRICE_UNDER_LIMIT > (int)Math.floor(totalPrice * (orderBoundary.TAX + 1))) {
             orderBoundary.setEnabledFinalCheck(false);
             orderBoundary.showTotalPriceErrorMessage();
         }

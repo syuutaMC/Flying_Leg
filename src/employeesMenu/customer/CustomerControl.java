@@ -93,6 +93,7 @@ public class CustomerControl {
             List<Customer> customer = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
             if (customer.size() > 0) {
                 customerBoundary.showMemberTextField(customer.get(0));
+                customerBoundary.setCustomer(customer.get(0));
             }
             else {
                 customerBoundary.showNotFoundErrorMessage(phoneNumber);
@@ -114,6 +115,8 @@ public class CustomerControl {
             }
             else if (customer.isValid()) {
                 customerDAO.dbUpdateCustomer(customer);
+                showAllCustomerTable();
+                customerBoundary.showConfirmMessage("顧客情報を変更しました", "確認");
             } else {
                 customerBoundary.showInvalidCustomerErrorMessage();
             }
@@ -135,6 +138,25 @@ public class CustomerControl {
                 customerBoundary.showCustomerTable(customerList);
             }
         } catch (SQLException e) {
+            customerBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 顧客情報を削除する
+     * @param phoneNumber 電話番号 
+     */
+    void deleteCustomer(String phoneNumber) {
+        List<Customer> customerList;
+        try {
+            customerList = customerDAO.dbSearchCustomerPhoneNumber(phoneNumber);
+            
+            if (customerList.size() > 0) {
+                customerDAO.dbDeleteCustomer(phoneNumber);
+                customerBoundary.clearMemberTextField();
+            }
+        }
+        catch (SQLException e) {
             customerBoundary.showDBErrorMessage();
         }
     }
