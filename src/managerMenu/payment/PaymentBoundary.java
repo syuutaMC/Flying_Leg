@@ -316,17 +316,22 @@ public class PaymentBoundary extends javax.swing.JFrame {
             NumberFormat nf = NumberFormat.getNumberInstance();
             
             String[] column = new String[4];
+            int total = 0;
             
             dateSalesTableModel.setRowCount(0);
             
             for (Sales sales : salesList) {
                 column[0] = sales.getSalesDate("yyyy年 MM月 dd日");
                 column[1] = Integer.toString(sales.getStoreNumber());
-                column[2] = Integer.toString(sales.getOrderQuantity());
-                column[3] = nf.format(sales.getSalesAmount());
+                column[2] = Integer.toString(sales.getOrderQuantity()) + "回";
+                column[3] = nf.format(sales.getSalesAmount()) + "円";
+                
+                total += sales.getOrderQuantity() + sales.getSalesAmount();
                 
                 dateSalesTableModel.addRow(column);
             }
+            
+            jLabelDateSalesAmount.setText(Integer.toString(total) + "円");
         }
         
     /**************************************************************************/
@@ -666,6 +671,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel6.setText("売上金額");
 
+        jLabelDateSalesAmount.setFont(new java.awt.Font("MS UI Gothic", 0, 14)); // NOI18N
         jLabelDateSalesAmount.setText("------円");
 
         jTableDateSales.setModel(new javax.swing.table.DefaultTableModel(
