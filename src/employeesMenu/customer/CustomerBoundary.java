@@ -137,6 +137,30 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }
     
     /**
+     * 入力画面クリア
+     */
+    public void clear() {
+        //チェックボックス非選択
+        jCheckBox1.setSelected(false);
+        
+        //テキストフィールド編集不可
+        jTextFieldName.setEditable(false);
+        jTextFieldAddress.setEditable(false);
+        jTextFieldDelivaryNote.setEditable(false);
+        jTextFieldPhoneNumber.setEditable(false);
+        
+        //テキストフィールドクリア
+        jTextFieldPhoneNumber2.setText("");
+        jTextFieldName.setText("");
+        jTextFieldAddress.setText("");
+        jTextFieldDelivaryNote.setText("");
+        jTextFieldPhoneNumber.setText("");
+        
+        //選択顧客変更クリア
+        setCustomer(null);
+    }
+    
+    /**
      * エラーダイアログ表示
      * @param message エラーメッセージ
      * @param title   タイトル
@@ -483,7 +507,7 @@ public class CustomerBoundary extends javax.swing.JFrame {
         }
         else {
             //エラーダイアログ表示
-            JOptionPane.showMessageDialog(this, "顧客情報を設定してください", "エラー", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage("顧客情報を選択してください", "エラー");
         }
         
     }//GEN-LAST:event_jButtonCustomerUpdateActionPerformed
@@ -511,6 +535,11 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButtonDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCustomerActionPerformed
+        if (getCustomer() == null) {
+            showErrorMessage("顧客情報を選択してください", "エラー");
+            return;
+        }
+        
         if (JOptionPane.showConfirmDialog(this,"顧客情報を削除しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
             control.deleteCustomer(getCustomer().getPhoneNumber());
             control.showAllCustomerTable();

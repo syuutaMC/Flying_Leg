@@ -290,6 +290,17 @@ public class PaymentControl {
         }
     }
     
+    /**
+     * 売上表全表示
+     */
+    public void showAllSalesTable() {
+        showSalesToday();
+        showSalesWeek();
+        showSalesMonth();
+        showSalesWeekEveryDay();
+        showSalesMonthEveryWeek();
+    }
+    
     public void start(){
         paymentBoundary.setControl(this);
         paymentBoundary.setVisible(true);
