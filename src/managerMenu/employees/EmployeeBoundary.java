@@ -33,7 +33,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     
     public void initComboBox(){
         jComboBoxType2.removeAllItems();
-        employeeTypeList.clear();
+        //employeeTypeList.clear();
         employeeTypeList = control.getEmployeeType();
         for(int i = 0; employeeTypeList.size() > 0; i++){
             jComboBoxType2.addItem(employeeTypeList.get(i).getCategoryName());
