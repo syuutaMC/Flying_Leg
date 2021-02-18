@@ -1328,6 +1328,8 @@ public class OrderBoundary extends javax.swing.JFrame {
         }
         List<Item> items = new ArrayList<>();
         
+        items.clear();
+        
         for (int i = 0; i < jTableOrder.getRowCount(); i++) {
             Item item = new Item();
             item.setItemNumber(jTableOrder.getValueAt(i, 0).toString());
