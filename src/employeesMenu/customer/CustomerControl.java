@@ -115,6 +115,7 @@ public class CustomerControl {
             }
             else if (customer.isValid()) {
                 customerDAO.dbUpdateCustomer(customer);
+                showAllCustomerTable();
                 customerBoundary.showConfirmMessage("顧客情報を変更しました", "確認");
             } else {
                 customerBoundary.showInvalidCustomerErrorMessage();

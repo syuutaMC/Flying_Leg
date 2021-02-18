@@ -475,6 +475,10 @@ public class CustomerBoundary extends javax.swing.JFrame {
 
     private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
         if (customer != null) {
+            customer.setName(jTextFieldName.getText());
+            customer.setPhoneNumber(jTextFieldPhoneNumber.getText());
+            customer.setAddress(jTextFieldAddress.getText());
+            customer.setDeliveryNote(jTextFieldDelivaryNote.getText());
             control.updateCustomer(customer);
         }
         else {
