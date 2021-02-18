@@ -39,7 +39,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private List<JTable> jtableMenuList;
     private List<DefaultTableModel> menuTableModelList;
     
-    private final double TAX = 0.1;
+    public final double TAX = 0.1;
     
     /**
      * Creates new form OrderBoundary
