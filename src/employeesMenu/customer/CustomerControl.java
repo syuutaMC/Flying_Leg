@@ -166,6 +166,7 @@ public class CustomerControl {
      */
     public void exit(){
         customerBoundary.setVisible(false);
+        customerBoundary.clear();
         control.exitMediaView();
     }
     
