@@ -120,6 +120,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
         setCellHorizontalAlignmentRight(jTableDateSales, 3);
         setCellHorizontalAlignmentRight(jTableDateSales, 2);
         
+        jLabelDateSalesAmount.setText("0円");
+        
         ////////////////////////////////////////////////////////////////////////
         
         //週間売上画面表初期化///////////////////////////////////////////////////
@@ -130,6 +132,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jTableWeekSales.setDefaultEditor(Object.class, null);
         setCellHorizontalAlignmentRight(jTableWeekSales, 3);
         setCellHorizontalAlignmentRight(jTableWeekSales, 2);
+        
+        jLabelWeekSalesAmount.setText("0円");
         
         //曜日ごとの売り上げ表
         weekAtDaySalesTableModel = new DefaultTableModel(salesWeekAtDayalesTitle, 0);
@@ -151,6 +155,8 @@ public class PaymentBoundary extends javax.swing.JFrame {
         setCellHorizontalAlignmentRight(jTableMonthSales, 3);
         setCellHorizontalAlignmentRight(jTableMonthSales, 2);
         
+        jLabelMonthSalesAmount.setText("0円");
+        
         //週ごとの売上表
         monthAtWeekSalesTableModel = new DefaultTableModel(salesMonthAtWeek, 0);
         jTableMonthEveryWeekSales.setModel(monthAtWeekSalesTableModel);
@@ -163,6 +169,9 @@ public class PaymentBoundary extends javax.swing.JFrame {
         ////////////////////////////////////////////////////////////////////////
     }
     
+    /**
+     * タブパネル初期化 
+     */
     private void initTabedPane(){
         jTabbedCategoryDate.removeAll();
         jTabbedCategoryWeek.removeAll();
@@ -337,7 +346,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[2] = Integer.toString(sales.getOrderQuantity()) + "回";
                 column[3] = nf.format(sales.getSalesAmount()) + "円";
                 
-                total += sales.getOrderQuantity() + sales.getSalesAmount();
+                total += sales.getSalesAmount();
                 
                 dateSalesTableModel.addRow(column);
             }
@@ -369,7 +378,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[2] = Integer.toString(sales.getOrderQuantity()) + "回";
                 column[3] = nf.format(sales.getSalesAmount()) + "円";
                 
-                total += sales.getOrderQuantity() + sales.getSalesAmount();
+                total += sales.getSalesAmount();
                 
                 weekSalesTableModel.addRow(column);
             }
@@ -426,7 +435,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[2] = Integer.toString(sales.getOrderQuantity()) + "回";
                 column[3] = nf.format(sales.getSalesAmount()) + "円";
                 
-                total += sales.getOrderQuantity() + sales.getSalesAmount();
+                total += sales.getSalesAmount();
                 
                 monthSalesTableModel.addRow(column);
             }
