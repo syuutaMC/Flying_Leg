@@ -216,12 +216,13 @@ public class SalesDAO {
      */
     public void setSalesAtCategory(SalesAtCategory salesAtCategory, ResultSet rs) {
         try {
-            String itemNumber    = rs.getString("ITEM_MUMBER");
+            String itemNumber    = rs.getString("ITEM_NUMBER");
             String itemName      = rs.getString("ITEM_NAME");
             int    storeNumber   = rs.getInt("STORE_NUMBER");
             int    orderQuantity = rs.getInt("ORDER_QUANTITY");
             int    salesAmount   = rs.getInt("SALES_AMOUNT");
             
+            salesAtCategory.setItemNumber(itemNumber);
             salesAtCategory.setItemName(itemName);
             salesAtCategory.setStoreNumber(storeNumber);
             salesAtCategory.setOrderQuantity(orderQuantity);
@@ -344,9 +345,9 @@ public class SalesDAO {
         String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
                      " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
                      " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
-                     " FROM SALES_AT_WEEK " +
+                     " FROM SALES_AT_CATEGORY " +
                      " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') AND " +
-                     " ITEM_NAME LIKE ? " +
+                     " ITEM_NUMBER LIKE ? " +
                      " GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
         try {
             ps = con.prepareStatement(sql);
@@ -367,11 +368,11 @@ public class SalesDAO {
     public List<SalesAtCategory> dbSearchSalesAtCategoryThisWeek(String categoryNumber) throws SQLException {
         List<SalesAtCategory> salesAtCategoryList;
         String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
-                     " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
+                     " COUNT(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
                      " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
-                     " FROM SALES_AT_WEEK " +
-                     " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') " + 
-                     " ITEM_NAME LIKE ? " +
+                     " FROM SALES_AT_CATEGORY " +
+                     " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') AND " + 
+                     " ITEM_NUMBER LIKE ? " +
                      "GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
         try {
             ps = con.prepareStatement(sql);
@@ -394,9 +395,9 @@ public class SalesDAO {
         String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
                      " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
                      " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
-                     " FROM SALES_AT_WEEK " +
-                     " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " + 
-                     " ITEM_NAME LIKE ? " +
+                     " FROM SALES_AT_CATEGORY " +
+                     " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') AND " +
+                     " ITEM_NUMBER LIKE ? " +
                      "GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
         try {
             ps = con.prepareStatement(sql);

@@ -291,6 +291,60 @@ public class PaymentControl {
     }
     
     /**
+     * 日間の商品カテゴリ別売り上げ表表示
+     * @param categoryList 商品カテゴリ別売り上げ 
+     */
+    public void showSalesDateAtCategory(List<Category> categoryList) {
+        List<SalesAtCategory> salesAtCategoryList;
+        int i = 0;
+        try {
+            for (Category category : categoryList) {
+            salesAtCategoryList = salesDAO.dbSearchSalesAtCategoryThisDate(category.getCategoryNumber());
+            paymentBoundary.showDateSalesAtCategory(salesAtCategoryList, i++);
+        }
+        }
+        catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 週間の商品カテゴリ別売り上げ表表示
+     * @param categoryList 商品カテゴリ別売り上げ 
+     */
+    public void showSalesWeekAtCategory(List<Category> categoryList) {
+        List<SalesAtCategory> salesAtCategoryList;
+        int i = 0;
+        try {
+            for (Category category : categoryList) {
+            salesAtCategoryList = salesDAO.dbSearchSalesAtCategoryThisWeek(category.getCategoryNumber());
+            paymentBoundary.showWeekSalesAtCategory(salesAtCategoryList, i++);
+        }
+        }
+        catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
+     * 月間の商品カテゴリ別売り上げ表表示
+     * @param categoryList 商品カテゴリ別売り上げ 
+     */
+    public void showSalesMonthAtCategory(List<Category> categoryList) {
+        List<SalesAtCategory> salesAtCategoryList;
+        int i = 0;
+        try {
+            for (Category category : categoryList) {
+            salesAtCategoryList = salesDAO.dbSearchSalesAtCategoryThisMonth(category.getCategoryNumber());
+            paymentBoundary.showMonthSalesAtCategory(salesAtCategoryList, i++);
+        }
+        }
+        catch (SQLException e) {
+            paymentBoundary.showDBErrorMessage();
+        }
+    }
+    
+    /**
      * 売上表全表示
      */
     public void showAllSalesTable() {
@@ -299,6 +353,16 @@ public class PaymentControl {
         showSalesMonth();
         showSalesWeekEveryDay();
         showSalesMonthEveryWeek();
+    }
+    
+    /**
+     * カテゴリ別売り上げ表全件表示
+     * @param categoryList 商品カテゴリ
+     */
+    public void showAllSalesCategoryTable(List<Category> categoryList) {
+        showSalesDateAtCategory(categoryList);
+        showSalesWeekAtCategory(categoryList);
+        showSalesMonthAtCategory(categoryList);
     }
     
     public void start(){

@@ -142,8 +142,7 @@ public class OrderControl {
     public boolean checkAddress(){
       return orderBoundary.checkAddress();
     }
-    
-    
+   
     public void showMenu(List<Category> categoryList) {
         List<Item> itemList;
         int i = 0;
@@ -151,8 +150,6 @@ public class OrderControl {
             itemList = itemDAO.dbSearchItemCategory(category.getCategoryNumber());
             orderBoundary.showMenuTable(itemList, i++);
         }
-        
-        
     }
     
     /**

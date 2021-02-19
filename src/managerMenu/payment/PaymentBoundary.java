@@ -29,14 +29,22 @@ import managerMenu.item.Category;
  */
 public class PaymentBoundary extends javax.swing.JFrame {
     
-    private DefaultTableModel menuTableModel;
     private DefaultTableModel paymentHistoryTableModel;
     
     private DefaultTableModel dateSalesTableModel;
+    private List<DefaultTableModel>  dateSalesAtCategoryModelList;
+    
     private DefaultTableModel weekSalesTableModel;
-    private DefaultTableModel monthSalesTableModel;
     private DefaultTableModel weekAtDaySalesTableModel;
+    private List<DefaultTableModel> weekSalesAtCategoryModelList;
+    
+    private DefaultTableModel monthSalesTableModel;
     private DefaultTableModel monthAtWeekSalesTableModel;
+    private List<DefaultTableModel> monthSalesAtCategoryModelList;
+    
+    private List<JTable> dateSalesAtCategoryTableList;
+    private List<JTable> weekSalesAtCategoryTableList;
+    private List<JTable> monthSalesAtCategoryTableList;
     
     private static final String CARD_SALES = "card3";
     private static final String CARD_PAYMENT = "card2";
@@ -62,6 +70,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         initTableModel();
         
         control.showPaymentHistoryAll();
+        control.showAllSalesCategoryTable(control.getCategory());
         
         control.showSalesMonth();
         control.showSalesMonthEveryWeek();
@@ -177,8 +186,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jTabbedCategoryWeek.removeAll();
         jTabbedCategoryMonth.removeAll();
         
-        String[] menuTableTitle = {"商品番号","商品名", "注文数"};
-        menuTableModel = new DefaultTableModel(menuTableTitle, 0);
+        String[] menuTableTitle = { "店舗番号", "商品番号","商品名", "売上個数", "売上"};
         
         List<Category> categoryList = control.getCategory();
         
@@ -187,22 +195,61 @@ public class PaymentBoundary extends javax.swing.JFrame {
         JScrollPane[] scrollPane = new JScrollPane[cnt];
         JTable[] table = new JTable[cnt];
         
-        ArrayList<JTable> TableList = new ArrayList<>();
-        ArrayList<JScrollPane> scrollPaneList = new ArrayList<>();
-        ArrayList<JScrollPane> scrollPaneList2 = new ArrayList<>();
-        ArrayList<JScrollPane> scrollPaneList3 = new ArrayList<>();
+        List<DefaultTableModel> dateMenuTableModelList = new ArrayList<>();
+        List<DefaultTableModel> weekMenuTableModelList = new ArrayList<>();
+        List<DefaultTableModel> monthMenuTableModelList = new ArrayList<>();
+        dateMenuTableModelList.clear();
+        weekMenuTableModelList.clear();
+        monthMenuTableModelList.clear();
+        
+        List<JTable> dateTableList = new ArrayList<>();
+        List<JTable> weekTableList = new ArrayList<>();
+        List<JTable> monthTableList = new ArrayList<>();
+        dateTableList.clear();
+        weekTableList.clear();
+        monthTableList.clear();
+        
+        List<JScrollPane> scrollPaneList = new ArrayList<>();
+        List<JScrollPane> scrollPaneList2 = new ArrayList<>();
+        List<JScrollPane> scrollPaneList3 = new ArrayList<>();
         
         for(int i = 0; i < categoryList.size(); i++){
-            TableList.add(new JTable(menuTableModel));
+            DefaultTableModel dateMenuTableModel = new DefaultTableModel(menuTableTitle, 0);
+            DefaultTableModel weekMenuTableModel = new DefaultTableModel(menuTableTitle, 0);
+            DefaultTableModel monthMenuTableModel = new DefaultTableModel(menuTableTitle, 0);
+            
+            dateMenuTableModelList.add(dateMenuTableModel);
+            weekMenuTableModelList.add(weekMenuTableModel);
+            monthMenuTableModelList.add(monthMenuTableModel);
+            
+            dateTableList.add(new JTable(dateMenuTableModel));
+            weekTableList.add(new JTable(weekMenuTableModel));
+            monthTableList.add(new JTable(monthMenuTableModel));
+            
             scrollPaneList.add(new JScrollPane());
             scrollPaneList2.add(new JScrollPane());
             scrollPaneList3.add(new JScrollPane());
                      
-            scrollPaneList.get(i).setViewportView(TableList.get(i));
+            scrollPaneList.get(i).setViewportView(dateTableList.get(i));
+            scrollPaneList2.get(i).setViewportView(weekTableList.get(i));
+            scrollPaneList3.get(i).setViewportView(monthTableList.get(i));
+            
             jTabbedCategoryDate.addTab(categoryList.get(i).getCategoryName(), scrollPaneList.get(i));
             jTabbedCategoryWeek.addTab(categoryList.get(i).getCategoryName(), scrollPaneList2.get(i));
             jTabbedCategoryMonth.addTab(categoryList.get(i).getCategoryName(), scrollPaneList3.get(i));
         }
+        initMenuTableModelSetEditableFalse(dateTableList);
+        initMenuTableModelSetEditableFalse(weekTableList);
+        initMenuTableModelSetEditableFalse(monthTableList);
+        
+        dateSalesAtCategoryTableList = dateTableList;
+        weekSalesAtCategoryTableList = weekTableList;
+        monthSalesAtCategoryTableList = monthTableList;
+        
+        dateSalesAtCategoryModelList = dateMenuTableModelList;
+        weekSalesAtCategoryModelList = weekMenuTableModelList;
+        monthSalesAtCategoryModelList = monthMenuTableModelList;
+        
     }
 
     /**
@@ -215,6 +262,16 @@ public class PaymentBoundary extends javax.swing.JFrame {
         
         rightCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
         jTable.getColumnModel().getColumn(culumnNumber).setCellRenderer(rightCellRenderer);
+    }
+    
+    /**
+     * メニュー表列並べ替えを不可に設定
+     */
+    private void initMenuTableModelSetEditableFalse(List<JTable> jTableList) {
+        for (JTable jTable : jTableList) {
+            jTable.getTableHeader().setReorderingAllowed(false);    //列の並べ替え不可
+            jTable.setDefaultEditor(Object.class, null);    //デフォルトセルエディタにnullオブジェクトを指定し編集不可に 
+        }
     }
     
     /**************************************************************************/
@@ -354,6 +411,28 @@ public class PaymentBoundary extends javax.swing.JFrame {
             jLabelDateSalesAmount.setText(nf.format(total) + "円");
         }
         
+        /**
+         * 日間の商品カテゴリ別売り上げ
+         * @param salesAtCategoryList 商品カテゴリ別売り上げ
+         */
+        public void showDateSalesAtCategory(List<SalesAtCategory> salesAtCategoryList, int tabIndex) {
+            
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            dateSalesAtCategoryModelList.get(tabIndex).setRowCount(0);
+            String[] row = new String[5];
+            
+            for (SalesAtCategory salesAtCategory : salesAtCategoryList) {
+                row[0] = Integer.toString(salesAtCategory.getStoreNumber());
+                row[1] = salesAtCategory.getItemNumber();
+                row[2] = salesAtCategory.getItemName();
+                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "回";
+                row[4] = nf.format(salesAtCategory.getSalesAmount()) + "円";
+                
+                dateSalesAtCategoryModelList.get(tabIndex).addRow(row);
+            }
+        }
+        
     /**************************************************************************/
         
     /** 週間売上画面 ***********************************************************/
@@ -412,6 +491,27 @@ public class PaymentBoundary extends javax.swing.JFrame {
             }
         }
     
+        /**
+         * 週間の商品カテゴリ別売り上げ
+         * @param salesAtCategoryList 商品カテゴリ別売り上げ
+         */
+        public void showWeekSalesAtCategory(List<SalesAtCategory> salesAtCategoryList, int tabIndex) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            weekSalesAtCategoryModelList.get(tabIndex).setRowCount(0);
+            String[] row = new String[5];
+            
+            for (SalesAtCategory salesAtCategory : salesAtCategoryList) {
+                row[0] = Integer.toString(salesAtCategory.getStoreNumber());
+                row[1] = salesAtCategory.getItemNumber();
+                row[2] = salesAtCategory.getItemName();
+                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "回";
+                row[4] = nf.format(salesAtCategory.getSalesAmount()) + "円";
+                
+                weekSalesAtCategoryModelList.get(tabIndex).addRow(row);
+            }
+        }
+        
     /**************************************************************************/
     
     /** 月間売上画面 ***********************************************************/
@@ -467,6 +567,27 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 column[7] = nf.format(salesAtWeek.getSat()) + "円";
                 
                 monthAtWeekSalesTableModel.addRow(column);
+            }
+        }
+        
+        /**
+         * 月間の商品カテゴリ別売り上げ
+         * @param salesAtCategoryList 商品カテゴリ別売り上げ
+         */
+        public void showMonthSalesAtCategory(List<SalesAtCategory> salesAtCategoryList, int tabIndex) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            
+            monthSalesAtCategoryModelList.get(tabIndex).setRowCount(0);
+            String[] row = new String[5];
+            
+            for (SalesAtCategory salesAtCategory : salesAtCategoryList) {
+                row[0] = Integer.toString(salesAtCategory.getStoreNumber());
+                row[1] = salesAtCategory.getItemNumber();
+                row[2] = salesAtCategory.getItemName();
+                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "回";
+                row[4] = nf.format(salesAtCategory.getSalesAmount()) + "円";
+                
+                monthSalesAtCategoryModelList.get(tabIndex).addRow(row);
             }
         }
         
@@ -1158,6 +1279,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private void jButtonShowSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowSalesCardActionPerformed
         control.changeCardLayoutMain(CARD_SALES);
         control.showAllSalesTable();
+        control.showAllSalesCategoryTable(control.getCategory());
     }//GEN-LAST:event_jButtonShowSalesCardActionPerformed
 
     private void jButtonShowDateSalesCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowDateSalesCardActionPerformed
