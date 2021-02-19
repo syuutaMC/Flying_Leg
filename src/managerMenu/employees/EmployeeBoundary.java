@@ -152,6 +152,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jPasswordFieldUpdate = new javax.swing.JPasswordField();
         jPasswordFieldCheckUpdate = new javax.swing.JPasswordField();
+        jLabelPasswordErrorUpdate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -394,9 +395,8 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
         jLabel13.setText("パスワード再入力");
 
-        jPasswordFieldUpdate.setText("jPasswordField1");
-
-        jPasswordFieldCheckUpdate.setText("jPasswordField2");
+        jLabelPasswordErrorUpdate.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelPasswordErrorUpdate.setText("エラー文");
 
         javax.swing.GroupLayout jPanelManageEmployeesLayout = new javax.swing.GroupLayout(jPanelManageEmployees);
         jPanelManageEmployees.setLayout(jPanelManageEmployeesLayout);
@@ -435,11 +435,12 @@ public class EmployeeBoundary extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel13))
                         .addGap(29, 29, 29)
-                        .addGroup(jPanelManageEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordFieldCheckUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelManageEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldName2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordFieldUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextFieldName2, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(jLabelPasswordErrorUpdate)
+                            .addComponent(jPasswordFieldCheckUpdate)
+                            .addComponent(jPasswordFieldUpdate))))
                 .addContainerGap(306, Short.MAX_VALUE))
         );
         jPanelManageEmployeesLayout.setVerticalGroup(
@@ -479,7 +480,9 @@ public class EmployeeBoundary extends javax.swing.JFrame {
                         .addComponent(jPasswordFieldUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(jPasswordFieldCheckUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelPasswordErrorUpdate)
+                .addGap(14, 14, 14)
                 .addComponent(jButton2)
                 .addGap(51, 51, 51))
         );
@@ -554,7 +557,15 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchNameActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        control.updateEmployee(emp, jPasswordFieldUpdate.getPassword());
+        if(Arrays.equals(jPasswordFieldUpdate.getPassword(), jPasswordFieldCheckUpdate.getPassword())){
+            emp.setEmployeeName(jTextFieldName2.getText());
+            emp.setEmployeeType(employeeTypeList.get(jComboBoxType.getSelectedIndex()).getCategoryNumber());
+            control.updateEmployee(emp, jPasswordFieldUpdate.getPassword());
+        }
+        else{
+            jLabelPasswordErrorUpdate.setText("パスワードが違います");
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -620,6 +631,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelEmployeeNumber;
     private javax.swing.JLabel jLabelErroPassword;
     private javax.swing.JLabel jLabelErroeName;
+    private javax.swing.JLabel jLabelPasswordErrorUpdate;
     private javax.swing.JPanel jPanelAddEmployee;
     private javax.swing.JPanel jPanelCardLayout;
     private javax.swing.JPanel jPanelManageEmployees;

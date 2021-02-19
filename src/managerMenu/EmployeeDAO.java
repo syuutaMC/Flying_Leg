@@ -190,7 +190,7 @@ public class EmployeeDAO {
                      " SET  employee_name = ?, " + 
                      "      type_number = ?, " +
                      "      password = ? " + 
-                     " WHERE emplyee_number = ?";
+                     " WHERE employee_number = ?";
         
         try{
             ps = con.prepareStatement(sql);
