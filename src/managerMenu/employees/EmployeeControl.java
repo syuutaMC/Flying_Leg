@@ -60,6 +60,7 @@ public class EmployeeControl {
         
         if(emp.size() >= 0){
             employeeBoundary.setEmployee(emp.get(0));
+            employeeBoundary.showEmployee();
         }
     }
     
@@ -73,9 +74,25 @@ public class EmployeeControl {
         try{
             int cnt = employeeDAO.dbCreateEmployee(employeeName, empCategory, password);
             if(cnt > 0){
-                employeeBoundary.showConfirmDialog("登録されました！", "登録完了");
+                employeeBoundary.showMessageDialog("登録されました！\n従業員番号は ?? 番です");
+                employeeBoundary.initAddEmployeePanel();
             }else{
                 employeeBoundary.showErrorMessage("登録できませんでした", "エラー");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateEmployee(Employee emp, char[] password){
+        try{
+            int cnt = employeeDAO.updateEmployee(emp, password);
+            if(cnt > 0){
+                employeeBoundary.showMessageDialog("更新しました");
+            }
+            else{
+                employeeBoundary.showErrorMessage("更新できませんでした", "エラー");
             }
         }
         catch(SQLException e){
@@ -97,5 +114,11 @@ public class EmployeeControl {
     public void start(){
         employeeBoundary.setVisible(true);
         employeeBoundary.setControl(this);
+    }
+    
+    public void exit(){
+        employeeBoundary.initAddEmployeePanel();
+        employeeBoundary.setVisible(false);
+        control.exitMediaView();
     }
 }

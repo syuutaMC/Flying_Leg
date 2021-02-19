@@ -118,7 +118,7 @@ public class EmployeeDAO {
         List<Employee> employeeList = new ArrayList<>();
         
         String sql = "SELECT employee_number, employee_name, type_number " + 
-                     " FROMemployees " + 
+                     " FROM employees " + 
                      " WHERE employee_number = ? ";
         
         try{
@@ -185,7 +185,7 @@ public class EmployeeDAO {
      * @param password パスワード
      * @throws SQLException  
      */
-    public void updateEmployee(Employee employee, String password) throws SQLException{
+    public int updateEmployee(Employee employee, char[] password) throws SQLException{
         String sql = "UPDATE employees" + 
                      " SET  employee_name = ?, " + 
                      "      type_number = ?, " +
@@ -199,7 +199,7 @@ public class EmployeeDAO {
             ps.setString(3, new String(password));
             ps.setString(4, employee.getEmployeeNumber());
             
-            ps.executeUpdate();
+            return ps.executeUpdate();
         }
         catch(SQLException e){
             throw e;
