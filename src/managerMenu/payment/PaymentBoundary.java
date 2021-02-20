@@ -242,6 +242,10 @@ public class PaymentBoundary extends javax.swing.JFrame {
         initMenuTableModelSetEditableFalse(weekTableList);
         initMenuTableModelSetEditableFalse(monthTableList);
         
+        initMenuTableModelSetCellHorizontalAlignmentRight(dateTableList);
+        initMenuTableModelSetCellHorizontalAlignmentRight(weekTableList);
+        initMenuTableModelSetCellHorizontalAlignmentRight(monthTableList);
+        
         dateSalesAtCategoryTableList = dateTableList;
         weekSalesAtCategoryTableList = weekTableList;
         monthSalesAtCategoryTableList = monthTableList;
@@ -274,6 +278,17 @@ public class PaymentBoundary extends javax.swing.JFrame {
         }
     }
     
+    
+    /**
+     * メニュー表の右寄せ初期化
+     * @param jTableList 設定するテーブル
+     */
+    private void initMenuTableModelSetCellHorizontalAlignmentRight(List<JTable> jTableList) {
+        for (JTable jTable : jTableList) {
+            setCellHorizontalAlignmentRight(jTable, 3);
+            setCellHorizontalAlignmentRight(jTable, 4);
+        }
+    }
     /**************************************************************************/
     
     
@@ -426,7 +441,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 row[0] = Integer.toString(salesAtCategory.getStoreNumber());
                 row[1] = salesAtCategory.getItemNumber();
                 row[2] = salesAtCategory.getItemName();
-                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "回";
+                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "個";
                 row[4] = nf.format(salesAtCategory.getSalesAmount()) + "円";
                 
                 dateSalesAtCategoryModelList.get(tabIndex).addRow(row);
@@ -505,7 +520,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 row[0] = Integer.toString(salesAtCategory.getStoreNumber());
                 row[1] = salesAtCategory.getItemNumber();
                 row[2] = salesAtCategory.getItemName();
-                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "回";
+                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "個";
                 row[4] = nf.format(salesAtCategory.getSalesAmount()) + "円";
                 
                 weekSalesAtCategoryModelList.get(tabIndex).addRow(row);
@@ -584,7 +599,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
                 row[0] = Integer.toString(salesAtCategory.getStoreNumber());
                 row[1] = salesAtCategory.getItemNumber();
                 row[2] = salesAtCategory.getItemName();
-                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "回";
+                row[3] = Integer.toString(salesAtCategory.getOrderQuantity()) + "個";
                 row[4] = nf.format(salesAtCategory.getSalesAmount()) + "円";
                 
                 monthSalesAtCategoryModelList.get(tabIndex).addRow(row);

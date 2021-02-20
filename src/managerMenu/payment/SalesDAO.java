@@ -322,9 +322,17 @@ public class SalesDAO {
     public List<SalesAtWeek> dbSearchSalesThisWeekEveryDay() throws SQLException {
         List<SalesAtWeek> salesAtWeekList;
         String sql = //"SELECT WEEK_NUMBER, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
-                     "SELECT SALES_DATE, STORE_NUMBER, SUN, MON, TUE, WED, THU, FRY, SAT " +
+                     "SELECT TRUNC(SALES_DATE, 'MM') \"SALES_DATE\", STORE_NUMBER, "
+                   + " SUM(SUN) \"SUN\", "
+                   + " SUM(MON) \"MON\", "
+                   + " SUM(TUE) \"TUE\", "
+                   + " SUM(WED) \"WED\", "
+                   + " SUM(THU) \"THU\", "
+                   + " SUM(FRY) \"FRY\", "
+                   + " SUM(SAT) \"SAT\" " +
                      " FROM  SALES_PER_DAY " +
-                     " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') ";
+                     " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') " +
+                     " GROUP BY TRUNC(SALES_DATE, 'MM'), STORE_NUMBER";
         try {
             ps = con.prepareCall(sql);
             salesAtWeekList = selectSalesAtDayExecute();
@@ -342,16 +350,18 @@ public class SalesDAO {
      */
     public List<SalesAtCategory> dbSearchSalesAtCategoryThisMonth(String categoryNumber) throws SQLException {
         List<SalesAtCategory> salesAtCategoryList;
-        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
-                     " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
-                     " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
-                     " FROM SALES_AT_CATEGORY " +
-                     " WHERE TRUNC(SALES_DATE, 'MM') = TRUNC(sysdate, 'MM') AND " +
-                     " ITEM_NUMBER LIKE ? " +
-                     " GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
+        String sql = "SELECT STORE_NUMBER, ITEM_NUMBER, ITEM_NAME, " +
+                     "       SUM(ORDER_QUANTITY) \"ORDER_QUANTITY\", " +
+                     "       SUM(ORDER_QUANTITY * UNIT_PRICE) \"SALES_AMOUNT\" "+
+                     " FROM ORDERS JOIN ORDER_DETAILS USING(ORDER_NUMBER) " +
+                     "            JOIN ITEMS         USING(ITEM_NUMBER) " +
+                     " WHERE TRUNC(PAYMENT_DAY, 'MM') = TRUNC(sysdate, 'MM') AND " +
+                     " CATEGORY_NUMBER = ? " +
+                     " GROUP BY STORE_NUMBER, ITEM_NUMBER, ITEM_NAME, CATEGORY_NUMBER " +
+                     " ORDER BY STORE_NUMBER, ITEM_NUMBER ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, categoryNumber + "%");
+            ps.setString(1, categoryNumber);
             salesAtCategoryList = selectSalesAtCategoryExecute();
         } catch (SQLException e) {
             throw e;
@@ -367,16 +377,18 @@ public class SalesDAO {
      */
     public List<SalesAtCategory> dbSearchSalesAtCategoryThisWeek(String categoryNumber) throws SQLException {
         List<SalesAtCategory> salesAtCategoryList;
-        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
-                     " COUNT(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
-                     " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
-                     " FROM SALES_AT_CATEGORY " +
-                     " WHERE SALES_DATE BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') AND " + 
-                     " ITEM_NUMBER LIKE ? " +
-                     "GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
+        String sql = "SELECT STORE_NUMBER, ITEM_NUMBER, ITEM_NAME, " +
+                     "       SUM(ORDER_QUANTITY) \"ORDER_QUANTITY\", " +
+                     "       SUM(ORDER_QUANTITY * UNIT_PRICE) \"SALES_AMOUNT\" "+
+                     " FROM ORDERS JOIN ORDER_DETAILS USING(ORDER_NUMBER) " +
+                     "            JOIN ITEMS         USING(ITEM_NUMBER) " +
+                     " WHERE PAYMENT_DAY BETWEEN TRUNC(sysdate, 'DAY') AND NEXT_DAY(TRUNC(sysdate, 'DAY'), '土') AND " +
+                     " CATEGORY_NUMBER = ? " +
+                     " GROUP BY STORE_NUMBER, ITEM_NUMBER, ITEM_NAME, CATEGORY_NUMBER " +
+                     " ORDER BY STORE_NUMBER, ITEM_NUMBER ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, categoryNumber + "%");
+            ps.setString(1, categoryNumber);
             salesAtCategoryList = selectSalesAtCategoryExecute();
         } catch (SQLException e) {
             throw e;
@@ -392,16 +404,18 @@ public class SalesDAO {
      */
     public List<SalesAtCategory> dbSearchSalesAtCategoryThisDate(String categoryNumber) throws SQLException {
         List<SalesAtCategory> salesAtCategoryList;
-        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, STORE_NUMBER, " +
-                     " SUM(ORDER_QUANTITY) AS \"ORDER_QUANTITY\", " +
-                     " SUM(SALES_AMOUNT) AS \"SALES_AMOUNT\" " +
-                     " FROM SALES_AT_CATEGORY " +
-                     " WHERE TRUNC(SALES_DATE, 'dd') = TRUNC(sysdate, 'dd') AND " +
-                     " ITEM_NUMBER LIKE ? " +
-                     "GROUP BY ITEM_NUMBER, ITEM_NAME, STORE_NUMBER ";
+        String sql = "SELECT STORE_NUMBER, ITEM_NUMBER, ITEM_NAME, " +
+                     "       SUM(ORDER_QUANTITY) \"ORDER_QUANTITY\", " +
+                     "       SUM(ORDER_QUANTITY * UNIT_PRICE) \"SALES_AMOUNT\" "+
+                     " FROM ORDERS JOIN ORDER_DETAILS USING(ORDER_NUMBER) " +
+                     "            JOIN ITEMS         USING(ITEM_NUMBER) " +
+                     " WHERE TRUNC(PAYMENT_DAY, 'dd') = TRUNC(sysdate, 'dd') AND " +
+                     " CATEGORY_NUMBER = ? " +
+                     " GROUP BY STORE_NUMBER, ITEM_NUMBER, ITEM_NAME, CATEGORY_NUMBER " +
+                     " ORDER BY STORE_NUMBER, ITEM_NUMBER ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, categoryNumber + "%");
+            ps.setString(1, categoryNumber);
             salesAtCategoryList = selectSalesAtCategoryExecute();
         } catch (SQLException e) {
             throw e;
