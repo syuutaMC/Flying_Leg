@@ -205,7 +205,31 @@ public class EmployeeDAO {
             throw e;
         }
     }
-     
+    
+    /**
+     * 従業員削除処理
+     * @param epmloyeeNumber 従業員番号
+     * @return 削除した件数
+     * @throws SQLException 
+     */
+    public int deleteEmployee(String epmloyeeNumber)throws SQLException{
+        String sql = "DELETE FROM employees " + 
+                     " WHERE employee_number = ? ";
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, epmloyeeNumber);
+
+            return ps.executeUpdate();
+        }
+        catch(SQLException e){
+            throw e;
+        }        
+    }
+    
+    /**
+     * 従業員カテゴリを表示
+     * @return 従業員タイプリスト
+     */
     public List<EmployeeType> getEmployeeCategory(){
         List<EmployeeType> employeeTypeList = new ArrayList<>();
         

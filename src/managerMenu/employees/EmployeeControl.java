@@ -81,10 +81,15 @@ public class EmployeeControl {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+           e.printStackTrace();
         }
     }
     
+    /**
+     * 従業員更新処理
+     * @param emp 従業員情報
+     * @param password パスワード
+     */
     public void updateEmployee(Employee emp, char[] password){
         try{
             int cnt = employeeDAO.updateEmployee(emp, password);
@@ -93,6 +98,25 @@ public class EmployeeControl {
             }
             else{
                 employeeBoundary.showErrorMessage("更新できませんでした", "エラー");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 従業員番号をもとに削除処理
+     * @param employeeNumber 従業員番号
+     * @throws SQLException 
+     */
+    public void deleteEmployee(String employeeNumber){
+        try{
+            int cnt = employeeDAO.deleteEmployee(employeeNumber);
+            if(cnt > 0){
+                employeeBoundary.showMessageDialog("削除しました");
+            }else{
+                employeeBoundary.showErrorMessage("削除できませんでした", "エラー");
             }
         }
         catch(SQLException e){
