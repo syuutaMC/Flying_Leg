@@ -595,10 +595,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jLabelCustomerNumber = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jTextFieldOrderNumber = new javax.swing.JTextField();
-        jButtonSearchOrderNumber = new javax.swing.JButton();
-        jLabel20 = new javax.swing.JLabel();
         jLabelErrorName = new javax.swing.JLabel();
         jLabelErrorPhoneNumber = new javax.swing.JLabel();
         jLabelErrorAddress = new javax.swing.JLabel();
@@ -791,18 +787,6 @@ public class OrderBoundary extends javax.swing.JFrame {
 
         jLabelCustomerNumber.setText(" ");
 
-        jLabel19.setText("伝票番号");
-
-        jButtonSearchOrderNumber.setText("検索");
-        jButtonSearchOrderNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSearchOrderNumberActionPerformed(evt);
-            }
-        });
-
-        jLabel20.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel20.setText("注文処理が完了しているものを変更する場合に入力");
-
         jLabelErrorName.setForeground(new java.awt.Color(255, 0, 51));
 
         jLabelErrorPhoneNumber.setForeground(new java.awt.Color(255, 0, 51));
@@ -835,7 +819,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                             .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(517, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAddAddressLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -844,16 +828,7 @@ public class OrderBoundary extends javax.swing.JFrame {
                         .addComponent(jButtonCustomerCheck)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
-                        .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldOrderNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonSearchOrderNumber)))
-                        .addGap(9, 9, 9))
+                        .addGap(9, 590, Short.MAX_VALUE))
                     .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                         .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
@@ -866,17 +841,12 @@ public class OrderBoundary extends javax.swing.JFrame {
         jPanelAddAddressLayout.setVerticalGroup(
             jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAddAddressLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(44, 44, 44)
                 .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldSearchPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCustomerCheck)
-                    .addComponent(jButton3)
-                    .addComponent(jLabel19)
-                    .addComponent(jTextFieldOrderNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearchOrderNumber))
+                    .addComponent(jButton3))
                 .addGroup(jPanelAddAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelAddAddressLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -1412,15 +1382,6 @@ public class OrderBoundary extends javax.swing.JFrame {
         decrementOrderItem(jTableOrder.getSelectedRow());
         showOrderTotalPrice(calcTotalPrice());
     }//GEN-LAST:event_jButtonDecrementItemActionPerformed
-
-    private void jButtonSearchOrderNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrderNumberActionPerformed
-//        if (jTextFieldOrderNumber.getText() != "") {
-//            control.orderCancel(Integer.parseInt(jTextFieldOrderNumber.getText()));
-//        }
-//        else {
-//            showErrorMessage("番号を入力してください", "エラー");
-//        }       
-    }//GEN-LAST:event_jButtonSearchOrderNumberActionPerformed
     
     private void menuTableSelectedItem(int row) {
         int tabNo = jTabbedPaneMenu.getSelectedIndex();
@@ -1479,7 +1440,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonIncrementOrderItem;
     private javax.swing.JButton jButtonRemoveOrderItem;
     private javax.swing.JButton jButtonSearchItemId;
-    private javax.swing.JButton jButtonSearchOrderNumber;
     private javax.swing.JButton jButtonSelectItem;
     private javax.swing.JButton jButtonSelectedItem;
     private javax.swing.JButton jButtonShippingAddress;
@@ -1494,9 +1454,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1535,7 +1493,6 @@ public class OrderBoundary extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDelivaryNote;
     private javax.swing.JTextField jTextFieldItemId;
     private javax.swing.JTextField jTextFieldName;
-    private javax.swing.JTextField jTextFieldOrderNumber;
     private javax.swing.JTextField jTextFieldPhoneNumber;
     private javax.swing.JTextField jTextFieldSearchPhoneNumber;
     // End of variables declaration//GEN-END:variables

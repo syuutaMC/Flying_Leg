@@ -7,8 +7,8 @@ package managerMenu.item;
 
 import java.sql.SQLException;
 import java.util.List;
-import sys.SystemControl;
 import managerMenu.ManagerMenuControl;
+import employeesMenu.order.ItemDAO;
 
 /**
  *
@@ -17,20 +17,45 @@ import managerMenu.ManagerMenuControl;
 public class ManageItemControl {
     private final ManageItemBoundary manageItemBoundary;
     private final CategoryDAO categoryDAO;
+    private final ItemDAO itemDAO;
     private ManagerMenuControl control;
     
     public ManageItemControl(){
         manageItemBoundary = new ManageItemBoundary();
         categoryDAO = new CategoryDAO();
+        itemDAO = new ItemDAO();
     }
     
     public void setControl(ManagerMenuControl control){
         this.control = control;
     }
     
-    
     public void showManageItemBoundary() {
         start();
+    }
+    
+    public void showMenu(List<Category> categoryList) {
+        List<Item> itemList;
+        int i = 0;
+        for (Category category : categoryList) {
+            itemList = itemDAO.dbSearchItemCategory(category.getCategoryNumber());
+            manageItemBoundary.showMenuTable(itemList, i++);
+        }
+    }
+    
+    /**
+     * 商品カテゴリを取得
+     * @return 商品カテゴリリスト 
+     */
+    public List<Category> getCategory(){
+        List<Category> categoryList = null;
+        try {
+            categoryList = categoryDAO.dbSearchItemCategoryAll();
+        } catch (SQLException e) {
+            manageItemBoundary.showDBErrorMessage();
+        }
+        
+        return categoryList;
     }
     
     /**
@@ -46,6 +71,22 @@ public class ManageItemControl {
         }
     }
     
+    public void changeCardLayout(String card){
+        manageItemBoundary.changeCardLayout(card);
+    }
+    
+    /**
+     * 商品選択
+     * @param itemNumber 商品番号
+     */
+    public void SelectedItem(String itemNumber) {
+        try {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+    
     public void start() {
         manageItemBoundary.setControl(this);
         manageItemBoundary.setVisible(true);
@@ -55,6 +96,7 @@ public class ManageItemControl {
      * ×ボタン処理
      */
     public void exit() {
+        manageItemBoundary.changeCardLayout("card2");
         manageItemBoundary.setVisible(false);
         control.exitMediaView();
     }

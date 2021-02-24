@@ -21,8 +21,8 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     
     public EmployeeBoundary() {
         initComponents();
-        //initComboBox();
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
+        jButtonSetRoll.setVisible(false);
     }
     
     private EmployeeControl control;
@@ -43,11 +43,26 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * 従業員登録処理の初期化画面
+     */
     public void initAddEmployeePanel(){
         jTextFieldName.setText("");
         jComboBoxType2.setSelectedItem(0);
         jPasswordField.setText("");
         jPasswordFieldCheck.setText("");
+    }
+    
+    /**
+     * 従業員管理画面初期化処理
+     */
+    public void initManageEmployeePanel(){
+        jTextFieldName2.setText("");
+        jTextFieldSearchName.setText("");
+        jTextFieldSearchEmployeeNumber.setText("");
+        jPasswordFieldUpdate.setText("");
+        jPasswordFieldCheckUpdate.setText("");
+        jLabelPasswordErrorUpdate.setText("");
     }
     
     /**
@@ -57,6 +72,8 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     public void setControl(EmployeeControl control){
         this.control = control;
         initComboBox();
+        initAddEmployeePanel();
+        initManageEmployeePanel();
     }
     
     /**
@@ -564,6 +581,8 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchEmployeeNumberActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        control.changeCardLayout(ADD_EMPLOYEE);
+        emp.setEmployee("", "", "");
         control.exit();
     }//GEN-LAST:event_formWindowClosing
 

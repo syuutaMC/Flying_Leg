@@ -72,9 +72,9 @@ public class EmployeeControl {
      */
     public void registarEmployee(String employeeName, String empCategory, char[] password){
         try{
-            int cnt = employeeDAO.dbCreateEmployee(employeeName, empCategory, password);
-            if(cnt > 0){
-                employeeBoundary.showMessageDialog("登録されました！\n従業員番号は ?? 番です");
+            List<Employee> emp = employeeDAO.dbCreateEmployee(employeeName, empCategory, password);
+            if(emp.size() > 0){
+                employeeBoundary.showMessageDialog("登録されました！\n従業員番号は" + emp.get(0).getEmployeeNumber() +"番です");
                 employeeBoundary.initAddEmployeePanel();
             }else{
                 employeeBoundary.showErrorMessage("登録できませんでした", "エラー");
@@ -133,7 +133,7 @@ public class EmployeeControl {
     }
     
     /**
-     * マネージャー管理メニュー表示処理
+     * 従業員管理メニュー表示処理
      */
     public void start(){
         employeeBoundary.setVisible(true);
@@ -141,7 +141,6 @@ public class EmployeeControl {
     }
     
     public void exit(){
-        employeeBoundary.initAddEmployeePanel();
         employeeBoundary.setVisible(false);
         control.exitMediaView();
     }

@@ -5,10 +5,6 @@
  */
 package managerMenu;
 
-import java.io.CharArrayReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +43,7 @@ public class EmployeeDAO {
                 employeeList.add(employee);
             }
             rs.close();
-        } catch (Exception e) {
+        } catch(SQLException e){
             e.printStackTrace();
         }
         
@@ -67,7 +63,7 @@ public class EmployeeDAO {
             }
             rs.close();
         }
-        catch(Exception e){
+        catch(SQLException e){
             e.printStackTrace();
         }
         
@@ -87,7 +83,7 @@ public class EmployeeDAO {
             employee.setEmployeeNumber(employeeNumber);
             employee.setEmployeeName(employeeName);
             employee.setEmployeeType(employeeType);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -133,6 +129,8 @@ public class EmployeeDAO {
         return employeeList;
     }
     
+    
+    
     /**
      * ログイン処理
      * @return ログイン成否
@@ -163,20 +161,24 @@ public class EmployeeDAO {
      * @return 登録できたか
      * @throws SQLException 
      */
-    public int dbCreateEmployee(String name, String empCategory, char[] password) throws SQLException {
+    public List<Employee> dbCreateEmployee(String name, String empCategory, char[] password) throws SQLException {
+        List<Employee> employeeList = new ArrayList<>();
         String sql = "INSERT INTO EMPLOYEES(EMPLOYEE_NAME, TYPE_NUMBER, PASSWORD) " +
-                     " VALUES( ?, ?, ?) ";
+                     " VALUES( ?, ?, ?) " + 
+                     " RETURNING employee_number, employee_name, type_number";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, empCategory);
             ps.setString(3, new String(password));
             
-            return ps.executeUpdate();
+            employeeList = selectEmployeeExecute();
         }
         catch (SQLException e) {
             throw e;
         }
+        
+        return employeeList;
     }
     
     /**
