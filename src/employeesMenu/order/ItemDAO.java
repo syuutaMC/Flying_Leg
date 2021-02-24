@@ -213,27 +213,6 @@ public class ItemDAO {
     }
     
     /**
-     * 商品追加
-     * @param item 商品情報 
-     */
-    public void dbAddItem(Item item) {
-        String sql = "INSERT INTO items( item_number, category_number, item_name, unit_price) " + 
-                     " VALUES( ?, ?, ?, ?) ";
-        try {
-            ps = con.prepareCall(sql);
-            ps.setString(1, item.getItemNumber());
-            ps.setString(2, item.getItemCategory());
-            ps.setString(3, item.getItemName());
-            ps.setInt(4, item.getUnitPrice());
-            
-            ps.executeQuery();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
      * 商品情報更新処理
      * @param itemNumber 更新する商品番号
      * @param item       新しい商品情報
@@ -296,8 +275,8 @@ public class ItemDAO {
             ps.setString(2, item.getItemName());
             ps.setInt(3, item.getUnitPrice());
             ps.setString(4, item.getItemCategory());
-            ResultSet rs = ps.executeQuery();
-            rs.close();
+            ps.executeUpdate();
+            
         } catch (SQLException e) {
             throw e;
         }
