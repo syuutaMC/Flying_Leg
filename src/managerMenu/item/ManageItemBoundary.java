@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageItemBoundary extends javax.swing.JFrame {
     private ManageItemControl control;
+    private Item item;
     private DefaultTableModel manageItemTableModel;
     private DefaultTableModel addSetMenuTableModel;
     private final CardLayout cardLayout;
@@ -40,6 +41,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
      */
     public ManageItemBoundary() {
         initComponents();
+        item = new Item();
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
     }
     
@@ -382,6 +384,11 @@ public class ManageItemBoundary extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jButton1.setText("商品登録");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAddAitemLayout = new javax.swing.GroupLayout(jPanelAddAitem);
         jPanelAddAitem.setLayout(jPanelAddAitemLayout);
@@ -613,6 +620,19 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         control.exit();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            item.setItemName(jTextFieldAddItemName.getText());
+            item.setItemCategory(jComboBoxItemCategory.getSelectedItem().toString().substring(0, 0));
+            item.setUnitPrice(Integer.parseInt(jTextFieldAddItemPrice.getText()));
+            
+            control.addItem(item);
+        }
+        catch(NumberFormatException e){
+            showErrorMessage("価格に数値を入力してください", "エラー");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void menuTableSelectedItem(int row) {
         int tabNo = jTabbedPaneItem.getSelectedIndex();

@@ -34,6 +34,7 @@ public class ManageItemControl {
     }
     
     public void showManageItemBoundary() {
+        manageItemBoundary.setEnabled(true);
         start();
     }
     
@@ -42,7 +43,7 @@ public class ManageItemControl {
      */
     public void showManageItemPopupBoundary() {
         manageItemPopupBoundary.setControl(this);
-        manageItemBoundary.setVisible(false);
+        manageItemBoundary.setEnabled(false);
         manageItemPopupBoundary.setVisible(true);
     }
     
@@ -85,6 +86,16 @@ public class ManageItemControl {
     
     public void changeCardLayout(String card){
         manageItemBoundary.changeCardLayout(card);
+    }
+    
+    public void addItem(Item item){
+        try{
+            itemDAO.dbSetNewItem(item);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        
     }
     
     /**
