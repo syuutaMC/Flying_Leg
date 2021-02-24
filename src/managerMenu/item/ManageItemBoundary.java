@@ -141,7 +141,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         
         this.menuTableModelList = menuTableModelList;
         this.jtableMenuList = tableList;
-        control.showMenu(categoryList);
+        control.showMenu(control.getCategory());
     }
     
     /**
@@ -618,7 +618,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         int tabNo = jTabbedPaneItem.getSelectedIndex();
         
         if (jtableMenuList.get(tabNo).getSelectedRow() > -1) {
-            control.SelectedItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString());
+            control.selectedItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString());
         }
     }
     

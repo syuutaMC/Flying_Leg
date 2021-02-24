@@ -5,12 +5,16 @@
  */
 package managerMenu.item;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author syuuta
  */
 public class ManageItemPopupBoundary extends javax.swing.JFrame {
-
+    private Item item;
+    private ManageItemControl control;
     /**
      * Creates new form ManageItemPopupBoundary
      */
@@ -18,6 +22,60 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * コントロール設定
+     * @param control コントロール
+     */
+    public void setControl(ManageItemControl control) {
+        this.control = control;
+        initComboBox();
+    }
+    
+    /**
+     * コンボボックス初期化
+     */
+    private void initComboBox() {
+        List<Category> categoryList;
+        categoryList = control.getCategory();
+        
+         jComboBoxItemCategory.removeAllItems();
+        
+        for (Category category : categoryList) {
+            jComboBoxItemCategory.addItem(category.getCategoryNumber()  + " : " + category.getCategoryName());
+        }
+        
+    }
+    
+    /**
+     * 編集する商品を指定
+     * @param item 商品情報
+     */
+    public void setItem(Item item) {
+        this.item = item;
+        jTextFieldItemName.setText(item.getItemName());
+        jTextFieldPrice.setText(Integer.toString(item.getUnitPrice()));
+    }
+    
+    /**
+     * データベースエラー発生時のエラーダイアログ
+     */
+    public void showDBErrorMessage() {
+        JOptionPane.showMessageDialog(this, "データベースエラーが発生しました", "DBエラー", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * 商品情報情報更新確認ダイアログ
+     */
+    public void showUpdateSuccessMessage() {
+        JOptionPane.showMessageDialog(this, "商品情報が変更されました", "確認", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * 商品変更失敗メッセージ
+     */
+    public void showUpdateFailedMessage() {
+        JOptionPane.showMessageDialog(this, "商品情報が変更されませんでした", "エラー", JOptionPane.ERROR_MESSAGE);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,9 +95,13 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
         jTextFieldPrice = new javax.swing.JTextField();
         jComboBoxItemCategory = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -78,8 +140,11 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
         jComboBoxItemCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("更新する");
-
-        jButton2.setText("削除する");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -88,22 +153,18 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jTextFieldItemName, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                                .addComponent(jTextFieldPrice))
-                            .addComponent(jComboBoxItemCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 79, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton2)))
-                .addContainerGap())
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jTextFieldItemName, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                        .addComponent(jTextFieldPrice))
+                    .addComponent(jComboBoxItemCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(29, 29, 29))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,9 +182,7 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxItemCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -145,6 +204,33 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            if(jTextFieldItemName.getText().isEmpty()) {
+                return;
+            }
+            item.setItemName(jTextFieldItemName.getText());
+            item.setUnitPrice(Integer.parseInt(jTextFieldPrice.getText()));
+            String category = (String)jComboBoxItemCategory.getSelectedItem();
+            item.setItemCategory(category.substring(0, 1));
+            control.editItem(item);
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "金額は数値で入力してください", "入力エラー", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        exit();
+    }//GEN-LAST:event_formWindowClosing
+
+    public void exit() {
+        control.showMenu(control.getCategory());
+        control.showManageItemBoundary();
+        setVisible(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -182,7 +268,6 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBoxItemCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

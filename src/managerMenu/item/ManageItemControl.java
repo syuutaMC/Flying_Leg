@@ -18,12 +18,15 @@ public class ManageItemControl {
     private final ManageItemBoundary manageItemBoundary;
     private final CategoryDAO categoryDAO;
     private final ItemDAO itemDAO;
+    private final ManageItemPopupBoundary manageItemPopupBoundary;
     private ManagerMenuControl control;
     
     public ManageItemControl(){
         manageItemBoundary = new ManageItemBoundary();
+        manageItemPopupBoundary = new ManageItemPopupBoundary();
         categoryDAO = new CategoryDAO();
         itemDAO = new ItemDAO();
+        
     }
     
     public void setControl(ManagerMenuControl control){
@@ -32,6 +35,15 @@ public class ManageItemControl {
     
     public void showManageItemBoundary() {
         start();
+    }
+    
+    /**
+     * 商品編集画面表示
+     */
+    public void showManageItemPopupBoundary() {
+        manageItemPopupBoundary.setControl(this);
+        manageItemBoundary.setVisible(false);
+        manageItemPopupBoundary.setVisible(true);
     }
     
     public void showMenu(List<Category> categoryList) {
@@ -79,12 +91,37 @@ public class ManageItemControl {
      * 商品選択
      * @param itemNumber 商品番号
      */
-    public void SelectedItem(String itemNumber) {
+    public void selectedItem(String itemNumber) {
+        List<Item> itemList;
         try {
-            
-        } catch (Exception e) {
+            itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
+            if (itemList.size() > 0) {
+                manageItemPopupBoundary.setItem(itemList.get(0));
+                showManageItemPopupBoundary();
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         } 
+    }
+    
+    /**
+     * 商品編集
+     * @param item 商品情報
+     */
+    public void editItem(Item item) {
+        try {
+            
+            if (itemDAO.dbUpdateItem(item.getItemNumber(), item) > 0) {
+                manageItemPopupBoundary.showUpdateSuccessMessage();
+                manageItemPopupBoundary.exit();
+            }
+            else {
+                manageItemPopupBoundary.showUpdateFailedMessage();
+            }
+            
+        } catch (SQLException e) {
+            manageItemPopupBoundary.showDBErrorMessage();
+        }
     }
     
     public void start() {

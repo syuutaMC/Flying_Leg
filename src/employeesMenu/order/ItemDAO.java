@@ -217,11 +217,11 @@ public class ItemDAO {
      * @param itemNumber 更新する商品番号
      * @param item       新しい商品情報
      */
-    public void dbUpdateItem(String itemNumber, Item item) {
+    public int dbUpdateItem(String itemNumber, Item item) throws SQLException {
         String sql = "UPDATE items " +
-                     " SET item_number     = ? " +
-                     "     category_number = ? " +
-                     "     item_name       = ? " +
+                     " SET item_number     = ? ," +
+                     "     category_number = ? ," +
+                     "     item_name       = ? ," +
                      "     unit_price      = ? " +
                      " WHERE item_number   = ? ";
         try {
@@ -232,11 +232,12 @@ public class ItemDAO {
             ps.setInt(4, item.getUnitPrice());
             ps.setString(5, itemNumber);
             
-            ps.executeQuery().close();
+            return ps.executeUpdate();
             
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         }
     }
     
