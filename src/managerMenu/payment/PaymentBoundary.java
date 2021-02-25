@@ -464,7 +464,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
             weekSalesTableModel.setRowCount(0);
             
             for (Sales sales : salesList) {
-                column[0] = sales.getSalesDate("yyyy年 MM月") + "第" + Integer.toString(sales.getWeekNumber()) + "週";
+                column[0] = sales.getSalesDate("yyyy年 MM月 第W週");
                 column[1] = Integer.toString(sales.getStoreNumber());
                 column[2] = Integer.toString(sales.getOrderQuantity()) + "回";
                 column[3] = nf.format(sales.getSalesAmount()) + "円";
@@ -632,6 +632,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButtonSearchOrderNumber = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanelSales = new javax.swing.JPanel();
         jPanelSalesCardBase = new javax.swing.JPanel();
         jPanelDateSales = new javax.swing.JPanel();
@@ -786,14 +787,19 @@ public class PaymentBoundary extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        jLabel7.setText("入金確認");
+
         javax.swing.GroupLayout jPanelCheckPaymentLayout = new javax.swing.GroupLayout(jPanelCheckPayment);
         jPanelCheckPayment.setLayout(jPanelCheckPaymentLayout);
         jPanelCheckPaymentLayout.setHorizontalGroup(
             jPanelCheckPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCheckPaymentLayout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanelCheckPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelCheckPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanelCheckPaymentLayout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonAllSerarch)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonNoCheckSearch)
@@ -809,15 +815,16 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jPanelCheckPaymentLayout.setVerticalGroup(
             jPanelCheckPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCheckPaymentLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(17, 17, 17)
                 .addGroup(jPanelCheckPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAllSerarch)
                     .addComponent(jButtonNoCheckSearch)
                     .addComponent(jLabel4)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearchOrderNumber))
+                    .addComponent(jButtonSearchOrderNumber)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPanePaymentHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addComponent(jScrollPanePaymentHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addGap(31, 31, 31))
         );
 
@@ -831,7 +838,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jPanelDateSales.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
-        jLabel6.setText("売上金額");
+        jLabel6.setText("日間金額");
 
         jLabelDateSalesAmount.setFont(new java.awt.Font("MS UI Gothic", 0, 18)); // NOI18N
         jLabelDateSalesAmount.setText("------円");
@@ -1395,6 +1402,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelDateSalesAmount;
     private javax.swing.JLabel jLabelEmployeeName;
