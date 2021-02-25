@@ -84,15 +84,26 @@ public class ManageItemControl {
         }
     }
     
+    /**
+     * カードレイアウト変更
+     * @param card 変更するカード
+     */
     public void changeCardLayout(String card){
         manageItemBoundary.changeCardLayout(card);
     }
     
+    /**
+     * 商品追加処理
+     * @param item 
+     */
     public void addItem(Item item){
         try{
+            item.setItemNumber(item.getItemCategory() + itemDAO.dbGetNewNumber(item.getItemCategory()));
             itemDAO.dbSetNewItem(item);
+            manageItemBoundary.showConfirmMessage("商品が追加されました", "確認");
         }
         catch(SQLException e){
+            manageItemBoundary.showDBErrorMessage();
             e.printStackTrace();
         }
         

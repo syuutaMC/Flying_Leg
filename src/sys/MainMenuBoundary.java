@@ -7,7 +7,6 @@ package sys;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.util.Timer;
 
 /**
  * 従業員メニューバウンダリー

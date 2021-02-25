@@ -5,8 +5,6 @@
  */
 package managerMenu;
 
-import java.sql.SQLException;
-import java.util.List;
 import managerMenu.payment.PaymentControl;
 import managerMenu.item.ManageItemControl;
 import managerMenu.employees.EmployeeControl;

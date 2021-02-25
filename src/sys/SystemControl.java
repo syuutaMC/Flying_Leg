@@ -1,13 +1,8 @@
 package sys;
 
 import employeesMenu.EmployeesControl;
-import java.io.CharArrayReader;
-import java.io.IOException;
-import java.io.Reader;
 import managerMenu.ManagerMenuControl;
-import managerMenu.item.ManageItemControl;
 import java.util.List;
-import javax.swing.JFrame;
 import managerMenu.Employee;
 import managerMenu.EmployeeDAO;
 import managerMenu.item.ManageItemControl;

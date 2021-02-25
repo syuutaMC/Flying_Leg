@@ -5,8 +5,6 @@
  */
 package employeesMenu.customer;
 
-import java.util.Objects;
-
 /**
  * 顧客クラス
  * @author 19jz0137

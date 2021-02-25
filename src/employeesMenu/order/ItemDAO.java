@@ -243,15 +243,18 @@ public class ItemDAO {
     
     /**
      * 新しい商品番号の候補を取得する
+     * @param categoryNumber カテゴリ番号
      * @return 新しい商品番号 | 取得に失敗した場合 -1
      * @throws java.sql.SQLException
      */
-    public String dbGetNewNumber() throws SQLException {
+    public String dbGetNewNumber(String categoryNumber) throws SQLException {
         int newNumber = -1;
-        String sql = "SELECT MAX(TO_NUMBER(item_number)) FROM items";
+        String sql = "SELECT MAX(TO_NUMBER(SUBSTR(item_number, 2))) \"ITEM_NUMBER\" FROM items WHERE category_number = ? ";
         try {
             ps = con.prepareStatement(sql);
+            ps.setString(1, categoryNumber);
             ResultSet rs = ps.executeQuery();
+            rs.next();
             newNumber = rs.getInt("item_number");
             rs.close();
         }
@@ -259,7 +262,7 @@ public class ItemDAO {
             throw e;
         }
         
-        return Integer.toString(newNumber);
+        return String.format("%02d", ++newNumber);
     }
     
     /**

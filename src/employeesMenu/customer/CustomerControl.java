@@ -6,7 +6,6 @@
 package employeesMenu.customer;
 
 import employeesMenu.EmployeesControl;
-import employeesMenu.order.OrderControl;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;

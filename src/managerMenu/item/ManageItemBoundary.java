@@ -622,9 +622,13 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (jTextFieldAddItemName.getText().isEmpty() || jTextFieldAddItemPrice.getText().isEmpty()) {
+            return;
+        }
         try{
             item.setItemName(jTextFieldAddItemName.getText());
-            item.setItemCategory(jComboBoxItemCategory.getSelectedItem().toString().substring(0, 0));
+            String category = (String)jComboBoxItemCategory.getSelectedItem();
+            item.setItemCategory(category.substring(0, 1));
             item.setUnitPrice(Integer.parseInt(jTextFieldAddItemPrice.getText()));
             
             control.addItem(item);
