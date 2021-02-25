@@ -7,6 +7,7 @@ package sys;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  * 従業員メニューバウンダリー
@@ -132,8 +133,13 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
         jPasswordField = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanelTop.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -497,6 +503,12 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private void jButtonManageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageItemActionPerformed
         control.showManageItemBoundary();
     }//GEN-LAST:event_jButtonManageItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(this, "システムを終了しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
     
     
     private void jButtonManageSalesActionPerformed(java.awt.event.ActionEvent evt){
