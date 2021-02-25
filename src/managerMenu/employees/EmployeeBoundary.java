@@ -582,7 +582,6 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         control.changeCardLayout(ADD_EMPLOYEE);
-        emp.setEmployee("", "", "");
         control.exit();
     }//GEN-LAST:event_formWindowClosing
 

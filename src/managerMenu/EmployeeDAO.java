@@ -7,6 +7,8 @@ package managerMenu;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
+import java.sql.Types;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -161,24 +163,34 @@ public class EmployeeDAO {
      * @return 登録できたか
      * @throws SQLException 
      */
-    public List<Employee> dbCreateEmployee(String name, String empCategory, char[] password) throws SQLException {
-        List<Employee> employeeList = new ArrayList<>();
-        String sql = "INSERT INTO EMPLOYEES(EMPLOYEE_NAME, TYPE_NUMBER, PASSWORD) " +
+    public int dbCreateEmployee(String name, String empCategory, char[] password) throws SQLException {
+        int id = -1;
+        String sql = "begin INSERT INTO EMPLOYEES(EMPLOYEE_NAME, TYPE_NUMBER, PASSWORD) " +
                      " VALUES( ?, ?, ?) " + 
-                     " RETURNING employee_number, employee_name, type_number";
+                     " RETURNING EMPLOYEE_NUMBER into ?; " + 
+                     "end;";
+        CallableStatement cs = con.prepareCall(sql);
+        
         try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2, empCategory);
-            ps.setString(3, new String(password));
             
-            employeeList = selectEmployeeExecute();
+            cs.setString(1, name);
+            cs.setString(2, empCategory);
+            cs.setString(3, new String(password));
+            
+            cs.registerOutParameter(4, Types.NUMERIC);
+
+            int cnt = cs.executeUpdate();
+            
+            id = cs.getInt(4);
         }
         catch (SQLException e) {
-            throw e;
+            throw e; 
+        }
+        finally{
+            cs.close();
         }
         
-        return employeeList;
+        return id;
     }
     
     /**
@@ -187,7 +199,7 @@ public class EmployeeDAO {
      * @param password パスワード
      * @throws SQLException  
      */
-    public int updateEmployee(Employee employee, char[] password) throws SQLException{
+    public int updateEmployeePass(Employee employee, char[] password) throws SQLException{
         String sql = "UPDATE employees" + 
                      " SET  employee_name = ?, " + 
                      "      type_number = ?, " +
@@ -207,6 +219,31 @@ public class EmployeeDAO {
             throw e;
         }
     }
+    
+    /**
+     * 従業員更新処理
+     * @param employee 従業員情報
+     * @throws SQLException  
+     */
+    public int updateEmployee(Employee employee) throws SQLException{
+        String sql = "UPDATE employees" + 
+                     " SET  employee_name = ?, " + 
+                     "      type_number = ? " +
+                     " WHERE employee_number = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, employee.getEmployeeName());
+            ps.setString(2, employee.getEmployeeType());
+            ps.setString(3, employee.getEmployeeNumber());
+            
+            return ps.executeUpdate();
+        }
+        catch(SQLException e){
+            throw e;
+        }
+    }
+   
     
     /**
      * 従業員削除処理

@@ -58,9 +58,11 @@ public class EmployeeControl {
     public void searchEmployeeNumber(String employeeNumber){
         List<Employee> emp = employeeDAO.searchEmployeeNumber(employeeNumber);
         
-        if(emp.size() >= 0){
+        if(emp.size() > 0){
             employeeBoundary.setEmployee(emp.get(0));
             employeeBoundary.showEmployee();
+        }else{
+            employeeBoundary.showMessageDialog("従業員番号" + employeeNumber + "が見つかりません" );
         }
     }
     
@@ -72,9 +74,9 @@ public class EmployeeControl {
      */
     public void registarEmployee(String employeeName, String empCategory, char[] password){
         try{
-            List<Employee> emp = employeeDAO.dbCreateEmployee(employeeName, empCategory, password);
-            if(emp.size() > 0){
-                employeeBoundary.showMessageDialog("登録されました！\n従業員番号は" + emp.get(0).getEmployeeNumber() +"番です");
+            int id = employeeDAO.dbCreateEmployee(employeeName, empCategory, password);
+            if(id != -1){
+                employeeBoundary.showMessageDialog("登録されました！\n従業員番号は" + id +"番です");
                 employeeBoundary.initAddEmployeePanel();
             }else{
                 employeeBoundary.showErrorMessage("登録できませんでした", "エラー");
@@ -92,7 +94,12 @@ public class EmployeeControl {
      */
     public void updateEmployee(Employee emp, char[] password){
         try{
-            int cnt = employeeDAO.updateEmployee(emp, password);
+            int cnt = 0;
+            if(new String(password).equals("")){
+                cnt = employeeDAO.updateEmployee(emp);
+            }else{
+                cnt = employeeDAO.updateEmployeePass(emp, password);
+            }
             if(cnt > 0){
                 employeeBoundary.showMessageDialog("更新しました");
             }
