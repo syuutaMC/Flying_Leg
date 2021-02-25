@@ -7,22 +7,49 @@ package sys;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
- * 従業員メニューバウンダリー
- * @author 19jz0115
+ * メインメニューバウンダリー.
+ * ログイン処理、各種管理画面の選択画面
+ * @author 19jz0115 坂本 柊太
  */
 public class MainMenuBoundary extends javax.swing.JFrame{
+    /**
+     * 従業員メニュー画面カード.
+     */
     private static final String CARD_EMPLOYEES_MENU = "card2";
-    private static final String CARD_MAIN_MENU = "card3";
-    private static final String CARD_MANAGER_MENU = "card4";
-    private static final String CARD_LOGIN_MENU = "card5";
-    private String showCard = CARD_MAIN_MENU;
     
+    /**
+     * メインメニュー画面カード.
+     */
+    private static final String CARD_MAIN_MENU = "card3";
+    
+    /**
+     * マネージャーメニュ画面ーカード.
+     */
+    private static final String CARD_MANAGER_MENU = "card4";
+    
+    /**
+     * ログイン画面カード.
+     */
+    private static final String CARD_LOGIN_MENU = "card5";
+    
+    private String showCard = CARD_MAIN_MENU;
+    /**
+     * システムコントロール.
+     */
     private SystemControl control;
     private final CardLayout cardLayout;
     
-    
+    /**
+     * コンストラクタ.
+     * コンポーネント初期化、
+     * ラベル初期化、
+     * ボタン初期化、
+     * タイトル設定、
+     * 初期カードレイアウト設定
+     */
     public MainMenuBoundary() {
         initComponents();
         initjLabel();
@@ -31,29 +58,33 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
     }
     
+    /**
+     * ラベル初期化.
+     * エラーメッセージラベルの文字を赤色に設定
+     */
     private void initjLabel(){
         jLabelErrorMesage.setForeground(Color.red);
-   }
+    }
     
     /**
-     * ボタンの初期化
+     * ボタンの初期化.
      * デフォルト値 : false
-     * デバッグ時   : true
      */
     private void initButton(){
         jButtonManagerMenu.setEnabled(false);
     }
     
     /**
-     * コントロールを設定
-     * @param control 
+     * コントロールを設定.
+     * @param control システムコントロール
      */
     public void setControl(SystemControl control){
         this.control = control;
     }
     
     /**
-     * カード切り替え処理
+     * カード切り替え処理.
+     * @param card カード名
      */
     public void showCardLayout(String card){
         cardLayout.show(jPanelCardBase, card);
@@ -61,30 +92,40 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     }
     
     /**
-     * ログイン失敗時の処理
+     * ログイン失敗時の処理.
+     * ログイン失敗時に赤文字で警告する
      */
     public void loginFailure(){
         jLabelErrorMesage.setText("IDまたはパスワードが違います");
     }
     
     /**
-     * ログイン成功時の処理
+     * ログイン成功時の処理.
+     * ログインユーザがマネージャーであれば
+     * マネージャーメニューを選択可能にする
+     * @param employeeType 従業員種別
      */
     public void login(String employeeType){
+        //従業員番号と名前を表示
         jLabelEmployeeNumber.setText(control.emp.getEmployeeNumber());
         jLabelEmployeeName.setText(control.emp.getEmployeeName());
         
+        //ログインユーザがマネージャーであれば
         if(employeeType.equals("M")){
+            //マネージャーメニューボタンを選択可能に
             jButtonManagerMenu.setEnabled(true);
         }
+        //パスワードフィールドを初期化
         jPasswordField.setText("");
+        //ログインボタンをログアウトボタンに
         jButtonLoginLogout.setText("ログアウト");
+        //メインメニュー画面表示
         control.changeCardLayout(CARD_MAIN_MENU);
         jButtonLoginLogout.setVisible(true);
     }
     
     /**
-     * ログアウト処理
+     * ログアウト処理.
      */
     public void logout(){
         jButtonManagerMenu.setEnabled(false);
@@ -132,8 +173,13 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
         jPasswordField = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanelTop.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -497,6 +543,12 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private void jButtonManageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageItemActionPerformed
         control.showManageItemBoundary();
     }//GEN-LAST:event_jButtonManageItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(this, "システムを終了しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
     
     
     private void jButtonManageSalesActionPerformed(java.awt.event.ActionEvent evt){
