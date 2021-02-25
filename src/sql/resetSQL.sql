@@ -91,34 +91,34 @@ INSERT INTO item_categories(category_number, category_name) VALUES('S', 'サイ�
 INSERT INTO item_categories(category_number, category_name) VALUES('D', 'ドリンクメニュー');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('M01', 'ステーキS', 1000, 'M');
+    VALUES ('01', 'ステーキS', 1000, 'M');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('M02', 'ステーキM', 1250, 'M');
+    VALUES ('02', 'ステーキM', 1250, 'M');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('M03', 'ステーキL', 1500, 'M');
+    VALUES ('03', 'ステーキL', 1500, 'M');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('S01', 'やばいサラダ', 200, 'S');
+    VALUES ('04', 'やばいサラダ', 200, 'S');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('S02', '海藻サラダ', 230, 'S');
+    VALUES ('05', '海藻サラダ', 230, 'S');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('S03', 'スイートコーン', 250, 'S');
+    VALUES ('06', 'スイートコーン', 250, 'S');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('S04', 'ポテト', 200, 'S');
+    VALUES ('07', 'ポテト', 200, 'S');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('D01', 'アセロラジュース', 200, 'D');
+    VALUES ('08', 'アセロラジュース', 200, 'D');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('D02', 'やばいお茶', 300, 'D');
+    VALUES ('09', 'やばいお茶', 300, 'D');
 
 INSERT INTO items(item_number, item_name, unit_price, category_number)
-    VALUES ('D03', '元気ドリンコ', 100, 'D');
+    VALUES ('10', '元気ドリンコ', 100, 'D');
 
 
 create table STORES
@@ -163,93 +163,153 @@ INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_
     VALUES('001', '1', '東京都千代田区千代田1-1', '', '001');
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('M03', 1, 3);
+    VALUES('01', 1, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S01', 1, 1);
+    VALUES('06', 1, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S02', 1, 1);
+    VALUES('03', 1, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('D01', 1, 1);
+    VALUES('04', 1, 1);
 
 --
 INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
     VALUES('002', '2', '東京都千代田区永田町1-7-1', '', '001');
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('M02', 2, 3);
+    VALUES('05', 2, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S01', 2, 1);
+    VALUES('06', 2, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S02', 2, 1);
+    VALUES('07', 2, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('D02', 2, 1);
+    VALUES('08', 2, 1);
 
 --
 INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
     VALUES('003', '3', '東京都千代田区千代田1-1', '', '001');
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('M03', 3, 3);
+    VALUES('09', 3, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S01', 3, 1);
+    VALUES('10', 3, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S02', 3, 1);
+    VALUES('11', 3, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('D03', 3, 1);
+    VALUES('12', 3, 1);
 
 --
 INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
     VALUES('004', '3', '新宿区百人町1-25-4', '', '001');
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('M02', 4, 10);
+    VALUES('01', 4, 10);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S01', 4, 10);
+    VALUES('02', 4, 10);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S02', 4, 10);
+    VALUES('03', 4, 10);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('D01', 4, 10);
+    VALUES('06', 4, 10);
 
 --
 INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
     VALUES('005', '2', '東京都千代田区永田町1-7-1', '', '001');
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('M03', 5, 3);
+    VALUES('05', 5, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S01', 5, 3);
+    VALUES('03', 5, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S02', 5, 3);
+    VALUES('8', 5, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('D01', 5, 3);
+    VALUES('10', 5, 3);
 
 --
 INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
     VALUES('006', '1', '東京都千代田区千代田1-1', '', '001');
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('M03', 6, 3);
+    VALUES('11', 6, 3);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S01', 6, 1);
+    VALUES('12', 6, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('S02', 6, 1);
+    VALUES('05', 6, 1);
 
 INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
-    VALUES('D01', 6, 1);
+    VALUES('03', 6, 1);
+
+INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
+    VALUES('007', '1', '東京都千代田区千代田1-1', '', '001');
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('11', 7, 3);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('05', 7, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('01', 7, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('03', 7, 1);
+
+INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
+    VALUES('008', '1', '東京都千代田区千代田1-1', '', '001');
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('08', 8, 3);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('12', 8, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('05', 8, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('02', 8, 1);
+
+INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
+    VALUES('009', '1', '東京都千代田区千代田1-1', '', '001');
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('09', 9, 3);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('12', 9, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('07', 9, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('08', 9, 1);
+
+INSERT INTO ORDERS (ORDER_NUMBER, CUSTOMER_NUMBER, DELIVERY_TO_ADDRESS, PAYMENT_DAY, STORE_NUMBER)
+    VALUES('010', '1', '東京都千代田区千代田1-1', '', '001');
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('03', 10, 3);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('05', 10, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('06', 10, 1);
+
+INSERT INTO ORDER_DETAILS (item_number, order_number, order_quantity)
+    VALUES('08', 10, 1);
