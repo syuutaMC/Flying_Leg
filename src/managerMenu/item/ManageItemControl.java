@@ -98,9 +98,10 @@ public class ManageItemControl {
      */
     public void addItem(Item item){
         try{
-            item.setItemNumber(item.getItemCategory() + itemDAO.dbGetNewNumber(item.getItemCategory()));
+            item.setItemNumber(itemDAO.dbGetNewNumber());
             itemDAO.dbSetNewItem(item);
             manageItemBoundary.showConfirmMessage("商品が追加されました", "確認");
+            manageItemBoundary.clearAddItem();
         }
         catch(SQLException e){
             manageItemBoundary.showDBErrorMessage();

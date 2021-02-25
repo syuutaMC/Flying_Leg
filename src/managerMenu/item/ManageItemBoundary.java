@@ -186,6 +186,15 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * 商品追加画面をクリア
+     */
+    public void clearAddItem() {
+        jTextFieldAddItemName.setText("");
+        jTextFieldAddItemPrice.setText("");
+        jComboBoxItemCategory.setSelectedIndex(0);
+    }
+    
     /**************************************************************************/
     
     /** ダイアログ *************************************************************/
