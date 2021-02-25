@@ -223,6 +223,16 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldName" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
+                                  <Component id="jLabelErrorName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelErrorPhoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelErrorAddress" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabelCustomerNumber" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="364" max="-2" attributes="0"/>
@@ -238,28 +248,17 @@
                                   <Component id="jTextFieldPhoneNumber" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
                                   <Component id="jTextFieldAddress" alignment="0" min="-2" pref="381" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jTextFieldSearchPhoneNumber" min="-2" pref="130" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jButtonCustomerCheck" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace pref="517" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldSearchPhoneNumber" min="-2" pref="130" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButtonCustomerCheck" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="9" pref="590" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldName" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
-                                  <Component id="jLabelErrorName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelErrorPhoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelErrorAddress" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

@@ -194,7 +194,7 @@ public class OrderBoundary extends javax.swing.JFrame {
     }
     
     /**
-     * 入力値のクリア処理 & 画面を初期に戻す
+     * 入力値のクリア処理  画面を初期に戻す
      */
     public void reset(){
         initAddAddressPanel();
