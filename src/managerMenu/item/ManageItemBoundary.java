@@ -634,6 +634,8 @@ public class ManageItemBoundary extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTextFieldAddItemName.getText().isEmpty() || jTextFieldAddItemPrice.getText().isEmpty()) {
             return;
+        } else if (JOptionPane.showConfirmDialog(this, "商品を追加しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION) {
+            return;
         }
         try{
             item.setItemName(jTextFieldAddItemName.getText());

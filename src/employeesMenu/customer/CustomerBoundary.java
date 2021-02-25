@@ -498,6 +498,11 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCustomerSerarchActionPerformed
 
     private void jButtonCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerUpdateActionPerformed
+        
+        if (JOptionPane.showConfirmDialog(this, "顧客情報を変更しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION) {
+            return;
+        }
+        
         if (customer != null) {
             customer.setName(jTextFieldName.getText());
             customer.setPhoneNumber(jTextFieldPhoneNumber.getText());
@@ -535,15 +540,17 @@ public class CustomerBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButtonDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCustomerActionPerformed
-        if (getCustomer() == null) {
+        if (JOptionPane.showConfirmDialog(this,"顧客情報を削除しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.NO_OPTION) {
+            return;
+        } else if (getCustomer() == null) {
             showErrorMessage("顧客情報を選択してください", "エラー");
             return;
         }
         
-        if (JOptionPane.showConfirmDialog(this,"顧客情報を削除しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-            control.deleteCustomer(getCustomer().getPhoneNumber());
-            control.showAllCustomerTable();
-        }
+        
+        control.deleteCustomer(getCustomer().getPhoneNumber());
+        control.showAllCustomerTable();
+
         
     }//GEN-LAST:event_jButtonDeleteCustomerActionPerformed
 
