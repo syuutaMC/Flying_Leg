@@ -144,10 +144,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemMainMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE CATEGORY_NUMBER = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "M%");
+            ps.setString(1, "M");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,10 +162,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemDrinkMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ?";
+        String sql = "SELECT * FROM ITEMS WHERE CATEGORY_NUMBER = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "D%");
+            ps.setString(1, "D");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,10 +180,10 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemSideMenu() {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT * FROM ITEMS WHERE ITEM_NUMBER LIKE ? ";
+        String sql = "SELECT * FROM ITEMS WHERE CATEGORY_NUMBER = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "S%");
+            ps.setString(1, "S");
             itemList = selectItemExucte();
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,7 +198,7 @@ public class ItemDAO {
      */
     public List<Item> dbSearchItemCategory(String categoryNumber) {
         List<Item> itemList = new ArrayList<>();
-        String sql = "SELECT CATEGORY_NUMBER || SUBSTR(ITEM_NUMBER, 2) AS \"ITEM_NUMBER\", ITEM_NAME, UNIT_PRICE " +
+        String sql = "SELECT ITEM_NUMBER, ITEM_NAME, UNIT_PRICE " +
                      " FROM ITEMS JOIN ITEM_CATEGORIES USING(CATEGORY_NUMBER) " +
                      " WHERE CATEGORY_NUMBER = ? ";
         try {

@@ -112,13 +112,14 @@ public class ManageItemControl {
     /**
      * 商品選択
      * @param itemNumber 商品番号
+     * @param tabNo タブ番号
      */
-    public void selectedItem(String itemNumber) {
+    public void selectedItem(String itemNumber, int tabNo) {
         List<Item> itemList;
         try {
             itemList = itemDAO.dbSearchItemItemNumber(itemNumber);
             if (itemList.size() > 0) {
-                manageItemPopupBoundary.setItem(itemList.get(0));
+                manageItemPopupBoundary.setItem(itemList.get(0), tabNo);
                 showManageItemPopupBoundary();
             }
         } catch (SQLException e) {

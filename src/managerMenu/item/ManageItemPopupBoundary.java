@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class ManageItemPopupBoundary extends javax.swing.JFrame {
     private Item item;
     private ManageItemControl control;
+    private int categoryIndex;
     /**
      * Creates new form ManageItemPopupBoundary
      */
@@ -43,15 +44,17 @@ public class ManageItemPopupBoundary extends javax.swing.JFrame {
         for (Category category : categoryList) {
             jComboBoxItemCategory.addItem(category.getCategoryNumber()  + " : " + category.getCategoryName());
         }
-        
+        jComboBoxItemCategory.setSelectedIndex(categoryIndex);
     }
     
     /**
      * 編集する商品を指定
      * @param item 商品情報
+     * @param categoryIndex
      */
-    public void setItem(Item item) {
+    public void setItem(Item item, int categoryIndex) {
         this.item = item;
+        this.categoryIndex = categoryIndex;
         jTextFieldItemName.setText(item.getItemName());
         jTextFieldPrice.setText(Integer.toString(item.getUnitPrice()));
     }

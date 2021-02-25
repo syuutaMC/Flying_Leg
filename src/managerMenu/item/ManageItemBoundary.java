@@ -642,7 +642,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         int tabNo = jTabbedPaneItem.getSelectedIndex();
         
         if (jtableMenuList.get(tabNo).getSelectedRow() > -1) {
-            control.selectedItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString());
+            control.selectedItem(jtableMenuList.get(tabNo).getValueAt(row, 0).toString(), tabNo);
         }
     }
     
