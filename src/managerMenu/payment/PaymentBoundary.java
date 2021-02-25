@@ -671,7 +671,6 @@ public class PaymentBoundary extends javax.swing.JFrame {
         jPanelMenu = new javax.swing.JPanel();
         jButtonShowSalesCard = new javax.swing.JButton();
         jButtonShowPaymentCard = new javax.swing.JButton();
-        jButtonShowSalesManagementCard = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         jLabel2.setText("売上金額");
@@ -1248,8 +1247,6 @@ public class PaymentBoundary extends javax.swing.JFrame {
             }
         });
 
-        jButtonShowSalesManagementCard.setText("売上管理");
-
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
@@ -1257,7 +1254,6 @@ public class PaymentBoundary extends javax.swing.JFrame {
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonShowSalesManagementCard)
                     .addComponent(jButtonShowPaymentCard)
                     .addComponent(jButtonShowSalesCard))
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -1267,9 +1263,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jButtonShowSalesCard)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonShowSalesManagementCard)
-                .addGap(49, 49, 49)
+                .addGap(57, 57, 57)
                 .addComponent(jButtonShowPaymentCard)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1388,7 +1382,6 @@ public class PaymentBoundary extends javax.swing.JFrame {
     private javax.swing.JButton jButtonShowMonthSalesCard;
     private javax.swing.JButton jButtonShowPaymentCard;
     private javax.swing.JButton jButtonShowSalesCard;
-    private javax.swing.JButton jButtonShowSalesManagementCard;
     private javax.swing.JButton jButtonShowWeekSalesCard;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -134,8 +134,6 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
         jPanelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabelEmployeeName = new javax.swing.JLabel();
-        jLabelEmployeeNumber = new javax.swing.JLabel();
         jPanelMenu = new javax.swing.JPanel();
         jButtonAddEmployee = new javax.swing.JButton();
         jButtonManageEmployee = new javax.swing.JButton();
@@ -188,10 +186,6 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         jLabel1.setText("従業員管理");
 
-        jLabelEmployeeName.setText("jLabel2");
-
-        jLabelEmployeeNumber.setText("jLabel3");
-
         javax.swing.GroupLayout jPanelTopLayout = new javax.swing.GroupLayout(jPanelTop);
         jPanelTop.setLayout(jPanelTopLayout);
         jPanelTopLayout.setHorizontalGroup(
@@ -199,25 +193,14 @@ public class EmployeeBoundary extends javax.swing.JFrame {
             .addGroup(jPanelTopLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
-                .addComponent(jLabelEmployeeNumber)
-                .addGap(78, 78, 78)
-                .addComponent(jLabelEmployeeName)
-                .addContainerGap())
+                .addContainerGap(597, Short.MAX_VALUE))
         );
         jPanelTopLayout.setVerticalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTopLayout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTopLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTopLayout.createSequentialGroup()
-                        .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelEmployeeName)
-                            .addComponent(jLabelEmployeeNumber))
-                        .addContainerGap())))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         jPanelMenu.setBackground(new java.awt.Color(237, 237, 237));
@@ -668,8 +651,6 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelEmployeeName;
-    private javax.swing.JLabel jLabelEmployeeNumber;
     private javax.swing.JLabel jLabelErroPassword;
     private javax.swing.JLabel jLabelErroeName;
     private javax.swing.JLabel jLabelPasswordErrorUpdate;

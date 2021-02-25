@@ -998,7 +998,6 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButtonShowSalesManagementCard" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonShowPaymentCard" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonShowSalesCard" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -1011,9 +1010,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="jButtonShowSalesCard" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButtonShowSalesManagementCard" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="jButtonShowPaymentCard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -1036,11 +1033,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowPaymentCardActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonShowSalesManagementCard">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x58f2;&#x4e0a;&#x7ba1;&#x7406;"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
