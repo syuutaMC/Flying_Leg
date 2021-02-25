@@ -99,7 +99,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="MS UI Gothic" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x5f93;&#x696d;&#x54e1;&#x7ba1;&#x7406;&#x30e1;&#x30cb;&#x30e5;&#x30fc;"/>
+            <Property name="text" type="java.lang.String" value="&#x5f93;&#x696d;&#x54e1;&#x7ba1;&#x7406;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelEmployeeName">

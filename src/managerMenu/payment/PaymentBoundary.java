@@ -56,6 +56,7 @@ public class PaymentBoundary extends javax.swing.JFrame {
     
     public PaymentBoundary() {
         initComponents();
+        setTitle("売上管理画面");
         initjTextField();
         cardLayout = (CardLayout)jPanelCardBase.getLayout();
         cardLayout2 = (CardLayout)jPanelSalesCardBase.getLayout();

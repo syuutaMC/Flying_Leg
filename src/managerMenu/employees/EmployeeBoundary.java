@@ -21,6 +21,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     
     public EmployeeBoundary() {
         initComponents();
+        setTitle("従業員管理画面");
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
         jButtonSetRoll.setVisible(false);
     }
@@ -185,7 +186,7 @@ public class EmployeeBoundary extends javax.swing.JFrame {
         jPanelTop.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jLabel1.setText("従業員管理メニュー");
+        jLabel1.setText("従業員管理");
 
         jLabelEmployeeName.setText("jLabel2");
 

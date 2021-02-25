@@ -41,6 +41,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
      */
     public ManageItemBoundary() {
         initComponents();
+        setTitle("商品管理画面");
         item = new Item();
         cardLayout = (CardLayout)jPanelCardLayout.getLayout();
     }
@@ -301,7 +302,7 @@ public class ManageItemBoundary extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
-        jLabel1.setText("商品管理画面");
+        jLabel1.setText("商品管理");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
