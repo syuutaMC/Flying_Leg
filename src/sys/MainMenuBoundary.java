@@ -550,7 +550,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             jButtonLoginLogout.setVisible(false);
             control.changeCardLayout(CARD_LOGIN_MENU);
         }else{
-            control.logout();
+            if (JOptionPane.showConfirmDialog(this, "ログアウトしますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                control.logout();
+            }
         }
     }//GEN-LAST:event_jButtonLoginLogoutActionPerformed
 

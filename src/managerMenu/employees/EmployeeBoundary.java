@@ -561,6 +561,11 @@ public class EmployeeBoundary extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         //User登録処理
+        
+        if (JOptionPane.showConfirmDialog(this, "従業員を登録しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION) {
+            return;
+        }
+        
         if(!jTextFieldName.getText().equals("")){
             try{
                 if(Arrays.equals(jPasswordField.getPassword(), jPasswordFieldCheck.getPassword())){
@@ -591,6 +596,11 @@ public class EmployeeBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchNameActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        if (JOptionPane.showConfirmDialog(this, "従業員を削除しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION) {
+            return;
+        }
+        
         if(Arrays.equals(jPasswordFieldUpdate.getPassword(), jPasswordFieldCheckUpdate.getPassword())){
             emp.setEmployeeName(jTextFieldName2.getText());
             emp.setEmployeeType(employeeTypeList.get(jComboBoxType.getSelectedIndex()).getCategoryNumber());

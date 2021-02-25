@@ -187,7 +187,9 @@ public class CustomerAddBoundary extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-        control.addCustomer(jTextFieldName.getText(), jTextFieldAddress.getText(), jTextFieldPhoneNumber.getText(), jTextFieldDelivaryNote.getText());
+        if (JOptionPane.showConfirmDialog(this,"顧客情報を登録しますか？", "確認", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            control.addCustomer(jTextFieldName.getText(), jTextFieldAddress.getText(), jTextFieldPhoneNumber.getText(), jTextFieldDelivaryNote.getText());
+        }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
