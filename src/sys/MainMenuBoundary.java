@@ -164,6 +164,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jButtonManageSales = new javax.swing.JButton();
         jButtonManageEmployee = new javax.swing.JButton();
         jButtonManageItem = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPaneLoginPanel = new javax.swing.JPanel();
         jTextFieldEmployeeNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -267,7 +268,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jPaneMainMenuLayout.setVerticalGroup(
             jPaneMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneMainMenuLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addComponent(jButtonEmoployyesMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
                 .addComponent(jButtonManagerMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,7 +324,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jPaneEmployeesMenuLayout.setVerticalGroup(
             jPaneEmployeesMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPaneEmployeesMenuLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addComponent(jButtonOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(jButtonControlCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,6 +363,13 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             }
         });
 
+        jButton4.setText("メインメニューに戻る");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPaneManegerMenuLayout = new javax.swing.GroupLayout(jPaneManegerMenu);
         jPaneManegerMenu.setLayout(jPaneManegerMenuLayout);
         jPaneManegerMenuLayout.setHorizontalGroup(
@@ -374,6 +382,10 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                         .addComponent(jButtonManageSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonManageEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(201, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneManegerMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
         jPaneManegerMenuLayout.setVerticalGroup(
             jPaneManegerMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,7 +396,9 @@ public class MainMenuBoundary extends javax.swing.JFrame{
                 .addComponent(jButtonManageItem, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jButtonManageEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
 
         jPaneManegerMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonManageEmployee, jButtonManageItem, jButtonManageSales});
@@ -445,7 +459,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
         jPaneLoginPanelLayout.setVerticalGroup(
             jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPaneLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(88, Short.MAX_VALUE)
                 .addGroup(jPaneLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -549,6 +563,10 @@ public class MainMenuBoundary extends javax.swing.JFrame{
             System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        control.changeCardLayout(CARD_MAIN_MENU);
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     
     private void jButtonManageSalesActionPerformed(java.awt.event.ActionEvent evt){
@@ -570,6 +588,7 @@ public class MainMenuBoundary extends javax.swing.JFrame{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonControlCustomer;
     private javax.swing.JButton jButtonEmoployyesMenu;
     private javax.swing.JButton jButtonLoginLogout;
