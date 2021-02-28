@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 /**
  * メインメニューバウンダリー.
  * ログイン処理、各種管理画面の選択画面
- * @author 19jz0115 坂本 柊太
+ * @author 19jz0115
  */
 public class MainMenuBoundary extends javax.swing.JFrame{
     /**
